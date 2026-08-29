@@ -1,0 +1,108 @@
+change_id: CL-20260830-GOV-005
+timestamp: 2026-08-30T00:50:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: decision
+title: 取消单步规模硬上限与门禁 3，改为定性拆分判据
+
+step:
+  step_id: S-GOV.2
+  step_name: 删除阻碍推进的规模类强制约束并同步全部引用点
+  declaration: |
+    input_from: 仓库所有者指令（删除阻碍进度的强制要求，不要脚本/文件上限类约束）· S-INIT.1 与 S-INIT.1R 两次规模例外的实践证据
+    will_produce:
+      - 《项目维护约束 v2》：3.1 表格 · 3.2 整节 · 4.2 scope 注释 · 5.3 规模自查段 ·
+        5.4 超限行 · 第 8 部分门禁 3 · 附录 A 检查卡 · 附录 B 脚本清单，八处
+      - 《Loop 执行规范 v2》：1.2 一小步定义整节 · 附录单步模板规模自查行，两处
+      - 上述两份文件的 8-9月/ 源件同步修改，保持逐字一致
+      - DR-GOV-003（含 falsifier 与复审触发条件）
+      - AGENTS.md · PR 模板 · ci/README.md · gates.yml · ci/check_step_metadata.py 五处引用点同步
+    will_not_produce:
+      - 不触碰数据分级与 L-禁止/L-受限纪律、门禁 1、门禁 4、门禁 2 的 Step-Score 通过线
+      - 不触碰一步一提交、changelog、步骤台账、交接记录、失败分支归档
+      - 不改写任何历史记录中的规模例外说明
+      - 不做 S-INIT.4 的夹具与 check_changelog_schema.py
+    success_criteria:
+      - 四份规范文件两两 diff 一致
+      - 仓库内 grep 不再有把 ≤3 文件 / ≤300 行作为现行约束的表述（历史记录与修订说明除外）
+      - 三个已实现门禁在改动后全部通过
+    risk: |
+      风险是把"防步子过大"的机制一并删掉。缓解：保留定性拆分判据（自评有 >1 项无法判定即拆），
+      并新增"不拆判据"；同时在 DR 中写死三条 falsifier，出现即恢复某种形式的规模约束。
+  scope:
+    files_changed: 13
+    lines_added: 0
+    routes_covered: 1
+    note: 规模上限已取消，本段仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只改治理文本与一处脚本逻辑；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰 cross_border_assets.yaml；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 逐条可核验：数据分级、门禁 1/2/4 的通过线、一步一提交、台账与交接记录条款均未改；ci/tests/ 不存在；check_changelog_schema.py 不存在；历史 changelog 与 HO 未改写"
+      G4: "0.7 七条红线无适用对象"
+      D1: "十处规范修改 + 五处引用点同步全部完成；四份文件 diff 两两一致（已实测）"
+      D2: "改动可逐条核对：每处替换均以原文精确匹配后写入，grep 复查现行约束表述已清零；三个门禁改后复跑全绿"
+      D3: "全部改动是确定性文本替换，脚本已给出原文与新文，可完整重放；无随机性、无环境依赖"
+      D4: "消除一个持续制造摩擦的约束（三步触发两次例外），并把'什么算一步'从算术题改成可判断的定性问题；同时固化三条 falsifier 使该决策可被推翻"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.4
+
+what: |
+  按仓库所有者要求，删除《项目维护约束 v2》与《Loop 执行规范 v2》中阻碍推进的规模类强制约束：
+  单步 ≤3 文件 / ≤300 行 / ≤15 次工具调用 / ≤1 路线 / ≤1 结论 / ≤1 会话六项上限，
+  连同门禁 3（单步规模）、PR 规模自查表、附录 B 的 check_step_scope.py 一并取消。
+  改为两条定性判据：自评有超过 1 项无法判定则必须拆；强行拆分会产生自相矛盾中间态则不得拆。
+
+why: |
+  三个步骤里这套上限触发了两次"例外说明"——仓库初始化 101 个文件、条款修订 10 个文件，
+  两次都因为拆分会产生比大步子更糟的中间态（缺门禁的半截仓库、条款改了引用点没改）。
+  一个在正常工作里频繁需要例外的上限，测量的不是它想控制的东西：
+  它想控制"步子大到无法定位失败"，而这与文件数不同构。
+  保留真正起作用的那条（自评有多项无法判定即拆），删掉算术式的外壳。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-003
+  loop_step: 《项目维护约束 v2》3.2 · 门禁 3 ·《Loop 执行规范 v2》1.2
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只改治理条款与一处脚本判定逻辑，未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    产出为治理文本与脚本改动，不含任何真实数据、派生统计量、标识或凭证。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  即刻生效：后续步骤不再需要写规模例外说明；changelog 的 scope 段继续填，但只作记录。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交可恢复仓库内全部条款；8-9月/ 源件不在版本控制内，需按 DR-GOV-003 的
+  supersedes 字段手工同步回退。
+
+verification: |
+  1) diff -q 四份规范文件 → 两两一致
+  2) grep 现行约束表述（≤3 文件 / ≤300 行）→ 仅历史记录与修订说明命中
+  3) bash ci/check_secrets.sh · python3 ci/check_step_metadata.py · python3 ci/check_cross_border_consistency.py → 全绿

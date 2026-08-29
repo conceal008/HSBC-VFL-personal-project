@@ -10,6 +10,7 @@
   · Step-Score 必须 ≥ 通过线（默认 10；模块 step_ledger 上调后取上调值）
   · Cross-Border 必填且为四枚举之一
   · Branch-Card 在 type=exp 时必填
+  · 单步规模不作校验（2026-08-30 依 DR-GOV-003 取消上限）
   · changelog 的 step.declaration 非空；四维评分每项有 evidence；修正轮次 ≤2
   · verdict=committed 时四道硬门必须全 pass、无单项 ≤1、总分 = 四维之和
   · type=decision 必须有 DR 且 DR 含 falsifier
@@ -153,10 +154,10 @@ def check_step_section(entry, ctype, threshold, trailers):
         block("Step-Id", "commit trailer=%s 与 changelog step_id=%s 不一致"
               % (trailers["Step-Id"], step.get("step_id")))
 
-    scope = step.get("scope") or {}
-    if scope.get("routes_covered") not in (None, 1, "1") and not scope.get("exception"):
-        block("step.scope", "routes_covered=%s >1 且无 exception 说明——一步不得同时推进两条路线"
-              % scope.get("routes_covered"))
+    # 单步规模上限已于 2026-08-30 依 DR-GOV-003 取消：scope 段只作记录，不作放行判据。
+    # 这里只提醒字段缺失，不阻断。
+    if not (step.get("scope") or {}):
+        print("提示：step.scope 未填写实际规模（不影响放行）")
 
 
 def check_entry(entry, path, ctype, trailers):

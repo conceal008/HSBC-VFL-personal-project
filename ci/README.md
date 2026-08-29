@@ -7,7 +7,7 @@
 | 1 | 数据合规扫描（凭证·数据扩展名·体积·个人标识模式·.env） | `check_secrets.sh` | ✅ 已实现并在 CI 生效 |
 | 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次） | `check_step_metadata.py` | ✅ 已实现并在 CI 生效 |
 | 2 | changelog schema 校验（字段类型与必填） | `check_changelog_schema.py` | ⬜ 未实现（S-INIT.4） |
-| 3 | 单步规模（≤3 文件 / ≤300 行 / ≤1 路线） | `check_step_scope.py` | ⬜ 未实现 |
+| 3 | ~~单步规模~~ | ~~`check_step_scope.py`~~ | ⛔ **已取消**（2026-08-30，DR-GOV-003）：编号保留不复用，脚本不再实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
 | 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟） | — | ⬜ 待第一份代码组件出现后接入 |
 | 6 | 可复现性（硬编码魔数 = 0 / 种子被实际使用 / 环境锁一致） | `check_reproducibility.py` | ⬜ 未实现 |
@@ -34,7 +34,8 @@
 
 ## 实现顺序（附录 B）
 
-`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ 其余。
+`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ `check_changelog_schema.py` → `check_reproducibility.py`。
+门禁 3（单步规模）已取消，不再实现。
 
 ## 本地使用
 

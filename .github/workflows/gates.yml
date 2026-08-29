@@ -5,7 +5,7 @@ name: gates
 # 已生效：门禁 1（数据合规扫描）· 门禁 4（合规一致性核验）· 门禁 2（步骤与元数据完整性）
 # 待实现（按附录 B 优先顺序）：
 #   门禁 2  ci/check_changelog_schema.py（schema 校验部分）  ← 下一个，连同门禁 4 的回归夹具
-#   门禁 3  ci/check_step_scope.py
+#   门禁 3  已取消（2026-08-30，DR-GOV-003），编号保留不复用
 #   门禁 6  ci/check_reproducibility.py
 #   门禁 5  lint / 类型检查 / 单元测试（等到有第一份代码组件时接入）
 #   门禁 7  端到端冒烟（合并到 main 时跑，等到有主链路时接入）

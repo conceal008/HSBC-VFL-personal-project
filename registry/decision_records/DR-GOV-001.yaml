@@ -1,0 +1,87 @@
+dr_id: DR-GOV-001
+title: 仓库落地坐标、可见性偏离与初始化范围
+date: 2026-08-29T21:45:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+status: active                     # active | superseded
+supersedes: null
+related_change_id: CL-20260829-GOV-001
+related_step: S-INIT.1
+
+context: |
+  《项目维护约束 v2》原则一要求"仓库是唯一事实来源"，附录 B 给出项目初始化文件清单，
+  但此前不存在任何仓库：历史材料散落在维护者本机 /Applications/总文件夹/汇丰/ 下，
+  且该目录含真实数据集（IEEE-CIS 全量、FedAds）与从真实/半合成数据算出的产物，
+  不能整体纳入 Git（第 2 部分 L-禁止 / L-受限）。因此需要新建一个干净仓库。
+
+decisions:
+
+  - key: repo_location
+    question: 仓库建在哪里？
+    options:
+      - id: A
+        desc: 把 /Applications/总文件夹/汇丰/ 整体 git init
+        rejected_because: 目录内含真实数据集与真实数据派生产物，违反 L-禁止；且历史结构与 v2 规范的目录结构不兼容
+      - id: B
+        desc: 建在 8-9月/ 子目录内
+        rejected_because: 8-9月/ 是按历史命名规则的时间段目录，仓库生命周期跨 2026-08 至 2027-06，不应绑定单一时间段
+      - id: C
+        desc: 在 汇丰/ 下新建独立干净目录，与历史目录平级
+    decision: C
+    detail:
+      local_path: /Applications/总文件夹/汇丰/HSBC-VFL-personal-project
+      remote: https://github.com/conceal008/HSBC-VFL-personal-project
+      default_branch: main
+    rationale: |
+      历史目录保持只读归档，新仓库从零按 v2 附录 B 的结构建立，两者物理隔离，
+      不存在"误把真实数据 add 进来"的路径。本机路径与远端仓库同名，降低认知成本。
+
+  - key: repo_visibility
+    question: 仓库可见性
+    spec_requirement: 《项目维护约束 v2》1.1 —— Private，不得转 public
+    actual: PUBLIC
+    decision: 保持 Public（仓库所有者 2026-08-29 明确确认，已被告知该条硬性要求）
+    deviation: true
+    rationale: |
+      规范要求 Private；所有者在被明确告知 1.1 条款后选择保持 Public。
+      本条作为"已知偏离"如实登记，不通过修改规范文档来消除不一致（禁止事项第 16 条）。
+    compensating_controls:
+      - "AGENTS.md 第 0 节显著标注仓库为世界可读，提交前必须逐条对照四级分级表"
+      - "ci/check_secrets.sh 在每次 push / PR 上运行数据合规扫描（门禁 1），命中即阻断"
+      - "L-受限产物（真实数据派生的分箱边界、IV 表、分布统计、交集规模、真实样本量与正样本率）在本仓库一律按 L-禁止处理，不做个案审查放行"
+      - "两侧端点、机构内部命名一律使用占位符，真实值只进本机 .env（已 gitignore）"
+    residual_risk: |
+      公开仓库使方案结构、合规路线推演与实验结论对外可见；即使不含个人信息，
+      仍可能构成商业敏感信息（第 2.2 条最后一问）。风险接受方：仓库所有者。
+    review_trigger: |
+      出现下列任一情况须立即复审并优先考虑转 Private：
+      ①首次需要提交任何 L-受限产物；②接入任何真实业务数据或其派生统计量；
+      ③需求方/合规角色提出要求；④仓库中出现可识别机构内部信息。
+
+  - key: init_scope
+    question: 初始化这一步做到哪里为止
+    decision: |
+      本步（S-INIT.1）交付：目录骨架 · 三份规范就位 · AGENTS.md/README · .gitignore/.env.example ·
+      registry 三张表（cross_border_assets 空模板 / module_status / DR）· 十模块 README+step_ledger ·
+      PR 模板 · 数据合规门禁（check_secrets.sh + gates.yml 仅启用门禁 1）· GitHub 接入。
+      不交付：其余五个 CI 门禁脚本（下一步 S-INIT.2），以及任何 M0 内容。
+    rationale: |
+      门禁 1（数据合规扫描）是唯一在"第一次提交"就必须生效的门禁——它防的是真实数据入库，
+      而这是唯一不可逆的错误（第 2.4 条：git 历史里它还在）。其余门禁校验的是元数据与一致性，
+      在第一条业务提交出现之前无对象可校验，放到下一步实现不产生风险敞口。
+      cross_border_assets.yaml 保持空模板，因为填充它是 M0 的 S0.2/S0.3/S0.4，
+      初始化步骤越界预填会侵占后续步骤的信息增量（G3 范围符合）。
+
+falsifier: |
+  下列任一现象出现，即证明本 DR 的判断错误，须重开决策：
+  ① 有 Agent 在历史目录 /Applications/总文件夹/汇丰/ 内直接 git init 或把真实数据文件
+     add 进本仓库 —— 说明"物理隔离足以防止误提交"的假设不成立，须改为强制 pre-commit 钩子；
+  ② check_secrets.sh 漏放了一个真实数据文件或凭证到 public 远端 —— 说明门禁 1 的规则集不足以
+     支撑 Public 可见性，须立即转 Private 并按 2.4 应急流程处理；
+  ③ M0 的 S0.2 无法在 cross_border_assets.yaml 的现有 schema 下登记八类资产 —— 说明模板设计错误，
+     须修订 schema 并作废本条 init_scope 判断。
+
+consequences:
+  - "后续所有交付必须推送到该远端，未推送视为不存在"
+  - "modules/*/results/ 下的结果表是世界可读的，凡涉及真实数据规模与比率的数字一律不得写入"
+  - "main 分支保护、Secret 扫描 push protection 仍需仓库所有者在 GitHub 设置中开启（本 Agent 未代为修改账户设置）"

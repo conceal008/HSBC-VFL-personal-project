@@ -1,0 +1,132 @@
+change_id: CL-20260829-GOV-001
+timestamp: 2026-08-29T21:45:00+08:00
+agent: Claude (Opus 5, Claude Code) · 代维护者 conceal008 执行
+module: GOV
+type: chore
+title: 按附录 B 初始化仓库骨架并接入 GitHub 远端
+
+step:
+  step_id: S-INIT.1
+  step_name: 项目初始化（仓库骨架 · 三份规范就位 · 数据合规门禁 · GitHub 接入）
+  declaration: |
+    will_produce:
+      - 目录骨架：docs/{00-framework,01-loops,02-governance,03-handoff} · registry/{decision_records,branch_cards,component_declarations}
+        · modules/m0..m9（各含 components/configs/experiments/results/tests）· platform/6 层 · party_cn · party_hk · changelog · ci · .github
+      - AGENTS.md（Agent 入口，含 GitHub 远端地址与每次会话/每步的标准动作）
+      - README.md（仓库总索引、模块与预算表、当前状态与下一步）
+      - .gitignore（按 2.5 基线）· .env.example（只有变量名与说明）
+      - docs 下三份规范的逐字副本 + docs/02-governance/README.md 落地补注
+      - registry/cross_border_assets.yaml（空模板 + schema + 八类必覆盖清单）
+      - registry/module_status.yaml（十模块初始状态、下一步、阻塞、未决问题）
+      - registry/decision_records/DR-GOV-001.yaml（仓库坐标 · 可见性偏离 · 初始化范围，含 falsifier）
+      - modules/m0..m9/README.md + step_ledger.yaml（对齐框架 v2 步数预算 10/9/9/9/10/12/9/15/10/10）
+      - ci/check_secrets.sh（门禁 1）+ ci/README.md（七道门禁实现状态与已知局限）
+      - .github/workflows/gates.yml（仅启用门禁 1）+ .github/pull_request_template.md
+      - git init + 首次提交 + 推送到 https://github.com/conceal008/HSBC-VFL-personal-project
+    will_not_produce:
+      - 其余五个 CI 门禁脚本（check_cross_border_consistency / check_step_metadata / check_step_scope
+        / check_changelog_schema / check_reproducibility）→ 留给 S-INIT.2
+      - 任何 M0 内容：problem_statement.md、cross_border_assets.yaml 的实际条目、路线推演、DR-M0-*
+      - CHANGELOG.md（由 CI 从 changelog/*.yaml 聚合生成，禁止手工编辑）
+      - 任何来自历史目录的真实数据、真实数据派生产物或实验结论
+    success_criteria:
+      - 附录 B 文件清单逐项有对应产出或有明确的"本步不做 + 去向"说明
+      - ci/check_secrets.sh 在本仓库运行 BLOCK=0，且在构造样本上能正确拦截
+        （数据扩展名 / 非白名单 CSV / 凭证模式 / 手机号 / 身份证号 / 卡号）
+      - registry 三个 YAML 通过 yaml.safe_load 解析
+      - 十个模块的 step_ledger.yaml 步数预算与《方案流程框架 v2》一致
+      - GitHub 远端 main 分支存在该提交，且 AGENTS.md/README.md/module_status.yaml/DR 中均写有远端地址
+    risk: |
+      仓库为 Public（所有者确认），一旦误提交敏感产物不可逆；靠门禁 1 + PR 自查表 + L-受限一律按 L-禁止处理三重控制。
+      本步文件数远超单步上限 3，属 bootstrap 一次性例外，理由与边界见下方 scope.exception。
+  scope:
+    files_changed: 101         # 含 30 个 .gitkeep 占位；超过 ≤3 上限，见 exception
+    lines_added: 116           # ci/check_secrets.sh 116 行；其余为文档与 YAML，不计入代码行
+    routes_covered: 1
+    conclusions: 1
+    exception: |
+      《维护约束 v2》3.2 的单步规模上限（≤3 文件）以"仓库已存在"为前提；本步正是创建该仓库本身，
+      骨架文件在物理上无法拆成多个提交而仍保持仓库可用（拆分后中间态是一个缺 AGENTS.md / 缺门禁的仓库，
+      反而违反原则一与门禁 1 先行的要求）。因此按 3.2"超限时必须说明理由"处理，理由如上，
+      并把可独立成步的部分（其余五个门禁脚本）明确剥离到 S-INIT.2。此例外仅适用于本步，后续一律遵守 ≤3 文件。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "ci/check_secrets.sh 对本仓库 92 个文件扫描 BLOCK=0 WARN=0；仓库内无任何数据文件、凭证或个人标识"
+      G2: "registry/cross_border_assets.yaml 的 assets 为空列表，status=empty_template；无任何组件声明，故未引入任何跨境资产"
+      G3: "will_not_produce 的四项均未产出：ci/ 下只有 check_secrets.sh 与 README.md；modules/m0_compliance/ 下只有 README.md 与 step_ledger.yaml，无 problem_statement.md；仓库根无 CHANGELOG.md"
+      G4: "0.7 七条红线均无适用对象（本步无实验、无指标、无分支选择）"
+      D1: "附录 B 清单逐项对照：AGENTS.md ✓ / registry 三表 ✓ / .gitkeep ✓ / 十模块 step_ledger ✓ / check_secrets.sh ✓ / pull_request_template.md ✓ / gates.yml ✓ / .gitignore ✓ / .env.example ✓；未做的五个脚本已在 will_not_produce 声明并在 ci/README.md 标 ⬜ 未实现"
+      D2: "门禁脚本有构造样本自测记录（拦截 leak_customers.csv 手机号、features.parquet、conf.py 凭证、notes.md 身份证与卡号，退出码 1）；三个 registry YAML 已通过 yaml.safe_load；十个 step_ledger 的 total_steps_planned 可与 docs/00-framework 的预算表逐行核对"
+      D3: "仓库结构可按附录 B 从零重建，脚本无外部依赖（bash 3.2 兼容）；但未在干净环境实测重建一遍，故 2 分而非 3 分"
+      D4: "消除阻塞：项目此前无仓库，任何步骤都无处提交；并产出 DR-GOV-001（仓库坐标 / 可见性偏离 / 初始化范围三项决策，含 falsifier）"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.2
+
+what: |
+  从零建立本仓库：按《项目维护约束 v2》附录 B 的项目初始化文件清单创建目录骨架与治理文件，
+  把《方案流程框架 v2》《模块 Loop 执行规范 v2》《项目维护约束 v2》三份规范逐字放入 docs/，
+  为十个模块建立 README 与步骤台账（步数预算对齐框架 v2 的 103 步），
+  实现门禁 1（数据合规扫描）并接入 GitHub Actions，
+  最后 git init 并推送到 https://github.com/conceal008/HSBC-VFL-personal-project。
+
+why: |
+  《维护约束 v2》原则一：仓库是唯一事实来源，任何未写入仓库的知识视为不存在。
+  项目此前不存在任何仓库，历史材料散落在维护者本机且含真实数据集，无法整体入库。
+  没有仓库，步进式微循环的"一步一提交"、步骤台账、变更日志、CI 门禁全部无处落地，
+  M0 的第一步 S0.1 也无处提交。因此初始化是所有后续步骤的前置条件。
+  门禁 1 与骨架同批上线，是因为它防的是唯一不可逆的错误（真实数据入 git 历史），
+  且本仓库为 Public，该风险被放大。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-001
+  loop_step: 《项目维护约束 v2》附录 B · 项目初始化文件清单
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只创建目录、文档与治理登记表，未定义、未实现、未触碰任何跨境信息流。
+  registry/cross_border_assets.yaml 保持空模板，其填充是 M0 的 S0.2–S0.4。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh 自动扫描
+  conclusion: |
+    本步产出中不含任何真实数据、真实数据派生统计量、真实客户标识、凭证或内部端点。
+    唯一涉及真实环境的信息是本机绝对路径与 GitHub 远端地址，二者均非敏感信息且为协作必需。
+    注意：本仓库为 Public，后续任何 L-受限产物一律按 L-禁止处理，不做个案审查放行（DR-GOV-001 补偿控制）。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  不适用（首次提交）。
+
+reproducibility:
+  config: 不适用（本步无实验配置）
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    可复现性在本步的含义是"另一个 Agent 能否按附录 B 从零重建同样的骨架"。
+    答案是能：清单在 docs/02-governance/3_项目维护约束_v2_步进量化版.md 附录 B，
+    偏差项（未实现的五个脚本）已在 ci/README.md 与本条目 will_not_produce 中列明。
+
+rollback: |
+  git revert 本提交即可；仓库回到空仓库状态，无任何外部副作用（未修改 GitHub 账户设置、未创建其他远端资源）。
+
+verification: |
+  1) bash ci/check_secrets.sh → 期望 BLOCK=0，退出码 0
+  2) python3 -c "import yaml;[yaml.safe_load(open(p)) for p in ['registry/cross_border_assets.yaml','registry/module_status.yaml','registry/decision_records/DR-GOV-001.yaml']]"
+  3) 十个 modules/*/step_ledger.yaml 的 total_steps_planned 与 docs/00-framework 一、模块总览预算表逐行一致（10/9/9/9/10/12/9/15/10/10，合计 103）
+  4) git log --format=%B -1 含五个 trailer；GitHub 远端 main 可见该提交

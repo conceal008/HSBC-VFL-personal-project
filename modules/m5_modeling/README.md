@@ -1,0 +1,48 @@
+# M5 · 建模方案与基线阶梯
+
+> 状态：⬜ **未开始** ｜ 步数预算 **12** ｜ 已用 **0** ｜ 认领人：无
+> 最后更新：2026-08-29 ｜ 规范位置：`docs/00-framework/` §M5 · `docs/01-loops/` LOOP M5
+> 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
+
+## 目标
+
+核心不是「用哪个模型」，而是「和谁比」。建五级基线阶梯 L0–L4，其中 L1（本地模型 + 对方 k-匿名聚合统计）是 VFL 的真正竞争对手。
+
+## 上游输入
+
+M4：三套特征集 · M2：≥6 个标准场景
+
+## 输出契约（本模块必须产出）
+
+`baseline_ladder/` · `ladder_results.csv` · `conditional_gain_curves.png` · `routing_rule.yaml` · `cost_budget.csv` · `DR-M5-*.yaml`
+
+## 量化放行判据（不达标不放行）
+
+- 基线 5/5 级；L3 内部路线 ≥3 条
+- **L1 完成时点严格早于任何 L3 实验**
+- 种子 ≥5 且全阶梯一致；场景覆盖 ≥6
+- L3 vs L1 结论三选一，含 p 值与效应量，并与 MDE 比较
+- 每级已记录 4 项通信/算力预算；路由规则 ≥1 条且条件为部署时可观测量
+- 非对齐样本定位表述正确（自监督预训练改善编码器表示，不是「扩样本提 AUC」）
+
+## 当前结论
+
+暂无。本模块尚未开始，`step_ledger.yaml` 中 `steps` 为空。
+
+## 未决问题
+
+- L1 的 k-匿名参数 k 取值需 M0 定义
+
+## 升级条件
+
+L3 在全部 ≥6 个场景下均不优于 L1 → 立即上报。不要通过调参硬做出差异；此时项目价值转向「论证 VFL 在本场景不划算」，同样有交付价值。
+
+## 下一步
+
+**S5.1** —— 详见 `docs/01-loops/2_模块Loop执行规范_v2_步进量化版.md` 中 LOOP M5 的步骤分解表。
+执行前必须先写步骤声明（will_produce / will_not_produce / success_criteria / risk），
+并在 `registry/module_status.yaml` 认领本模块。
+
+---
+
+*本 README 必须保持当前——它是下一个 Agent 接手时最先读的文件。每步提交时同步更新「状态 / 已用步数 / 当前结论 / 未决问题 / 下一步」五处。*

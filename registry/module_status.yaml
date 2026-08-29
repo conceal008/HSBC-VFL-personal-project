@@ -1,0 +1,110 @@
+# 模块状态与认领登记表
+# 认领有效期 24 小时，过期未续期即视为释放。接手过期模块前先读该模块最近的交接记录与 step_ledger。
+# 同模块内不同路线可由不同 Agent 并行认领（通过 draft PR 区分）。
+
+updated_at: 2026-08-29T21:45:00+08:00
+repo: https://github.com/conceal008/HSBC-VFL-personal-project
+
+governance:
+  # 治理层（仓库骨架、CI、规范）不属于任何模块，动作记在这里
+  last_action: 仓库初始化（Step S-INIT.1）
+  last_action_at: 2026-08-29T21:45:00+08:00
+  by: Claude (Opus 5, Claude Code)
+  change_id: CL-20260829-GOV-001
+  open_items:
+    - "CI 门禁脚本尚未实现，除数据合规扫描外的门禁当前靠人工执行（下一步 S-INIT.2）"
+    - "main 分支保护、Secret 扫描 push protection 需仓库所有者在 GitHub 设置中开启"
+    - "仓库可见性为 Public，偏离《维护约束 v2》1.1，见 DR-GOV-001"
+
+modules:
+  M0:
+    name: 业务问题定义与合规边界
+    path: modules/m0_compliance
+    status: not_started            # not_started | in_progress | blocked | done
+    claimed_by: null
+    claimed_at: null
+    expires_at: null
+    current_step: null
+    next_step: S0.1
+    active_branches: []
+    blocking_on: []
+    open_questions:
+      - "预测命题四要素（产品 P 类别 / 窗口 Δ / 转化定义 / 人群）需求方尚未确认"
+      - "业务最小可行规模（一个数字）尚未确定，M3 折损漏斗的判负线依赖它"
+  M1:
+    name: 数据资产盘点与数据集选型
+    path: modules/m1_data_selection
+    status: not_started
+    claimed_by: null
+    current_step: null
+    next_step: S1.1
+    blocking_on: ["M0 输出契约：problem_statement.md"]
+    open_questions:
+      - "是否纳入 uplift 评估？若纳入则必须补 ≥1 个随机对照数据源"
+  M2:
+    name: 合成数据生成与仿真台
+    path: modules/m2_synthetic
+    status: not_started
+    claimed_by: null
+    next_step: S2.1
+    blocking_on: ["M1 数据集选型结论"]
+    open_questions: []
+  M3:
+    name: 实体对齐与样本空间构造
+    path: modules/m3_alignment
+    status: not_started
+    claimed_by: null
+    next_step: S3.1
+    blocking_on: ["M2 仿真台正确性验收通过（偏差 <5%）"]
+    open_questions:
+      - "PSI 交集是否明文落地？五个必须先定的决策点之一"
+  M4:
+    name: 特征工程与跨域特征治理
+    path: modules/m4_features
+    status: not_started
+    claimed_by: null
+    next_step: S4.1
+    blocking_on: ["M3 样本空间"]
+    open_questions: []
+  M5:
+    name: 建模方案与基线阶梯
+    path: modules/m5_modeling
+    status: not_started
+    claimed_by: null
+    next_step: S5.1
+    blocking_on: ["M4 特征集"]
+    open_questions:
+      - "L1 的 k-匿名参数 k 取值需 M0 定义"
+  M6:
+    name: 效果验证与评估体系
+    path: modules/m6_evaluation
+    status: not_started
+    claimed_by: null
+    next_step: S6.1
+    blocking_on: ["M5 基线阶梯结果"]
+    open_questions:
+      - "业务最小可察差异 MDE 需在本模块冻结口径时定义，此前不得开始分支比较"
+  M7:
+    name: 安全攻防与隐私评测
+    path: modules/m7_security
+    status: not_started
+    claimed_by: null
+    next_step: S7.1
+    blocking_on: ["M5 可攻击的模型产物", "M6 评估口径"]
+    open_questions: []
+  M8:
+    name: 工业化鲁棒性与部署形态
+    path: modules/m8_industrialization
+    status: not_started
+    claimed_by: null
+    next_step: S8.1
+    blocking_on: ["M6–M7 迭代收敛"]
+    open_questions: []
+  M9:
+    name: 合规证据链与交付物
+    path: modules/m9_documentation
+    status: not_started
+    claimed_by: null
+    next_step: S9.1
+    blocking_on: ["M0–M8 全部产出"]
+    open_questions: []

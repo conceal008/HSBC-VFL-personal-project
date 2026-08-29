@@ -1,0 +1,23 @@
+# M1 步骤台账
+# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
+# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
+
+module: M1
+module_path: modules/m1_data_selection
+total_steps_planned: 9      # 对齐《方案流程框架 v2》的步数预算
+steps: []
+current_step: null
+next_step: S1.1
+
+metrics:
+  avg_score: null           # <10 → 复审步骤划分与执行质量
+  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
+  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
+  steps_used: 0
+  budget_usage: 0.0         # >1.5 → 触发全局复审
+  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
+  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
+
+audit:
+  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  spot_checks_done: 0

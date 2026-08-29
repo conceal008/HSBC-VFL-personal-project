@@ -1,0 +1,39 @@
+# 数据（绝对禁止）
+data/
+*.csv.raw
+*.parquet
+*.feather
+*.pkl
+*.npy
+*.h5
+synthetic_output/
+psi_output/
+
+# 凭证
+.env
+*.pem
+*.key
+credentials*
+secrets*
+
+# 模型产物
+*.pt
+*.pth
+*.ckpt
+*.onnx
+models/weights/
+
+# 运行时
+__pycache__/
+.ipynb_checkpoints/
+runs/
+mlruns/
+*.log
+
+# 系统
+.DS_Store
+
+# 例外：结果表与图必须提交
+!modules/*/results/**/*.csv
+!modules/*/results/**/*.png
+!modules/*/results/**/*.md

@@ -1,0 +1,44 @@
+# 跨境资产清单 · M0 唯一权威登记表
+# ---------------------------------------------------------------------------
+# 状态：空模板（仓库初始化产出）。条目由 M0 的 S0.2（列清单）与 S0.3/S0.4（定性）填充。
+# 本文件是全项目最敏感的文件：
+#   - append-only：可新增、可标 superseded，不得删除或原地重写
+#   - 任何改动需合规角色 approve（不可自审）+ 一份 DR + 通知全部活跃 Agent
+#   - CI 门禁 4 以本文件为基准做六项一致性核验；组件声明里的 m0_registry_ref
+#     必须指向本文件中真实存在且定性一致的条目
+# ---------------------------------------------------------------------------
+
+version: 0.1.0
+status: empty_template          # empty_template | populating | frozen
+last_updated: 2026-08-29T21:45:00+08:00
+populated_by_steps: []          # S0.2 起在此登记填充本文件的步骤
+
+# 条目 schema（新增条目时逐字段填写，缺字段即视为未登记）
+schema:
+  id: "CBA-<三位序号>，一经分配永不复用"
+  asset: "资产名称，与代码中的资产类型一一对应"
+  category: "八类之一：raw_feature | id_hash | psi_intersection | intermediate_embedding | gradient | aggregate_statistic | model_parameter | score_or_list"
+  is_personal_information: "true | false | case_by_case —— S0.3/S0.4 的定性结论"
+  legal_basis:
+    - "法条引用，每条资产 ≥1 条（PIPL 第 __ 条 / PDPO 第 __ 部）"
+  allowed_path: "禁止 | 协议内 | 需论证 | 相对宽松"
+  applicable_routes: "该资产在哪些合规路线下可用：R-A / R-B / R-C"
+  protection_required: "该资产被允许流动时必须挂载的保护措施"
+  notes: "定性理由与残余风险"
+  status: "active | superseded"
+  superseded_by: "若 status=superseded，指向替代条目 id"
+
+# M0 的 S0.2 必须覆盖以下八类，一类不缺（覆盖率 8/8 是量化放行判据）：
+#   1 原始特征值 · 2 标识符哈希 · 3 PSI 交集结果 · 4 中间层嵌入
+#   5 梯度/加密梯度 · 6 聚合统计（k-匿名） · 7 模型参数 · 8 打分结果/名单
+required_categories:
+  - raw_feature
+  - id_hash
+  - psi_intersection
+  - intermediate_embedding
+  - gradient
+  - aggregate_statistic
+  - model_parameter
+  - score_or_list
+
+assets: []                      # ← S0.2 开始填充；在此之前任何组件声明都无法通过 CI 门禁 4

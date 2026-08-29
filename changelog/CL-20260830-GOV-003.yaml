@@ -1,0 +1,115 @@
+change_id: CL-20260830-GOV-003
+timestamp: 2026-08-30T00:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: feat
+title: 实现门禁 4 合规一致性核验并接入 CI
+
+step:
+  step_id: S-INIT.2
+  step_name: 实现 ci/check_cross_border_consistency.py（7.2 六项核验）
+  declaration: |
+    input_from: docs/02-governance 7.2 六项核验 · 附录 B 优先实现顺序 · registry/cross_border_assets.yaml 空模板
+    will_produce:
+      - ci/check_cross_border_consistency.py：六项核验，退出码 1 阻断、2 表示缺 PyYAML
+      - .github/workflows/gates.yml：新增 gate4 job（needs gate1），门禁 2 占位改为依赖 gate4
+      - ci/README.md：门禁 4 状态改为已实现；新增「门禁 4 依赖的两份契约文件」；补已知局限
+    will_not_produce:
+      - 门禁 2 / 3 / 6 的脚本实现（S-INIT.3 起）
+      - 任何 M0 内容；不向 registry/cross_border_assets.yaml 写入任何条目
+      - 不改动 registry/ 下任何既有内容
+      - 回归夹具不提交到仓库（本步只在本地临时目录跑构造样本，见 D3 扣分理由）
+    success_criteria:
+      - 当前空仓库状态下退出码 0，且不误报
+      - 构造样本能逐项拦截六类违规，退出码 1
+      - 契约文件缺失但声明已引用时必须阻断，不得静默放行
+      - 代码 ≤300 行，除 PyYAML 外无外部依赖
+    risk: |
+      核验 3 与核验 6 依赖 M0/S0.9 与 M8 尚未产出的文件。若实现成"文件不存在就跳过"，
+      门禁会在整个 M0–M7 期间形同虚设，等到 M9 才发现问题——正是 7.2 要避免的情形。
+  scope:
+    files_changed: 3           # ci/check_cross_border_consistency.py · gates.yml · ci/README.md
+    lines_added: 253           # Python 253 行，≤300
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: |
+      另有两份每步必改的元数据文件不计入上限：本 changelog 条目、registry/module_status.yaml。
+      与《维护约束 v2》3.3 示例（files_changed=2 但同时存在 changelog 与台账更新）口径一致。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "本步只新增脚本与文档；ci/check_secrets.sh 全仓扫描 BLOCK=0 WARN=0"
+      G2: "脚本只读 registry/cross_border_assets.yaml，未写入；assets 仍为空列表，未引入任何跨境资产"
+      G3: "will_not_produce 逐条可核验：ci/ 下只新增一个脚本；registry/ 无改动（git status 仅列 3 个文件 + 元数据）；无夹具文件提交"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三项产出全部交付：脚本 253 行含六项核验；gates.yml 新增 gate4 job 并调整依赖链；ci/README.md 状态表、契约表、局限三处更新"
+      D2: "三组构造样本，结果可复述：①全合规声明 → BLOCK=0 exit 0；②六类违规齐全 → BLOCK=9 exit 1，逐条命中核验 1（不存在引用 + 已作废引用）、核验 2（category 与 is_personal_information 双字段不一致）、核验 3（引用被否决路线 R-A + 不在 applicable_routes 内）、核验 4（party_cn/bridge/sender.py 有 socket 调用但无声明）、核验 5（有资产无 audit_hooks）、核验 6（同意批次未登记）；③契约文件缺失但声明已引用 → BLOCK=2 exit 1，不静默放行"
+      D3: "脚本无随机性、同输入同输出、除 PyYAML 外无依赖；但三组构造样本跑在本地临时目录，未作为回归夹具提交，他人无法一键复跑，故 2 分而非 3 分（补夹具列为 S-INIT.3 附带项）"
+      D4: "产生新能力并消除一个未决问题：跨境声明与 M0 清单的不一致从此在合并前被机器拦截；同时固定了两份契约文件的路径与最小结构（registry/compliance_routes.yaml 由 M0/S0.9 产出、platform/governance/consent_batches.yaml 由 M8 产出），这两条此前无处可查"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.3
+
+what: |
+  实现《项目维护约束 v2》7.2 的六项合规一致性核验并接入 GitHub Actions：
+  ①引用完整性（m0_registry_ref 必须存在且未作废）②定性一致性（category / is_personal_information
+  与 M0 清单一致）③路径合法性（legal_basis_ref 必须是主线或回退线，且在该资产的 applicable_routes 内）
+  ④无未声明流动（代码有跨方通信特征但组件无 declaration.yaml 即阻断）⑤审计钩子存在
+  ⑥同意依赖闭环（requires_batch 必须在同意管理配置中登记）。
+  同时把核验 3 / 6 依赖的两份文件路径与最小结构固定为契约，写进 ci/README.md。
+
+why: |
+  附录 B 指定它为优先实现项：它是原则三「说的和做的必须可机器核验」的载体，
+  越早上线，M9 的一致性核验（通过率必须 100%）越不会有惊喜。
+  现在实现的时机最好——仓库里还没有任何组件声明，门禁先立起来，
+  等 M0 填清单、M4 之后落组件时它自动开始起作用，不用回头返工已提交的内容。
+  契约文件缺失时选择阻断而非跳过，是因为"跳过"会让门禁在 M0–M7 期间形同虚设。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-001 · init_scope（本步是其中声明的 S-INIT.2）
+  loop_step: 《项目维护约束 v2》7.2 · 第 8 部分门禁 4 · 附录 B
+
+cross_border_impact: none
+cross_border_detail: |
+  本步实现的是核验工具，只读不写 M0 清单，未定义、未实现、未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    产出为脚本与文档，不含任何真实数据、派生统计量、标识或凭证。
+    构造样本中的 IP 与批次名均为虚构占位（10.10.1.2 为 CloudLab 风格内网示例地址），且未提交。
+
+downstream_affected: [M0, M3, M4, M5, M7, M8, M9]
+breaking_change: false
+migration: |
+  不适用。M0 的 S0.9 与 M8 需按 ci/README.md 的契约表产出两份文件，否则相关声明会被门禁 4 阻断。
+
+reproducibility:
+  config: 不适用（本步无实验配置）
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    脚本行为确定；三组构造样本的构造方式已在 D2 证据中写明，可按描述重建。
+    夹具化（ci/tests/fixtures/）留待 S-INIT.3。
+
+rollback: |
+  git revert 本提交：脚本移除、gates.yml 回到只有门禁 1、ci/README.md 状态回退。无外部副作用。
+
+verification: |
+  1) python3 ci/check_cross_border_consistency.py → 期望 BLOCK=0，退出码 0
+  2) bash ci/check_secrets.sh → BLOCK=0
+  3) GitHub Actions 上 gate1 → gate4 → gate2(占位) 依赖链全绿
+  4) 构造样本三组用例结果见 assessment.evidence.D2

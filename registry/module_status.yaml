@@ -7,13 +7,17 @@ repo: https://github.com/conceal008/HSBC-VFL-personal-project
 
 governance:
   # 治理层（仓库骨架、CI、规范）不属于任何模块，动作记在这里
-  last_action: 修订 1.1 可见性条款并同步全部引用点（Step S-INIT.1R）
-  last_action_at: 2026-08-29T22:20:00+08:00
+  last_action: 实现门禁 4 合规一致性核验并接入 CI（Step S-INIT.2）
+  last_action_at: 2026-08-30T00:00:00+08:00
   by: Claude (Opus 5, Claude Code)
-  change_id: CL-20260829-GOV-002
-  previous_action: 仓库初始化（Step S-INIT.1，CL-20260829-GOV-001，2026-08-29T21:45:00+08:00）
+  change_id: CL-20260830-GOV-003
+  next_step: S-INIT.3（门禁 2：check_step_metadata.py / check_changelog_schema.py，附带把门禁 4 的构造样本夹具化到 ci/tests/）
+  previous_actions:
+    - 修订 1.1 可见性条款并同步全部引用点（S-INIT.1R，CL-20260829-GOV-002，2026-08-29T22:20:00+08:00）
+    - 仓库初始化（S-INIT.1，CL-20260829-GOV-001，2026-08-29T21:45:00+08:00）
   open_items:
-    - "CI 门禁脚本尚未实现，除数据合规扫描外的门禁当前靠人工执行（下一步 S-INIT.2）"
+    - "门禁 1（数据合规扫描）与门禁 4（合规一致性核验）已实现并在 CI 生效；门禁 2/3/5/6/7 仍靠 PR 自查表人工执行"
+    - "门禁 4 依赖两份尚未产出的契约文件：registry/compliance_routes.yaml（M0 的 S0.9 产出）与 platform/governance/consent_batches.yaml（M8 产出），结构见 ci/README.md"
     - "main 分支保护、Secret 扫描 push protection 需仓库所有者在 GitHub 设置中开启"
     - "仓库为个人账户 Public 仓库，按 1.1 修订条款判定为合规（DR-GOV-002）；代价是 L-受限产物一律按 L-禁止处理，无个案放行通道"
 

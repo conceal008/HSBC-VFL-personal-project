@@ -11,12 +11,14 @@
 | **GitHub 远端** | **https://github.com/conceal008/HSBC-VFL-personal-project** |
 | clone（HTTPS） | `git clone https://github.com/conceal008/HSBC-VFL-personal-project.git` |
 | 默认分支 | `main` |
-| 可见性 | **Public**（⚠️ 偏离《维护约束 v2》1.1 的 Private 要求，见 `registry/decision_records/DR-GOV-001.yaml`） |
+| 可见性 | **Public**（个人账户仓库，符合《维护约束 v2》1.1 修订后的个人仓库条款；判定与四项前提见 `registry/decision_records/DR-GOV-002.yaml`） |
 | 本地路径（当前维护者机器） | `/Applications/总文件夹/汇丰/HSBC-VFL-personal-project` |
 
 **任何 Agent 完成工作后，必须把改动提交并推送到上述远端。** 未推送的产出按《维护约束 v2》原则一视为不存在。
 
-> ⚠️ 因仓库为 Public：`registry/`、`modules/*/results/` 等一切内容都是世界可读。提交前逐条对照《维护约束 v2》第 2 部分的四级分级表，**L-禁止与未审查的 L-受限一律不得提交**。存疑时按 L-禁止处理。
+> **仓库为 Public，一切内容世界可读。** 这在个人仓库下是合规状态（1.1 修订条款），但它把第 2 部分的数据纪律变成**不可豁免**的：
+> 提交前逐条对照四级分级表，**L-禁止一律不得提交；L-受限在本仓库一律按 L-禁止处理**——2.2 的个案审查放行通道在此不适用。
+> 这一条比原规范更严，是 Public 换来的代价。四项前提任一不成立（出现真实数据或其派生统计量、仓库转交机构主体等），立即转 Private 并写 DR。
 
 ---
 

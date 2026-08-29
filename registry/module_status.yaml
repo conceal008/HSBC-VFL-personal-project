@@ -7,14 +7,15 @@ repo: https://github.com/conceal008/HSBC-VFL-personal-project
 
 governance:
   # 治理层（仓库骨架、CI、规范）不属于任何模块，动作记在这里
-  last_action: 仓库初始化（Step S-INIT.1）
-  last_action_at: 2026-08-29T21:45:00+08:00
+  last_action: 修订 1.1 可见性条款并同步全部引用点（Step S-INIT.1R）
+  last_action_at: 2026-08-29T22:20:00+08:00
   by: Claude (Opus 5, Claude Code)
-  change_id: CL-20260829-GOV-001
+  change_id: CL-20260829-GOV-002
+  previous_action: 仓库初始化（Step S-INIT.1，CL-20260829-GOV-001，2026-08-29T21:45:00+08:00）
   open_items:
     - "CI 门禁脚本尚未实现，除数据合规扫描外的门禁当前靠人工执行（下一步 S-INIT.2）"
     - "main 分支保护、Secret 扫描 push protection 需仓库所有者在 GitHub 设置中开启"
-    - "仓库可见性为 Public，偏离《维护约束 v2》1.1，见 DR-GOV-001"
+    - "仓库为个人账户 Public 仓库，按 1.1 修订条款判定为合规（DR-GOV-002）；代价是 L-受限产物一律按 L-禁止处理，无个案放行通道"
 
 modules:
   M0:

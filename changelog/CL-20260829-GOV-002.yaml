@@ -1,0 +1,121 @@
+change_id: CL-20260829-GOV-002
+timestamp: 2026-08-29T22:20:00+08:00
+agent: Claude (Opus 5, Claude Code) · 依仓库所有者 conceal008 的事实更正
+module: GOV
+type: decision
+title: 修订 1.1 可见性条款（按仓库归属区分），本仓库 Public 定性为合规
+
+step:
+  step_id: S-INIT.1R
+  step_name: 可见性条款修订与全部引用点同步（插在 S-INIT.1 与 S-INIT.2 之间的治理修订步）
+  declaration: |
+    input_from: S-INIT.1 的 DR-GOV-001 · 仓库所有者对事实前提的更正
+    will_produce:
+      - docs/02-governance/3_项目维护约束_v2_步进量化版.md：1.1 可见性条款按仓库归属拆分 +
+        「个人仓库走 Public 的四项前提」小节（标记 v2.1，指向 DR-GOV-002）
+      - 同步修改源件 /Applications/总文件夹/汇丰/8-9月/3_项目维护约束_v2_步进量化版.md，保持两份逐字一致
+      - registry/decision_records/DR-GOV-002.yaml（条款修订 + 本仓库定性 + 历史处理三项决策，含 falsifier）
+      - registry/decision_records/DR-GOV-001.yaml：repo_visibility 条标记 superseded（append，不改写原文）
+      - AGENTS.md / README.md / docs/02-governance/README.md / registry/module_status.yaml /
+        .github/pull_request_template.md：把"偏离/违规/补偿控制"表述改为合规表述 + 更严的 L-受限纪律
+      - docs/03-handoff/HO-20260829-Claude-GOV.md 追加「补记」，不改写原判断
+    will_not_produce:
+      - 改写任何已提交的历史记录：CL-20260829-GOV-001 正文、项目实时日志 21:55 条目、
+        DR-GOV-001 的 repo_visibility 原文（只标 superseded，不删不改）
+      - 1.1 其余条款（分支保护 / 必需检查 / 审查要求 / force push / Secret 扫描 / 历史）的任何改动
+      - 任何 M0 内容、任何 CI 脚本实现（仍属 S-INIT.2）
+      - 放松数据分级纪律（本次修订在个人 Public 仓库下反而收紧：取消 2.2 的 L-受限个案放行通道）
+    success_criteria:
+      - 两份规范文件 diff 一致（diff -q 无输出）
+      - 仓库内 grep 不再出现把本仓库 Public 表述为"偏离/违规/不符"的状态类文字
+        （历史记录中的原表述保留，且能通过 superseded 标记追溯到本次更正）
+      - DR-GOV-002 含 falsifier 与 review_trigger；DR-GOV-001 标记为 partially_superseded
+      - 门禁 1 仍 BLOCK=0；全部改动 YAML 可解析
+    risk: |
+      风险是"把条款改到符合现状"滑向禁止事项第 16 条（通过改文档消除说做不一致）。
+      本次修订的正当性不在于所有者的意愿，而在于原条款漏了归属维度、且修订后保护强度不降反升；
+      判定依据（四项前提）逐条可核验、可被 falsifier 推翻。
+  scope:
+    files_changed: 10          # 仓库内 10 个 + 仓库外源件 1 个；超过 ≤3 上限，见 exception
+    lines_added: 0             # 无代码改动
+    routes_covered: 1
+    conclusions: 1
+    exception: |
+      本步只产生一个结论（可见性条款按归属拆分、本仓库合规），但该结论在 S-INIT.1 时已被写进
+      6 个状态类文件与 1 份 DR。若按 ≤3 文件拆成多个提交，中间提交会出现"条款已改、状态文件仍写着偏离"
+      或反之的自相矛盾仓库状态——正是第 16 条要防的"说做不一致"。因此按 3.2 说明理由后一次提交完成，
+      并严格限定范围：只动可见性一处条款及其引用点，其余一字不改。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "本步不涉及任何数据；ci/check_secrets.sh 全仓扫描 BLOCK=0 WARN=0"
+      G2: "registry/cross_border_assets.yaml 未被触碰，assets 仍为空列表；无组件声明变化"
+      G3: "will_not_produce 逐条可核验：CL-20260829-GOV-001 与项目实时日志 21:55 条目未被修改；DR-GOV-001 只新增 superseded_parts 与 status 字段，repo_visibility 原文逐字保留；1.1 表格其余六行未变"
+      G4: "0.7 七条红线无适用对象（无实验、无指标、无分支选择）"
+      D1: "will_produce 六项全部产出：两份规范 diff 一致（已验证）· DR-GOV-002 · DR-GOV-001 标记 · 五个状态文件 · 交接记录补记"
+      D2: "判定依据是四项可核验的前提（归属 / 无真实数据 / L-受限按 L-禁止 / 无内部端点与凭证 + 门禁 1 生效），每条都能被独立检查；falsifier 给出四种推翻方式"
+      D3: "无配置与种子对象；条款修订可由 DR-GOV-002 的 decisions.clause_amendment 全文复现，但无自动化校验脚本，故 2 分"
+      D4: "消除一个未决问题（可见性定性从「已知偏离」改为「合规」），并修订了规范条款本身的一处覆盖缺口（缺仓库归属维度）"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.2
+
+what: |
+  修订《项目维护约束 v2》1.1 的可见性条款：原文只写"Private，不得转 public"，未区分仓库归属；
+  现按组织/团队仓库与个人仓库拆成两个分支，并为个人仓库走 Public 补四项前提（缺一不可）。
+  据此把本仓库的 Public 状态从"已知偏离"重新定性为"合规"，同步更新全部状态类文件的表述，
+  历史记录一律保留原文并以 superseded 标记与本条目作为更正留痕。
+
+why: |
+  DR-GOV-001 的偏离判断建立在错误的事实前提上：本仓库是个人账户下的私人仓库，
+  不是机构/组织项目仓库，不承载任何机构主体的数据处理活动，因此不落入 1.1 所要保护的情形。
+  1.1 的实质目的是防真实数据外泄与机构商业敏感信息外泄；在"数据永不入库"（第 2 部分，与可见性无关）
+  与个人归属两个条件下，Public 并不触发这两件事。原判断把条款字面当成了条款目的。
+  修订同时收紧了实际纪律：在本仓库取消 2.2 的 L-受限个案审查放行通道，L-受限一律按 L-禁止处理。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-002
+  supersedes_decision: DR-GOV-001 · repo_visibility
+  loop_step: 《项目维护约束 v2》1.1 · 5.4（规范修改需 DR + approve）
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只修改治理条款与状态文档，未定义、未实现、未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    本步产出全部为治理文本，不含任何真实数据、派生统计量、标识或凭证。
+
+downstream_affected: [M0, M9]
+breaking_change: false
+migration: |
+  不适用。引用 DR-GOV-001 · repo_visibility 的后续文档改引 DR-GOV-002。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交：1.1 恢复原文、DR-GOV-002 移除、状态文件回到"已知偏离"表述。
+  注意源件 /Applications/总文件夹/汇丰/8-9月/3_项目维护约束_v2_步进量化版.md 不在版本控制内，需手工同步回退。
+
+verification: |
+  1) diff -q 两份 3_项目维护约束_v2_步进量化版.md → 无输出
+  2) grep -rn "偏离" 仓库状态类文件 → 仅历史记录与 superseded 说明中出现
+  3) python3 -c "yaml.safe_load(...)" 校验 DR-GOV-001 / DR-GOV-002 / module_status.yaml / 本条目
+  4) bash ci/check_secrets.sh → BLOCK=0

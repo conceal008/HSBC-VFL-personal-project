@@ -4,7 +4,7 @@
 
 | 文件 | 说明 |
 |---|---|
-| `3_项目维护约束_v2_步进量化版.md` | 逐字副本，与来源一致，未作任何修改 |
+| `3_项目维护约束_v2_步进量化版.md` | 与来源 `汇丰/8-9月/` 逐字一致。已按 DR-GOV-002 修订 1.1 可见性条款（v2.1），两份文件同步修改并经 diff 校验；其余条款一字未动 |
 
 ## 本仓库的落地补注（不修改规范正文）
 
@@ -13,7 +13,7 @@
 | 规范条款 | 规范要求 | 本仓库实际 | 依据 |
 |---|---|---|---|
 | 1.1 仓库地址 | —（规范未指定） | **https://github.com/conceal008/HSBC-VFL-personal-project** | `registry/decision_records/DR-GOV-001.yaml` · repo_location |
-| 1.1 可见性 | Private，不得转 public | **Public**（已知偏离，含补偿控制与复审触发条件） | DR-GOV-001 · repo_visibility |
+| 1.1 可见性 | 组织/团队仓库 Private；**个人仓库可 Public**（四项前提缺一不可） | **Public** —— 个人账户仓库，四项前提当前全部成立，**合规** | DR-GOV-002（修订条款并作废 DR-GOV-001 · repo_visibility） |
 | 1.1 分支保护 / 必需检查 / Secret push protection | main 禁止直推、CI 通过方可合并、开启 Secret 扫描 | **尚未开启**，需仓库所有者在 GitHub 设置中配置 | `registry/module_status.yaml` · governance.open_items |
 | 附录 B CI 脚本 | 六个门禁脚本 | 仅 `check_secrets.sh`（门禁 1）已实现，其余人工执行 | DR-GOV-001 · init_scope · `ci/README.md` |
 

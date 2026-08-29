@@ -3,8 +3,18 @@ title: 仓库落地坐标、可见性偏离与初始化范围
 date: 2026-08-29T21:45:00+08:00
 agent: Claude (Opus 5, Claude Code)
 module: GOV
-status: active                     # active | superseded
+status: partially_superseded       # active | partially_superseded | superseded
 supersedes: null
+superseded_parts:
+  - part: repo_visibility
+    by: DR-GOV-002
+    date: 2026-08-29T22:20:00+08:00
+    reason: |
+      该条把本仓库的 Public 记为"已知偏离 1.1"，事实前提有误：本仓库是个人账户下的私人仓库，
+      不承载机构主体的数据处理活动，不落入 1.1 所要保护的情形。DR-GOV-002 修订 1.1 按仓库归属
+      区分组织仓库与个人仓库，并认定本仓库当前状态为合规。
+      本条按 append-only 原则保留原文，仅在此标记作废，不改写内容。
+  # repo_location 与 init_scope 两条决策不受影响，仍然有效。
 related_change_id: CL-20260829-GOV-001
 related_step: S-INIT.1
 
@@ -37,6 +47,8 @@ decisions:
       不存在"误把真实数据 add 进来"的路径。本机路径与远端仓库同名，降低认知成本。
 
   - key: repo_visibility
+    status: superseded              # ← 已被 DR-GOV-002 作废，以下内容仅作历史留存，不再执行
+    superseded_by: DR-GOV-002
     question: 仓库可见性
     spec_requirement: 《项目维护约束 v2》1.1 —— Private，不得转 public
     actual: PUBLIC

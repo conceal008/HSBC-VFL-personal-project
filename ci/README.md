@@ -5,7 +5,8 @@
 | 门禁 | 内容 | 脚本 | 状态 |
 |---|---|---|---|
 | 1 | 数据合规扫描（凭证·数据扩展名·体积·个人标识模式·.env） | `check_secrets.sh` | ✅ 已实现并在 CI 生效 |
-| 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次 / changelog schema） | `check_step_metadata.py`、`check_changelog_schema.py` | ⬜ 未实现 |
+| 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次） | `check_step_metadata.py` | ✅ 已实现并在 CI 生效 |
+| 2 | changelog schema 校验（字段类型与必填） | `check_changelog_schema.py` | ⬜ 未实现（S-INIT.4） |
 | 3 | 单步规模（≤3 文件 / ≤300 行 / ≤1 路线） | `check_step_scope.py` | ⬜ 未实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
 | 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟） | — | ⬜ 待第一份代码组件出现后接入 |
@@ -40,6 +41,7 @@
 ```bash
 bash ci/check_secrets.sh                          # 门禁 1，提交前必跑
 python3 ci/check_cross_border_consistency.py      # 门禁 4，改动声明或 M0 清单后必跑
+python3 ci/check_step_metadata.py                 # 门禁 2，校验 HEAD；查别的提交加 --rev <sha>
 ```
 
 两者退出码 1 即阻断（门禁 4 的退出码 2 表示缺 PyYAML）。
@@ -51,6 +53,14 @@ python3 ci/check_cross_border_consistency.py      # 门禁 4，改动声明或 M
 - 个人标识模式是启发式正则，只覆盖内地手机号 / 18 位身份证 / 16–19 位卡号 / 香港身份证号四种形态，**不能替代人工审查**。
 - 不检测语义层面的 L-受限产物（例如一张只有比率没有标识的真实数据分布表），这类必须靠 PR 自查表与人工审查。
 - 未接入 GitHub Secret 扫描的 push protection，该项需仓库所有者在 GitHub 仓库设置中开启。
+
+**门禁 2**
+
+- 只校验**一个**提交（默认 HEAD，PR 上取 head sha），不回溯全历史；批量体检需自行循环 `--rev`。
+- 通过线默认 10，若模块 `step_ledger.yaml` 的 `metrics.pass_threshold` 被回溯抽查上调为 11，自动取 11。
+- 校验的是元数据**自洽**（trailer 与 changelog 一致、总分等于四维之和、每维有证据引用、硬门全 pass），
+  **不能判断评分是否诚实**——3 分的证据写得对不对，只有回溯抽查与下游反证能发现（1.4）。
+- `doc` / `chore` 可省略 step 段与 Step-Id，其余七类必填。合并提交自动跳过。
 
 **门禁 4**
 

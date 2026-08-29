@@ -2,9 +2,9 @@ name: gates
 
 # 《项目维护约束 v2》第 8 部分 · CI 门禁（按成本从低到高，前面失败不跑后面）
 #
-# 已生效：门禁 1（数据合规扫描）· 门禁 4（合规一致性核验）
+# 已生效：门禁 1（数据合规扫描）· 门禁 4（合规一致性核验）· 门禁 2（步骤与元数据完整性）
 # 待实现（按附录 B 优先顺序）：
-#   门禁 2  ci/check_step_metadata.py / ci/check_changelog_schema.py  ← 下一个
+#   门禁 2  ci/check_changelog_schema.py（schema 校验部分）  ← 下一个，连同门禁 4 的回归夹具
 #   门禁 3  ci/check_step_scope.py
 #   门禁 6  ci/check_reproducibility.py
 #   门禁 5  lint / 类型检查 / 单元测试（等到有第一份代码组件时接入）
@@ -43,13 +43,23 @@ jobs:
         run: python3 ci/check_cross_border_consistency.py
 
   gate2-step-metadata:
-    name: 门禁 2 · 步骤与元数据完整性（未实现）
+    name: 门禁 2 · 步骤与元数据完整性
     runs-on: ubuntu-latest
     needs: gate4-cross-border-consistency
     steps:
       - uses: actions/checkout@v4
-      - name: 未实现提示
+        with:
+          fetch-depth: 0          # 需要真实提交历史，PR 时要能取到 head sha
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 安装依赖
+        run: pip install --quiet pyyaml
+      - name: 校验提交 trailer 与 changelog step 段
+        env:
+          REV: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 ci/check_step_metadata.py --rev "$REV"
+      - name: changelog schema 校验（未实现）
         run: |
-          echo "门禁 2 尚未实现：ci/check_step_metadata.py / ci/check_changelog_schema.py"
-          echo "当前由 PR 模板中的自查表人工执行（Step-Id / Step-Score≥10 / 声明 / 证据 / cross_border_impact）。"
-          echo "实现计划见 registry/decision_records/DR-GOV-001.yaml 的 init_scope 决策。"
+          echo "ci/check_changelog_schema.py 尚未实现（S-INIT.4）。"
+          echo "schema 层面的字段类型/必填校验当前由 PR 自查表人工执行。"

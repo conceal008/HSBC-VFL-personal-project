@@ -1,0 +1,112 @@
+change_id: CL-20260830-GOV-004
+timestamp: 2026-08-30T00:35:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: feat
+title: 实现门禁 2 步骤元数据校验并接入 CI
+
+step:
+  step_id: S-INIT.3
+  step_name: 实现 ci/check_step_metadata.py（8.2 步骤与元数据完整性）
+  declaration: |
+    input_from: docs/02-governance 8.2 门禁 2 表 · 5.2 commit trailer 规则 · 1.3 阶段三/四判定表
+    will_produce:
+      - ci/check_step_metadata.py：校验一个提交的 trailer 与其 changelog 条目
+      - .github/workflows/gates.yml：门禁 2 占位 job 换成真实校验（PR 上取 head sha）
+      - ci/README.md：门禁 2 状态改为已实现；补门禁 2 的四条已知局限
+    will_not_produce:
+      - ci/check_changelog_schema.py（拆到 S-INIT.4）
+      - 门禁 4 的回归夹具（拆到 S-INIT.4）—— 声明时估算夹具 ≥6 个文件，
+        与本步脚本合计超 3.2 的 ≤3 文件上限，属「步子太大」，按 1.2 拆分判据拆出
+      - 门禁 3 / 6 的脚本；任何 M0 内容；registry/ 下任何既有内容的改动
+    success_criteria:
+      - 能拦截 8.2 表的十类违规（缺 Change-Id / Change-Id 无对应文件 / 缺 Step-Id /
+        Step-Score <通过线 / 声明为空 / 任一维度无证据 / 修正轮次 >2 / cross_border_impact 非法枚举 /
+        type=exp 无分支卡 / type=decision 无 DR 或 DR 无 falsifier）
+      - 对仓库现有全部提交自检通过，且本步自身提交也通过
+      - 代码 ≤300 行，除 PyYAML 外无外部依赖
+    risk: |
+      门禁 2 只能校验元数据自洽，无法判断评分是否诚实。若被误当成"分数可信"的保证，
+      1.4 的回溯抽查与下游反证会被架空。已把这一条写进 ci/README.md 的已知局限。
+  scope:
+    files_changed: 3           # check_step_metadata.py · gates.yml · ci/README.md
+    lines_added: 252           # Python 252 行，≤300
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: |
+      另有两份每步必改的元数据文件不计入上限：本 changelog 条目、registry/module_status.yaml。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "只新增脚本与文档；ci/check_secrets.sh 全仓 BLOCK=0 WARN=0"
+      G2: "脚本不读也不写 cross_border_assets.yaml；assets 仍为空列表"
+      G3: "will_not_produce 逐条可核验：ci/ 下无 check_changelog_schema.py、无 ci/tests/ 目录；git status 仅 3 个文件 + 2 份元数据"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三项产出全部交付：脚本 252 行；gates.yml 的 gate2 job 由占位改为真实校验并取 PR head sha；ci/README.md 状态表拆成两行（metadata 已实现 / schema 未实现）并补四条局限"
+      D2: "四组证据：①仓库现有三个提交 d34fd9e / 9c82d86 / 792796c 全部 BLOCK=0；②构造提交 A（无 trailer 无规范首行）→ BLOCK=4；③构造提交 B（声明为空、revisions=3、G1 fail、D2=1、两处缺证据、total 与四维之和不符、trailer 与 changelog 双向不一致、非法枚举 maybe、exp 无分支卡、sensitive_review 空结论）→ BLOCK=15；④构造提交 C（decision 的 DR 无 falsifier）→ BLOCK=1。退出码实测为 1"
+      D3: "脚本确定性、无外部依赖；但构造提交仍跑在本地临时 git 仓库，未夹具化提交，故 2 分——与 S-INIT.2 同因，S-INIT.4 一并解决"
+      D4: "步进机制第一次有了强制力：此前 Step-Score <10、声明为空、无证据评分、修正超两轮都只能靠自觉，现在合并前即被拦截"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.4
+
+what: |
+  实现《项目维护约束 v2》8.2 的门禁 2：校验一个提交的 commit trailer（Change-Id / Step-Id /
+  Step-Score / Branch-Card / Cross-Border）与它引用的 changelog 条目是否完整且自洽——
+  声明非空、四维评分每项有证据引用、总分等于四维之和且 ≥通过线、无单项 ≤1、四道硬门全 pass、
+  修正轮次 ≤2、cross_border_impact 为四枚举之一、type=exp 有分支卡、type=decision 的 DR 含 falsifier。
+  通过线默认 10，模块 step_ledger 的 metrics.pass_threshold 被上调为 11 时自动取 11。
+
+why: |
+  它是步进式微循环唯一的强制力来源。没有它，1.3 阶段四的判定表（≥10 通过 / 8–9 修正 / ≤7 重做）
+  与 1.4 的证据绑定都只是自觉；有了它，"未写声明就执行""无证据的满分""修正三轮硬提交"
+  这三类最常见的自评虚高路径在合并前就被挡住。
+  附录 B 把它排在 check_cross_border_consistency.py 之后、其余脚本之前，本步即按此顺序。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-001 · init_scope（本步是其中声明的后续门禁实现）
+  loop_step: 《项目维护约束 v2》8.2 门禁 2 · 5.2 commit message · 1.3 阶段三与阶段四
+
+cross_border_impact: none
+cross_border_detail: |
+  本步实现的是元数据校验工具，不读不写 M0 清单，未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    产出为脚本与文档；构造提交中的模块号、步骤号与 DR 编号均为虚构占位，且未提交到本仓库。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  即刻生效：此后每个提交的首行必须是 `<type>(<module>): <摘要>`，且 trailer 与 changelog 必须自洽。
+  doc / chore 可省略 Step-Id 与 step 段，其余七类必填。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    四组用例的构造方式已写在 assessment.evidence.D2，可按描述重建；夹具化留待 S-INIT.4。
+
+rollback: |
+  git revert 本提交：脚本移除、gate2 job 回到占位、ci/README.md 状态回退。无外部副作用。
+
+verification: |
+  1) python3 ci/check_step_metadata.py → 本提交自身 BLOCK=0，退出码 0
+  2) 对 HEAD~1 / HEAD~2 / HEAD~3 逐一 --rev 校验 → 全部 BLOCK=0
+  3) 三个已实现门禁本地全绿：门禁 1 / 门禁 2 / 门禁 4
+  4) GitHub Actions 依赖链 gate1 → gate4 → gate2 全绿

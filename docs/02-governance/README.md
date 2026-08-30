@@ -15,7 +15,8 @@
 | 1.1 仓库地址 | —（规范未指定） | **https://github.com/conceal008/HSBC-VFL-personal-project** | `registry/decision_records/DR-GOV-001.yaml` · repo_location |
 | 1.1 可见性 | 组织/团队仓库 Private；**个人仓库可 Public**（四项前提缺一不可） | **Public** —— 个人账户仓库，四项前提当前全部成立，**合规** | DR-GOV-002（修订条款并作废 DR-GOV-001 · repo_visibility） |
 | 1.1 Secret 扫描与 push protection | 开启，含 push protection | ✅ **已开启**（GitHub 对公开仓库默认开启，2026-08-30 经 `gh api` 核实） | `registry/module_status.yaml` · governance |
-| 1.1 分支保护 / 必需检查 | main 禁止直推、CI 通过方可合并、≥1 approve | ❌ **未配置**（`gh api .../branches/main/protection` 返回 404，rulesets 为空）；需仓库所有者决定保护档位后配置 | `registry/module_status.yaml` · governance.open_items |
+| 1.1 force push / 删除分支 | main 与 release/* 禁用 force push | ✅ **已禁用**（含管理员，2026-08-30 启用档位 A） | `DR-GOV-006` |
+| 1.1 分支保护 / 必需检查 / 审查要求 | main 禁止直推、CI 通过方可合并、≥1 approve | ❌ **未满足**：当前保留直推，不要求 PR 与状态检查。已知缺口，升级条件见 DR-GOV-006 的 falsifier | `DR-GOV-006` |
 | 附录 B CI 脚本 | 六个门禁脚本 | 仅 `check_secrets.sh`（门禁 1）已实现，其余人工执行 | DR-GOV-001 · init_scope · `ci/README.md` |
 
 上表任一行状态改变时，必须同步更新本 README 与 `registry/module_status.yaml`；**不得反过来改规范正文使其"看起来一致"**（禁止事项第 16 条）。

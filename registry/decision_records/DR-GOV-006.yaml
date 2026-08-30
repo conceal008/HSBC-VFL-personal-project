@@ -1,0 +1,74 @@
+dr_id: DR-GOV-006
+title: main 分支保护先取「禁 force push 与删除、保留直推」档位，暂不启用 PR 强制
+date: 2026-08-30T03:55:00+08:00
+agent: Claude (Opus 5, Claude Code)
+requested_by: conceal008（仓库所有者，明确指示"选 A 帮我执行"）
+approved_by: conceal008（仓库所有者）
+module: GOV
+status: active
+supersedes: null
+related_change_id: CL-20260830-GOV-014
+related_step: S-GOV.6
+
+context: |
+  《项目维护约束 v2》1.1 对 main 要求四项：禁止直推、必须经 PR、CI 全部门禁通过方可合并、
+  ≥1 approve；另要求 force push 禁用。此前 main 完全未受保护
+  （branches/main/protection 返回 404，rulesets 为空）。
+
+decisions:
+
+  - key: protection_level
+    question: 采用哪个保护档位
+    options:
+      - id: A
+        desc: 只禁 force push + 禁删除，保留直推
+      - id: B
+        desc: A + 必须经 PR + 五个门禁全绿方可合并
+      - id: C
+        desc: B + 管理员不可绕过
+    decision: A（所有者明确选择）
+    applied_settings:
+      allow_force_pushes: false
+      allow_deletions: false
+      enforce_admins: true
+      required_pull_request_reviews: null
+      required_status_checks: null
+    rationale: |
+      A 满足 1.1 中「force push 禁用」这一条，且零摩擦——直推保留，单步节奏不变。
+      B 会把每一步变成 branch → PR → 合并；在单人仓库里，PR 的核心价值（他人复核）不成立，
+      留下的只有流程开销，与所有者已明确表达的"不要卡进度的约束"（DR-GOV-003）相悖。
+
+  - key: enforce_admins
+    decision: enforce_admins = true（保护对管理员同样生效）
+    rationale: |
+      本仓库目前只有所有者一人有写权限。若管理员豁免，"禁止 force push" 对唯一能执行它的人不生效，
+      这条保护就只是装饰。设为 true 后它才真正约束到人。
+      紧急情况下的正确路径是 2.4 已写明的「临时解除保护，事后立即恢复」，而不是留一个常开的后门。
+    how_to_lift_temporarily: |
+      gh api -X DELETE repos/conceal008/HSBC-VFL-personal-project/branches/main/protection/enforce_admins
+      # 处理完毕后立即恢复：
+      gh api -X POST repos/conceal008/HSBC-VFL-personal-project/branches/main/protection/enforce_admins
+
+  - key: unmet_clauses
+    decision: |
+      1.1 的「禁止直推」「必须经 PR」「CI 通过方可合并」「≥1 approve」四条**当前未满足**，
+      如实登记为已知缺口，不通过修改条款来消化（禁止事项第 16 条）。
+      风险由以下方式部分抵消：五个门禁仍在每次 push 后于 CI 执行，
+      失败会立即暴露（已有先例：a532ffb 因 YAML 语法错误 CI 报红，随即由 8c37c45 修复）。
+      但要明确：CI 在 push 之后运行，坏提交会先进入 main 再被发现——
+      这正是档位 B 能消除而 A 不能的那部分风险。
+
+falsifier: |
+  下列任一现象出现，即证明档位 A 不足，须升级到 B：
+  ① 再次出现坏提交进入 main 后才被 CI 发现的情形（累计 2 次，含已发生的 a532ffb 则为再 1 次）；
+  ② 仓库出现第二个有写权限的协作者 —— 此时 PR 的复核价值成立，A 的理由不再充分；
+  ③ 开始产出实验结果（M2 之后），此时错误结论进入 main 的代价显著上升。
+
+review_trigger: |
+  ①上述 falsifier 任一命中；②M0 完成、进入有代码产出的模块时复审一次。
+
+consequences:
+  - "main 已受保护：force push 与删除被禁，且对管理员同样生效（applies_to_admins=true）"
+  - "直推保留，单步工作方式不变"
+  - "1.1 的 PR 与必需检查四条仍未满足，已登记为已知缺口，升级条件见 falsifier"
+  - "GitHub secret scanning 与 push protection 早已开启（公开仓库默认），见 CL-20260830-GOV-013"

@@ -1,0 +1,107 @@
+change_id: CL-20260830-GOV-014
+timestamp: 2026-08-30T03:55:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: decision
+title: 启用 main 分支保护档位 A 并登记 1.1 剩余四条未满足项
+
+step:
+  step_id: S-GOV.6
+  step_name: 按所有者授权配置 main 分支保护并留痕
+  declaration: |
+    input_from: 所有者明确指示"选 A 帮我执行" · DR-GOV-006 三项决策
+    will_produce:
+      - GitHub 侧：main 分支保护启用（allow_force_pushes=false / allow_deletions=false /
+        enforce_admins=true / 不要求 PR / 不要求状态检查）
+      - registry/decision_records/DR-GOV-006.yaml：档位选择、管理员纳入、未满足条款三项决策，含 falsifier
+      - registry/module_status.yaml 与 docs/02-governance/README.md：状态记录同步为实测值
+    will_not_produce:
+      - 不启用 PR 强制与必需状态检查（档位 B 的内容，所有者未选）
+      - 不修改仓库可见性、协作者或任何其他账户设置
+      - 不改动规范条款、门禁脚本或任何模块内容
+    success_criteria:
+      - gh api 查询显示 protected=true 且 force push 与删除均被禁、对管理员生效
+      - 本条目自身的提交能直推成功（即验证档位 A 确实保留了直推）
+      - 五个门禁 + 17 组回归用例全绿
+    risk: |
+      档位 A 不阻止坏提交进入 main（CI 在 push 之后运行）。该风险如实登记在 DR-GOV-006，
+      并写死升级条件：再出现一次坏提交进 main 即升级到 B。
+  scope:
+    files_changed: 4
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只改治理记录；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或声明"
+      G3: "只调用了分支保护相关 API；未修改可见性、协作者或其他设置"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三项产出全部交付：GitHub 侧配置已生效、DR-GOV-006 已写、两处状态记录已同步"
+      D2: "配置结果可复核：gh api repos/.../branches/main/protection 返回 allow_force_pushes.enabled=false、allow_deletions.enabled=false、enforce_admins.enabled=true、required_pull_request_reviews=null、required_status_checks=null；gh api .../branches/main 返回 protected=true"
+      D3: "配置命令与查询命令均写入 DR 与本条目 verification，可完整重放"
+      D4: "消除一个长期未决项（main 完全无保护），并把 1.1 剩余四条未满足项从口头待办变成带升级条件的登记项"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1
+
+what: |
+  按所有者授权启用 main 分支保护档位 A：禁止 force push、禁止删除分支、保留直推，
+  且保护对管理员同样生效（enforce_admins=true）。
+  同时登记 1.1 中「禁止直推 / 必须经 PR / CI 通过方可合并 / ≥1 approve」四条仍未满足，
+  并写死升级到档位 B 的三条触发条件。
+
+why: |
+  main 此前完全无保护，1.1 中「force push 禁用」这条无从谈起——而本项目已两次依靠
+  「不 force push」保住有价值的记录（一次未生效的更正、CI 上一条 failure）。
+  档位 A 以零摩擦代价把这条落到实处。
+  enforce_admins 设为 true 的理由：本仓库只有所有者一人有写权限，若管理员豁免，
+  「禁止 force push」对唯一能执行它的人不生效，这条保护就只是装饰；
+  紧急情况的正确路径是 2.4 写明的「临时解除保护，事后立即恢复」，而不是留一个常开后门。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-006
+  loop_step: 《项目维护约束 v2》1.1 仓库设置
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅仓库保护配置与治理记录，不含任何数据。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  直推工作方式不变。若日后升级到档位 B，全部步骤需改为分支 + PR + 合并。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  gh api -X DELETE repos/conceal008/HSBC-VFL-personal-project/branches/main/protection
+  （将完全移除保护，回到 404 未保护状态；仅在所有者明确要求时执行）
+
+verification: |
+  1) gh api repos/conceal008/HSBC-VFL-personal-project/branches/main --jq .protected → true
+  2) gh api repos/conceal008/HSBC-VFL-personal-project/branches/main/protection --jq
+     '{f:.allow_force_pushes.enabled, d:.allow_deletions.enabled, a:.enforce_admins.enabled}'
+     → {"f":false,"d":false,"a":true}
+  3) 本条目所在提交直推 main 成功 → 证明档位 A 保留了直推
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

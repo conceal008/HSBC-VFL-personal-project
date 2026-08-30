@@ -1,0 +1,101 @@
+change_id: CL-20260830-GOV-013
+timestamp: 2026-08-30T03:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 更正仓库安全设置的记录：secret scanning 与 push protection 实际已开启
+
+step:
+  step_id: S-GOV.5
+  step_name: 核实 GitHub 安全设置实际状态并更正三处失真记录
+  declaration: |
+    input_from: 所有者询问两项设置的作用与开启方式，据此实测仓库当前配置
+    will_produce:
+      - docs/02-governance/README.md：把「分支保护 / 必需检查 / Secret push protection 尚未开启」
+        一行拆成两行，分别记录实测状态
+      - ci/README.md：把「未接入 push protection」改为说明它与门禁 1 的互补关系
+      - registry/module_status.yaml：governance.open_items 两条更正
+    will_not_produce:
+      - 不修改 GitHub 上的任何仓库设置（属所有者账户设置，须其明确授权后另行执行）
+      - 不改写 DR-GOV-001 / DR-GOV-002 中的历史表述（append-only，由本条目留痕更正）
+      - 不改动任何规范条款或门禁脚本
+    success_criteria:
+      - 三处记录与 gh api 实测结果一致
+      - 五个门禁 + 17 组回归用例全绿
+    risk: |
+      失真记录会让后续执行体重复去"开启"一个已开启的功能，或误判仓库当前的防护水位。
+  scope:
+    files_changed: 4
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: "只改三个文档与一个 changelog；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或声明"
+      G3: "未调用任何修改仓库设置的 API（只读 gh api repos/... 与 branches/main/protection）"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三处记录全部更正并写回复查"
+      D2: "实测命令与输出可复现：gh api repos/conceal008/HSBC-VFL-personal-project --jq .security_and_analysis 返回 secret_scanning=enabled、secret_scanning_push_protection=enabled；gh api .../branches/main/protection 返回 404 Branch not protected；gh api .../rulesets 返回 []"
+      D3: "确定性文本替换，可重放；核实命令写入 verification 可随时重跑"
+      D4: "不产生新结论，消除三处失真记录并厘清 GitHub 自带防护与门禁 1 的分工，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1
+
+what: |
+  实测 GitHub 仓库安全设置：secret scanning 与 secret scanning push protection 均为 enabled
+  （GitHub 对公开仓库默认开启），而 main 分支保护未配置、rulesets 为空。
+  仓库内三处记录仍写着「Secret 扫描 push protection 尚未开启，需所有者配置」，与事实不符，予以更正。
+  同时在 ci/README.md 写明 GitHub 自带 push protection 与门禁 1 的分工：前者在服务端 push 时拦截
+  已知格式的凭证，后者在 CI 中另查数据类文件扩展名、文件体积与个人标识形态——后者 GitHub 不查。
+
+why: |
+  失真的状态记录比没有记录更糟：后续执行体会去重复开启一个已开启的功能，
+  或据此误判仓库当前的防护水位。第 0 部分原则三要求说的和做的可核验，状态记录同样适用。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-002
+  corrects: CL-20260829-GOV-001
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅治理文档更正，不含任何数据；核实过程只读，未修改任何仓库设置。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  不适用。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交将使三处记录回到与事实不符的状态，不建议。
+
+verification: |
+  1) gh api repos/conceal008/HSBC-VFL-personal-project --jq '.security_and_analysis'
+     → secret_scanning.status=enabled 且 secret_scanning_push_protection.status=enabled
+  2) gh api repos/conceal008/HSBC-VFL-personal-project/branches/main/protection
+     → 404 Branch not protected
+  3) gh api repos/conceal008/HSBC-VFL-personal-project/rulesets → []
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

@@ -29,7 +29,8 @@ governance:
     - "单步规模上限与门禁 3 已于 2026-08-30 取消（DR-GOV-003）：规模不再是放行判据，拆分与否按定性判据判断；门禁 3 编号保留不复用"
     - "门禁 2 只校验元数据自洽，判断不了评分是否诚实——1.4 的回溯抽查（每 5 步抽 1 步复评）与下游反证仍必须人工执行"
     - "门禁 4 依赖两份尚未产出的契约文件：registry/compliance_routes.yaml（M0 的 S0.9 产出）与 platform/governance/consent_batches.yaml（M8 产出），结构见 ci/README.md"
-    - "main 分支保护、Secret 扫描 push protection 需仓库所有者在 GitHub 设置中开启"
+    - "Secret 扫描与 push protection 已开启（GitHub 对公开仓库默认开启，2026-08-30 经 gh api 核实 secret_scanning=enabled、secret_scanning_push_protection=enabled）"
+    - "main 分支保护仍未配置（branches/main/protection 返回 404，rulesets 为空）：需仓库所有者先决定保护档位——只禁 force push 与删除（保留直推，零摩擦），还是完整执行 1.1 的「禁止直推、必须经 PR、CI 通过方可合并」（每一步改为分支 + PR + 合并）"
     - "仓库为个人账户 Public 仓库，按 1.1 修订条款判定为合规（DR-GOV-002）；代价是 L-受限产物一律按 L-禁止处理，无个案放行通道"
 
 modules:

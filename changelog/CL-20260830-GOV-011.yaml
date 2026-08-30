@@ -1,0 +1,114 @@
+change_id: CL-20260830-GOV-011
+timestamp: 2026-08-30T03:05:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: feat
+title: 实现门禁 6 可复现性检查并扩展回归套件至 17 组
+
+step:
+  step_id: S-INIT.5
+  step_name: ci/check_reproducibility.py + 门禁 6 夹具与回归用例
+  declaration: |
+    input_from: 《维护约束 v2》第 9 部分（可复现性六条）与 9.1（Notebook 交付规范 N1–N6）· 附录 B
+    will_produce:
+      - ci/check_reproducibility.py：六项检查 R1–R6（硬编码魔数 / 种子来自配置 /
+        环境锁一致 / notebook 命名 / 运行指纹 / 执行顺序）
+      - ci/tests/fixtures/gate6/：合规与违规各一组代码与 notebook + requirements 夹具
+      - ci/tests/run_gate_tests.sh：新增门禁 6 的 5 组用例（12 → 17 组）
+      - .github/workflows/gates.yml：新增 gate6 job，回归 job 改为依赖它
+      - ci/README.md：状态表、本地命令、门禁 6 的四条已知局限
+    will_not_produce:
+      - 门禁 5（代码质量）与门禁 7（端到端冒烟）—— 待第一份代码组件与主链路出现
+      - 任何 M0 内容；不改动 registry/ 下既有内容（module_status.yaml 除外）
+      - 不新增任何真实的 .py 或 .ipynb 到 modules/（夹具存为 .txt，仅在临时目录还原）
+    success_criteria:
+      - 当前空仓库状态退出码 0 且不误报
+      - 夹具能逐项拦截 R1/R2/R4/R5/R6，退出码 1
+      - requirements 无 lock 时阻断，补 lock 后放行
+      - 回归套件 17 组全部 PASS
+    risk: |
+      魔数检查最容易误报，一旦噪声太大就会被绕过或关掉。对策：用 AST 而非正则；
+      放行 0/1/-1/2 与模块级全大写具名常量；提供 `# 魔数豁免: <理由>` 的显式出口。
+      反向风险是豁免被滥用——豁免必须写理由，空豁免靠 PR 复核拦截。
+  scope:
+    files_changed: 11
+    lines_added: 251
+    note: 规模上限已于 DR-GOV-003 取消，此处仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "ci/check_secrets.sh 全仓 BLOCK=0；夹具中的 data/raw.csv 只是 notebook 源码里的字符串，未落盘任何数据文件"
+      G2: "未触碰 cross_border_assets.yaml；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 逐条可核验：ci/ 下无门禁 5/7 脚本；modules/ 下无 .py 与 .ipynb（夹具均为 .txt）；registry/ 仅 module_status.yaml 变更"
+      G4: "0.7 七条红线无适用对象"
+      D1: "五项产出全部交付：检查脚本 251 行覆盖 R1–R6；5 份夹具；回归脚本新增 5 组用例；gates.yml 新增 job 并调整依赖链；ci/README.md 三处更新"
+      D2: "回归套件即证据：PASS=17 FAIL=0。门禁6-B 用一份违规代码 + 一份违规 notebook 同时命中 R1（硬编码魔数 5000）、R2（种子写死为 42）、R4（命名不符合 N1）、R5（未打印运行指纹）、R6（execution_count 非单调递增 + 有 cell 未执行）；门禁6-C/D 验证环境锁一致性的阻断与放行"
+      D3: "夹具已提交，`bash ci/tests/run_gate_tests.sh` 一条命令复跑全部 17 组；脚本无随机性、除 PyYAML 外无依赖"
+      D4: "补齐 9.1 的机器化：N1 命名、N4 运行指纹、N5 执行顺序此前只能人工自查，现在合并前即被拦截；同时把第 9 部分的「硬编码魔数 = 0」从口号变成可执行判定（含具名常量与显式豁免两条出口）"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1
+
+what: |
+  实现《项目维护约束 v2》第 9 部分与 9.1 的机器检查：
+  R1 硬编码魔数（AST 扫描 .py 与 notebook 代码 cell）· R2 种子必须来自配置 ·
+  R3 requirements 与 lock 文件一致 · R4 notebook 命名符合 N1 ·
+  R5 首个代码 cell 打印运行指纹（config / seed / git）· R6 execution_count 单调且无未执行 cell。
+  同时把回归套件从 12 组扩到 17 组，新增 gate6 job 并让回归 job 依赖它。
+
+why: |
+  9.1 的六条纪律里，N1（命名）、N4（运行指纹）、N5（执行顺序）本来就是可判定的，
+  却一直只写在 PR 自查表里靠自觉；而「硬编码魔数 = 0」写进规范已久，从未有过判定方式——
+  没有判定方式的判据等于没有判据。
+  notebook 尤其需要这道门禁：它天然鼓励把参数写死在 cell 里、乱序执行到跑通为止，
+  而这两件事恰好是可复现性最先失守的地方。趁 modules/ 下还没有任何 .py 与 .ipynb 先上线，
+  等 M0 开始产出时它自动生效，不用回头返工。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-004
+  loop_step: 《项目维护约束 v2》第 9 部分与 9.1 · 第 8 部分门禁 6 · 附录 B
+
+cross_border_impact: none
+cross_border_detail: |
+  本步实现的是可复现性检查工具，未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh 全仓扫描
+  conclusion: |
+    产出为脚本、夹具与文档。夹具中的数值（5000 / 42 / 0.73）与路径均为虚构，
+    不含任何真实数据、派生统计量、标识或凭证；夹具一律存为 .txt，只在测试临时目录还原为 .py/.ipynb。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  即刻生效：后续任何 .py 与 notebook 都会被检查。参数写死会被阻断，
+  出口有两个——定义为模块级全大写常量，或加 `# 魔数豁免: <理由>` 并在 PR 中说明。
+
+reproducibility:
+  config: 不适用（本步无实验配置）
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    全部用例已夹具化，`bash ci/tests/run_gate_tests.sh` 一条命令可完整复跑。
+
+rollback: |
+  git revert 本提交：脚本与 gate6 job 移除，回归套件回到 12 组。无外部副作用。
+
+verification: |
+  1) python3 ci/check_reproducibility.py → BLOCK=0，退出码 0
+  2) bash ci/tests/run_gate_tests.sh → PASS=17 FAIL=0
+  3) 其余四个门禁本地复跑全绿
+  4) GitHub Actions 五个 job 全绿：门禁 1 → 门禁 4 → 门禁 2 → 门禁 6 → 门禁回归测试

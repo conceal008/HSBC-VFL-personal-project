@@ -136,6 +136,38 @@ run python3 "$ROOT/ci/check_changelog_schema.py" "$ROOT"
 assert "schema-C 本仓库全部条目通过" 0 "$TMP/out.txt" "changelog schema 校验通过"
 
 echo
+echo "================ 门禁 6 · 可复现性 ================"
+C6="$TMP/gate6"
+mkdir -p "$C6/ci" "$C6/modules/m5_modeling/components" "$C6/modules/m5_modeling/notebooks" "$C6/modules/m5_modeling/configs"
+cp "$ROOT/ci/check_reproducibility.py" "$C6/ci/"
+cp "$FIX/gate6/good_component.py.txt" "$C6/modules/m5_modeling/components/ladder.py"
+cp "$FIX/gate6/nb_good.ipynb.txt" "$C6/modules/m5_modeling/notebooks/S5.4_l0_vs_l1.ipynb"
+printf 'seed: 42\nseeds: [11, 22, 33, 44, 55]\nsample_size: 5000\nthreshold: 0.73\n' \
+  > "$C6/modules/m5_modeling/configs/l1_v1.yaml"
+run python3 "$C6/ci/check_reproducibility.py" "$C6"
+assert "门禁6-A 合规代码与 notebook 放行" 0 "$TMP/out.txt" "门禁 6 通过"
+
+cp "$FIX/gate6/bad_component.py.txt" "$C6/modules/m5_modeling/components/bad.py"
+cp "$FIX/gate6/nb_bad.ipynb.txt" "$C6/modules/m5_modeling/notebooks/l0_vs_l1.ipynb"
+run python3 "$C6/ci/check_reproducibility.py" "$C6"
+assert "门禁6-B 拦截魔数/写死种子/命名/指纹/乱序" 1 "$TMP/out.txt" \
+  "[R1]" "[R2]" "[R4]" "[R5]" "[R6]" \
+  "硬编码魔数 5000" "种子写死为 42" "命名不符合 N1" "未打印运行指纹" "非单调递增" "未执行"
+
+rm -f "$C6/modules/m5_modeling/components/bad.py" "$C6/modules/m5_modeling/notebooks/l0_vs_l1.ipynb"
+cp "$FIX/gate6/requirements.txt.txt" "$C6/requirements.txt"
+run python3 "$C6/ci/check_reproducibility.py" "$C6"
+assert "门禁6-C requirements 无 lock 文件即阻断" 1 "$TMP/out.txt" "没有任何 lock 文件"
+
+mkdir -p "$C6/environments"
+printf 'numpy==1.26.4\npandas==2.2.2\n' > "$C6/environments/m5.lock"
+run python3 "$C6/ci/check_reproducibility.py" "$C6"
+assert "门禁6-D lock 与 requirements 一致则放行" 0 "$TMP/out.txt" "门禁 6 通过"
+
+run python3 "$ROOT/ci/check_reproducibility.py" "$ROOT"
+assert "门禁6-E 本仓库自检通过" 0 "$TMP/out.txt" "门禁 6 通过"
+
+echo
 echo "================ 汇总 ================"
 echo "PASS=$PASS  FAIL=$FAIL"
 [ "$FAIL" = 0 ] || { echo "门禁回归测试未通过。"; exit 1; }

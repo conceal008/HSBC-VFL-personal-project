@@ -1,0 +1,9 @@
+# 夹具：故意违规 —— 硬编码魔数（R1）+ 种子写死（R2）
+import numpy as np
+
+
+def train(df):
+    np.random.seed(42)
+    sample = df.sample(n=5000)
+    threshold = 0.73
+    return sample, threshold

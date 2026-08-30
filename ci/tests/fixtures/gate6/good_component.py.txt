@@ -1,0 +1,12 @@
+# 夹具：合规 —— 参数来自配置，常量具名，必要处给出豁免理由
+import numpy as np
+
+HASH_PREFIX_LEN = 12
+
+
+def train(df, cfg):
+    rng = np.random.default_rng(cfg["seed"])
+    sample = df.sample(n=cfg["sample_size"], random_state=cfg["seed"])
+    threshold = cfg["threshold"]
+    fold_count = 5  # 魔数豁免: 五折交叉验证是 M6 冻结口径，非可调参数
+    return rng, sample, threshold, fold_count, HASH_PREFIX_LEN

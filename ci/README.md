@@ -7,11 +7,11 @@
 | 1 | 数据合规扫描（凭证·数据扩展名·体积·个人标识模式·.env） | `check_secrets.sh` | ✅ 已实现并在 CI 生效 |
 | 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次） | `check_step_metadata.py` | ✅ 已实现并在 CI 生效 |
 | 2 | changelog schema 校验（字段类型与必填、命名规范、step_id 唯一） | `check_changelog_schema.py` | ✅ 已实现并在 CI 生效 |
-| — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ 12 组用例，每次 push 跑 |
+| — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ 17 组用例，每次 push 跑 |
 | 3 | ~~单步规模~~ | ~~`check_step_scope.py`~~ | ⛔ **已取消**（2026-08-30，DR-GOV-003）：编号保留不复用，脚本不再实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
 | 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟） | — | ⬜ 待第一份代码组件出现后接入 |
-| 6 | 可复现性（硬编码魔数 = 0 / 种子被实际使用 / 环境锁一致） | `check_reproducibility.py` | ⬜ 未实现 |
+| 6 | 可复现性（魔数 = 0 / 种子来自配置 / 环境锁一致 / notebook N1·N2·N4·N5） | `check_reproducibility.py` | ✅ 已实现并在 CI 生效 |
 | 7 | 端到端冒烟（合并到 main 时跑） | — | ⬜ 待主链路出现后接入 |
 
 ## 门禁 4 依赖的两份契约文件
@@ -61,6 +61,7 @@ bash ci/check_secrets.sh                          # 门禁 1，提交前必跑
 python3 ci/check_cross_border_consistency.py      # 门禁 4，改动声明或 M0 清单后必跑
 python3 ci/check_step_metadata.py                 # 门禁 2，校验 HEAD；查别的提交加 --rev <sha>
 python3 ci/check_changelog_schema.py              # 门禁 2 下半，校验全部 changelog 条目
+python3 ci/check_reproducibility.py               # 门禁 6，改动代码/notebook/配置后必跑
 bash ci/tests/run_gate_tests.sh                   # 门禁回归，改任何门禁脚本后必跑
 ```
 
@@ -83,6 +84,19 @@ bash ci/tests/run_gate_tests.sh                   # 门禁回归，改任何门�
 - 校验的是元数据**自洽**（trailer 与 changelog 一致、总分等于四维之和、每维有证据引用、硬门全 pass），
   **不能判断评分是否诚实**——3 分的证据写得对不对，只有回溯抽查与下游反证能发现（1.4）。
 - `doc` / `chore` 可省略 step 段与 Step-Id，其余七类必填。合并提交自动跳过。
+
+**门禁 6**
+
+- 魔数判定用 AST，不是正则：`0 / 1 / -1 / 2`（及其浮点形式）不算魔数；
+  模块级**全大写**变量的赋值不算魔数（那是具名常量）；确有必要的字面量可加
+  `# 魔数豁免: <理由>` 放行——**豁免必须写理由**，空豁免等同违规，靠 PR 复核。
+- 种子检查覆盖 `seed=` / `random_state=` / `random_seed=` 与
+  `np.random.seed()` / `random.seed()` / `torch.manual_seed()` / `tf.random.set_seed()`
+  的**数字字面量**形式；从配置读入的写法（`cfg["seed"]`）不受影响。
+- notebook 无输出时只 WARN 不阻断——因为按 9.1，真实数据派生输出**本来就必须清除**，
+  机器无法区分"清除了"与"根本没跑"。这一条只能靠 changelog 的 `sensitive_review` 人工留痕。
+- N2（逻辑不放 notebook）以代码行数 >150 行 WARN 的方式近似，不阻断：行数是弱信号，
+  真正的判断是"这段逻辑是否应该被单测覆盖"，机器判不了。
 
 **门禁 4**
 

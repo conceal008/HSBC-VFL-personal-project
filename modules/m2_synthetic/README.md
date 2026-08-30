@@ -16,6 +16,8 @@ M1：数据集选型结论与切分协议
 
 `generator/` · `scenario_library.yaml` · `fidelity_report.md` · `correctness_validation.md` · `scope_disclaimer_template.md` · `DR-M2-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 11 项可调参数覆盖 11/11

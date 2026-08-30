@@ -1,0 +1,80 @@
+dr_id: DR-GOV-004
+title: 处理与实验一律以 notebook 为运行入口并带输出提交（结果可见性要求）
+date: 2026-08-30T01:45:00+08:00
+agent: Claude (Opus 5, Claude Code)
+requested_by: conceal008（仓库所有者 / 本课题线负责人）
+approved_by: conceal008（仓库所有者）
+module: GOV
+status: active
+supersedes: null
+related_change_id: CL-20260830-GOV-007
+related_step: S-GOV.3
+
+context: |
+  所有者要求：处理结果用 .ipynb 运行，保证后续能够直接看到相关处理结果，并把这一条写进要求文档。
+  原规范第 9 部分只要求"可复现"（另一个人能重跑出同样结果），没有要求"可见"
+  （另一个人不跑代码就能看到结果）。两者不是一回事：一个跑完就没了的处理脚本完全满足可复现，
+  却让评审、需求方和几个月后的自己必须先配环境才能知道结论是什么。
+
+decisions:
+
+  - key: notebook_as_entrypoint
+    decision: |
+      凡产出处理结果或实验结果的步骤，必须有一个可运行的 notebook 作为入口，放在
+      modules/mX/notebooks/，命名 <步骤号>_<简述>.ipynb，并把 cell 输出一起提交。
+      没有 notebook 的结果视为未交付。
+    written_into:
+      - "《项目维护约束 v2》第 9 部分新增第 7 条 + 9.1 Notebook 交付规范（六条纪律 N1–N6 + 输出提交规则）"
+      - "《项目维护约束 v2》1.2 目录结构：每模块新增 notebooks/"
+      - "《项目维护约束 v2》2.1 四级分级表：notebook 输出的分级归属"
+      - "《项目维护约束 v2》附录 A 单步检查卡新增一项"
+      - "《Loop 执行规范 v2》0.6 组件最低交付要求新增「结果可见」一行；1.3 阶段五新增第 0 步"
+      - "《方案流程框架 v2》一、模块总览新增「交付形态」段"
+      - "仓库侧：AGENTS.md 第 11 条硬约束 · PR 模板新增「结果可见性」自查段 · README 目录导航 · 十个模块 README 的运行入口说明 · modules/*/notebooks/ 目录已建"
+
+  - key: attached_discipline
+    decision: |
+      本要求不能单独成立，必须连六条纪律一起写，否则它会成为绕开既有规范的后门：
+        N1 位置与命名与步骤台账对齐
+        N2 核心逻辑放 components/，notebook 只做编排与展示
+        N3 参数与种子从 configs/ 读，notebook 内硬编码魔数 = 0
+        N4 首 cell 打印运行指纹（config 路径与 hash、seeds、git sha、运行时间）
+        N5 必须 Restart & Run All 跑通，提交时 execution_count 自上而下单调递增
+        N6 结论用 markdown 写在对应输出下方
+    rationale: |
+      两个具体风险：
+      ① notebook 天然鼓励把参数写死在 cell 里，会直接架空第 9 部分第 1、2 条（配置驱动、种子在配置中声明）；
+      ② 逻辑写在 notebook 里就无法被单测、无法复用、无法 review，会架空 0.6 的组件交付要求。
+      N2、N3 就是为堵这两个口。N5 堵的是"乱序执行才跑得通"的 notebook——那不是可复现产物。
+
+  - key: output_grading
+    decision: |
+      notebook 的 cell 输出按内容分级，不按文件类型分级：
+        · 输出只含合成数据结果、指标表、图表 → L-允许，**必须带输出提交**（这正是本要求的目的）
+        · 输出含真实数据派生的任何内容（分箱边界 / IV 表 / 分布统计 / 真实样本量与正样本率 /
+          交集规模）→ L-受限，**清除输出后提交代码**，并在 changelog 的 sensitive_review 记录原因
+        · 输出含真实数据本身、真实标识、凭证 → L-禁止，按 2.4 应急流程处理
+    rationale: |
+      notebook 的输出是存在 .ipynb 的 JSON 里的，会随提交进入 git 历史且不可撤销。
+      本仓库为 Public（DR-GOV-002），"为了看结果"而把真实数据派生输出留在仓库里，
+      是本项目最容易发生、也最不可逆的一类泄露。
+      注意处置方式是**清除输出后仍要提交代码**，不是整份不提交——流程本身必须可追溯。
+
+falsifier: |
+  下列任一现象出现，即证明本要求的形式有误，须重开决策：
+  ① 出现"为了满足 notebook 要求"而把真实数据派生输出提交到 Public 仓库的情形
+     —— 说明 output_grading 的约束力不足，须改为强制 nbstripout 或转 Private；
+  ② 出现核心逻辑逐渐迁移进 notebook、components/ 空心化的趋势（连续 2 个模块）
+     —— 说明 N2 无法靠自觉执行，须由 CI 检查 notebook 代码行数占比；
+  ③ 出现 notebook 与 results/ 下结果表不一致（同一步骤两个数字）
+     —— 说明二者关系定义有误，须改为 results/ 由 notebook 生成而非分别提交。
+
+review_trigger: |
+  ①上述 falsifier 任一命中；②门禁 6 实现后复审 N3/N5 是否已可机器校验，
+  能机器校验的条目从人工自查表下线。
+
+consequences:
+  - "六份规范文件（仓库副本 + 8-9月 源件）已同步修改并 diff 校验一致"
+  - "modules/m0..m9/notebooks/ 目录已建立"
+  - "N3（硬编码魔数）与 N5（execution_count 单调）应在门禁 6（S-INIT.5）中实现为机器校验；在此之前由 PR 自查表人工执行"
+  - "门禁 1 已能扫描 .ipynb（JSON 是文本），真实标识形态的输出会被拦截；但语义层面的 L-受限输出（只有比率没有标识）仍需人工审查"

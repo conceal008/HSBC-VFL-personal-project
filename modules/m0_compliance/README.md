@@ -16,6 +16,8 @@
 
 `problem_statement.md` · `registry/cross_border_assets.yaml` · `compliance_to_technical.csv` · `route_comparison.md` · `DR-M0-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 预测命题 1 句、四要素齐全、可证伪

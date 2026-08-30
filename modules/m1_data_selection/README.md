@@ -16,6 +16,8 @@ M0：`problem_statement.md`（转化定义决定标签口径）
 
 `dataset_selection_report.md` · `split_protocol/` · `split_fidelity_curve.png+csv` · `data_cards/*.yaml` · `DR-M1-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 评估数据集 ≥4，每集 6/6 维度评估，每集「不能回答」条目 ≥3

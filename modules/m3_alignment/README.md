@@ -16,6 +16,8 @@ M2：仿真台（正确性验收已通过）· M0：跨境资产清单中 PSI �
 
 `alignment_protocol.md` · `psi_components/` · `funnel_quantification.csv` · `alignment_error_sensitivity.png+csv` · `repeated_psi_defense.md` · `DR-M3-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 对齐路线 ≥3 条，每路线 5/5 指标（召回·精确·通信量·耗时·泄露面）

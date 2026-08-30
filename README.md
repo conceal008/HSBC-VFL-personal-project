@@ -36,7 +36,8 @@
 │   ├── branch_cards/              分支卡（含失败分支），append-only
 │   └── component_declarations/    组件级跨境资产声明
 ├── modules/m0_compliance … m9_documentation/
-│   每模块：README.md（当前状态）· step_ledger.yaml（步骤台账）· components/ configs/ experiments/ results/ tests/
+│   每模块：README.md（当前状态）· step_ledger.yaml（步骤台账）· components/ configs/
+│           notebooks/（处理与实验的运行入口，.ipynb 带输出提交）· experiments/ results/ tests/
 ├── platform/                  跨模块共享平台层（devices/dataframe/operators/components/orchestration/governance）
 ├── party_cn/ party_hk/        两侧分离，物理体现"互不可读对方数据"
 ├── changelog/                 变更条目，每条一文件；CHANGELOG.md 由 CI 聚合生成

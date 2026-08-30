@@ -16,6 +16,8 @@ M0–M8 全部产出
 
 `DPIA.md` · `cross_border_filing_package/` · `consent_management_spec.md` · `data_cards/` · `model_card.md` · `cross_border_flow_registry.csv` · `audit_log_spec.md` · `residual_risk_signoff.yaml` · `DR-M9-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 交付清单 10/10 完成

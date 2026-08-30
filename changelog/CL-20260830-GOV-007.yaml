@@ -1,0 +1,115 @@
+change_id: CL-20260830-GOV-007
+timestamp: 2026-08-30T01:45:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: decision
+title: 新增结果可见性要求：处理与实验以 notebook 为入口并带输出提交
+
+step:
+  step_id: S-GOV.3
+  step_name: 把 notebook 交付规范写入三份规范并同步仓库全部引用点
+  declaration: |
+    input_from: 仓库所有者指令（处理结果用 ipynb 运行，保证后续能直接看到结果，写进要求文档）
+    will_produce:
+      - 《项目维护约束 v2》：第 9 部分新增第 7 条与 9.1 Notebook 交付规范（N1–N6 + 输出分级提交规则）·
+        1.2 目录结构加 notebooks/ · 2.1 分级表加 notebook 输出归属 · 附录 A 检查卡加一项
+      - 《Loop 执行规范 v2》：0.6 加「结果可见」交付要求 · 1.3 阶段五加第 0 步
+      - 《方案流程框架 v2》：一、模块总览加「交付形态」段
+      - 三份文件的 8-9月/ 源件同步修改，六份两两一致
+      - DR-GOV-004（三项决策 + falsifier + 复审触发）
+      - 仓库侧：AGENTS.md 第 11 条 · PR 模板「结果可见性」自查段 · README 目录导航 ·
+        十个模块 README 的运行入口说明 · modules/m0..m9/notebooks/ 目录
+    will_not_produce:
+      - 门禁 6 的实现（N3 硬编码魔数、N5 execution_count 单调的机器校验留给 S-INIT.5）
+      - 任何示例 notebook（M0 尚未开始，没有真实产出可展示，造一个假的会污染台账）
+      - 不放松任何既有数据分级纪律
+    success_criteria:
+      - 六份规范文件两两 diff 一致
+      - notebook 要求在三份规范中位置正确：做什么（框架）· 每步怎么做（Loop）· 怎么留痕（维护约束）
+      - 输出分级规则明确区分「必须带输出」与「必须清除输出」两种情形
+      - 现有四个门禁与回归测试在改动后全绿
+    risk: |
+      风险是这条要求成为绕开配置驱动与组件化的后门：notebook 天然鼓励写死参数、把逻辑塞进 cell。
+      对策是把 N2（逻辑放 components）与 N3（参数从 configs 读）作为要求的一部分同时写入，
+      并在 DR 的 falsifier 里写死"components 空心化连续 2 个模块"即触发 CI 强制检查。
+  scope:
+    files_changed: 29
+    lines_added: 0
+    note: 规模上限已于 DR-GOV-003 取消，此处仅作记录（含 10 个 notebooks/.gitkeep 与 10 份模块 README）
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只改治理文本与目录结构；ci/check_secrets.sh 全仓 BLOCK=0；新增目录只有 .gitkeep"
+      G2: "未触碰 cross_border_assets.yaml；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 逐条可核验：无任何 .ipynb 文件提交；ci/ 下无 check_reproducibility.py；2.1 分级表的 L-禁止与 L-受限口径未放松，只增加了 notebook 输出的归属说明"
+      D1: "三份规范六处修改 + 仓库侧五类引用点全部完成；六份文件 diff 两两一致（已实测）"
+      D2: "条款可逐条核对：9.1 的六条纪律各自写明「为什么」；输出提交规则给出三种情形与各自处置；DR-GOV-004 三项决策均可被 falsifier 推翻"
+      D3: "全部改动为确定性文本替换与目录创建，脚本给出原文与新文，可完整重放"
+      D4: "补上规范此前缺失的一个维度：原第 9 部分只要求「可复现」（能重跑出同样结果），本次新增「可见」（不跑代码就能看到结果）。判定标准也相应新增一条：另一个人不运行任何代码、只打开 notebook，能否看到这一步算出了什么"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.5
+
+what: |
+  在三份规范中新增「结果可见性」要求：凡产出处理结果或实验结果的步骤，
+  必须以 modules/mX/notebooks/<步骤号>_<简述>.ipynb 为运行入口并带输出提交，
+  没有 notebook 的结果视为未交付。
+  同时写入六条配套纪律（位置命名 / 逻辑放 components / 参数从 configs 读 / 首 cell 打印运行指纹 /
+  Restart & Run All 可跑通且 execution_count 单调 / 结论写在输出下方），
+  以及输出的三档提交规则（合成结果必须带输出 · 真实数据派生输出必须清除 · 真实数据属 L-禁止）。
+
+why: |
+  原规范第 9 部分只覆盖"可复现"——另一个人能重跑出同样结果；不覆盖"可见"——
+  另一个人不跑代码就能看到结果是什么。对一个要交给评审、需求方与法务合规看的项目，
+  后者同样是交付的一部分：一段跑完就没了的处理，让所有人都必须先配环境才能知道结论。
+  配套纪律不是附加负担，而是这条要求成立的前提：没有 N2/N3，notebook 会变成绕开
+  组件化与配置驱动的后门；没有输出分级规则，"为了看结果"会把真实数据派生输出
+  永久写进 Public 仓库的 git 历史。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-004
+  loop_step: 《项目维护约束 v2》第 9 部分与 9.1 ·《Loop 执行规范 v2》0.6 与 1.3 阶段五
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只修改治理条款与目录结构，未触碰任何跨境信息流。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    产出为治理文本与空目录，不含任何真实数据、派生统计量、标识或凭证。
+    本次修改反而收紧了对未来 notebook 输出的约束（明确真实数据派生输出必须清除后提交）。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  即刻生效：后续凡产出结果的步骤，交付物清单多一项 notebook。
+  M0 尚未开始，无历史 notebook 需要补做。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交可恢复仓库内全部条款与目录；8-9月/ 源件不在版本控制内，
+  需按 DR-GOV-004 的 written_into 字段手工同步回退。
+
+verification: |
+  1) diff -q 六份规范文件 → 两两一致
+  2) bash ci/check_secrets.sh · python3 ci/check_step_metadata.py · python3 ci/check_changelog_schema.py
+     · python3 ci/check_cross_border_consistency.py · bash ci/tests/run_gate_tests.sh → 全绿
+  3) ls modules/*/notebooks → 十个目录存在

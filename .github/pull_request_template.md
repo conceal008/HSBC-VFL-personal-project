@@ -43,6 +43,13 @@
 - [ ] 合成数据未提交，仅提交生成器 + 配置 + 种子
 - [ ] `ci/check_secrets.sh` 本地已跑过且通过
 
+## 结果可见性（《维护约束 v2》9.1）
+- [ ] 本步若产出处理/实验结果，已提交 `modules/mX/notebooks/<步骤号>_<简述>.ipynb`
+- [ ] notebook 可 Restart & Run All 从头跑通，`execution_count` 自上而下单调递增
+- [ ] 首个 cell 打印了运行指纹（config 路径与 hash / seeds / git sha）
+- [ ] 逻辑在 `components/`，notebook 只做编排与展示；notebook 内硬编码魔数 = 0
+- [ ] 输出处置正确：合成数据结果**带输出提交**；真实数据派生输出**已清除**并在 `sensitive_review` 记录原因
+
 ## 可复现性
 - [ ] 配置驱动，硬编码魔数 = 0
 - [ ] 种子在配置中声明并被实际使用

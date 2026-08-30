@@ -109,6 +109,11 @@ Cross-Border: none | modifies_flow | new_asset | requires_m0_review
 8. 不在测试集上做分支选择；不事后修改指标定义。
 9. 单种子、无置信区间的结果不得下结论（种子 ≥5，主指标 100% 带 CI）。
 10. 知识只留在会话上下文而不写进仓库 = 没做。
+11. **凡产出处理或实验结果，必须有 notebook 并带输出提交**（`modules/mX/notebooks/<步骤号>_<简述>.ipynb`）。
+    没有 notebook 的结果视为未交付——别人打开仓库要能直接看到你算出了什么，而不是先配环境重跑一遍。
+    六条纪律见《维护约束 v2》9.1：逻辑放 components 不放 notebook · 参数从 configs 读不写死 ·
+    首 cell 打印运行指纹 · Restart & Run All 能跑通 · 结论写在输出下方 ·
+    **输出含真实数据派生内容时清除输出再提交**（本仓库 Public，这条无豁免）。
 
 ---
 

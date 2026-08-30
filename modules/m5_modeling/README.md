@@ -16,6 +16,8 @@ M4：三套特征集 · M2：≥6 个标准场景
 
 `baseline_ladder/` · `ladder_results.csv` · `conditional_gain_curves.png` · `routing_rule.yaml` · `cost_budget.csv` · `DR-M5-*.yaml`
 
+**运行入口**：本模块凡产出处理或实验结果，一律以 `notebooks/<步骤号>_<简述>.ipynb` 为入口并**带输出提交**，使人打开仓库即可直接看到结果（《维护约束 v2》9.1）。逻辑放 `components/`，参数从 `configs/` 读；真实数据派生输出必须清除后再提交。
+
 ## 量化放行判据（不达标不放行）
 
 - 基线 5/5 级；L3 内部路线 ≥3 条

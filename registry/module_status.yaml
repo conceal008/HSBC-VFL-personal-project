@@ -7,18 +7,20 @@ repo: https://github.com/conceal008/HSBC-VFL-personal-project
 
 governance:
   # 治理层（仓库骨架、CI、规范）不属于任何模块，动作记在这里
-  last_action: 取消单步规模硬上限与门禁 3，改为定性拆分判据（Step S-GOV.2）
-  last_action_at: 2026-08-30T00:50:00+08:00
+  last_action: 实现 changelog schema 校验与门禁回归测试套件（Step S-INIT.4）
+  last_action_at: 2026-08-30T01:20:00+08:00
   by: Claude (Opus 5, Claude Code)
-  change_id: CL-20260830-GOV-005
+  change_id: CL-20260830-GOV-006
+  previous_action_1: 取消单步规模硬上限与门禁 3（S-GOV.2，CL-20260830-GOV-005，2026-08-30T00:50:00+08:00）
   previous_action_2: 实现门禁 2 步骤元数据校验（S-INIT.3，CL-20260830-GOV-004，2026-08-30T00:35:00+08:00）
-  next_step: S-INIT.4（ci/check_changelog_schema.py + 把门禁 2 与门禁 4 的构造用例夹具化到 ci/tests/，补上两步 D3 各扣的 1 分）
+  next_step: S-INIT.5（门禁 6 可复现性：check_reproducibility.py —— 硬编码魔数 = 0 / 声明的 seed 被实际使用 / 环境锁与依赖声明一致）
   previous_actions:
     - 实现门禁 4 合规一致性核验（S-INIT.2，CL-20260830-GOV-003，2026-08-30T00:00:00+08:00）
     - 修订 1.1 可见性条款并同步全部引用点（S-INIT.1R，CL-20260829-GOV-002，2026-08-29T22:20:00+08:00）
     - 仓库初始化（S-INIT.1，CL-20260829-GOV-001，2026-08-29T21:45:00+08:00）
   open_items:
-    - "门禁 1（数据合规扫描）、门禁 2（步骤与元数据完整性）、门禁 4（合规一致性核验）已实现并在 CI 生效；门禁 3/5/6/7 与 changelog schema 校验仍靠 PR 自查表人工执行"
+    - "门禁 1（数据合规）、门禁 2（步骤元数据 + changelog schema）、门禁 4（合规一致性）已实现并在 CI 生效；另有门禁回归测试 12 组用例每次 push 验证拦截能力"
+    - "剩余：门禁 6（可复现性，下一步）· 门禁 5（代码质量，待第一份代码组件）· 门禁 7（端到端冒烟，待主链路）；门禁 3 已取消"
     - "单步规模上限与门禁 3 已于 2026-08-30 取消（DR-GOV-003）：规模不再是放行判据，拆分与否按定性判据判断；门禁 3 编号保留不复用"
     - "门禁 2 只校验元数据自洽，判断不了评分是否诚实——1.4 的回溯抽查（每 5 步抽 1 步复评）与下游反证仍必须人工执行"
     - "门禁 4 依赖两份尚未产出的契约文件：registry/compliance_routes.yaml（M0 的 S0.9 产出）与 platform/governance/consent_batches.yaml（M8 产出），结构见 ci/README.md"

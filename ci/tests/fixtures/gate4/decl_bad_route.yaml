@@ -1,0 +1,8 @@
+# 故意违规：核验 3（引用被否决路线）+ 核验 5（无审计钩子）+ 核验 6（同意批次未登记）
+component: m7.leak_probe
+cross_border_assets:
+  - asset: encrypted_gradient
+    m0_registry_ref: CBA-005
+    legal_basis_ref: R-A
+consent_dependency:
+  requires_batch: hk_directmarketing_consent_v9

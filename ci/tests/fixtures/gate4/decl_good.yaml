@@ -1,0 +1,13 @@
+component: m5.splitnn
+version: 0.1.0
+cross_border_assets:
+  - asset: encrypted_gradient
+    category: gradient
+    is_personal_information: case_by_case
+    m0_registry_ref: CBA-005
+    legal_basis_ref: R-B
+    protection: [homomorphic_encryption]
+audit_hooks:
+  - platform.governance.audit.log_cross_border_call
+consent_dependency:
+  requires_batch: cn_marketing_consent_v2

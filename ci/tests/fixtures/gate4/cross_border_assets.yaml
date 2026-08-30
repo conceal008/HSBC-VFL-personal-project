@@ -1,0 +1,14 @@
+# 夹具：模拟 M0 已填充的清单。CBA-009 故意标为 superseded 用于测核验 1。
+assets:
+  - id: CBA-005
+    asset: encrypted_gradient
+    category: gradient
+    is_personal_information: case_by_case
+    applicable_routes: [R-B]
+    status: active
+  - id: CBA-009
+    asset: legacy_id_hash
+    category: id_hash
+    is_personal_information: true
+    applicable_routes: [R-B]
+    status: superseded

@@ -1,0 +1,15 @@
+# 故意违规：核验 1（引用不存在 / 引用已作废）+ 核验 2（定性不一致）
+component: m3.psi
+cross_border_assets:
+  - asset: intersection
+    m0_registry_ref: CBA-999
+    legal_basis_ref: R-B
+  - asset: legacy_hash
+    m0_registry_ref: CBA-009
+    legal_basis_ref: R-B
+  - asset: gradient_mislabeled
+    category: raw_feature
+    is_personal_information: true
+    m0_registry_ref: CBA-005
+    legal_basis_ref: R-B
+audit_hooks: [platform.governance.audit.log_cross_border_call]

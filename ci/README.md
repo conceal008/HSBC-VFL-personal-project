@@ -6,7 +6,8 @@
 |---|---|---|---|
 | 1 | 数据合规扫描（凭证·数据扩展名·体积·个人标识模式·.env） | `check_secrets.sh` | ✅ 已实现并在 CI 生效 |
 | 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次） | `check_step_metadata.py` | ✅ 已实现并在 CI 生效 |
-| 2 | changelog schema 校验（字段类型与必填） | `check_changelog_schema.py` | ⬜ 未实现（S-INIT.4） |
+| 2 | changelog schema 校验（字段类型与必填、命名规范、step_id 唯一） | `check_changelog_schema.py` | ✅ 已实现并在 CI 生效 |
+| — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ 12 组用例，每次 push 跑 |
 | 3 | ~~单步规模~~ | ~~`check_step_scope.py`~~ | ⛔ **已取消**（2026-08-30，DR-GOV-003）：编号保留不复用，脚本不再实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
 | 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟） | — | ⬜ 待第一份代码组件出现后接入 |
@@ -34,8 +35,24 @@
 
 ## 实现顺序（附录 B）
 
-`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ `check_changelog_schema.py` → `check_reproducibility.py`。
+`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ `check_changelog_schema.py` → `check_reproducibility.py`（门禁 6，待做）。
 门禁 3（单步规模）已取消，不再实现。
+
+## 门禁回归测试
+
+```bash
+bash ci/tests/run_gate_tests.sh
+```
+
+12 组用例覆盖三个门禁的**放行**与**拦截**两侧：门禁 1（干净放行 / 拦数据·凭证·手机号·身份证·卡号）、
+门禁 4（合规声明放行 / 六项逐项拦截 / 契约文件缺失不放行）、门禁 2（无 trailer / 元数据全面违规 /
+DR 无 falsifier / 本仓库 HEAD 自检）、changelog schema（缺字段与非法枚举 / 文件名与 step_id 冲突 / 本仓库全绿）。
+
+**夹具纪律**：凡含个人标识形态或凭证形态的样本一律在脚本里**运行时拼装**，绝不落盘提交——
+否则门禁 1 扫本仓库时会命中夹具自身，把真仓库拦下来。已落盘的夹具（`ci/tests/fixtures/`）
+只有 YAML 声明与 commit message，跨方通信样本存为 `sender.py.txt`，由测试脚本复制成 `.py` 到临时目录。
+
+改任何门禁脚本后必须跑这个：门禁"不误报"很容易验证，"能拦住"却容易假通过。
 
 ## 本地使用
 
@@ -43,6 +60,8 @@
 bash ci/check_secrets.sh                          # 门禁 1，提交前必跑
 python3 ci/check_cross_border_consistency.py      # 门禁 4，改动声明或 M0 清单后必跑
 python3 ci/check_step_metadata.py                 # 门禁 2，校验 HEAD；查别的提交加 --rev <sha>
+python3 ci/check_changelog_schema.py              # 门禁 2 下半，校验全部 changelog 条目
+bash ci/tests/run_gate_tests.sh                   # 门禁回归，改任何门禁脚本后必跑
 ```
 
 两者退出码 1 即阻断（门禁 4 的退出码 2 表示缺 PyYAML）。
@@ -57,6 +76,8 @@ python3 ci/check_step_metadata.py                 # 门禁 2，校验 HEAD；查
 
 **门禁 2**
 
+- `check_changelog_schema.py` 校验全部条目的结构，`check_step_metadata.py` 深校验 HEAD 那一条的自洽性；
+  两者分工不同，都必须通过。
 - 只校验**一个**提交（默认 HEAD，PR 上取 head sha），不回溯全历史；批量体检需自行循环 `--rev`。
 - 通过线默认 10，若模块 `step_ledger.yaml` 的 `metrics.pass_threshold` 被回溯抽查上调为 11，自动取 11。
 - 校验的是元数据**自洽**（trailer 与 changelog 一致、总分等于四维之和、每维有证据引用、硬门全 pass），

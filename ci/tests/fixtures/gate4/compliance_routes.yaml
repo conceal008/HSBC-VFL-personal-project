@@ -1,0 +1,4 @@
+routes:
+  - {id: R-A, status: rejected}
+  - {id: R-B, status: primary}
+  - {id: R-C, status: fallback}

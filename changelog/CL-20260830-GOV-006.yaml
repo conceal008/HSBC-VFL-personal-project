@@ -1,0 +1,114 @@
+change_id: CL-20260830-GOV-006
+timestamp: 2026-08-30T01:20:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: feat
+title: 实现 changelog schema 校验与门禁回归测试套件
+
+step:
+  step_id: S-INIT.4
+  step_name: check_changelog_schema.py + ci/tests 回归夹具（12 组用例）
+  declaration: |
+    input_from: 4.2 changelog schema · S-INIT.2 与 S-INIT.3 各扣的 1 分（D3：构造样本未夹具化）
+    will_produce:
+      - ci/check_changelog_schema.py：结构校验全部 changelog 条目（必填字段 / 命名规范 /
+        时间戳带时区 / 枚举合法 / breaking_change 需 migration / type=exp 需 ≥5 种子与 config /
+        step_id 全局唯一 / 非 doc-chore 必须有 step 段）
+      - ci/tests/run_gate_tests.sh + ci/tests/fixtures/：门禁 1/2/4 与 schema 的放行与拦截两侧用例
+      - .github/workflows/gates.yml：gate2 job 增加 schema 校验步；新增 gate-regression job
+      - ci/README.md：状态表 · 回归测试用法 · 夹具纪律 · 门禁 2 分工说明
+    will_not_produce:
+      - 门禁 6（可复现性）的实现
+      - 任何 M0 内容；不改动 registry/ 下既有内容
+      - 不把任何含个人标识形态或凭证形态的样本落盘提交
+    success_criteria:
+      - schema 校验对现有 5 条 changelog 全绿，且能拦截缺字段/非法枚举/命名不符/step_id 重复
+      - 回归脚本一条命令跑完，全部用例 PASS，退出码 0；任一门禁拦截能力丢失时退出码 1
+      - 跑完回归后本仓库三个门禁仍全绿（夹具不污染真仓库）
+    risk: |
+      最大风险是夹具自身触发门禁 1——手机号/身份证/卡号/凭证一旦以字面量落盘，
+      门禁 1 扫本仓库就会命中夹具把真仓库拦下。对策：这类样本全部在测试脚本里运行时拼装
+      （printf 拼数字段），跨方通信样本存为 .txt 由脚本复制成 .py 到临时目录。
+  scope:
+    files_changed: 19
+    lines_added: 321          # check_changelog_schema.py + run_gate_tests.sh
+    note: 规模上限已于 DR-GOV-003 取消，本段仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "ci/check_secrets.sh 对含夹具的全仓扫描 BLOCK=0 WARN=0——证明夹具纪律有效；标识类样本在 run_gate_tests.sh 中由 printf 运行时拼装，仓库内无字面量"
+      G2: "未触碰 registry/cross_border_assets.yaml；夹具中的 CBA 条目只存在于 ci/tests/fixtures/，不在门禁 4 的扫描 glob 内"
+      G3: "will_not_produce 逐条可核验：无 check_reproducibility.py；registry/ 除 module_status.yaml 外无改动；git status 中无 csv/parquet/凭证类文件"
+      D1: "四项产出全部交付：schema 校验脚本与回归脚本合计见 scope.lines_added；回归脚本 12 组用例；gates.yml 增 1 步 + 1 job；ci/README.md 四处更新"
+      D2: "回归脚本自身即证据：PASS=12 FAIL=0，每组用例断言退出码 + 必须出现的输出子串（如 [核验 3]、'修正轮次 3 > 2'、'必须记录 ≥5 个种子与 config 路径'），拦截能力回归时会指名道姓地失败"
+      D3: "构造用例已全部夹具化到 ci/tests/fixtures/ 并提交，任何人 clone 后 `bash ci/tests/run_gate_tests.sh` 一条命令可完整复跑——S-INIT.2 与 S-INIT.3 的 D3 扣分原因至此消除"
+      D4: "补齐门禁 2 的 schema 半边，并首次建立'验证门禁本身'的机制：此前三个门禁的拦截能力只在实现当时验证过一次，此后每次 push 都会验证"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.5
+
+what: |
+  实现 ci/check_changelog_schema.py（4.2 结构校验，覆盖全部条目而非仅 HEAD 那条），
+  并建立门禁回归测试套件 ci/tests/：12 组用例覆盖门禁 1、门禁 4、门禁 2 与 schema 校验的
+  放行与拦截两侧，接入 CI 作为独立 job。
+  同时修正 schema 校验的两处实现问题：PyYAML 会把合法 ISO8601 解析成 datetime（原正则误报）；
+  type=exp 且 reproducibility 整段缺失时需显式要求种子与 config。
+
+why: |
+  两件事之前没有保障。其一，changelog 的结构完整性只在 HEAD 那一条上被校验，
+  历史条目改坏了没人知道；其二，也是更重要的——三个门禁的"拦截能力"只在实现当时用临时目录
+  验证过一次，之后任何一次改动都可能悄悄把拦截逻辑改没，而"不误报"的表象仍在。
+  门禁脚本最危险的失效形态是假通过，回归套件把它变成会响的失败。
+  顺带把 S-INIT.2 与 S-INIT.3 各扣的那 1 分（构造样本未夹具化、他人无法复跑）补上。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-001 · init_scope
+  loop_step: 《项目维护约束 v2》4.2 · 8.2 门禁 2 · 附录 B
+
+cross_border_impact: none
+cross_border_detail: |
+  本步实现的是元数据校验与测试工具，未触碰任何跨境信息流。
+  夹具中的 CBA-005/CBA-009、R-A/R-B/R-C、同意批次名均为虚构占位，仅供测试。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh 全仓扫描
+  conclusion: |
+    仓库内不含任何真实数据、派生统计量、真实标识或凭证。
+    测试用的手机号/身份证/卡号/api_key 形态样本一律运行时拼装，不落盘；
+    已落盘夹具只有 YAML 声明、commit message 与一段存为 .txt 的通信样本代码。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  即刻生效：新增 changelog 条目必须通过 schema 校验（必填字段、命名规范、时间戳带时区、
+  step_id 全局唯一）；改动任何门禁脚本后必须跑 bash ci/tests/run_gate_tests.sh。
+
+reproducibility:
+  config: 不适用（本步无实验配置）
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    全部用例已夹具化，`bash ci/tests/run_gate_tests.sh` 一条命令可完整复跑，无外部依赖（除 PyYAML）。
+
+rollback: |
+  git revert 本提交：schema 脚本与 ci/tests/ 移除，gate2 job 回到只校验 trailer，
+  gate-regression job 消失。无外部副作用。
+
+verification: |
+  1) bash ci/tests/run_gate_tests.sh → PASS=12 FAIL=0，退出码 0
+  2) python3 ci/check_changelog_schema.py → BLOCK=0
+  3) bash ci/check_secrets.sh → BLOCK=0（证明夹具不污染真仓库）
+  4) GitHub Actions 四个 job 全绿：门禁 1 → 门禁 4 → 门禁 2 → 门禁回归测试

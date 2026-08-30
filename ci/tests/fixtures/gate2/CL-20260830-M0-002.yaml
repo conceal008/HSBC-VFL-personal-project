@@ -1,0 +1,22 @@
+# 故意违规：type=decision 但 DR 无 falsifier
+change_id: CL-20260830-M0-002
+module: M0
+type: decision
+title: 缺 falsifier 的决策
+cross_border_impact: none
+links:
+  decision_record: DR-M0-001
+step:
+  step_id: S0.9
+  declaration: "will_produce: DR-M0-001"
+  revisions: 0
+  gates: {G1_data_compliance: pass, G2_cross_border: pass, G3_scope: pass, G4_redline: pass}
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence: {D1: a, D2: b, D3: c, D4: d}
+  verdict: committed
+  next_step: S0.10

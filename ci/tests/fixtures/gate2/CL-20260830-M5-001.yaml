@@ -1,0 +1,25 @@
+# 故意违规：声明为空 / revisions>2 / 硬门 fail / 单项=1 / 缺证据 / total 与四维之和不符 /
+#           非法枚举 / exp 无分支卡 / sensitive_review 空结论 / 与 trailer 双向不一致
+change_id: CL-20260830-M5-001
+module: M5
+type: exp
+title: 违规样本
+cross_border_impact: maybe
+sensitive_review:
+  triggered: true
+  conclusion: ""
+links:
+  branch_card: none
+step:
+  step_id: S5.9
+  declaration: ""
+  revisions: 3
+  gates: {G1_data_compliance: fail, G2_cross_border: pass}
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 1
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 8
+    evidence: {D1: "有", D3: "有"}
+  verdict: committed

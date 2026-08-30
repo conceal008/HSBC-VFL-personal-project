@@ -1,0 +1,9 @@
+# 故意违规：核验 4（有跨方通信特征但所在组件无 declaration.yaml）
+# 存为 .txt，由 run_gate_tests.sh 复制成 .py 到临时目录，避免被本仓库当成真实组件代码
+import socket
+
+
+def send(payload):
+    conn = socket.socket()
+    conn.connect(("10.10.1.2", 9000))
+    conn.sendall(payload)

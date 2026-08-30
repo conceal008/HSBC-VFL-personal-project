@@ -1,0 +1,95 @@
+change_id: CL-20260830-GOV-009
+timestamp: 2026-08-30T02:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 更正 CL-20260830-GOV-008 中不成立的 grep 核验命令
+
+step:
+  step_id: S-GOV.4F
+  step_name: 修正上一步 verification 字段中会误导后续执行体的核验命令
+  declaration: |
+    input_from: S-GOV.4 提交后实测发现 verification 第 2 条与事实不符
+    will_produce:
+      - changelog/CL-20260830-GOV-008.yaml 的 verification 第 2 条改为可成立的命令与预期结果
+    will_not_produce:
+      - 不改动该条目的任何其他字段（what / why / assessment / evidence 一字不动）
+      - 不改动任何规范条款与术语
+    success_criteria:
+      - 更正后的命令实际执行结果与写明的预期一致
+      - changelog schema 校验与门禁 2 仍通过
+    risk: |
+      修改已提交的 changelog 条目有改写历史之嫌。本次仅限 verification 字段——它是给后续执行体的
+      操作指令，写错会让人误判"修正没做干净"；判断与结论类字段（what / why / assessment）不动。
+      更正本身另立一条 fix 条目留痕，不做静默修改。
+  scope:
+    files_changed: 1
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: "只改一行 YAML 文本；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或声明"
+      G3: "git diff 显示仅 CL-20260830-GOV-008.yaml 的 verification 段变化"
+      G4: "0.7 七条红线无适用对象"
+      D1: "产出与声明一致：只改 verification 第 2 条"
+      D2: "更正后的命令可直接执行核对：排除规则正文自身引用后结果为 0 行"
+      D3: "确定性文本替换，可重放"
+      D4: "不产生新结论，只消除一处会误导后续执行体的指令，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.5
+
+what: |
+  CL-20260830-GOV-008 的 verification 第 2 条原写「grep 假名化/6A 部/伪 VFL → 0 行」。
+  实测为 2 行：《维护约束 v2》第 13 部分的 T2 规则与 AGENTS.md 第 12 条把这三个词作为
+  **反例**引用（"PIPL 写「去标识化」不写「假名化」"）。这两处是规则本身，不是违规。
+  更正为排除规则正文后的核验命令，并写明预期命中位置。
+
+why: |
+  verification 字段是写给后续执行体的操作指令。命令与预期不符时，
+  下一个人执行会看到 2 行命中，据此误判"术语修正没做干净"，进而重复劳动或错误回滚。
+  按 13.3 的 E2（判据必须可判定），核验命令本身也必须可判定。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-005
+  corrects: CL-20260830-GOV-008
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅治理文本更正，不含任何数据。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  不适用。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交即可。
+
+verification: |
+  grep -rn "假名化\\|6A 部\\|伪 VFL" docs/ modules/ AGENTS.md README.md | grep -v "不写\\|反例\\|法条原文用语"
+  → 预期 0 行（两处规则正文自身的反例引用被排除）

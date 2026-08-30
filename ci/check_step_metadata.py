@@ -58,8 +58,14 @@ def parse_trailers(message):
 
 
 def load_yaml(path):
-    with open(path, encoding="utf-8") as fh:
-        return yaml.safe_load(fh) or {}
+    """解析失败时报为 BLOCK 并返回空字典——门禁不应以异常栈的形式失败，
+    那会让人看不出到底是哪个文件坏了。"""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return yaml.safe_load(fh) or {}
+    except yaml.YAMLError as exc:
+        block("yaml", "%s 无法解析：%s" % (path, str(exc).splitlines()[0]))
+        return {}
 
 
 def pass_threshold(module):

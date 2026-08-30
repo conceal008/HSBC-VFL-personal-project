@@ -1,0 +1,106 @@
+change_id: CL-20260830-GOV-012
+timestamp: 2026-08-30T03:20:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 修复 module_status.yaml 的 YAML 语法错误并使门禁 2 不再以异常栈失败
+
+step:
+  step_id: S-INIT.5F
+  step_name: 修复上一步引入的 YAML 语法错误 + 门禁脚本健壮性
+  declaration: |
+    input_from: S-INIT.5 提交后复跑发现门禁 2 抛异常栈、回归套件 FAIL
+    will_produce:
+      - registry/module_status.yaml：next_step 值加引号，消除 YAML 别名解析错误
+      - ci/check_step_metadata.py：load_yaml 捕获 YAMLError 并报为 BLOCK，不再抛栈
+    will_not_produce:
+      - 不改动门禁 6 的任何逻辑与夹具
+      - 不改动任何规范条款
+    success_criteria:
+      - registry/module_status.yaml 可被 yaml.safe_load 解析（写回后复查）
+      - 五个门禁 + 17 组回归用例全部通过后方可提交
+      - 构造一个坏 YAML 时，门禁 2 输出 BLOCK 行而非异常栈
+    risk: |
+      本次错误的根因是提交前未把"全门禁复跑"的结果当作提交前置条件，
+      而是与 git push 写在同一串命令里各自执行——门禁失败了推送仍然发生。
+  scope:
+    files_changed: 2
+    lines_added: 6
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: "只改一处 YAML 值与一个函数；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或声明"
+      G3: "git diff 仅 registry/module_status.yaml 与 ci/check_step_metadata.py 两个文件"
+      G4: "0.7 七条红线无适用对象"
+      D1: "两项产出均已落盘并写回复查（yaml.safe_load 解析成功且 next_step 字段可读）"
+      D2: "五个门禁 + 17 组回归用例本地全绿后才提交，结果已逐行打印"
+      D3: "确定性文本替换，可重放"
+      D4: "不产生新结论，修复一处自造缺陷并顺带提升门禁可诊断性，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1
+
+what: |
+  S-INIT.5 在 registry/module_status.yaml 写入 `next_step: **S0.1 写预测命题**（…）`，
+  行首的 `*` 被 YAML 解析为别名标记，整个文件无法解析。
+  后果有二：门禁 2 读该文件取通过线时抛出异常栈（退出码非 0 但看不出是哪个文件坏了），
+  回归套件的「门禁2-D 本仓库 HEAD 自检」用例随之 FAIL。
+  本次给该值加引号修复，并让 check_step_metadata.py 的 load_yaml 捕获 YAMLError、
+  报为 BLOCK 行而不是抛栈。
+
+why: |
+  YAML 里 `*` 开头的标量是别名语法，Markdown 的加粗写法与之冲突——
+  这类错误在 registry/ 下尤其危险，因为 module_status.yaml 是多个门禁的输入。
+  门禁以异常栈的形式失败也是缺陷：使用者只看到一堆调用栈，看不出"哪个文件坏了"，
+  与第 0 部分原则三要求的可机器核验相悖。
+
+process_failure: |
+  本次错误暴露的不是笔误，而是流程执行问题：提交前的"全门禁复跑"与 git push
+  被写在同一串命令里各自独立执行，门禁失败并未阻止推送，导致坏文件进了远端。
+  纠正：此后提交与推送必须以门禁全绿为前置条件（命令用 && 串联而非 ;），
+  这一条已写入交接记录，供后续执行体沿用。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-004
+  corrects: CL-20260830-GOV-011
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅治理文件与门禁脚本修复，不含任何数据。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  不适用。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交将使 module_status.yaml 重新变为不可解析，不建议单独回退。
+
+verification: |
+  1) python3 -c "import yaml; yaml.safe_load(open('registry/module_status.yaml'))" → 无异常
+  2) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿，PASS=17
+  3) GitHub Actions 五个 job 全绿

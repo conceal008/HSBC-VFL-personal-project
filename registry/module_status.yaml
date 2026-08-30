@@ -38,17 +38,21 @@ modules:
   M0:
     name: 业务问题定义与合规边界
     path: modules/m0_compliance
-    status: not_started            # not_started | in_progress | blocked | done
-    claimed_by: null
-    claimed_at: null
-    expires_at: null
+    status: in_progress            # not_started | in_progress | blocked | done
+    claimed_by: "Claude (Opus 5, Claude Code)"
+    claimed_at: 2026-08-30T04:00:00+08:00
+    expires_at: 2026-08-31T04:00:00+08:00
     current_step: null
-    next_step: S0.1
+    next_step: S0.2
     active_branches: []
     blocking_on: []
     open_questions:
-      - "预测命题四要素（产品 P 类别 / 窗口 Δ / 转化定义 / 人群）需求方尚未确认"
-      - "业务最小可行规模（一个数字）尚未确定，M3 折损漏斗的判负线依赖它"
+      - "S0.1 已给出预测命题，但四要素全部为显式假设（产品 P = 跨境理财通南向通合资格投资产品 / Δ = 90 日 / 转化 = 首次成功申购 / 主动方 = 内地行），需求方确认前不得作为结论引用"
+      - "基线转化率 3.0% 无来源，纯假设；M1 选定代理数据集后须校准，业务最小可行规模随之重算"
+      - "A-7 营销合规结构（内地行对内地客户营销、香港行不在境内推介）为本步推断，未经法务复核"
+      - "A-8 南向通投资者资格条件与个人投资额度本步不引用具体数值，须由 M1/M9 查证监管现行有效文本后写入"
+      - "决策点 5（是否纳入增益评估）建议纳入：最小可行规模按双臂随机对照推导；纳入则 M1 必须补 ≥1 个含随机对照的数据源、M2 须内置异质处理效应结构"
+      - "决策点 4（PSI 交集是否明文落地）仍未定，留待 S0.9 判决"
   M1:
     name: 数据资产盘点与数据集选型
     path: modules/m1_data_selection
@@ -56,9 +60,11 @@ modules:
     claimed_by: null
     current_step: null
     next_step: S1.1
-    blocking_on: ["M0 输出契约：problem_statement.md"]
+    blocking_on: []
     open_questions:
-      - "是否纳入 uplift 评估？若纳入则必须补 ≥1 个随机对照数据源"
+      - "所有者已授权使用多组数据集（2026-08-30）：主口径为跨境理财通南向通场景，建议另设第二组口径（汇丰卓越理财跨境升级）并行验证"
+      - "是否纳入增益（uplift）评估？S0.1 建议纳入；若纳入则必须补 ≥1 个含随机对照的数据源（Criteo Uplift / Hillstrom）"
+      - "需为 S0.1 的基线转化率假设（3.0%）找到可校准的代理数据集"
   M2:
     name: 合成数据生成与仿真台
     path: modules/m2_synthetic

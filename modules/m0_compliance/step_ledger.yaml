@@ -5,16 +5,31 @@
 module: M0
 module_path: modules/m0_compliance
 total_steps_planned: 10      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+steps:
+  - step_id: S0.1
+    step_name: 写预测命题
+    status: committed
+    score: 12
+    gates: {G1: pass, G2: pass, G3: pass, G4: pass}
+    dimensions: {D1: 3, D2: 3, D3: 3, D4: 3}
+    revisions: 0
+    committed_at: 2026-08-30T04:45:00+08:00
+    change_id: CL-20260830-M0-001
+    outputs:
+      - modules/m0_compliance/problem_statement.md
+      - modules/m0_compliance/notebooks/S0.1_mde_sample_size.ipynb
+      - modules/m0_compliance/results/mde_sample_size.csv
+      - modules/m0_compliance/configs/s0_1_mde.yaml
+      - modules/m0_compliance/components/sample_size.py
 current_step: null
-next_step: S0.1
+next_step: S0.2
 
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
+  avg_score: 12.0           # <10 → 复审步骤划分与执行质量
   escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
+  revision_rate: 0.0        # >0.4 → 步骤划分过粗，重新拆分
+  steps_used: 1
+  budget_usage: 0.1         # >1.5 → 触发全局复审
   consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
   pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
 

@@ -1,0 +1,125 @@
+change_id: CL-20260830-M0-001
+timestamp: 2026-08-30T04:45:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.1 写预测命题，并由统计可检验性推出业务最小可行规模
+
+step:
+  step_id: S0.1
+  step_name: 写预测命题
+  declaration: |
+    input_from: 《方案流程框架 v2》M0 · 《Loop 执行规范 v2》LOOP M0 步骤分解表 S0.1 ·
+                所有者授权「根据汇丰相关业务进行选择，可以使用多组数据」
+    will_produce:
+      - modules/m0_compliance/problem_statement.md：单句命题（人群 / 时点 T / 窗口 Δ / 转化定义
+        四要素齐全、可证伪）+ 业务最小可行规模 + 全部显式假设清单
+      - modules/m0_compliance/configs/s0_1_mde.yaml：最小可行规模推导的全部参数
+      - modules/m0_compliance/components/sample_size.py：两比例检验样本量计算
+      - modules/m0_compliance/notebooks/S0.1_mde_sample_size.ipynb：带输出提交（9.1）
+      - modules/m0_compliance/results/mde_sample_size.csv：基线转化率 × 相对增益网格
+      - 模块 README、step_ledger、module_status 三处状态同步
+    will_not_produce:
+      - 不对任何跨境资产定性（S0.2 列清单、S0.3/S0.4 定性）
+      - 不推演任何合规路线（S0.5–S0.7）
+      - 不引用南向通投资者资格条件与个人投资额度的具体数值（理由见假设 A-8）
+      - 不使用任何真实客户数据；不写入任何未经查证的监管数字
+    success_criteria:
+      - 命题为单句、四要素齐全、可证伪（须给出明确的证伪条件）
+      - 业务最小可行规模是一个数字，且推导过程可复跑
+      - 全部业务假设逐条列出，含依据与「若不成立的影响」
+      - 门禁 6 对新增代码与 notebook 输出 BLOCK=0
+    risk: |
+      需求方未确认任何业务要素。若按假设推进而假设错得离谱，M1–M3 会返工。
+      对策：四要素与基线转化率全部标为显式假设并逐条给出「若不成立的影响」，
+      使返工范围可预估；最小可行规模改由统计可检验性推导，而不是拍一个业务数字——
+      前者可被重算，后者无法被证伪。
+  scope:
+    files_changed: 8
+    lines_added: 84
+    note: 规模上限已于 DR-GOV-003 取消，此处仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "无任何真实数据、派生统计量或标识；notebook 输出全部为公式推导结果；ci/check_secrets.sh 全仓 BLOCK=0"
+      G2: "registry/cross_border_assets.yaml 未被触碰，assets 仍为空列表；本步未定义任何跨境信息流；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 逐条可核验：cross_border_assets.yaml 无变化；无 route_*.md；problem_statement.md 第七节明确列出本步未做的事；假设 A-8 明确声明不引用监管具体数值"
+      G4: "0.7 七条红线：无实验分支选择、无指标定义变更、无合成数据外推、未把响应率表述为增益（第三节证伪条件第 2 条明确要求 Top-K 增益 CI 不覆盖 0）"
+      D1: "六项产出全部交付并逐一核对：命题为单句且四要素成表；证伪条件两条；最小可行规模一个数字；假设清单 8 条含依据与影响；三处状态文件同步"
+      D2: "关键数字可独立复核：N_eff ≥ 30,000 来自 notebook 输出「每臂需 13911 人 → 业务最小可行规模 N_eff ≥ 27822 人」，向上取整到万位；完整网格在 results/mde_sample_size.csv（16 行）；notebook 首 cell 打印 config sha256:68e142c92066、seed 42、git ed7ef23"
+      D3: "配置 + 组件 + notebook 三件套齐全，jupyter nbconvert --execute 实测重跑通过；门禁 6 对 R1–R6 六项检查全部通过"
+      D4: "消除四个未决问题（主动方 / 产品 P / 转化定义 / 业务最小可行规模），并产生一条此前不存在的负面结论：Loop 规范 0.4 建议的 MDE 初值（相对增益 5%）在本场景要求 N_eff ≥ 41.6 万，不现实"
+  revisions: 0
+  verdict: committed
+  next_step: S0.2
+
+what: |
+  产出 M0 的预测命题：给定观察截止日 T，对在 T 日同时为汇丰内地行与汇丰香港行零售客户、
+  年满 18 周岁、两侧均已取得营销用途所需同意（内地 PIPL 第 39 条单独同意；
+  香港 PDPO 第 VIA 部直接促销同意）、并符合跨境理财通南向通投资者资格的自然人，
+  预测其在 [T, T+90 日] 内首次成功申购南向通合资格投资产品的概率。
+  主动方（有标签方）= 内地行，被动方 = 香港行。
+  同时由双臂随机对照的两比例检验反推业务最小可行规模 N_eff ≥ 30,000 人。
+
+why: |
+  产品选型基于汇丰实际业务：南向通在业务机制上要求投资者在内地行开立汇款专户、
+  在香港行开立投资专户——「共同客户 = 交集」因此是业务前提而非建模假设，
+  与框架判断一完全吻合；两个独立法人主体天然构成纵向联邦学习的两方；
+  营销由内地行对内地客户实施，香港行不在境内推介，使营销行为本身处于合规结构内。
+  转化取「首次成功申购」而非「开户」，因为开户后无申购的客户不产生业务价值，
+  用开户当转化会系统性高估方案效果——代价是正样本更稀疏、N_eff 更高，如实计入。
+  最小可行规模改由统计可检验性推导而非拍业务数字：前者可被重算与证伪，后者不能。
+
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.1
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只写命题与推导规模，未定义、未实现、未触碰任何跨境信息流。
+  跨境资产清单的填充是 S0.2–S0.4。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh 全仓扫描
+  conclusion: |
+    产出为公式推导与公开业务机制描述，不含任何真实客户数据、真实数据派生统计量或标识。
+    基线转化率 3.0% 为显式假设而非任何真实业务数字，已在文档中三处标注「无来源，纯假设」。
+    南向通投资者资格条件与个人投资额度**刻意不引用具体数值**（假设 A-8），
+    避免凭记忆写入未经查证的监管数字。
+
+downstream_affected: [M1, M2, M3, M6]
+breaking_change: false
+migration: |
+  M1 需据此补充：①校准基线转化率的代理数据集；②若采纳增益评估，须含随机对照的数据源；
+  ③所有者已授权多组数据，建议主口径（南向通）之外并行第二组口径（卓越理财跨境升级）。
+
+reproducibility:
+  config: modules/m0_compliance/configs/s0_1_mde.yaml
+  config_hash: sha256:68e142c92066
+  seeds: [42]
+  env_lock: null
+  note: |
+    本步无随机过程，seed 声明以备后续复用。
+    重跑方式：jupyter nbconvert --to notebook --execute --inplace
+    modules/m0_compliance/notebooks/S0.1_mde_sample_size.ipynb
+
+rollback: |
+  git revert 本提交：M0 回到未开始状态，problem_statement.md 与推导产物移除。
+
+verification: |
+  1) python3 -c "import sys; sys.path.insert(0,'.'); from modules.m0_compliance.components.sample_size import required_n_per_arm; print(required_n_per_arm(0.03, 0.20, 0.05, 0.80))" → 13911
+  2) head -1 modules/m0_compliance/results/mde_sample_size.csv → base_rate,relative_lift,treated_rate,n_per_arm,n_total
+  3) python3 ci/check_reproducibility.py → BLOCK=0 WARN=0
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

@@ -112,8 +112,13 @@ Cross-Border: none | modifies_flow | new_asset | requires_m0_review
 11. **凡产出处理或实验结果，必须有 notebook 并带输出提交**（`modules/mX/notebooks/<步骤号>_<简述>.ipynb`）。
     没有 notebook 的结果视为未交付——别人打开仓库要能直接看到你算出了什么，而不是先配环境重跑一遍。
     六条纪律见《维护约束 v2》9.1：逻辑放 components 不放 notebook · 参数从 configs 读不写死 ·
-    首 cell 打印运行指纹 · Restart & Run All 能跑通 · 结论写在输出下方 ·
+    首 cell 打印运行指纹 · Restart & Run All 可从头执行至末尾无错误 · 结论写在输出下方 ·
     **输出含真实数据派生内容时清除输出再提交**（本仓库 Public，这条无豁免）。
+12. **术语用 `registry/glossary.yaml` 里的说法，不用它 `forbidden` 里的说法。** 有法条出处的概念
+    必须用法条原文用语（例：PIPL 写「去标识化」不写「假名化」；PDPO 写「第 VIA 部」不写「第 6A 部」；
+    内地写「个人信息」、香港写「个人资料」，不合并）。缩写首次出现写全称并括注英文。
+    判据要可判定、数字要带口径（哪个数据集 / 哪种划分 / 几个种子 / CI），
+    「显著」只在给出 p 值时使用。完整规则见《维护约束 v2》第 13 部分。
 
 ---
 

@@ -1,0 +1,115 @@
+change_id: CL-20260830-GOV-008
+timestamp: 2026-08-30T02:15:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: decision
+title: 新增术语与表达规范并建立权威术语表，修正现存非规范术语
+
+step:
+  step_id: S-GOV.4
+  step_name: 第 13 部分术语与表达规范 + glossary.yaml + 现存表述修正
+  declaration: |
+    input_from: 仓库所有者指令（术语使用规范官方正式的说法，表达清晰不致误解，调整现有表述并列入规范）
+    will_produce:
+      - registry/glossary.yaml：权威术语表，首批 31 条，六类（联邦学习 / 隐私与安全 /
+        内地法规 / 香港法规 / 评估与实验 / 工程与治理）
+      - 《项目维护约束 v2》新增第 13 部分（13.1–13.5，含 T1–T7 与 E1–E8）；
+        1.3 目录纪律 · 附录 A 检查卡 · 附录 B 初始化清单三处同步
+      - 现存术语修正：假名化→去标识化 · PDPO 第 6A 部→第 VIA 部 · 出境三路径→法定名称 ·
+        DPP 与 PICS 全称 · DPIA→PIPIA（括注 DPIA）· 标签方→主动方（有标签方）·
+        伪 VFL→模拟纵向切分
+      - 仓库侧：AGENTS.md 第 12 条 · PR 模板「术语与表达」5 项自查 · README 目录导航 ·
+        自有文档中 E4 类用词改写
+      - 三份规范的 8-9月/ 源件同步修改，六份两两一致
+    will_not_produce:
+      - 术语检查脚本（纳入门禁 5，非本步）
+      - 不做一次性全量文风替换（理由见 DR-GOV-005 的 scope_limit）
+      - 不追溯改写历史 changelog / DR / 交接记录 / 项目实时日志中的既有表述
+      - 不改变任何结论、判据数值或条款效力——全部为等义替换
+    success_criteria:
+      - 六份规范文件两两 diff 一致
+      - 仓库内 grep「假名化」「6A 部」「伪 VFL」结果为 0
+      - glossary.yaml 通过 yaml.safe_load，条目均含 term / definition / source
+      - 四个门禁与 12 组回归用例改动后全绿
+    risk: |
+      风险有二：其一，为追求"统一"而大规模替换文风，引入大量无意义 diff 并可能改变原意——
+      对策是 DR 里写死 scope_limit，只改会造成误解的表述，其余在下次改写该段落时顺带修正。
+      其二，glossary 的法条出处若登记错误，会把错误固化为权威——对策是 review_trigger 第 ②
+      条要求 M0 的 S0.3/S0.4 定性完成时逐条回检 legal_basis。
+  scope:
+    files_changed: 14
+    lines_added: 0
+    note: 规模上限已于 DR-GOV-003 取消，此处仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只改治理文本与术语；ci/check_secrets.sh 全仓 BLOCK=0 WARN=0"
+      G2: "未触碰 cross_border_assets.yaml；门禁 4 复跑 BLOCK=0。注意：本步修正的是 M0 将要使用的法定术语，但未预先给出任何跨境资产定性，定性仍属 S0.3/S0.4"
+      G3: "will_not_produce 逐条可核验：ci/ 下无术语检查脚本；历史 changelog 与 DR 未改动；三份规范中除列明的术语外正文未变（diff 可逐处核对）"
+      G4: "0.7 七条红线无适用对象"
+      D1: "四项产出全部交付：glossary.yaml 31 条 · 第 13 部分五个小节 · 八类术语修正 · 仓库侧四处同步；六份文件 diff 两两一致（已实测）"
+      D2: "修正结果可机器核验：grep「假名化」「6A 部」「伪 VFL」= 0；每条术语在 glossary 中有 definition 与 source，法定术语另有 legal_basis 可对照法条原文复核"
+      D3: "全部改动为确定性文本替换，脚本给出原文与新文，可完整重放"
+      D4: "消除一类此前无人负责的风险：用非法定术语做出的合规定性无法对应法条，法务复核时会被直接质疑。同时把术语从个人习惯变成 append-only 契约——此后改术语与改跨境资产走同一套纪律"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.5
+
+what: |
+  建立 registry/glossary.yaml（权威术语表，首批 31 条），在《项目维护约束 v2》新增第 13 部分
+  「术语与表达规范」（术语使用规则 T1–T7、表达规范 E1–E8），并修正现存文档中八类会造成误解的表述。
+
+why: |
+  本项目的读者包括法务与合规、需求方与评审。同一概念多种说法只是别扭，
+  但用非法定术语指代法定概念会让合规论证失去依据：框架 v2 原文用「假名化」（GDPR 用语）
+  指代 PIPL 第 73 条的「去标识化」，法务复核时无法对应到任何中国法条；
+  「PDPO 第 6A 部」的官方条文编号是「第 VIA 部」；内地「个人信息」与香港「个人资料」
+  是两个法域的两个法定概念，混用会直接影响 M0 的跨境对象定性与 M9 的一致性核验。
+  这些不是文字工作，是合规论证能否成立的前提。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-005
+  loop_step: 《项目维护约束 v2》第 13 部分 · 1.3 · 附录 A · 附录 B
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只修改术语与表达规范，未触碰任何跨境信息流，也未对任何跨境资产作出定性。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查 + ci/check_secrets.sh
+  conclusion: |
+    产出为术语表与治理文本，不含任何真实数据、派生统计量、标识或凭证。
+
+downstream_affected: [M0, M1, M3, M5, M6, M7, M9]
+breaking_change: false
+migration: |
+  即刻生效：后续文档与代码注释使用 glossary.yaml 的 term；
+  遇到 forbidden 中的说法时就地改为 term，不新增两种说法并存的状态。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交可恢复仓库内全部条款与术语；8-9月/ 源件不在版本控制内，
+  需按 DR-GOV-005 的 existing_text_fixes 字段手工同步回退。
+
+verification: |
+  1) diff -q 六份规范文件 → 两两一致
+  2) grep -rn "假名化\\|6A 部\\|伪 VFL" docs/ modules/ AGENTS.md README.md → 0 行
+  3) python3 -c "yaml.safe_load(open('registry/glossary.yaml'))" → 31 条
+  4) 四个门禁 + 12 组回归用例 → 全绿

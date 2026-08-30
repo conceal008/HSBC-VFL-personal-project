@@ -1,0 +1,197 @@
+# 权威术语表 · 全项目唯一术语来源
+# ---------------------------------------------------------------------------
+# 规则（《项目维护约束 v2》第 13 部分）：
+#   · 一词一义、一义一词——同一概念在全项目只用 term 字段这一个说法
+#   · 首次出现写全称并括注英文与缩写，此后只用缩写
+#   · forbidden 列出的说法一律不得使用（含历史文档，改写时一并修正）
+#   · 项目自定义术语必须标 source: 本项目定义，并给出可判定的定义
+#   · 本文件 append-only：可新增、可标 superseded，不得删除或原地重写
+# ---------------------------------------------------------------------------
+
+version: 1.0.0
+last_updated: 2026-08-30T02:15:00+08:00
+maintained_by: 全体参与者；新增术语随首次使用它的那一步一并提交
+
+terms:
+
+  # ---------- 联邦学习 ----------
+  - term: 纵向联邦学习
+    en: Vertical Federated Learning
+    abbr: VFL
+    definition: 参与方样本重叠多、特征重叠少时，各方在不交换原始特征的前提下联合建模。
+    source: 学界通用
+    forbidden: [异构联邦学习, 特征联邦]
+  - term: 横向联邦学习
+    en: Horizontal Federated Learning
+    abbr: HFL
+    definition: 参与方特征重叠多、样本重叠少时的联合建模。
+    source: 学界通用
+  - term: 主动方
+    en: Active Party
+    aliases_allowed: [有标签方]
+    definition: 持有标签、发起并主导训练的一方。本项目视 M0 决策点 1 确定是内地还是香港。
+    note: FATE 等框架称 Guest；SecretFlow 文档亦作「主动方」。跨框架引用时须注明对应关系。
+    forbidden: [标签方, 甲方, A 方]
+    source: 学界与框架通用
+  - term: 被动方
+    en: Passive Party
+    aliases_allowed: [无标签方]
+    definition: 只提供特征、不持有标签的一方。
+    note: FATE 等框架称 Host。
+    forbidden: [非标签方, 乙方, B 方]
+    source: 学界与框架通用
+  - term: 分割学习
+    en: Split Learning
+    abbr: SplitNN
+    definition: 将神经网络按层切分到不同参与方，交换中间层表示而非原始数据。
+    source: 学界通用
+  - term: 隐私集合求交
+    en: Private Set Intersection
+    abbr: PSI
+    definition: 双方在不泄露非交集元素的前提下求出标识符交集的密码学协议。
+    forbidden: [样本对齐（单独使用时）, 求交集]
+    note: 「实体对齐」指业务层面的匹配问题，包含模糊匹配与匹配噪声，范围大于 PSI，两者不得混用。
+    source: 学界通用
+
+  # ---------- 隐私与安全 ----------
+  - term: 去标识化
+    en: De-identification
+    definition: 使个人信息在不借助额外信息的情况下无法识别特定自然人的处理；**处理后仍属个人信息**。
+    legal_basis: PIPL 第 73 条第（三）项
+    forbidden: [假名化]
+    note: 「假名化」是 GDPR（pseudonymisation）用语，不是中国法定术语，本项目不使用。
+    source: 法定术语
+  - term: 匿名化
+    en: Anonymization
+    definition: 使个人信息无法识别特定自然人**且不能复原**的处理；处理后不再属于个人信息。
+    legal_basis: PIPL 第 73 条第（四）项
+    note: 门槛远高于去标识化。判定为匿名化必须给出不可复原的论证，不得默认。
+    source: 法定术语
+  - term: 差分隐私
+    en: Differential Privacy
+    abbr: DP
+    definition: 以隐私预算 ε（及 δ）刻画单条记录对输出分布影响上界的形式化隐私保证。
+    note: 报告 DP 结果必须同时给出 ε、δ、邻接定义与组合方式；只写「加了 DP」无意义。
+    source: 学界通用
+  - term: k-匿名性
+    en: k-anonymity
+    definition: 任一准标识符组合对应的记录数不少于 k。
+    source: 学界通用
+  - term: 同态加密
+    en: Homomorphic Encryption
+    abbr: HE
+    source: 学界通用
+  - term: 秘密分享
+    en: Secret Sharing
+    abbr: SS
+    source: 学界通用
+
+  # ---------- 法律法规（内地） ----------
+  - term: 个人信息
+    en: Personal Information
+    definition: 以电子或其他方式记录的与已识别或者可识别的自然人有关的各种信息，不包括匿名化处理后的信息。
+    legal_basis: PIPL 第 4 条
+    scope: 内地法域
+    note: 香港法域对应概念为「个人资料」，两者不得互换使用。涉及双方时分别表述。
+    source: 法定术语
+  - term: 敏感个人信息
+    legal_basis: PIPL 第 28 条
+    scope: 内地法域
+    source: 法定术语
+  - term: 单独同意
+    definition: 就特定处理活动单独作出的同意，不得以概括同意或捆绑同意替代。
+    legal_basis: PIPL 第 23、25、29、39 条
+    scope: 内地法域
+    source: 法定术语
+  - term: 数据出境安全评估
+    definition: 个人信息出境三条合法路径之一，由国家网信部门组织。
+    legal_basis: PIPL 第 38 条第（一）项
+    forbidden: [安全评估路径（单独使用时）]
+    source: 法定术语
+  - term: 个人信息出境标准合同
+    definition: 个人信息出境三条合法路径之一。粤港澳大湾区另有简化路径，适用条件须逐条论证。
+    legal_basis: PIPL 第 38 条第（三）项
+    forbidden: [标准合同路径（单独使用时）, SCC]
+    source: 法定术语
+  - term: 个人信息保护认证
+    legal_basis: PIPL 第 38 条第（二）项
+    source: 法定术语
+  - term: 个人信息保护影响评估
+    abbr: PIPIA
+    definition: 处理敏感个人信息、自动化决策、向境外提供个人信息等情形下的事前评估。
+    legal_basis: PIPL 第 55、56 条
+    note: 国际通称 DPIA（Data Protection Impact Assessment）。对内地监管口径写 PIPIA，对外部读者可括注 DPIA。
+    source: 法定术语
+
+  # ---------- 法律法规（香港） ----------
+  - term: 个人资料
+    en: Personal Data
+    scope: 香港法域
+    legal_basis: PDPO（第 486 章）第 2 条
+    note: 内地法域对应概念为「个人信息」，不得互换。
+    source: 法定术语
+  - term: 保障资料原则
+    en: Data Protection Principles
+    abbr: DPP
+    definition: PDPO 附表 1 的六项原则，本项目主要涉及 DPP 1（收集目的与方式）与 DPP 3（使用限制）。
+    legal_basis: PDPO 附表 1
+    scope: 香港法域
+    source: 法定术语
+  - term: 直接促销
+    en: Direct Marketing
+    definition: PDPO 第 VIA 部规管的行为：使用个人资料作直接促销前须告知并提供不使用的选择；提供予他人作直接促销须取得资料当事人书面同意。
+    legal_basis: PDPO 第 VIA 部
+    forbidden: ["第 6A 部", 直销专章]
+    note: 官方中文条文编号是罗马数字「第 VIA 部」，不写作「第 6A 部」。
+    scope: 香港法域
+    source: 法定术语
+  - term: 收集个人资料声明
+    en: Personal Information Collection Statement
+    abbr: PICS
+    scope: 香港法域
+    source: 法定术语
+
+  # ---------- 评估与实验 ----------
+  - term: 增益
+    en: Uplift
+    definition: 处理组与对照组的结果差异，即「因营销而改变的行为」，营销场景的最终判据。
+    forbidden: [提升率（指代 uplift 时）, 增量转化率（未定义时）]
+    note: 与「响应率」严格区分：响应率高不等于有增益。混用属 0.7 红线第 7 条。
+    source: 学界通用
+  - term: Qini 曲线
+    en: Qini curve
+    related: [AUUC]
+    source: 学界通用
+  - term: 时间外推验证
+    en: Out-of-Time validation
+    abbr: OOT
+    definition: 用晚于训练期的时间窗做验证，金融风控与营销的真实口径。
+    forbidden: [时间切分（指代 OOT 时）]
+    source: 业界通用
+  - term: 模拟纵向切分
+    en: simulated vertical split
+    definition: 把单机构数据集按列人为切成两方以模拟纵向场景；随机列切分是其最弱形式。
+    forbidden: ["伪 VFL"]
+    note: 本项目定义的口径术语。此类切分会系统性高估 VFL 增益，其结果不得支撑外部效度主张。
+    source: 本项目定义
+  - term: 合规折损率
+    definition: 可用样本 N_eff 与 min(N₁, N₂) 之比，即可匹配 ∩ 交集 ∩ 内地单独同意 ∩ 香港直接促销同意 ∩ 质量达标五层折损后的存活比例。
+    source: 本项目定义
+    note: 非通用术语，对外文件首次出现必须给出上述计算式。
+
+  # ---------- 工程与治理 ----------
+  - term: 门禁
+    en: CI gate
+    definition: 在 CI 中自动执行、不通过即阻断合并的检查。本项目编号 1–7，见 ci/README.md。
+    forbidden: [卡点, 关卡]
+    source: 本项目定义
+  - term: 自评硬门
+    en: hard criteria (self-assessment)
+    definition: 单步自评中的 G1–G4 四项二元判定，任一 fail 则本步作废重做。
+    note: 与「门禁」是两回事——门禁由 CI 执行，自评硬门由执行体在提交前自评。不得互称。
+    source: 本项目定义
+  - term: 原始数据不出本地
+    definition: 参与方的原始特征与标识符不离开本方环境；中间层表示、梯度、聚合统计是否可交换另行论证。
+    forbidden: [数据不出域]
+    note: 「数据不出域」口语化且易被误解为「所有数据都不出去」，掩盖了中间量仍可能泄露的事实。
+    source: 本项目定义

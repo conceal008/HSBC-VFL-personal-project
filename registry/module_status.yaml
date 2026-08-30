@@ -7,10 +7,11 @@ repo: https://github.com/conceal008/HSBC-VFL-personal-project
 
 governance:
   # 治理层（仓库骨架、CI、规范）不属于任何模块，动作记在这里
-  last_action: 新增结果可见性要求：处理与实验以 notebook 为入口并带输出提交（Step S-GOV.3）
-  last_action_at: 2026-08-30T01:45:00+08:00
+  last_action: 新增术语与表达规范并建立权威术语表（Step S-GOV.4）
+  last_action_at: 2026-08-30T02:15:00+08:00
   by: Claude (Opus 5, Claude Code)
-  change_id: CL-20260830-GOV-007
+  change_id: CL-20260830-GOV-008
+  previous_action_00: 新增结果可见性要求（S-GOV.3，CL-20260830-GOV-007，2026-08-30T01:45:00+08:00）
   previous_action_0: 实现 changelog schema 校验与门禁回归测试（S-INIT.4，CL-20260830-GOV-006，2026-08-30T01:20:00+08:00）
   previous_action_1: 取消单步规模硬上限与门禁 3（S-GOV.2，CL-20260830-GOV-005，2026-08-30T00:50:00+08:00）
   previous_action_2: 实现门禁 2 步骤元数据校验（S-INIT.3，CL-20260830-GOV-004，2026-08-30T00:35:00+08:00）
@@ -21,6 +22,7 @@ governance:
     - 仓库初始化（S-INIT.1，CL-20260829-GOV-001，2026-08-29T21:45:00+08:00）
   open_items:
     - "门禁 1（数据合规）、门禁 2（步骤元数据 + changelog schema）、门禁 4（合规一致性）已实现并在 CI 生效；另有门禁回归测试 12 组用例每次 push 验证拦截能力"
+    - "术语与表达规范已生效（DR-GOV-005，维护约束第 13 部分）：registry/glossary.yaml 为全项目唯一术语来源，首批 31 条；forbidden 词表的机器检查纳入门禁 5，在其上线前由 PR 自查表人工执行"
     - "结果可见性要求已生效（DR-GOV-004）：凡产出处理/实验结果必须有 notebook 并带输出提交；N3 硬编码魔数与 N5 execution_count 单调待门禁 6 实现机器校验，在此之前人工自查"
     - "剩余：门禁 6（可复现性，下一步）· 门禁 5（代码质量，待第一份代码组件）· 门禁 7（端到端冒烟，待主链路）；门禁 3 已取消"
     - "单步规模上限与门禁 3 已于 2026-08-30 取消（DR-GOV-003）：规模不再是放行判据，拆分与否按定性判据判断；门禁 3 编号保留不复用"

@@ -31,6 +31,7 @@
 │   └── 03-handoff/            会话交接记录 HO-*
 ├── registry/                  【核心】可机器核验的登记表
 │   ├── cross_border_assets.yaml   跨境资产清单（M0 唯一权威，当前为空模板）
+│   ├── glossary.yaml              权威术语表（全项目唯一术语来源，第 13 部分）
 │   ├── module_status.yaml         十模块状态与认领
 │   ├── decision_records/          DR-*.yaml，append-only
 │   ├── branch_cards/              分支卡（含失败分支），append-only

@@ -22,7 +22,7 @@
 | 文件 | 谁产出 | 最小结构 |
 |---|---|---|
 | `registry/compliance_routes.yaml` | **M0 的 S0.9**（判决主线+回退线，DR-M0-001） | `routes: [{id: R-B, status: primary}, {id: R-C, status: fallback}, {id: R-A, status: rejected}]`；status 取 `primary` / `fallback` / `rejected` / `undecided` |
-| `platform/governance/consent_batches.yaml` | **M8**（同意管理落地） | `batches: [{id: cn_marketing_consent_v2}]` |
+| `platform/governance/consent_batches.yaml` | **M8**（同意管理实现） | `batches: [{id: cn_marketing_consent_v2}]` |
 
 **文件不存在 ≠ 放行**：只要有组件声明引用了 `legal_basis_ref` 或 `consent_dependency.requires_batch`，
 而对应契约文件缺失，核验 3 / 核验 6 直接阻断并说明缺的是哪一步的产出。

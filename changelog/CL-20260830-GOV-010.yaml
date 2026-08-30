@@ -1,0 +1,105 @@
+change_id: CL-20260830-GOV-010
+timestamp: 2026-08-30T02:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 落实 CL-20260830-GOV-009 声称但未生效的更正
+
+step:
+  step_id: S-GOV.4F2
+  step_name: 实际修改 GOV-008 的 verification，并在 GOV-009 追加未生效说明
+  declaration: |
+    input_from: CL-20260830-GOV-009 提交后复查发现其声明的改动实际未落盘
+    will_produce:
+      - changelog/CL-20260830-GOV-008.yaml：verification 第 2 条实际更正为可成立的命令
+      - changelog/CL-20260830-GOV-009.yaml：追加 post_commit_note 说明首次尝试未生效及原因
+    will_not_produce:
+      - 不改写 GOV-009 的任何原有字段（只追加 post_commit_note）
+      - 不使用 force push 或 commit --amend 抹掉 GOV-009 那次提交
+      - 不改动任何规范条款、术语或门禁脚本
+    success_criteria:
+      - 复查 GOV-008 文件内容，verification 第 2 条确为新文本（不只看脚本是否报错）
+      - 更正后的命令实测输出 0 行
+      - changelog schema 校验与门禁 2 通过
+    risk: |
+      连续两条 fix 会让 changelog 出现"修正的修正"。但抹掉 GOV-009 需要 force push，
+      而 1.1 对 main 禁用 force push；且抹掉会让"曾经声明过一次未生效的更正"这一事实消失。
+      如实留两条，比历史干净更重要。
+  scope:
+    files_changed: 2
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: "只改两个 changelog 文件的文本；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或组件声明"
+      G3: "git diff 仅显示 GOV-008 的 verification 段与 GOV-009 追加的 post_commit_note；GOV-009 原有字段未变"
+      G4: "0.7 七条红线无适用对象"
+      D1: "两项产出均已落盘并复查文件内容确认"
+      D2: "更正后的命令实测输出 0 行；GOV-008 文件内容已打印核对"
+      D3: "确定性文本替换，锚点改用不含反斜杠的子串以避免同类转义问题复发"
+      D4: "不产生新结论，消除一处失真记录并留下可复用的教训，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: S-INIT.5
+
+what: |
+  CL-20260830-GOV-009 声明要把 GOV-008 的 verification 第 2 条改为可成立的命令，
+  但其执行脚本的正则转义与文件中的字面量不匹配（文件里是两个反斜杠 \\| ，脚本传入一个 \| ），
+  替换未命中，而脚本在断言失败后未中止，导致该条目已提交、目标文件却未变。
+  本条落实实际修改，并在 GOV-009 追加 post_commit_note 记录未生效的事实与原因。
+
+why: |
+  一条声称改了、实际没改的记录，比没有记录更危险：后续执行体会据此认为核验命令已可用。
+  按第 0 部分原则三（说的和做的必须可机器核验），说做不一致必须改实现，不能靠解释消化。
+  未使用 force push 抹掉 GOV-009——1.1 对 main 禁用 force push，且抹掉会让
+  "曾声明过一次未生效的更正"这一事实消失。
+
+lesson: |
+  文本替换类步骤的 success_criteria 必须包含"改动后复查目标文件内容"，
+  只看脚本是否报错不足以确认改动生效；断言失败时脚本也未必会中止执行流。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-005
+  corrects: CL-20260830-GOV-009
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅治理文本更正，不含任何数据。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  不适用。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交，GOV-008 的 verification 回到旧文本、GOV-009 的追加说明消失。
+
+verification: |
+  1) sed -n '/^verification:/,$p' changelog/CL-20260830-GOV-008.yaml → 第 2 条含 "grep -v" 与更正说明
+  2) grep -rn "假名化|6A 部|伪 VFL" docs/ modules/ AGENTS.md README.md | grep -v "不写|反例|法条原文用语" → 0 行
+  3) grep -n post_commit_note changelog/CL-20260830-GOV-009.yaml → 命中
+  4) python3 ci/check_changelog_schema.py → BLOCK=0

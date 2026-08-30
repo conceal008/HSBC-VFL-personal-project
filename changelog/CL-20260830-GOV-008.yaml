@@ -110,6 +110,10 @@ rollback: |
 
 verification: |
   1) diff -q 六份规范文件 → 两两一致
-  2) grep -rn "假名化\\|6A 部\\|伪 VFL" docs/ modules/ AGENTS.md README.md → 0 行
+  2) grep -rn "假名化\\|6A 部\\|伪 VFL" docs/ modules/ AGENTS.md README.md \
+     | grep -v "不写\\|反例\\|法条原文用语"   → 预期 0 行
+     说明：直接 grep 会命中 2 处——《维护约束 v2》第 13 部分 T2 与 AGENTS.md 第 12 条
+     把这三个词作为反例引用，那是规则本身而非违规。
+     本行由 CL-20260830-GOV-009 提出更正、CL-20260830-GOV-010 实际落实。
   3) python3 -c "yaml.safe_load(open('registry/glossary.yaml'))" → 31 条
   4) 四个门禁 + 12 组回归用例 → 全绿

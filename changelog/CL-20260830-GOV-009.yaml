@@ -90,6 +90,14 @@ reproducibility:
 rollback: |
   git revert 本提交即可。
 
+post_commit_note: |
+  **本条目提交时其声明的改动实际未生效**：执行替换的脚本里正则转义与文件中的字面量不匹配
+  （文件中是 \\| 两个反斜杠，脚本传入的是 \| 一个），替换未命中而脚本未中止，
+  导致本条目已提交、CL-20260830-GOV-008 的 verification 却仍是旧文本。
+  实际更正由 CL-20260830-GOV-010 落实。本条目原文保留不改写，此说明为追加。
+  教训：文本替换类步骤的 success_criteria 必须包含"改动后复查目标文件内容"，
+  只看脚本是否报错不足以确认改动生效。
+
 verification: |
   grep -rn "假名化\\|6A 部\\|伪 VFL" docs/ modules/ AGENTS.md README.md | grep -v "不写\\|反例\\|法条原文用语"
   → 预期 0 行（两处规则正文自身的反例引用被排除）

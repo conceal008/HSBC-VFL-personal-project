@@ -43,7 +43,7 @@ modules:
     claimed_at: 2026-08-30T04:00:00+08:00
     expires_at: 2026-08-31T04:00:00+08:00
     current_step: null
-    next_step: S0.2
+    next_step: S0.3
     active_branches: []
     blocking_on: []
     open_questions:
@@ -53,6 +53,8 @@ modules:
       - "A-8 南向通投资者资格条件与个人投资额度本步不引用具体数值，须由 M1/M9 查证监管现行有效文本后写入"
       - "决策点 5（是否纳入增益评估）建议纳入：最小可行规模按双臂随机对照推导；纳入则 M1 必须补 ≥1 个含随机对照的数据源、M2 须内置异质处理效应结构"
       - "决策点 4（PSI 交集是否明文落地）仍未定，留待 S0.9 判决"
+      - "S0.2 已列出八类跨境对象骨架（CBA-001..008），全部未定性"
+      - "**合规角色至今未指定**：依 DR-GOV-007，S0.3/S0.4 的定性只能起草（qualification_status: drafted_pending_review），approved 只能由合规角色赋予；M0 在复核前只能标记为「技术侧完成、待合规复核」，不得标记为 done"
   M1:
     name: 数据资产盘点与数据集选型
     path: modules/m1_data_selection

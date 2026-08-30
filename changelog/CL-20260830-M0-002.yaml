@@ -1,0 +1,131 @@
+change_id: CL-20260830-M0-002
+timestamp: 2026-08-30T05:10:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.2 列出八类跨境对象骨架，只列不定性
+
+step:
+  step_id: S0.2
+  step_name: 列跨境对象清单（只列不定性）
+  declaration: |
+    input_from: S0.1 的预测命题（主动方 = 内地行）· 《方案流程框架 v2》M0 跨境对象八类分级表 ·
+                《Loop 执行规范 v2》LOOP M0 步骤分解表 S0.2
+    will_produce:
+      - registry/cross_border_assets.yaml：八类跨境对象骨架 CBA-001..008，每条含
+        asset / category / description / direction / produced_by / frequency /
+        volume_estimate / notes，定性字段一律 pending
+      - registry/decision_records/DR-GOV-007.yaml：合规角色缺位期间的代行批准安排
+      - 模块 README、step_ledger、module_status 三处状态同步
+    will_not_produce:
+      - **不作任何定性**：is_personal_information / legal_basis / allowed_path /
+        applicable_routes 一律 pending，那是 S0.3（前四类）与 S0.4（后四类）
+      - 不推演任何合规路线（S0.5–S0.7）
+      - 不修改任何规范条款、门禁脚本或其他模块内容
+    success_criteria:
+      - 八类 100% 覆盖（与 required_categories 逐项比对）
+      - 全部条目 is_personal_information == pending（可用一行代码核验）
+      - 门禁 4 通过（清单结构合法、无声明引用不存在的条目）
+      - cross_border_assets.yaml 的变更有批准记录，且批准安排本身有 DR 留痕
+    risk: |
+      本文件是全项目最敏感的文件，5.4 要求合规角色 approve 且不可自审，而该角色至今未指定。
+      若就此停等，M0 无限期停摆；若无视该条款直接写入，等于取消了这条控制。
+      折中方案写入 DR-GOV-007：区分「起草」与「批准」，本步（不含定性）由所有者代行批准，
+      定性只能起草并标 drafted_pending_review。
+  scope:
+    files_changed: 6
+    lines_added: 0
+    note: 规模上限已于 DR-GOV-003 取消，此处仅作记录
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "清单只描述资产类型与流向，不含任何真实数据、派生统计量或标识；ci/check_secrets.sh 全仓 BLOCK=0"
+      G2: "本步是**定义**跨境资产清单本身，未引入任何实际的跨境信息流；无组件声明；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 逐条可核验：八条 is_personal_information 全部为 pending（yaml 加载后 all(...) 为 True）；无 route_*.md；未改动规范与门禁脚本"
+      G4: "0.7 七条红线无适用对象（本步无实验、无指标、无分支选择）"
+      D1: "八类与 required_categories 逐项比对结果为完全一致，无缺项；每条八个字段齐全"
+      D2: "覆盖率可一行代码核验：sorted([a['category'] for a in d['assets']]) == sorted(d['required_categories']) → True；定性留空可核验：all(a['is_personal_information'] == 'pending') → True"
+      D3: "本步产出为人工判断的结构化清单，另一个执行体依同一份框架表未必产出完全相同的条目划分（例如是否把 PSI 周期差分单列为一条），故 2 分而非 3 分；已在 CBA-003 的 notes 中写明差分归属于该条而非单列"
+      D4: "消除一个前置未决项——此前门禁 4 的六项核验因清单为空而无对象可核；八类骨架就位后，任何组件声明一旦引用不存在或类型不符的资产即被阻断。同时暴露并处理了一个长期潜伏的流程缺口（合规角色未指定），写入 DR-GOV-007"
+  revisions: 0
+  verdict: committed
+  next_step: S0.3
+
+what: |
+  在 registry/cross_border_assets.yaml 中列出八类跨境对象骨架：
+  CBA-001 原始特征值 · CBA-002 标识符哈希 · CBA-003 PSI 交集结果（含周期差分）·
+  CBA-004 中间层嵌入 · CBA-005 梯度（含加密梯度）· CBA-006 聚合统计（k-匿名）·
+  CBA-007 模型参数 · CBA-008 打分结果与营销名单。
+  每条给出方向、产出环节、频次、量级待测项与定性时不可回避的要点，
+  **定性字段一律 pending**。文件状态由 empty_template 转为 populating。
+  同时产出 DR-GOV-007：合规角色缺位期间，区分「起草」与「批准」的代行安排。
+
+why: |
+  清单是原则三（说的和做的可机器核验）的基准物：门禁 4 的六项核验全部以它为准，
+  此前它是空模板，六项核验无对象可核，等于没有生效。八类就位后，
+  任何组件声明一旦引用不存在的资产、或声明的类型与清单不符，合并前即被阻断。
+  本步严格「只列不定性」：定性直接决定哪些信息流被允许，是实质合规判断，
+  与「有哪些东西可能跨境」是两个不同的问题，混在一步里做会让两者都做不扎实。
+  CBA-001 明明是方案前提为「不流动」的一项，仍然列入——因为清单必须能回答
+  「它有没有跨境」，前提也需要被登记与核验。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-007
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.2
+
+cross_border_impact: new_asset
+cross_border_detail: |
+  本步在 registry/cross_border_assets.yaml 中新增八条资产登记（CBA-001..008）。
+  这是登记行为本身，不是实现任何跨境信息流：八条的 allowed_path 与 legal_basis 均为 pending，
+  在 S0.3 / S0.4 定性并经合规复核之前，**不得据此认为任何一类资产可以跨境**。
+  依《项目维护约束 v2》5.4，本文件变更需合规角色 approve 且不可自审；
+  该角色未指定，按 DR-GOV-007 由仓库所有者代行批准，限于不含合规判断的变更。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者，代行合规角色，依 DR-GOV-007 限制 L1）
+  conclusion: |
+    **合规角色缺位，由所有者代行批准**（DR-GOV-007 要求每次此类变更在此写明）。
+    本次变更不含任何合规定性，仅登记资产类型、流向与产出环节，
+    因此落在 DR-GOV-007 的 L1 允许范围内。
+    对照 2.2 的 L-受限审查清单五问：本清单不含任何统计量、不涉及分组样本量、
+    不泄露交集规模（volume_estimate 为「待测」）、不含真实业务绝对量级、
+    公开后不构成商业敏感信息泄露（内容为公开可得的 VFL 架构常识与本项目的资产划分）。
+    合规角色到位后须按 DR-GOV-007 的 L3 回溯复核本次变更。
+
+downstream_affected: [M3, M4, M5, M7, M8, M9]
+breaking_change: false
+migration: |
+  下游模块的组件声明从此可以填写 m0_registry_ref，取值范围为 CBA-001..008；
+  引用不存在的编号或与清单类型不符会被门禁 4 阻断。
+  但在定性完成并复核前，任何声明都不得据此进入 M8 的上线准备。
+
+reproducibility:
+  config: 不适用（本步无实验配置）
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交：清单回到空模板状态，M0 回到 1/10 步。
+  注意 registry/ 为 append-only，正常情况下应通过新增条目并标 superseded 来修正，
+  而非回退——回退仅适用于本次提交整体作废的情形。
+
+verification: |
+  1) python3 -c "import yaml;d=yaml.safe_load(open('registry/cross_border_assets.yaml'));
+     print(sorted(a['category'] for a in d['assets']) == sorted(d['required_categories']))" → True
+  2) python3 -c "import yaml;d=yaml.safe_load(open('registry/cross_border_assets.yaml'));
+     print(all(a['is_personal_information'] == 'pending' for a in d['assets']))" → True
+  3) python3 ci/check_cross_border_consistency.py → BLOCK=0
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

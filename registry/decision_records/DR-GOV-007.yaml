@@ -1,0 +1,70 @@
+dr_id: DR-GOV-007
+title: 合规角色缺位期间 cross_border_assets.yaml 变更的代行批准安排
+date: 2026-08-30T05:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+requested_by: conceal008（仓库所有者 / 本课题线负责人）
+approved_by: conceal008（仓库所有者，代行合规角色职责）
+module: GOV
+status: active
+supersedes: null
+related_change_id: CL-20260830-M0-002
+related_step: S-GOV.7
+
+context: |
+  《项目维护约束 v2》5.4 与 6.5 规定：改 `registry/cross_border_assets.yaml` 必须由**合规角色 approve
+  且不可自审**；1.1 亦要求 M0 / M9 相关变更需合规角色 approve。
+  本项目至今未指定合规角色——这一点自 2026-08-29 的初始交接记录起就登记为未决问题。
+  M0 的 S0.2（列跨境对象清单）是第一个必须写入该文件的步骤，缺口在此变成实际阻塞。
+
+options:
+  - id: 1
+    desc: 停止 M0，等待指定合规角色
+    rejected_because: |
+      合规角色的指定不在本课题线的控制范围内（需项目组或 mentor 决定），
+      等待期不可预估；而 S0.2 只列不定性，本身不产生任何合规判断，停等的收益接近零。
+  - id: 2
+    desc: 由仓库所有者代行合规角色批准，登记为已知缺口并限定适用范围
+    chosen: true
+  - id: 3
+    desc: 修改 5.4 取消该要求
+    rejected_because: |
+      属禁止事项第 16 条（通过改文档消除说做不一致）。缺的是人，不是条款。
+
+decision: |
+  在合规角色指定之前，`cross_border_assets.yaml` 的变更由仓库所有者代行批准，并受三条限制：
+
+  L1 **区分「起草」与「批准」**。技术方起草、合规方复核是行业常规做法，
+     5.4 的「不可自审」禁止的是自己批准自己的变更，不是禁止起草。因此：
+       · S0.2 的「只列不定性」：所有者代行批准即可；
+       · S0.3 / S0.4 的定性（是否个人信息、法条引用、允许路径）：**可以起草**，
+         但每条必须带 `qualification_status: drafted_pending_review`，
+         并在条目内写明起草依据（法条原文引用）与不确定点；
+       · `qualification_status: approved` **只能由合规角色赋予**，所有者代行不适用；
+       · 处于 drafted_pending_review 的条目**不得作为任何"该资产可以跨境"的放行依据**，
+         下游模块（M3–M8）引用它时必须同步标注该状态。
+  L2 每次此类变更必须在 changelog 的 `sensitive_review` 中写明「合规角色缺位，由所有者代行」。
+  L3 合规角色一经指定，须**回溯复核**本安排下发生的全部变更，复核结论写入新的 DR。
+
+impact_on_m0: |
+  M0 可以按 S0.1 → S0.10 的原顺序推进，但**全模块处于「草案」状态**：
+  S0.3 / S0.4 产出的定性均为 drafted_pending_review，
+  因此 M0 的量化 DoD（每类 ≥1 条法条引用、法务独立复核追问 0 次）在合规角色到位前**无法判定通过**。
+  M0 只能标记为「技术侧完成、待合规复核」，不得标记为 done。
+  下游模块可以在草案基础上继续设计与实验（否则整个项目停摆），
+  但任何**上线或对外交付**必须等复核完成——这条边界写在 M8 与 M9 的准入条件里。
+
+falsifier: |
+  ① 若出现有人把 drafted_pending_review 的条目当作放行依据（例如据此实现了某条跨境信息流
+     并进入 M8 的上线准备）—— 说明 L1 的边界未被遵守，须立即冻结该文件的写入权限并回溯清理；
+  ② 若合规角色到位后的回溯复核推翻了 S0.2 的清单结构（八类覆盖或条目划分有误）—— 
+     说明"只列不定性"这一步同样隐含了判断，本 DR 的前提有误。
+
+review_trigger: |
+  ①指定合规角色时立即复核；②M9 的一致性核验启动前必须复核一次。
+
+consequences:
+  - "S0.2 可以执行，产出的条目全部标记 is_personal_information: pending"
+  - "S0.3 / S0.4 可以起草，产出标记 qualification_status: drafted_pending_review"
+  - "M0 在合规角色到位前只能标记为「技术侧完成、待合规复核」，不得标记为 done"
+  - "M8 上线准入与 M9 交付准入必须等复核完成，这条边界写入两模块的 README"
+  - "module_status.yaml 的 M0 open_questions 已登记该缺口与影响范围"

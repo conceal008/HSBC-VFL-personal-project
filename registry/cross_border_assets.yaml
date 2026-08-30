@@ -8,10 +8,21 @@
 #     必须指向本文件中真实存在且定性一致的条目
 # ---------------------------------------------------------------------------
 
-version: 0.1.0
-status: empty_template          # empty_template | populating | frozen
-last_updated: 2026-08-29T21:45:00+08:00
-populated_by_steps: []          # S0.2 起在此登记填充本文件的步骤
+version: 0.2.0
+status: populating              # empty_template | populating | frozen
+last_updated: 2026-08-30T05:05:00+08:00
+populated_by_steps:             # 登记填充本文件的步骤
+  - step_id: S0.2
+    change_id: CL-20260830-M0-002
+    what: 列出八类跨境对象骨架，**只列不定性**
+    approved_by: conceal008（仓库所有者代行合规角色，依 DR-GOV-007 的限制 L1）
+
+# ⚠️ 本文件当前**不含任何合规定性**。
+# 每条的 is_personal_information / legal_basis / allowed_path 均为 pending，
+# 由 S0.3（前四类）与 S0.4（后四类）填写。
+# 依 DR-GOV-007 的限制 L1：定性可由技术方起草，但每条须带
+# qualification_status: drafted_pending_review；approved 只能由合规角色赋予。
+# **处于 drafted_pending_review 的条目不得作为任何"该资产可以跨境"的放行依据。**
 
 # 条目 schema（新增条目时逐字段填写，缺字段即视为未登记）
 schema:
@@ -41,4 +52,147 @@ required_categories:
   - model_parameter
   - score_or_list
 
-assets: []                      # ← S0.2 开始填充；在此之前任何组件声明都无法通过 CI 门禁 4
+# ---------------------------------------------------------------------------
+# 八类跨境对象（S0.2 产出）
+# 口径基准：S0.1 的预测命题——主动方（有标签方）= 内地行，被动方 = 香港行；
+# 场景为跨境理财通南向通合资格投资产品的首次申购预测。
+# 方向记法：cn -> hk 指从内地侧流向香港侧。
+# ---------------------------------------------------------------------------
+assets:
+
+  - id: CBA-001
+    asset: 原始特征值
+    category: raw_feature
+    description: 任一方客户的明细特征值本身（账户余额、交易流水、持仓、行为埋点等）
+    direction: bidirectional
+    produced_by: 双方本地数据层（M4 特征工程的输入）
+    frequency: 不适用（方案前提为不发生此项流动）
+    volume_estimate: 不适用
+    is_personal_information: pending   # ← S0.3
+    legal_basis: []                    # ← S0.3
+    allowed_path: pending              # ← S0.3
+    applicable_routes: pending
+    status: active
+    notes: |
+      列此项不是因为方案打算传输它，而是因为清单必须能回答"它有没有跨境"——
+      答案是"没有"才构成方案前提，而前提也需要登记与核验（门禁 4 的核验 4 依赖它）。
+
+  - id: CBA-002
+    asset: 标识符哈希
+    category: id_hash
+    description: 用于隐私集合求交（PSI）的标识符派生值（手机号 / 证件号 / 姓名等的哈希或加盲值）
+    direction: bidirectional
+    produced_by: M3 实体对齐组件（PSI 协议输入）
+    frequency: 每次求交
+    volume_estimate: 待测（随 PSI 协议选型变化）
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: |
+      跨境标识体系不同（内地手机号 / 身份证 vs 香港身份证号 / 护照 / 境外号码），
+      精确匹配覆盖率必然偏低，模糊匹配会引入假匹配——这属 M3 的一等实验变量。
+      单独哈希可被字典攻击，这一点在定性时不可回避。
+
+  - id: CBA-003
+    asset: PSI 交集结果
+    category: psi_intersection
+    description: 双方标识符的交集（共同客户名单），及其在周期性重跑之间的差分
+    direction: bidirectional
+    produced_by: M3 实体对齐组件
+    frequency: 每个营销周期（生产形态为离线周期性重跑）
+    volume_estimate: 待测（等于 N_eff 量级，S0.1 给出下界 30,000）
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: |
+      两点在定性时不可回避：①交集是**新产生的个人信息**，不是既有信息的搬运；
+      ②周期性重跑使"第 t 期与第 t+1 期交集之差 = 本期新增共同客户"成为真实泄露面，
+      属本场景特有（M7 攻击清单第 5 条）。是否明文落地由 S0.9 判决（决策点 4）。
+
+  - id: CBA-004
+    asset: 中间层嵌入
+    category: intermediate_embedding
+    description: 被动方（香港行）本地编码器输出、传给主动方的中间层表示
+    direction: hk -> cn
+    produced_by: M5 的 L3 路线（分割学习 SplitNN 等）
+    frequency: 每批次（训练）/ 每次打分（推理）
+    volume_estimate: 待测（随表示维度与批大小变化）
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: 可被反演重构原始特征（M7 攻击清单第 2 条），定性时须考虑扰动后的残余风险。
+
+  - id: CBA-005
+    asset: 梯度（含加密梯度）
+    category: gradient
+    description: 主动方（内地行）回传给被动方、用于更新其本地编码器的梯度
+    direction: cn -> hk
+    produced_by: M5 的 L3 路线
+    frequency: 每批次
+    volume_estimate: 待测
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: |
+      明文梯度可推标签——本项目历史阶段已实测到无防护时标签恢复接近完全成功。
+      本场景的标签是"是否申购投资产品"，属金融信息，定性时须按此考虑。
+
+  - id: CBA-006
+    asset: 聚合统计（k-匿名）
+    category: aggregate_statistic
+    description: 被动方按分组输出的聚合量（计数 / 均值 / 分布），满足 k-匿名性后跨境
+    direction: hk -> cn
+    produced_by: M5 的 L1 基线（本地模型 + 对方 k-匿名聚合统计）
+    frequency: 每个训练周期
+    volume_estimate: 小（分组数量级）
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: |
+      这是 L1 基线的基础，而 L1 是 VFL 的**真正竞争对手**（框架 M5）。
+      若此项定性为非个人信息且合规成本显著低于 L3，整个方案的结论可能改变——
+      因此它的定性对项目结论的影响不亚于梯度与嵌入。k 值由 M0 定义。
+
+  - id: CBA-007
+    asset: 模型参数
+    category: model_parameter
+    description: 训练产出的模型权重与超参（含被动方本地编码器参数）
+    direction: bidirectional
+    produced_by: M5
+    frequency: 每次训练完成
+    volume_estimate: 待测
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: 一般不视为个人信息，但可能记忆训练样本；定性须与 M7 的成员推断实验结论对齐。
+
+  - id: CBA-008
+    asset: 打分结果与营销名单
+    category: score_or_list
+    description: 联合打分输出的分数、分层与最终下发营销执行系统的名单
+    direction: 联合产生后交付主动方（内地行）营销执行系统
+    produced_by: M8 的离线周期性联合打分链路
+    frequency: 每个营销周期
+    volume_estimate: 待测（Top-K，K 取业务真实触达规模）
+    is_personal_information: pending
+    legal_basis: []
+    allowed_path: pending
+    applicable_routes: pending
+    status: active
+    notes: |
+      最容易被忽略的一类：分数与名单仍是个人信息，其流转需单独论证（框架判断三）。
+      且可被反推模型与特征（M7 攻击清单第 6 条）。
+      本项目主动方在内地、名单在内地使用，但名单由含香港侧信息的模型产生——
+      它是不是"个人信息出境"的下游产物，是 S0.3/S0.4 必须回答的问题。

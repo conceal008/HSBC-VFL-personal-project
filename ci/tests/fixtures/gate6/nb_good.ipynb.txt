@@ -40,7 +40,8 @@
    "source": [
     "from modules.m5_modeling.components.ladder import run_l1\n",
     "result = run_l1(cfg, seeds=cfg['seeds'])\n",
-    "print(result.summary())\n"
+    "print(result.summary())\n",
+    "print('L1 AUC %.4f (%d seeds)'\n      % (result.auc, len(cfg['seeds'])))\n"
    ]
   },
   {

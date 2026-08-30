@@ -19,14 +19,19 @@ trap 'rm -rf "$TMP"' EXIT
 PASS=0
 FAIL=0
 
-# assert <用例名> <期望退出码> <输出文件> [必须出现的子串...]
+# assert <用例名> <期望退出码> <输出文件> [必须出现的子串...] [-- 必须不出现的子串...]
 assert() {
   local name="$1" want="$2" out="$3"; shift 3
   local got=$RC ok=1
   [ "$got" = "$want" ] || { ok=0; echo "   退出码 期望 $want 实得 $got"; }
-  local needle
+  local needle refute=0
   for needle in "$@"; do
-    grep -qF -- "$needle" "$out" || { ok=0; echo "   缺少预期输出：$needle"; }
+    if [ "$needle" = "--" ]; then refute=1; continue; fi
+    if [ "$refute" = 0 ]; then
+      grep -qF -- "$needle" "$out" || { ok=0; echo "   缺少预期输出：$needle"; }
+    else
+      grep -qF -- "$needle" "$out" && { ok=0; echo "   出现了不该出现的输出：$needle"; }
+    fi
   done
   if [ "$ok" = 1 ]; then
     echo "✅ PASS  $name"; PASS=$((PASS+1))
@@ -145,7 +150,7 @@ cp "$FIX/gate6/nb_good.ipynb.txt" "$C6/modules/m5_modeling/notebooks/S5.4_l0_vs_
 printf 'seed: 42\nseeds: [11, 22, 33, 44, 55]\nsample_size: 5000\nthreshold: 0.73\n' \
   > "$C6/modules/m5_modeling/configs/l1_v1.yaml"
 run python3 "$C6/ci/check_reproducibility.py" "$C6"
-assert "门禁6-A 合规代码与 notebook 放行" 0 "$TMP/out.txt" "门禁 6 通过"
+assert "门禁6-A 合规代码与 notebook 放行" 0 "$TMP/out.txt" "门禁 6 通过" -- "无法解析为 Python"
 
 cp "$FIX/gate6/bad_component.py.txt" "$C6/modules/m5_modeling/components/bad.py"
 cp "$FIX/gate6/nb_bad.ipynb.txt" "$C6/modules/m5_modeling/notebooks/l0_vs_l1.ipynb"

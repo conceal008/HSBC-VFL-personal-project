@@ -1,0 +1,97 @@
+change_id: CL-20260830-GOV-015
+timestamp: 2026-08-30T04:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 修复门禁 6 把字符串格式化续行误判为 IPython 魔法
+
+step:
+  step_id: S-INIT.5F2
+  step_name: 修正 notebook cell 解析并补回归覆盖
+  declaration: |
+    input_from: 写第一个真实 notebook（S0.1）时门禁 6 报出「无法解析为 Python，跳过魔数扫描」
+    will_produce:
+      - ci/check_reproducibility.py：cell_source 只剥行首无缩进且形如 %name / %%name / !cmd / ?obj 的行
+      - ci/tests/run_gate_tests.sh：assert 增加「必须不出现」断言（-- 分隔）
+      - ci/tests/fixtures/gate6/nb_good.ipynb.txt：补一条 % 格式化续行，覆盖本缺陷
+    will_not_produce:
+      - 不改动门禁 6 的六项检查逻辑本身
+      - 不改动其他门禁脚本或任何规范条款
+    success_criteria:
+      - 本仓库门禁 6 输出 BLOCK=0 且 WARN=0（此前有 1 条解析失败 WARN）
+      - 回归套件 17 组全绿，且门禁6-A 用例断言输出中不出现「无法解析为 Python」
+    risk: |
+      放宽剥离规则可能让真正的 cell 魔法（如 %%time）残留导致解析失败。
+      对策：仍剥行首无缩进的 %name / %%name / !cmd / ?obj，只是不再误伤有缩进的 % 续行。
+  scope:
+    files_changed: 3
+    lines_added: 8
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: "只改门禁脚本、测试脚本与一份夹具；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰任何跨境资产或声明"
+      G3: "git diff 仅三个文件；门禁 6 的 R1–R6 判定逻辑未变"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三项产出全部交付"
+      D2: "修复前门禁 6 输出 WARN=1（cell 3 无法解析）；修复后 BLOCK=0 WARN=0。回归套件 PASS=17 且门禁6-A 新增 refute 断言，缺陷复发时该用例会指名失败"
+      D3: "确定性修改；夹具已提交，一条命令可复跑"
+      D4: "不产生新结论，修复一处会让魔数扫描被静默跳过的缺陷，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1
+
+what: |
+  门禁 6 解析 notebook 代码 cell 时，先剥掉「lstrip 后以 % / ! / ? 开头」的行以避开 IPython 魔法。
+  但字符串格式化的续行（例如 `      % (a, b)`）同样以 % 开头，被一并剥掉后整个 cell 语法被破坏，
+  结果是 WARN「无法解析为 Python，跳过魔数扫描」——**魔数检查被静默跳过**。
+  改为只剥行首无缩进且形如 %name / %%name / !cmd / ?obj 的行，并在回归夹具中补一条 % 续行覆盖。
+
+why: |
+  这是门禁最危险的失效形态：不是报错，而是悄悄不检查了，还只留一条容易被忽略的 WARN。
+  写第一个真实 notebook 时就撞上了它——说明它不是边缘情况，而是常规写法。
+  同时给回归脚本补上「必须不出现」的断言能力，此后这类"静默跳过"可以被测试直接钉住。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-004
+  loop_step: 《项目维护约束 v2》第 8 部分门禁 6
+
+cross_border_impact: none
+cross_border_detail: |
+  不涉及。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅门禁脚本与测试夹具，不含任何数据。
+
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  不适用。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交，门禁 6 将恢复误剥 % 续行的行为。
+
+verification: |
+  1) python3 ci/check_reproducibility.py → BLOCK=0 WARN=0
+  2) bash ci/tests/run_gate_tests.sh → PASS=17 FAIL=0
+  3) 门禁6-A 用例含 refute 断言「无法解析为 Python」不得出现

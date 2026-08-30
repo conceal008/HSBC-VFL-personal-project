@@ -39,6 +39,7 @@ SEED_CALL_RE = re.compile(
     r"(?:\b(?:seed|random_state|random_seed)\s*=\s*(-?\d+(?:\.\d+)?)"
     r"|\b(?:np\.random\.seed|random\.seed|torch\.manual_seed|tf\.random\.set_seed)\s*\(\s*(-?\d+)\s*\))")
 MAX_NOTEBOOK_CODE_LINES = 150
+MAGIC_LINE_RE = re.compile(r"^(?:%{1,2}[A-Za-z]|[!?])")
 
 BLOCKS = []
 WARNS = []
@@ -122,9 +123,12 @@ def cell_source(cell):
     src = cell.get("source", "")
     if isinstance(src, list):
         src = "".join(src)
-    # 去掉 IPython 魔法与 shell 命令，否则 ast 解析失败
+    # 去掉 IPython 魔法与 shell 命令，否则 ast 解析失败。
+    # 只剥**行首无缩进**且形如 %name / %%name / !cmd / ?obj 的行——
+    # 字符串格式化的续行（如 `      % (a, b)`）有缩进且 % 后不是字母，不能剥，
+    # 否则整个 cell 语法被破坏、魔数扫描被静默跳过。
     return "\n".join(l for l in src.splitlines()
-                     if not l.lstrip().startswith(("%", "!", "?")))
+                     if not MAGIC_LINE_RE.match(l))
 
 
 def check_notebook(path):

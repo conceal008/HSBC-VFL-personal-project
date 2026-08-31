@@ -70,7 +70,9 @@ printf '来源：<https://www.example.gov.cn/2024-03/22/c_%s.htm>\n' "1712776611
 run bash "$C1B/ci/check_secrets.sh" "$C1B"
 assert "门禁1-C URL 里的长数字不误报为卡号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似银行卡号"
 
-printf '卡号 %s\n' "6222021234567890123" > "$C1B/leak.md"
+# 卡号形态样本必须运行时拼装——写成字面量会被门禁 1 扫到本脚本自身
+CARD2="6222$(printf '%015d' 21234567890123)"
+printf '卡号 %s\n' "$CARD2" > "$C1B/leak.md"
 run bash "$C1B/ci/check_secrets.sh" "$C1B"
 assert "门禁1-D 非 URL 上下文的卡号仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
 

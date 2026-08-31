@@ -5,8 +5,18 @@ agent: Claude (Opus 5, Claude Code)
 requested_by: conceal008（仓库所有者 / 本课题线负责人）
 approved_by: conceal008（仓库所有者，代行合规角色职责）
 module: GOV
-status: active
+status: partially_superseded
 supersedes: null
+superseded_parts:
+  - part: "限制 L1 中「qualification_status: approved 只能由合规角色赋予」"
+    by: DR-GOV-008
+    date: 2026-08-31T12:00:00+08:00
+    reason: |
+      本 DR 假设合规角色是「暂时缺位」，安排定性待复核后转 approved。
+      所有者 2026-08-31 明确不设该角色，approved 状态在本项目中不再存在，
+      改用 self_assessed_no_legal_review。其余安排（起草与批准分离、
+      草案不得作为放行依据、M0 不得标 done）仍然有效。
+      本条按 append-only 原则保留原文，仅在此标记作废部分。
 related_change_id: CL-20260830-M0-002
 related_step: S-GOV.7
 

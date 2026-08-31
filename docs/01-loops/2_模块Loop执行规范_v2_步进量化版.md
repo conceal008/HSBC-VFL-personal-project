@@ -290,7 +290,7 @@ escalation_count: 1          # ≥3 触发模块整体复审
 | 每路线质询问题 | ≥5 个，回答率 100% |
 | 主线+回退线 | 各 1 条，回退触发条件可量化 |
 | 约束映射覆盖率 | 100% |
-| 法务独立复核追问次数 | 0 |
+| ~~法务独立复核追问次数 0~~ | **已豁免** （→ 已豁免，见 `registry/waivers.yaml` · W-001：本项目不设合规角色，本条降级为技术侧自评 + 强制免责标注） |
 
 **输出契约**：`problem_statement.md` · `registry/cross_border_assets.yaml` · `compliance_to_technical.csv` · `route_comparison.md` · `DR-M0-*.yaml`
 

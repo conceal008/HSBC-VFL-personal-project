@@ -137,6 +137,13 @@ run python3 "$CS/ci/check_changelog_schema.py" "$CS"
 assert "schema-B 文件名与 change_id 不符 + step_id 重复" 1 "$TMP/out.txt" \
   "与文件名不一致" "重复"
 
+printf 'change_id: CL-20260831-M5-002\nmodule: M5\ntype: doc\ntitle: 援引未登记豁免\nwaiver_ref: W-999\ncross_border_impact: none\nwhat: x\nwhy: y\nlinks: {}\nsensitive_review: {triggered: false}\nbreaking_change: false\nreproducibility: {}\nrollback: x\nverification: x\ntimestamp: 2026-08-31T12:00:00+08:00\nagent: t\n' \
+  > "$CS/changelog/CL-20260831-M5-002.yaml"
+mkdir -p "$CS/registry"
+printf 'waivers:\n  - waiver_id: W-001\n' > "$CS/registry/waivers.yaml"
+run python3 "$CS/ci/check_changelog_schema.py" "$CS"
+assert "schema-D 未登记的 waiver_ref 被拦截" 1 "$TMP/out.txt" "W-999 未在 registry/waivers.yaml 登记"
+
 run python3 "$ROOT/ci/check_changelog_schema.py" "$ROOT"
 assert "schema-C 本仓库全部条目通过" 0 "$TMP/out.txt" "changelog schema 校验通过"
 

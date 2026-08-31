@@ -10,6 +10,7 @@
 用法：python3 ci/check_changelog_schema.py [仓库根]
 退出码：0 通过；1 阻断；2 环境缺失
 """
+import io
 import os
 import re
 import sys
@@ -43,6 +44,19 @@ def block(cid, msg):
 
 def warn(cid, msg):
     WARNS.append("%s: %s" % (cid, msg))
+
+
+def load_waivers():
+    """已登记的豁免编号；未登记的 waiver_ref 一律阻断（《维护约束 v2》12.1.1）。"""
+    path = "registry/waivers.yaml"
+    if not os.path.exists(path):
+        return set()
+    try:
+        data = yaml.safe_load(io.open(path, encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return set()
+    return {str(w.get("waiver_id")) for w in (data.get("waivers") or [])
+            if isinstance(w, dict) and w.get("waiver_id")}
 
 
 def nonempty(value):
@@ -121,6 +135,13 @@ def check_entry(path, entry):
             block(cid, "type=exp 必须记录 ≥5 个种子（当前 %r）" % (seeds,))
         if not nonempty(repro.get("config")):
             block(cid, "type=exp 必须记录 config 路径")
+
+    waiver = entry.get("waiver_ref")
+    if waiver:
+        known = load_waivers()
+        if waiver not in known:
+            block(cid, "waiver_ref=%s 未在 registry/waivers.yaml 登记——"
+                       "未登记的绕行等同违规（12.1.1）" % waiver)
 
     step = entry.get("step")
     if ctype not in STEP_EXEMPT:

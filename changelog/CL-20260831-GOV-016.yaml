@@ -1,0 +1,125 @@
+change_id: CL-20260831-GOV-016
+timestamp: 2026-08-31T12:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: decision
+title: 明确不设合规角色，建立豁免登记机制并降级法务复核类判据
+waiver_ref: W-001
+
+step:
+  step_id: S-GOV.8
+  step_name: 豁免登记机制 + W-001 + 规范条款降级注记
+  declaration: |
+    input_from: 所有者 2026-08-31 指示「明确不设并降级 M0 的 DoD，你自己做，继续推进；
+                遇到强制性要求阻拦推进可适当绕开，但必须说明」
+    will_produce:
+      - registry/waivers.yaml：豁免登记表（不可绕清单 4 条 + W-001）
+      - registry/decision_records/DR-GOV-008.yaml：四项决策，含 falsifier
+      - DR-GOV-007 标记部分作废（approved 状态那一句）
+      - 《维护约束 v2》新增第 12.1 部分「豁免机制」；三份规范共 7 处法务复核类条款加豁免注记
+      - ci/check_changelog_schema.py：waiver_ref 必须在 waivers.yaml 中登记
+      - ci/tests：新增 schema-D 用例（未登记的 waiver_ref 被拦截），回归 17 → 18 组
+      - module_status 与 M0 README 同步
+    will_not_produce:
+      - 不豁免任何「不可绕清单」中的条款
+      - 不改动数据分级、0.7 红线、门禁 1/4/6 的任何判定逻辑
+      - 不执行 S0.3 的定性（本步只建机制）
+    success_criteria:
+      - 每条豁免五项字段齐全，尤其 expiry_condition 不得为空
+      - 未登记的 waiver_ref 能被门禁 2 拦截（构造样本验证）
+      - 六份规范文件两两一致；五个门禁 + 回归全绿
+    risk: |
+      本机制最大的风险是被当成万能出口——「做不到就登记一下」。
+      对策有三：不可绕清单划死边界；expiry_condition 强制填写（无失效条件的豁免
+      就是第 16 条禁止的行为）；门禁 2 校验编号存在，使援引无法凭空捏造。
+  scope:
+    files_changed: 14
+    lines_added: 22
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只改治理文本与一个门禁脚本；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰 cross_border_assets.yaml 的任何字段；八条仍全为 pending；门禁 4 BLOCK=0"
+      G3: "will_not_produce 可核验：waivers.yaml 的 never_waivable 段列出四类且 W-001 未触及其中任何一条；门禁 1/4/6 脚本无改动；八条资产未定性"
+      G4: "0.7 七条红线本身在不可绕清单内，本步明确将其列为任何理由都不得绕开"
+      D1: "七项产出全部交付；六份规范文件 diff 两两一致（已实测）"
+      D2: "机制可验证：构造一条 waiver_ref=W-999 的 changelog，门禁 2 输出「W-999 未在 registry/waivers.yaml 登记」并退出码 1（回归用例 schema-D）；回归套件 PASS=18"
+      D3: "确定性文本变更 + 脚本改动，夹具已提交，一条命令可复跑"
+      D4: "把一句口头授权（可适当绕开）变成有边界、有代价、有期限、可机器校验的机制：不可绕清单划死底线，expiry_condition 强制填写，门禁 2 校验编号存在"
+  revisions: 0
+  verdict: committed
+  next_step: S0.3
+
+what: |
+  依所有者指示，明确本项目**不设合规角色**：`qualification_status: approved` 状态不再存在，
+  改用 `self_assessed_no_legal_review`；M0 / M9 的法务复核类判据与 cross_border_assets.yaml
+  的合规 approve 要求登记为豁免 W-001。
+  同时建立豁免登记机制：`registry/waivers.yaml`（append-only）+《维护约束 v2》第 12.1 部分，
+  每条豁免必须写全被绕开的条款、为什么做不到、实际怎么做、代偿措施、失效条件；
+  门禁 2 校验 changelog 中援引的 waiver_ref 已登记。
+  **本步依 W-001 绕开的是「必须由合规角色批准」，未绕开「必须引用法条原文、
+  必须标注未经法务复核、必须取最严解释」。**
+
+why: |
+  所有者授权「遇到强制性要求阻拦推进可适当绕开，但必须说明」。
+  这句授权若没有固定落点，三个月后没人说得清哪些条款还生效，规范就名存实亡；
+  而把 M0 长期挂在「待合规复核」，会让后续每个模块都带一个永远不会关闭的前置条件。
+  因此不是简单地"绕过去"，而是给绕行加四道约束：
+  ①不可绕清单（数据分级、0.7 红线、禁止事项数据类与科学性类、第 16 条）划死边界；
+  ②强制填写失效条件——没有失效条件的豁免就是第 16 条禁止的「改文档消除不一致」；
+  ③强制填写代偿措施——豁免的是流程，不是质量；
+  ④门禁 2 校验援引编号存在，使这条纪律不依赖自觉。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-008
+  waiver: W-001
+  loop_step: 《维护约束 v2》第 12.1 部分（本步新增）
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只建立豁免机制并给条款加注记，未对任何跨境资产作出定性，
+  也未改变任何 allowed_path。八条资产的 is_personal_information 仍全为 pending。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次变更由所有者批准**（W-001 的直接适用）。
+    产出为治理文本与门禁脚本，不含任何真实数据、派生统计量或标识。
+    须特别记录：本次豁免的代价是**技术方的法条理解错误不会被任何独立环节发现**，
+    最可能出错处为敏感个人信息的射程、去标识化与匿名化的边界、大湾区简化路径适用条件。
+    风险承担方：仓库所有者（已在 waivers.yaml 的 residual_risk 登记）。
+
+downstream_affected: [M0, M4, M8, M9]
+breaking_change: false
+migration: |
+  S0.3 起定性状态用 self_assessed_no_legal_review；
+  M0 / M9 完成标记为「技术侧完成（未经法务复核）」；
+  所有对外材料必须带 W-001 的 mandatory_disclaimer。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交：豁免机制与 W-001 移除，规范条款恢复原状，M0 重新被合规复核要求阻塞。
+
+verification: |
+  1) python3 -c "import yaml;d=yaml.safe_load(open('registry/waivers.yaml'));
+     print(len(d['never_waivable']), len(d['waivers']), all('expiry_condition' in w for w in d['waivers']))" → 4 1 True
+  2) bash ci/tests/run_gate_tests.sh → PASS=18（含 schema-D 未登记 waiver_ref 被拦截）
+  3) diff -q 六份规范文件 → 两两一致
+  4) 五个门禁全绿

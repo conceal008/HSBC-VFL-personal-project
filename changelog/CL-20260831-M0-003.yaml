@@ -1,0 +1,106 @@
+change_id: CL-20260831-M0-003
+timestamp: 2026-08-31T11:20:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: doc
+title: S0.1R 联网查证法条与监管口径，补齐假设 A-8
+
+step:
+  step_id: S0.1R
+  step_name: 建立法条原文引用底稿并补齐 A-8
+  declaration: |
+    input_from: 所有者授权联网查证 · S0.1 的假设 A-8（刻意留白的监管数值）· S0.3 定性所需的法条依据
+    will_produce:
+      - modules/m0_compliance/legal_references.md：PIPL 十条原文逐字摘录 · PDPO 第 VIA 部条文编号与罚则 ·
+        跨境理财通 2.0 业务口径 · 来源链接 · 仍需查证清单
+      - modules/m0_compliance/problem_statement.md：A-8 由「不引用具体数值」改为已查证
+      - registry/glossary.yaml：直接促销 / 单独同意 / 敏感个人信息 / 去标识化 / 匿名化 五条补精确条文，
+        新增「跨境理财通（含南向通、北向通）」
+    will_not_produce:
+      - **不作任何定性**：本步只建立引用底稿，是否属个人信息、走哪条路径仍是 S0.3/S0.4
+      - 不引用任何未经查证的数字；查不到原文的一律标注"条文原文待补"
+    success_criteria:
+      - 每条引用有出处链接，法条部分为逐字原文
+      - A-8 的取值有来源，且明确区分「条文原文」与「公开报道/银行公示口径」
+      - 仍需查证的条目单独成节，不混在已查证内容里
+  scope:
+    files_changed: 6
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "全部为公开法条与监管口径，不含任何客户数据；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰 cross_border_assets.yaml 的任何定性字段；门禁 4 复跑 BLOCK=0"
+      G3: "will_not_produce 可核验：八条资产的 is_personal_information 仍全为 pending；legal_references.md 通篇无定性结论，只有原文与「对本项目的意义」提示"
+      G4: "0.7 七条红线无适用对象"
+      D1: "三项产出全部交付；legal_references.md 分五节：PIPL 原文 / PDPO 第 VIA 部 / 跨境理财通口径 / 来源 / 仍需查证"
+      D2: "每条均可独立复核：法条为逐字原文并给出全文链接；PDPO 条文编号与罚则给出出处；跨境理财通口径给出六个来源链接，并明确标注权威文本尚未取得"
+      D3: "查证方式与来源链接全部记录，任何人可按同样链接复核；术语表 verified 字段标注查证日期"
+      D4: "两项实质增量：①S0.3 的每条定性从此有可引用的原文底稿，此前只能写「据我所知」；②发现 PIPL 第 28 条明列「金融账户」为敏感个人信息，直接影响本项目的整体定性与 M4 分级起点——这一条此前完全没有被识别"
+  revisions: 0
+  verdict: committed
+  next_step: S0.3
+
+what: |
+  联网查证并建立 M0 的法条引用底稿：PIPL 第 4/13/23/24/28/38/39/55/56/73 条逐字原文；
+  PDPO 第 VIA 部的条文编号（35C 告知与同意 / 35E 未获同意不得使用 / 35G 停止使用 /
+  35K 提供予他人须书面同意 / 35L 停止提供）与罚则；保障资料原则 DPP 1 与 3 的要点；
+  跨境理财通 2.0（2024-02-26 施行）的个人额度 300 万元、准入满 2 年、R1–R4 等业务口径。
+  据此把 S0.1 的假设 A-8 从「不引用具体数值」改为已查证，并更新术语表五条。
+
+why: |
+  S0.1 刻意没写监管数值，因为凭记忆写数字违反 AGENTS 铁律 1。
+  但 S0.3 要给八类跨境对象逐条定性并附 ≥1 条法条引用——没有原文底稿，
+  那些引用只能是「据我所知」，而这恰恰是法务复核时最先被质疑的地方。
+  查证过程本身也产出了一条此前未被识别的事实：PIPL 第 28 条明列「金融账户」为敏感个人信息。
+  本项目的特征与标签大量来自账户与交易，若整体落入敏感个人信息，
+  合规要求会显著上升（单独同意 + 事前 PIPIA），M4 的敏感度分级起点也随之改变。
+  这条不是推论，是条文明文；但「本项目是否落入」仍是定性，属 S0.3/S0.4 且须合规角色复核。
+
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 《Loop 执行规范 v2》LOOP M0 · S0.1 的假设修订
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只建立法条引用底稿，未对任何跨境资产作出定性，也未改变任何 allowed_path。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    全部内容为公开法律条文与监管口径，不含任何真实客户数据或派生统计量。
+
+downstream_affected: [M3, M4, M9]
+breaking_change: false
+migration: |
+  S0.3 / S0.4 的定性必须引用 legal_references.md 中的原文，不得另起来源。
+  M4 的敏感度分级须把「金融账户属敏感个人信息」作为起点重新评估。
+  M9 须补齐第五节列出的五项待查证条文原文。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: 查证来源链接全部记录在 legal_references.md 第四节，可按同样链接复核
+
+rollback: |
+  git revert 本提交：A-8 回到「不引用具体数值」，法条底稿移除。
+
+verification: |
+  1) 打开 modules/m0_compliance/legal_references.md，逐条与第四节的来源链接比对
+  2) python3 -c "import yaml;d=yaml.safe_load(open('registry/cross_border_assets.yaml'));
+     print(all(a['is_personal_information']=='pending' for a in d['assets']))" → True（本步未定性）
+  3) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

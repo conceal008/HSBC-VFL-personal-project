@@ -8,8 +8,8 @@
 #   · 本文件 append-only：可新增、可标 superseded，不得删除或原地重写
 # ---------------------------------------------------------------------------
 
-version: 1.0.0
-last_updated: 2026-08-30T02:15:00+08:00
+version: 1.1.0
+last_updated: 2026-08-31T11:20:00+08:00
 maintained_by: 全体参与者；新增术语随首次使用它的那一步一并提交
 
 terms:
@@ -56,15 +56,17 @@ terms:
   # ---------- 隐私与安全 ----------
   - term: 去标识化
     en: De-identification
-    definition: 使个人信息在不借助额外信息的情况下无法识别特定自然人的处理；**处理后仍属个人信息**。
-    legal_basis: PIPL 第 73 条第（三）项
+    definition: 个人信息经过处理，使其在不借助额外信息的情况下无法识别特定自然人的过程；**处理后仍属个人信息**（第 4 条把排除范围限定为匿名化）。
+    legal_basis: PIPL 第 73 条第（三）项（原文已逐字核对）
+    verified: 2026-08-31，见 modules/m0_compliance/legal_references.md 第一节
     forbidden: [假名化]
     note: 「假名化」是 GDPR（pseudonymisation）用语，不是中国法定术语，本项目不使用。
     source: 法定术语
   - term: 匿名化
     en: Anonymization
-    definition: 使个人信息无法识别特定自然人**且不能复原**的处理；处理后不再属于个人信息。
-    legal_basis: PIPL 第 73 条第（四）项
+    definition: 个人信息经过处理无法识别特定自然人**且不能复原**的过程；处理后不再属于个人信息（第 4 条）。
+    legal_basis: PIPL 第 73 条第（四）项（原文已逐字核对）
+    verified: 2026-08-31，见 modules/m0_compliance/legal_references.md 第一节
     note: 门槛远高于去标识化。判定为匿名化必须给出不可复原的论证，不得默认。
     source: 法定术语
   - term: 差分隐私
@@ -95,12 +97,19 @@ terms:
     note: 香港法域对应概念为「个人资料」，两者不得互换使用。涉及双方时分别表述。
     source: 法定术语
   - term: 敏感个人信息
-    legal_basis: PIPL 第 28 条
+    definition: 一旦泄露或者非法使用，容易导致自然人的人格尊严受到侵害或者人身、财产安全受到危害的个人信息，条文明列包括生物识别、宗教信仰、特定身份、医疗健康、**金融账户**、行踪轨迹等信息，以及不满十四周岁未成年人的个人信息。
+    legal_basis: PIPL 第 28 条（原文已逐字核对）
     scope: 内地法域
+    project_note: |
+      条文明列「金融账户」。本项目的特征与标签大量来自账户与交易，很可能整体落入本类——
+      若成立则须单独同意（第 29 条）并事前做个人信息保护影响评估（第 55 条第（一）项）。
+      该判定属 S0.3/S0.4，须由合规角色复核，未复核前不得作为结论。
+    verified: 2026-08-31，见 modules/m0_compliance/legal_references.md 第一节
     source: 法定术语
   - term: 单独同意
-    definition: 就特定处理活动单独作出的同意，不得以概括同意或捆绑同意替代。
-    legal_basis: PIPL 第 23、25、29、39 条
+    definition: 就特定处理活动单独作出的同意，不得以概括同意或捆绑同意替代。向其他处理者提供个人信息（第 23 条）与向境外提供个人信息（第 39 条）均须取得单独同意。
+    legal_basis: PIPL 第 23、25、29、39 条（第 23、39 条原文已逐字核对）
+    verified: 2026-08-31，见 modules/m0_compliance/legal_references.md 第一节
     scope: 内地法域
     source: 法定术语
   - term: 数据出境安全评估
@@ -139,8 +148,10 @@ terms:
     source: 法定术语
   - term: 直接促销
     en: Direct Marketing
-    definition: PDPO 第 VIA 部规管的行为：使用个人资料作直接促销前须告知并提供不使用的选择；提供予他人作直接促销须取得资料当事人书面同意。
-    legal_basis: PDPO 第 VIA 部
+    definition: PDPO 第 VIA 部规管的行为：使用个人资料作直接促销前须告知并取得同意（第 35C、35E 条）；须应要求停止使用（第 35G 条）；提供予他人作直接促销须取得资料当事人**书面同意**（第 35K 条），并须应要求停止提供（第 35L 条）。
+    legal_basis: PDPO 第 VIA 部（第 35C / 35E / 35G / 35K / 35L 条）
+    penalty: 违反第 35C–35F 条最高罚款 500,000 港元及监禁 3 年；违反第 35J–35L 条且属为得益而提供的最高罚款 1,000,000 港元及监禁 5 年
+    verified: 2026-08-31，见 modules/m0_compliance/legal_references.md 第二节
     forbidden: ["第 6A 部", 直销专章]
     note: 官方中文条文编号是罗马数字「第 VIA 部」，不写作「第 6A 部」。
     scope: 香港法域
@@ -150,6 +161,23 @@ terms:
     abbr: PICS
     scope: 香港法域
     source: 法定术语
+
+  # ---------- 业务场景 ----------
+  - term: 跨境理财通
+    en: Cross-boundary Wealth Management Connect
+    definition: 粤港澳大湾区内地与港澳居民通过两地银行体系跨境投资对方市场合资格投资产品的机制。
+    sub_terms:
+      - term: 南向通
+        definition: 大湾区内地投资者购买港澳销售银行销售的合资格投资产品。**本项目的主口径场景。**
+      - term: 北向通
+        definition: 港澳投资者购买内地销售银行销售的合资格投资产品。
+    key_facts: |
+      2024-02-26 起施行修订版（业界称「跨境理财通 2.0」）：个人投资额度 300 万元人民币；
+      内地投资者准入为大湾区内地 9 市户籍或连续缴纳社保/个税满 2 年；
+      公募证券投资基金范围扩大至 R1–R4（不含商品期货基金）。
+    verified: 2026-08-31，口径与出处见 modules/m0_compliance/legal_references.md 第三节
+    note: 权威文本为《粤港澳大湾区「跨境理财通」业务试点实施细则》（修订），条文原文待 M9 补齐
+    source: 业界通用
 
   # ---------- 评估与实验 ----------
   - term: 增益

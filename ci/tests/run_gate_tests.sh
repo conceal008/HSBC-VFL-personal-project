@@ -63,6 +63,17 @@ run bash "$C1/ci/check_secrets.sh" "$C1"
 assert "门禁1-B 拦截数据/凭证/标识" 1 "$TMP/out.txt" \
   "疑似内地手机号" "疑似身份证号" "疑似银行卡号" "疑似凭证" "数据/模型产物入库" "CSV 出现在非白名单路径"
 
+# 误报回归：URL 里的长数字串（如政府网站文章 ID）不得被当成卡号
+C1B="$TMP/gate1b"; mkdir -p "$C1B/ci"
+cp "$ROOT/ci/check_secrets.sh" "$C1B/ci/"
+printf '来源：<https://www.example.gov.cn/2024-03/22/c_%s.htm>\n' "1712776611775634" > "$C1B/refs.md"
+run bash "$C1B/ci/check_secrets.sh" "$C1B"
+assert "门禁1-C URL 里的长数字不误报为卡号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似银行卡号"
+
+printf '卡号 %s\n' "6222021234567890123" > "$C1B/leak.md"
+run bash "$C1B/ci/check_secrets.sh" "$C1B"
+assert "门禁1-D 非 URL 上下文的卡号仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
+
 echo
 echo "================ 门禁 4 · 合规一致性核验 ================"
 C4="$TMP/gate4"

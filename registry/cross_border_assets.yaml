@@ -21,6 +21,11 @@ populated_by_steps:             # 登记填充本文件的步骤
     what: 定性前四类（CBA-001..004）
     approved_by: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
     qualification_status: self_assessed_no_legal_review
+  - step_id: S0.4
+    change_id: CL-20260831-M0-005
+    what: 定性后四类（CBA-005..008）；八类定性至此全部完成
+    approved_by: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+    qualification_status: self_assessed_no_legal_review
 
 # ⚠️ 本文件当前**不含任何合规定性**。
 # 每条的 is_personal_information / legal_basis / allowed_path 均为 pending，
@@ -210,10 +215,35 @@ assets:
     produced_by: M5 的 L3 路线
     frequency: 每批次
     volume_estimate: 待测
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.4
+    legal_basis:
+      - "PIPL 第 4 条：与已识别或者可识别的自然人有关的各种信息"
+      - "PIPL 第 28 条：敏感个人信息……包括……金融账户……"
+      - "PIPL 第 38 条：确需向中华人民共和国境外提供个人信息的，应当具备下列条件之一：（一）安全评估；（二）个人信息保护认证；（三）标准合同；（四）其他条件"
+      - "PIPL 第 39 条：向境外提供个人信息的，应当……取得个人的单独同意"
+      - "PIPL 第 55 条第（四）项：向境外提供个人信息……应当事前进行个人信息保护影响评估"
+    sensitive_personal_information: true
+    sensitive_basis: |
+      梯度承载标签信息（明文梯度可高准确率恢复标签，M7 攻击清单第 1 条）。
+      本项目的标签是「是否首次成功申购投资产品」，直接关联金融账户活动，
+      按最严解释随标签一并作敏感个人信息处理。
+    direction_note: |
+      **本条是八类中首个真正触发 PIPL 出境条款的资产。**
+      CBA-005 是 cn → hk，属「向中华人民共和国境外提供个人信息」：
+      · 必须走第 38 条三条路径之一（安全评估 / 保护认证 / 标准合同）；
+      · 必须按第 39 条告知境外接收方信息并取得**单独同意**；
+      · 必须按第 55 条第（四）项事前完成个人信息保护影响评估。
+      与 CBA-004（hk → cn，对内地是接收）的义务完全不对称——
+      L3 路线的合规成本主要压在这一条上，而不是嵌入前传。
+    allowed_path: 需论证
     applicable_routes: pending
+    uncertainties:
+      - "同态加密后的梯度是否仍属个人信息？取最严解释：是——密文可被持钥方解密，与第 73 条第（四）项「不能复原」的要件相悖"
+      - "境外方仅接收密文且不持有密钥的情形，是否仍构成「向境外提供」？条文未细化；取最严解释：构成"
+      - "若采用差分隐私加噪，ε 小到何种程度可主张匿名化？无法一般性判定，须 M7 给出量化证据后单独论证"
+    strictest_reading: 梯度（含密文）按敏感个人信息处理，必须同时满足第 38 条路径 + 第 39 条单独同意 + 第 55 条 PIPIA
     status: active
     notes: |
       明文梯度可推标签——本项目历史阶段已实测到无防护时标签恢复接近完全成功。
@@ -227,10 +257,35 @@ assets:
     produced_by: M5 的 L1 基线（本地模型 + 对方 k-匿名聚合统计）
     frequency: 每个训练周期
     volume_estimate: 小（分组数量级）
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.4
+    legal_basis:
+      - "PIPL 第 73 条第（三）项：去标识化……在不借助额外信息的情况下无法识别特定自然人"
+      - "PIPL 第 73 条第（四）项：匿名化……无法识别特定自然人且不能复原"
+      - "PIPL 第 4 条：不属于个人信息的排除范围仅限匿名化处理后的信息"
+      - "PDPO 保障资料原则 3（附表 1）：不得用于收集时述明目的以外的新目的，除非取得明示同意"
+    reasoning: |
+      k-匿名聚合统计满足第 73 条第（三）项的**去标识化**（在不借助额外信息时无法识别特定自然人），
+      但**不当然满足**第（四）项的匿名化——匿名化要求「不能复原」，
+      而 k-匿名对属性推断攻击与多源组合攻击的防护是有限的（学界共识）。
+      按第 4 条，只有匿名化后的信息才被排除在个人信息之外。
+      因此在给出「不能复原」的量化论证之前，**按个人信息处理**。
+    project_impact: |
+      ⚠️ **这条定性对项目核心结论的影响最大，须重点标记。**
+      L1 基线（本地模型 + 对方 k-匿名聚合统计）此前被假定为「低一个数量级的合规成本」，
+      而 L1 正是 VFL 的真正竞争对手（框架 M5）。
+      若 CBA-006 同样按个人信息处理，L1 的合规成本**并不比 L3 低一个数量级**——
+      两者的差距要小得多，「VFL 是否划算」的答案可能因此改变。
+      M5 在比较 L1 与 L3 时必须把这条计入合规成本，不得沿用旧假设。
+    allowed_path: 需论证
     applicable_routes: pending
+    uncertainties:
+      - "k 取多少可主张匿名化？无一般性阈值；本项目 k = 10 起步并做 {5,10,20} 敏感性（DR-MX-001 · D-5）"
+      - "分组维度过细时的重识别风险随维度指数上升，须 M4 在特征分组时一并评估"
+      - "多期聚合统计的**差分**是否构成新的泄露面？与 CBA-003 的周期差分同源，须 M7 量化"
+      - "若能论证匿名化成立，本条可转为 is_personal_information: false——但须 M7 量化证据 + 复核，不得默认"
+    strictest_reading: 在给出匿名化的量化论证前，k-匿名聚合统计按个人信息处理；L1 的合规成本不得按「显著低于 L3」估计
     status: active
     notes: |
       这是 L1 基线的基础，而 L1 是 VFL 的**真正竞争对手**（框架 M5）。
@@ -245,10 +300,28 @@ assets:
     produced_by: M5
     frequency: 每次训练完成
     volume_estimate: 待测
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: case_by_case
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.4
+    legal_basis:
+      - "PIPL 第 4 条：个人信息是……与已识别或者可识别的自然人有关的各种信息——模型参数并非对个人的直接记录"
+      - "PIPL 第 73 条第（四）项：匿名化要求「不能复原」——若模型记忆训练样本，则可部分复原"
+    reasoning: |
+      模型参数本身不是对特定自然人的记录，一般不落入第 4 条定义。
+      但若模型记忆了训练样本（表现为成员推断攻击成功率显著高于随机），
+      则参数集实际承载了「某人是否在训练集中」这一与可识别自然人有关的信息。
+      因此定性取决于 M7 的成员推断实验结论，本步给出 case_by_case 而非一刀切。
+    allowed_path: 需论证
+    conditional_relaxation: |
+      若 M7 实测成员推断成功率与随机猜测无显著差异（95% CI 覆盖 0.5），
+      本条可放宽为 allowed_path: 相对宽松、is_personal_information: false。
+      **在该实验完成前不得按放宽处理**——这是取严解释的直接要求。
     applicable_routes: pending
+    uncertainties:
+      - "成员推断成功率的可接受阈值未定，须 M7 在 S7.1 定义威胁模型时一并给出"
+      - "被动方本地编码器参数是否比联合模型参数更易记忆？两者可能需要分别定性"
+      - "若采用差分隐私训练，参数的定性是否随之改变？须结合 ε 的取值单独论证"
+    strictest_reading: 在 M7 给出成员推断实验结论前，模型参数按「需论证」处理，不得明文跨境交换
     status: active
     notes: 一般不视为个人信息，但可能记忆训练样本；定性须与 M7 的成员推断实验结论对齐。
 
@@ -260,10 +333,30 @@ assets:
     produced_by: M8 的离线周期性联合打分链路
     frequency: 每个营销周期
     volume_estimate: 待测（Top-K，K 取业务真实触达规模）
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.4
+    legal_basis:
+      - "PIPL 第 4 条：与已识别或者可识别的自然人有关的各种信息——分数与名单均与特定自然人绑定"
+      - "PIPL 第 24 条：利用个人信息进行自动化决策，应当保证决策的透明度和结果公平、公正，不得对个人在交易价格等交易条件上实行不合理的差别待遇"
+      - "PIPL 第 55 条第（二）项：利用个人信息进行自动化决策……应当事前进行个人信息保护影响评估"
+      - "PDPO 第 35C、35E 条：使用个人资料作直接促销前须告知并取得同意"
+      - "PDPO 第 35K 条：将个人资料提供予他人以供其用于直接促销，须取得资料当事人的书面同意"
+    reasoning: |
+      分数与名单与特定自然人一一绑定，落入第 4 条定义，这一点无争议。
+      两个容易被忽略的点：
+      ① 联合打分构成**自动化决策**，触发第 24 条与第 55 条第（二）项；
+      ② 名单虽在内地产生、在内地使用（**不构成出境**），但它是由含香港侧信息的模型产生的
+         **下游产物**——若上游 CBA-004 / CBA-006 的跨境合规性不成立，名单的合法性基础同样有瑕疵。
+         条文未直接规定下游产物的定性，本步取最严解释：名单的合法性以上游流动合规为前提。
+    allowed_path: 需论证
     applicable_routes: pending
+    uncertainties:
+      - "营销打分是否属第 24 条意义上「对个人权益有重大影响的决定」？它决定是否被触达，而非拒绝服务；条文第 24 条其余款项原文尚未查证（legal_references.md 第五节待补），本步不引用"
+      - "名单作为「境外信息的下游产物」的定性无直接条文支撑，本步为取严推断，须在 M9 一致性核验时重点复核"
+      - "若建模仅产出分数、由内地侧独立决定是否触达，香港侧是否仍落入 PDPO 第 VIA 部？须结合 CBA-004 的用途一并判定"
+      - "反推攻击（从下发名单反推模型与特征，M7 攻击清单第 6 条）的可行性未评估，可能影响名单的对外交付方式"
+    strictest_reading: 名单按个人信息处理，且其合法性以上游 CBA-004/006 的跨境合规成立为前提；须做 PIPIA
     status: active
     notes: |
       最容易被忽略的一类：分数与名单仍是个人信息，其流转需单独论证（框架判断三）。

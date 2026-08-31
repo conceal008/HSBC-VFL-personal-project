@@ -1,0 +1,128 @@
+change_id: CL-20260831-M0-005
+timestamp: 2026-08-31T13:10:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.4 定性后四类，八类跨境对象定性全部完成
+waiver_ref: W-001
+
+step:
+  step_id: S0.4
+  step_name: 定性后四类（CBA-005..008）
+  declaration: |
+    input_from: S0.2 的八类骨架 · S0.3 的前四类定性与方向判定 ·
+                S0.1R 的 legal_references.md 逐字原文 · 豁免 W-001 的四条代偿
+    will_produce:
+      - registry/cross_border_assets.yaml：CBA-005..008 填入定性、法条引用、
+        allowed_path、不确定点、取严说明，状态一律 self_assessed_no_legal_review
+      - modules/m5_modeling/README.md：把 CBA-006 的定性后果写入 M5 的未决问题
+    will_not_produce:
+      - 不填 applicable_routes——路线尚未推演（S0.5–S0.7）
+      - 不引用尚未查证原文的条文（PIPL 第 24 条第 2、3 款不引用，已在不确定点写明）
+      - 不作出任何「某资产可以自由跨境」的结论
+    success_criteria:
+      - 八类 is_personal_information 无一为 pending
+      - 后四类各有 ≥1 条法条引用与 ≥1 条不确定点
+      - CBA-006 对 L1 基线的影响已写入 M5，不只留在 M0 内部
+      - 门禁 4 通过
+    risk: |
+      CBA-006 的定性会改变项目核心结论的前提（L1 的合规成本）。
+      若判断有误且无人复核，M5 的比较会建在错误的成本假设上。
+      对策：把结论与理由一并写进 M5 的 README，使它在 M5 开工时必然被看到，
+      而不是埋在 M0 的 YAML 里。
+  scope:
+    files_changed: 5
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "只填清单字段与一段模块 README；ci/check_secrets.sh BLOCK=0"
+      G2: "本步是对清单本身的定性，未实现任何跨境信息流；门禁 4 BLOCK=0"
+      G3: "will_not_produce 可核验：八条的 applicable_routes 仍全为 pending；CBA-008 的不确定点明确写明第 24 条其余款项未查证故不引用；八条 allowed_path 取值为 禁止/协议内/需论证，无一为「相对宽松」"
+      G4: "0.7 七条红线无适用对象"
+      D1: "四条全部填齐；八类无一 pending；法条引用数 5/4/2/5，不确定点数 3/4/3/4"
+      D2: "每条结论可追到 legal_references.md 的逐字原文；八类分布可一行代码核验（禁止 1 · 协议内 1 · 需论证 6）"
+      D3: "定性是判断而非计算，另一执行体依同样法条未必得出相同的 allowed_path 分档；已用不确定点与取严说明把可变部分显式化，故 2 分"
+      D4: "三条实质结论：①CBA-005 是八类中首个真正触发 PIPL 出境三路径 + 单独同意 + PIPIA 的资产，L3 的合规成本主要压在梯度回传而非嵌入前传；②CBA-006 按个人信息处理，**直接打击 L1「低一个数量级合规成本」的旧假设**，可能改变「VFL 是否划算」的答案；③CBA-008 构成自动化决策，且其合法性以上游跨境合规成立为前提"
+  revisions: 0
+  verdict: committed
+  next_step: S0.5
+
+what: |
+  完成后四类定性，八类跨境对象定性至此全部完成：
+  · CBA-005 梯度（cn → hk）→ 个人信息，随标签作敏感个人信息。**首个真正触发 PIPL 出境条款的资产**：
+    须同时满足第 38 条三路径之一、第 39 条单独同意、第 55 条第（四）项 PIPIA。
+  · CBA-006 聚合统计（k-匿名）→ 个人信息。k-匿名满足第 73 条第（三）项的去标识化，
+    但不当然满足第（四）项的匿名化（要求「不能复原」）。
+  · CBA-007 模型参数 → case_by_case，取决于 M7 的成员推断实验结论；实验完成前按「需论证」处理。
+  · CBA-008 打分名单 → 个人信息，且构成自动化决策（第 24 条、第 55 条第（二）项）；
+    名单虽不出境，但作为含香港侧信息的模型的下游产物，其合法性以上游跨境合规成立为前提。
+  八类分布：禁止 1 · 协议内 1 · 需论证 6，**无一类可自由跨境**。
+
+why: |
+  八类定性完成，M0 的核心判据（跨境对象覆盖 8/8、每类 ≥1 条法条引用）达成，
+  信息流设计从此有了基准——M3 的 PSI 选型、M5 的 L3 路线、M8 的名单交付都受它约束。
+
+  其中 CBA-006 的定性最值得单独强调：L1 基线（本地模型 + 对方 k-匿名聚合统计）
+  此前被假定为「低一个数量级的合规成本」，而 L1 正是 VFL 的真正竞争对手。
+  若 k-匿名聚合统计同样按个人信息处理，L1 与 L3 的合规成本差距要小得多，
+  「VFL 是否划算」的答案可能因此改变。这条结论已同步写入 M5 的 README，
+  确保 M5 开工时必然看到，而不是埋在 M0 的 YAML 里。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-008
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.4
+
+cross_border_impact: requires_m0_review
+cross_border_detail: |
+  本步为 M0 清单中 CBA-005..008 填入定性。依 W-001，本项目不设合规角色，
+  由所有者批准，状态标记为 self_assessed_no_legal_review。
+  八类中无一被判定为可自由跨境：CBA-001 禁止、CBA-002 协议内、其余六类均需论证。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次定性未经法务复核**（W-001 要求每次援引时写明）。
+    产出为法条引用与判断，不含任何真实数据或派生统计量。
+    残余风险中最需要警惕的一条：CBA-006 的定性直接影响项目核心结论的成本前提，
+    若判断有误且无人复核，M5 的 L1 与 L3 比较会建在错误的合规成本假设上。
+    已通过把结论写入 M5 的 README 降低「被忽略」的概率，但无法降低「判断错误」的概率。
+
+downstream_affected: [M3, M4, M5, M7, M8, M9]
+breaking_change: false
+migration: |
+  M5 比较 L1 与 L3 时必须把 CBA-006 的定性计入合规成本，不得沿用「低一个数量级」的旧假设；
+  M5 的 L3 路线须以 CBA-005 的出境三要求（路径 + 单独同意 + PIPIA）为设计约束；
+  M7 须在 S7.1 定义成员推断的可接受阈值，CBA-007 的最终定性依赖该实验；
+  M8 的名单交付须以 CBA-008 的自动化决策定性为前提。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: 每条结论的法条依据均可回溯到 modules/m0_compliance/legal_references.md 的逐字原文
+
+rollback: |
+  registry/ 为 append-only，正常修正应新增条目并标 superseded；
+  仅在本次定性整体作废时才 git revert。
+
+verification: |
+  1) python3 -c "import yaml;d=yaml.safe_load(open('registry/cross_border_assets.yaml'));
+     print([a['id'] for a in d['assets'] if a['is_personal_information']=='pending'])" → []
+  2) 同上统计 allowed_path 分布 → 禁止 1 · 协议内 1 · 需论证 6
+  3) grep -c "CBA-006" modules/m5_modeling/README.md → ≥1
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

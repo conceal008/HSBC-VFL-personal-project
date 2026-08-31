@@ -1,0 +1,105 @@
+change_id: CL-20260831-MX-001
+timestamp: 2026-08-31T11:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: decision
+title: 落定六项跨模块口径：增益评估、第二组口径、基线转化率、MDE、k 值、PSI 交集形态
+
+step:
+  step_id: S-MX.1
+  step_name: 记录所有者对六项口径问题的决策并同步到四个模块
+  declaration: |
+    input_from: S0.1 完成后向所有者列出的六项待定口径 · 所有者 2026-08-31 答复「4-9 都按建议」
+    will_produce:
+      - registry/decision_records/DR-MX-001.yaml：六项决策，每项含理由、下游后果、推翻条件
+      - registry/module_status.yaml：M0 / M1 / M2 / M5 / M6 五处 open_questions 同步
+    will_not_produce:
+      - 不执行任何决策的下游后果（补数据源属 M1、异质处理效应结构属 M2、k 敏感性属 M5）
+      - 不改动 S0.1 的 problem_statement.md（D-3/D-4 只是确认其暂定值，未改变取值）
+      - 不对 PSI 交集作正式判决（D-6 仅为倾向，正式判决在 S0.9 的 DR-M0-001）
+    success_criteria:
+      - 六项决策逐条有理由、下游后果与 falsifier
+      - 五个模块的 open_questions 与决策一致，无遗漏也无提前执行
+      - 五个门禁与 17 组回归用例全绿
+    risk: |
+      口径决策最容易变成"当时好像是这么定的"。对策是逐条写下推翻条件与复核触发点，
+      使它们可被后续实验数据推翻，而不是靠记忆维持。
+  scope:
+    files_changed: 3
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "只记录口径决策，不含任何数据；ci/check_secrets.sh BLOCK=0"
+      G2: "未触碰 cross_border_assets.yaml；D-6 只表述倾向，未改变任何资产的 allowed_path"
+      G3: "will_not_produce 逐条可核验：M1 未新增数据集、M2 未动生成器、M5 未跑实验；problem_statement.md 未修改；无 DR-M0-001"
+      G4: "0.7 七条红线：D-4 的 MDE 是在任何实验开始**之前**定的，不是事后修改评估口径（红线第 2 条）；D-1 明确增益为最终判据，防的正是红线第 7 条"
+      D1: "六项决策全部落盘；五处 open_questions 同步且逐条可比对"
+      D2: "每项决策可独立核验：D-1/D-2/D-3 的后果写在 M1 与 M2 的 open_questions；D-4 写在 M6；D-5 写在 M5；D-6 写在 M0 且标明正式判决仍在 S0.9"
+      D3: "确定性文本变更；决策内容与来源（所有者答复原话）完整记录，可重放"
+      D4: "消除六个未决问题，其中 D-1 与 D-4 直接决定了 S0.1 的最小可行规模是否成立；并为每项写下推翻条件，使口径可被数据推翻而非靠记忆维持"
+  revisions: 0
+  verdict: committed
+  next_step: S0.1R
+
+what: |
+  记录所有者对六项跨模块口径问题的决策：
+  D-1 纳入增益（uplift）评估；D-2 第二组口径取汇丰卓越理财跨境升级；
+  D-3 基线转化率暂定 3.0% 待 M1 校准；D-4 业务最小可察差异取相对增益 20%；
+  D-5 k-匿名的 k = 10 起步并做 {5,10,20} 敏感性；
+  D-6 PSI 交集倾向不明文落地（秘密分享形态），正式判决仍在 S0.9。
+  同步更新 M0 / M1 / M2 / M5 / M6 的未决问题。
+
+why: |
+  这六项分散在四个模块，但彼此耦合：D-1（纳入增益）是 S0.1 的最小可行规模 N_eff ≥ 30,000
+  能否成立的前提；D-3 与 D-4 直接决定该数字的取值；D-5 决定 L1 基线的竞争力，
+  而 L1 是 VFL 的真正竞争对手。散落在各模块的 open_questions 里无法看出这层耦合，
+  因此集中成一份跨模块 DR，并逐条写下推翻条件——口径若不能被数据推翻，就只是习惯。
+
+links:
+  branch_card: none
+  decision_record: DR-MX-001
+  loop_step: 《方案流程框架 v2》三、五个必须先定的决策点 ·《Loop 执行规范 v2》0.4 判决协议
+
+cross_border_impact: none
+cross_border_detail: |
+  D-6 涉及 PSI 交集的形态倾向，但未改变 CBA-003 的任何定性字段，
+  也未作出「该资产可以跨境」的判断。正式判决在 S0.9。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅口径决策记录，不含任何真实数据或派生统计量。基线转化率 3.0% 为显式假设，
+    已在三处标注「无来源」。
+
+downstream_affected: [M0, M1, M2, M3, M5, M6]
+breaking_change: false
+migration: |
+  M1 起须按 D-1 / D-2 执行；M2 的生成器须内置异质处理效应结构；
+  M5 的 L1 基线须产出 k ∈ {5,10,20} 三组结果；M6 冻结口径时以 D-4 为准。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交：六项口径回到未定状态，五处 open_questions 恢复。
+
+verification: |
+  1) python3 -c "import yaml;d=yaml.safe_load(open('registry/decision_records/DR-MX-001.yaml'));
+     print(len(d['decisions']), all('falsifier' in x for x in d['decisions']))" → 6 True
+  2) grep -c "DR-MX-001" registry/module_status.yaml → ≥5
+  3) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

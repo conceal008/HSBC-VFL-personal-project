@@ -1,0 +1,71 @@
+change_id: CL-20260831-M1-001
+timestamp: 2026-08-31T16:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M1
+type: doc
+title: 产出数据集下载清单，并把「新产出建新文件」与「每步维护系统日志」写入 AGENTS.md
+
+what: |
+  所有者提出可代为下载数据集并要求指明需要哪些，据此产出
+  modules/m1_data_selection/dataset_request.md：五个数据集分 P0/P1/P2 三档，
+  每个写明「为什么要它（对应哪条决策）· 从哪下 · 体量 · 许可 · 注意事项」，
+  并给出三条纪律（数据永不入库 / 放仓库外并写入 .env 的 DATA_ROOT / 许可先看清楚）。
+
+  P0：Criteo Uplift（决策 D-1 纳入增益评估的硬前提，带随机对照，CC BY-NC-SA 4.0，
+  压缩约 297MB、解压约 3.55GB）· Hillstrom（小规模随机对照，先打通评估链路）·
+  Santander Product Recommendation（语义最贴近，用于校准 D-3 的基线转化率假设）。
+  P1：UCI Bank Marketing。P2：Home Credit Default Risk。
+
+  同时按所有者要求把两条工作方式写入 AGENTS.md：
+  第 12 条「新产出建新文件，既有文件只更新状态类字段」；
+  第 13 条「每步都要维护系统日志（本机项目实时日志 + 仓库 changelog，两者都不可省）」。
+
+why: |
+  本文件**不是** M1 的选型决定——选型须按框架完成六维评估、数据卡与切分协议，那是 S1.1 起的工作。
+  它只回答「先把哪些数据放到本地，后面才做得下去」，因此单独成文而不混进 M1 的 README。
+
+  数据集的优先级直接由已定决策推出，不是凭偏好排的：
+  D-1 纳入增益评估 → 必须有随机对照源，否则 S0.1 的最小可行规模失去依据；
+  D-3 基线转化率暂定 3.0% 待校准 → 需要一个语义贴近的多产品面板数据；
+  两者分别对应 Criteo 与 Santander，缺一后续都会卡住。
+
+  「新产出建新文件」这条写进 AGENTS.md 而不只是记住：追加式堆积会让一个文件同时是
+  三步的产出，回滚、复核与追责都失去粒度——这与「一步一提交」是同一个道理的两面。
+
+links:
+  branch_card: none
+  decision_record: DR-MX-001
+  loop_step: 框架 M1 · 数据资产盘点与数据集选型（本步为其前置准备，非 S1.1 本身）
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只列下载清单与工作方式约定，不涉及任何数据流动。
+  清单中明确：本项目全程使用公开数据作代理验证，不接触真实客户数据；
+  若日后进入真实数据试点，豁免 W-001 立即失效。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    仅下载清单与规范条款，不含任何数据。清单本身提示了三条数据不入库的纪律。
+
+downstream_affected: [M0, M1, M2, M5, M6]
+breaking_change: false
+migration: |
+  数据到位后：①按六维评估建数据卡；②用 Santander 校准基线转化率并**重跑 S0.1 的
+  样本量 notebook、更新 problem_statement.md**；③实现 S1–S4 四种切分协议。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+
+rollback: |
+  git revert 本提交：清单与 AGENTS.md 两条规则移除。
+
+verification: |
+  1) 清单中每个数据集均有「为什么要它」并指向具体决策编号
+  2) grep -c "新产出建新文件" AGENTS.md → 1
+  3) bash ci/run_all_gates.sh → 全绿

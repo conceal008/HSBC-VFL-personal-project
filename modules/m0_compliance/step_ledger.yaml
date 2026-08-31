@@ -121,15 +121,28 @@ steps:
       - modules/m0_compliance/configs/s0_7_route_c.yaml
       - components/export_mechanism.py 增加 gba_eligible 参数
       - route_A.md 第五节加更正指针
+  - step_id: S0.8
+    step_name: 三路线监管质询压力测试 + M0 升级上报
+    status: committed
+    score: 12
+    gates: {G1: pass, G2: pass, G3: pass, G4: pass}
+    dimensions: {D1: 3, D2: 3, D3: 3, D4: 3}
+    revisions: 0
+    committed_at: 2026-08-31T18:00:00+08:00
+    change_id: CL-20260831-M0-009
+    waiver_ref: W-001
+    outputs:
+      - modules/m0_compliance/pressure_test.md（23 个质询，回答率 100%）
+      - modules/m0_compliance/escalation_M0-001.md（升级上报，待裁定）
 current_step: null
-next_step: S0.8
+next_step: S0.9
 
 metrics:
   avg_score: 11.6           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
+  escalation_count: 1       # ≥3 → 该模块整体复审是否假设有误
   revision_rate: 0.0        # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 8
-  budget_usage: 0.8         # >1.5 → 触发全局复审
+  steps_used: 9
+  budget_usage: 0.9         # >1.5 → 触发全局复审
   consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
   pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
 

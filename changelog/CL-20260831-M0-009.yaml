@@ -1,0 +1,125 @@
+change_id: CL-20260831-M0-009
+timestamp: 2026-08-31T18:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.8 三路线压力测试 23 问，并正式上报 M0 升级条件已满足
+waiver_ref: W-001
+
+step:
+  step_id: S0.8
+  step_name: 三路线监管质询压力测试 + M0 升级上报
+  declaration: |
+    input_from: S0.5/S0.6/S0.7 三条路线推演 · S0.3/S0.4 的八类定性 · legal_references.md
+    will_produce:
+      - modules/m0_compliance/pressure_test.md：通用 6 问 + R-A 6 问 + R-B 5 问 + R-C 6 问，
+        每问标注「能答 / 有缺口 / 答不上来」
+      - modules/m0_compliance/escalation_M0-001.md：升级上报文件，含证据、四条出路与建议
+    will_not_produce:
+      - 不判决主线与回退线（S0.9）
+      - 不替需求方作出出路选择——只给建议与代价，不代为拍板
+      - 不查证三个「答不上来」中须法务或需求方回答的两个
+    success_criteria:
+      - 每条路线 ≥5 个质询，回答率 100%（框架 S0.8 判据）
+      - 「答不上来」的问题必须显式标出并说明谁能解决，不得回避
+      - 上报文件给出四条出路，每条附代价与对命题的影响，并给出明确建议
+    risk: |
+      压力测试最容易变成自说自话——只问自己答得上的问题。
+      对策：把三个真正答不上来的问题写在汇总表最显眼处，并统计「能直接对监管陈述」的比例（39%），
+      而不是只报「回答率 100%」这个好看的数字。
+  scope:
+    files_changed: 5
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "无任何数据；bash ci/run_all_gates.sh 全绿"
+      G2: "未改动任何资产的定性或 allowed_path"
+      G3: "will_not_produce 可核验：无 DR-M0-001；上报文件第六节明确写「不主张停止项目」「不代为拍板」；两个须外部回答的问题标为 ❌ 未解决"
+      G4: "0.7 红线：上报文件明确标注折损率全为假设，未把假设外推为业务事实（红线第 6 条）"
+      D1: "两份文件均交付；质询数 23 > 框架要求的 15（3 路线 × 5）"
+      D2: "汇总表可核验：23 问按路线分组统计 ✅9 / ⚠️11 / ❌3；三个 ❌ 逐条写明「谁能解决」；上报文件的四条出路各附可用样本影响、代价与命题影响三栏"
+      D3: "全部为文本推演，无计算；引用的数字均可回溯到 S0.1 / S0.5–S0.7 的 notebook 输出"
+      D4: "两项实质产出：①压力测试暴露出「回答率 100% 但只有 39% 能直接对监管陈述」——这个区分本身比回答率更有信息量；②正式上报并给出四条出路与推荐，把一个此前只在 module_status 里的红色警告变成可裁定的决策文件"
+  revisions: 0
+  verdict: committed
+  next_step: S0.9
+
+what: |
+  产出两份文件。
+
+  **pressure_test.md**：23 个监管质询（通用 6 + R-A 6 + R-B 5 + R-C 6），回答率 100%。
+  但把「回答率」拆成三档如实统计：✅ 能直接对监管陈述 9 个（39%）、
+  ⚠️ 知道怎么答但依赖未完成模块 11 个、❌ 当前答不上来 3 个。
+  三个 ❌ 分别是：标准合同如何描述梯度与嵌入（须法务）、
+  内地侧签约主体注册地（须需求方）、金融数据是否属重要数据（可查证）。
+  11 个 ⚠️ 集中在 M7、M8、M9，说明缺口是「还没做」而非「做错了」。
+
+  **escalation_M0-001.md**：依框架 M0 升级条件正式上报——三条路线的可用样本估计
+  均低于业务最小可行规模 30,000。给出四条出路：①扩大人群定义 ②降低 MDE
+  ③转合成数据机制验证 + 条件价值曲线 ④承认命题不成立并终止。
+  **建议出路 3 为主 + 出路 1 为辅**，并列出四项待裁定事项。
+
+why: |
+  框架对 S0.8 的判据是「每路线 ≥5 个监管质询，100% 有回答」。
+  但「100% 有回答」是个容易自我欺骗的指标——只问自己答得上的问题就能达标。
+  因此本步额外统计了「能直接对监管陈述」的比例（39%），并把三个真正答不上来的问题
+  放在汇总表最显眼处。**把 ❌ 藏起来才是真正的风险，监管不会因为你没写就不问。**
+
+  升级上报之所以必须单独成文而不是在 module_status 里留一行红字：
+  它需要被需求方和项目负责人**裁定**，而裁定需要看到证据、出路与代价，
+  不是一句「样本不够」。上报文件也明确了三件不主张的事——
+  不主张 VFL 无效、不主张停止项目、不主张假设一定正确——
+  因为这三条最容易被误读成「技术方说做不成」。
+
+links:
+  branch_card: none
+  decision_record: none
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.8；《方案流程框架 v2》M0 升级条件
+
+cross_border_impact: none
+cross_border_detail: |
+  本步为质询推演与上报，未改变任何资产的定性或允许路径。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次质询与上报未经法务复核**；两份文件首部均带 mandatory_disclaimer。
+    不含任何真实业务数据；上报文件中的折损率明确标注为显式假设，
+    并在第二节末尾单列一段说明「需求方一个数字就可能推翻本上报」。
+
+downstream_affected: [M1, M2, M3, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: |
+  上报裁定前，M1 之后的交付形态无法确定。
+  若采纳出路 3，M1 的数据集选型重心从「找能验证效果的数据」转为「找能校准机制参数的数据」，
+  M2 的地位从辅助升为主线。
+
+reproducibility:
+  config: 不适用（本步为文本推演）
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: 引用的全部数字可回溯到 S0.1 与 S0.5–S0.7 的 notebook 输出与结果表
+
+rollback: |
+  git revert 本提交：两份文件移除，M0 状态回到 in_progress。
+  注意上报一旦提出即成为事实，回退只能移除文件，不能取消「已发现三条路线均不达标」这件事。
+
+verification: |
+  1) grep -c "^| " modules/m0_compliance/pressure_test.md → 质询表行数，各路线 ≥5
+  2) 汇总表统计：✅9 + ⚠️11 + ❌3 = 23，与各分节逐条对应
+  3) escalation_M0-001.md 含四条出路，每条有「可用样本影响 / 代价 / 命题影响」三栏
+  4) bash ci/run_all_gates.sh → 全绿

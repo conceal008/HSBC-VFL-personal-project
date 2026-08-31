@@ -1,0 +1,75 @@
+change_id: CL-20260831-MX-002
+timestamp: 2026-08-31T19:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 整理联邦学习全景参考文档，覆盖算法/攻防/框架/基准/大模型/标准
+
+what: |
+  按所有者要求「竭尽全力搜索全网有关联邦学习的方法、论文、技术栈，与项目方向无关也整理」，
+  产出 docs/04-reference/federated-learning-landscape.md（364 行，11 节）。
+
+  覆盖：起点三篇必读 · 算法谱系（横向 7 种 / 个性化 5 种 / 纵向 5 种 + 综述 / 无对齐样本 /
+  联邦树 / 异步系统 / 通信压缩）· 隐私与安全（5 类隐私技术 · 梯度反演与 VFL 特有攻击 ·
+  6 种鲁棒聚合）· 框架平台（13 个通用开源 + 6 个中国隐私计算平台 + 9 个密码学底座）·
+  基准与数据集（11 个基准 + 3 个含随机对照的营销数据集）· 联邦大模型（4 个项目 + 7 篇论文）·
+  产业案例 7 个 · 标准法规 · Awesome 列表与学习路径 · 与本项目的对应关系。
+
+  **每条按可信度分三档标注**：🟢 本次检索已确认（82 处）· 🟡 来自既有知识未逐条核对（58 处）·
+  ⚪ 商业/中文生态信息可能过时。
+
+why: |
+  两个用途。其一，技术选型需要一张地图——此前平台选型只在 7/29 会议纪要里有一句
+  「排除 FATE、优先 SecretFlow」，缺少可对照的全景。其二，M7 攻防与 M5 建模路线
+  即将开工，需要文献起点而不是从零检索。
+
+  **可信度分档是这份文档最关键的设计**：arXiv 编号最容易记错，
+  而一份看起来完整的参考文档最危险的地方就是让人误以为每条都核实过。
+  因此把「已确认」与「凭记忆」分开标注，并在末节明确写出四条局限——
+  包括覆盖有偏（图联邦、联邦强化学习、边缘无线侧覆盖浅）、时效性半年、
+  以及「列出不等于推荐」。这与 AGENTS.md 铁律 1（数字必须可追溯）是同一条纪律。
+
+  文档第十节单列「与本项目的关系」，其中最要紧的一条：
+  Breaking Secure Aggregation（arXiv:2406.15731）证明 cross-silo 少参与方场景下，
+  即使只拿到聚合梯度，恶意服务器仍可推断标签——**本项目正是两方 cross-silo**。
+
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 无（跨模块参考资料，非某一步的产出）
+
+cross_border_impact: none
+cross_border_detail: |
+  纯文献整理，不涉及任何数据流动。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    全部为公开论文、开源项目与官方标准的链接与简述，不含任何真实数据或业务信息。
+    涉及本项目的部分只引用了已提交的公开文档（framework/legal_references/dataset_request）。
+
+downstream_affected: [M1, M5, M7]
+breaking_change: false
+migration: |
+  新增 docs/04-reference/ 子目录（非顶层目录，按 1.3 无需 DR）。
+  M5、M7 开工时先读本文档第十节的对应关系表，避免重复检索。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    检索于 2026-08-31 完成，使用 WebSearch/WebFetch。
+    🟡 标记条目未逐条打开核对，引用前须确认——这一点已写在文档开头与末节两处。
+
+rollback: |
+  git revert 本提交：参考文档移除。
+
+verification: |
+  1) wc -l docs/04-reference/federated-learning-landscape.md → 364
+  2) grep -c "🟢" → 82；grep -c "🟡" → 58（可信度分档已覆盖全文）
+  3) 文档末节列出四条局限，含「列出不等于推荐」
+  4) bash ci/run_all_gates.sh → 全绿

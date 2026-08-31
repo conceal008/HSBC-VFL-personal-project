@@ -1,0 +1,138 @@
+change_id: CL-20260831-M0-007
+timestamp: 2026-08-31T15:20:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.6 推演 R-B，发现真正的决策是 L3 形态而非出境路径
+waiver_ref: W-001
+
+step:
+  step_id: S0.6
+  step_name: R-B 标准合同路线推演
+  declaration: |
+    input_from: S0.5 的结论（可用样本不达标、双向 L3 必落安全评估）· 出境阈值法条原文 ·
+                《个人信息出境标准合同办法》的备案要求
+    will_produce:
+      - modules/m0_compliance/route_B.md：四项齐全，重点为适用窗口分析
+      - components/export_mechanism.py：依人数与敏感度判定所需出境机制（规则来自法条）
+      - configs/s0_6_route_b.yaml + notebooks/S0.6_route_B_applicability.ipynb（带输出）
+      - results/route_B_funnel.csv + results/export_mechanism_matrix.csv
+    will_not_produce:
+      - 不推演 R-C（S0.7）；不做三路线压力测试（S0.8）；不判决主线（S0.9）
+      - 不判断形态 B 的建模代价——那须 M5 用实验回答，此处只提出问题
+      - 不填任何资产的 applicable_routes
+    success_criteria:
+      - 回答"R-B 在什么条件下才用得上"，而不是重复一遍结构相同的漏斗
+      - 出境机制判定用法条阈值实现为可复跑的代码，不靠人工套用
+      - 形态 B 的建模代价明确交给 M5，且写进 M5 的 README
+    risk: |
+      风险是把"形态 B 合规上更优"读成"形态 B 更好"。
+      合规优势是确定的（安全评估 → 豁免），建模代价是未知的。
+      对策：结论中明确写「代价必须由 M5 用实验回答，不能在这里推测」，并给出判据。
+  scope:
+    files_changed: 9
+    lines_added: 34
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "折损率与人群规模为假设值；阈值为法条原文；bash ci/run_all_gates.sh 全绿"
+      G2: "未改动任何资产的定性或 allowed_path；applicable_routes 仍全为 pending"
+      G3: "will_not_produce 可核验：无 route_C.md；八类 applicable_routes 未变；route_B.md 第四节明确把形态 B 的代价交给 M5 而未自行判断"
+      G4: "0.7 红线：形态比较未使用任何实验结果，不构成事后修改评估口径"
+      D1: "四项产出齐全并在 route_B.md 第五节列表对照"
+      D2: "判定矩阵由代码生成而非人工套用：export_mechanism.py 实现第五、七、八条的阈值规则，输出 3 形态 × 4 档人数共 12 行，存于 results/export_mechanism_matrix.csv，可逐行复核"
+      D3: "config + component + notebook 三件套，jupyter nbconvert --execute 实测重跑；门禁 6 六项全过"
+      D4: "本步改变了 M0 后续步骤的性质：**真正的决策不是选出境路径，而是选 L3 形态**——形态定下后路径由法条自动决定。R-B 被证明在本项目两头够不着（形态 A 需 <1 万人、形态 B 需 ≥10 万人），因此 S0.9 的判决从三路径选择题变为形态 A/B 选择题"
+  revisions: 1
+  revision_note: |
+    第 1 轮修正：门禁 6 拦下 notebook 中写死的判定矩阵人数档位
+    （[5000, 30000, 150000, 1200000] 直接写在 cell 里，违反「参数从 configs 读」）。
+    已移入配置的 scale_points 字段并重跑 notebook。门禁按设计工作，问题在写法。
+  verdict: committed
+  next_step: S0.7
+
+what: |
+  推演 R-B（个人信息出境标准合同路径）。漏斗仍跑了一遍以确认同意率不是瓶颈
+  （low 4 / mid 264 / high 6,395 人，三档依然全部低于 30,000），
+  但本步的重点是适用窗口分析：把三种 L3 形态与《促进和规范数据跨境流动规定》
+  第五、七、八条的阈值套在一起，用代码生成判定矩阵。
+
+  结果：
+  · 形态 A（双向，含梯度回传）在可验证规模下 → 数据出境安全评估
+  · 形态 B（单向，仅嵌入 hk→cn）在可验证规模下 → **豁免**（非敏感且不满 10 万人）
+  · 形态 C（无 cn→hk 流动）→ PIPL 出境条款不触发
+  · **R-B 两头够不着**：形态 A 要落到标准合同需 <1 万人（低于可验证下界），
+    形态 B 需 ≥10 万人（远超可用样本上限约 6 千）。
+
+why: |
+  S0.5 已经证明可用样本三档均不达标、双向 L3 必落安全评估。
+  在这个前提下再算一遍结构相同的漏斗没有信息增量，
+  真正未被回答的是「R-B 到底什么时候才用得上」。
+
+  回答这个问题的过程带出了一个更重要的结论：
+  **真正的决策不在「选哪条出境路径」，而在「L3 采用哪种形态」——
+  形态一旦定下，路径就被法条自动决定了，没有选择余地。**
+  这直接改变 S0.9 的判决性质：不再是三条路径的选择题，而是形态 A / 形态 B 的选择题。
+
+  形态 B 的合规优势是压倒性的（安全评估 → 豁免），但代价在建模侧：
+  不回传梯度则被动方编码器无法随标签迭代优化。**表示质量下降多少必须由 M5 实验回答**，
+  已连同判据写入 M5 的 README——若下降幅度小于 L3 相对 L1 的增益，形态 B 是全局更优解；
+  若下降到与 L1 无异，则 VFL 在本场景的价值须重新评估。
+
+links:
+  branch_card: none
+  decision_record: none
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.6
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只推演路线与判定适用窗口，未改变任何资产的定性或允许路径。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次推演未经法务复核**；route_B.md 首部已带 mandatory_disclaimer。
+    折损率为假设值，阈值为法条原文，不含任何真实业务数据。
+    须提示的残余风险：形态 B 落入「豁免」的判定依赖 CBA-002 标识符哈希**不属敏感个人信息**
+    这一定性（S0.3）。若该定性被推翻（例如认定身份证号哈希属敏感个人信息），
+    形态 B 将同样落入安全评估，本步结论随之作废。该风险已列为 S0.7/S0.8 的复核重点。
+
+downstream_affected: [M3, M5, M7, M8]
+breaking_change: false
+migration: |
+  M5 须把「形态 B 的表示质量代价」作为一条必答的实验问题；
+  M3 的 PSI 设计须注意：形态 B 下 cn→hk 只剩标识符哈希，其敏感度定性成为豁免成立的关键前提。
+
+reproducibility:
+  config: modules/m0_compliance/configs/s0_6_route_b.yaml
+  config_hash: sha256:f753a85deddb
+  seeds: [42]
+  env_lock: null
+  note: |
+    重跑：jupyter nbconvert --to notebook --execute --inplace
+    modules/m0_compliance/notebooks/S0.6_route_B_applicability.ipynb
+
+rollback: |
+  git revert 本提交：route_B.md 与判定矩阵移除，M0 回到 6/10 步。
+
+verification: |
+  1) python3 -c "import sys;sys.path.insert(0,'.');
+     from modules.m0_compliance.components.export_mechanism import required_mechanism as m;
+     th={'non_sensitive_exempt_below':100000,'non_sensitive_assessment_at_or_above':1000000,'sensitive_assessment_at_or_above':10000};
+     print(m(30000,True,th)); print(m(30000,False,th))"
+     → 数据出境安全评估 / 豁免（无需申报/订立/认证）
+  2) wc -l modules/m0_compliance/results/export_mechanism_matrix.csv → 13 行（含表头）
+  3) grep -c "形态 B 的效果代价\|形态 B（单向流动" modules/m5_modeling/README.md → ≥1
+  4) bash ci/run_all_gates.sh → 全绿

@@ -1,0 +1,58 @@
+# S0.6 · R-B（个人信息出境标准合同路径）推演参数
+# ---------------------------------------------------------------------------
+# 折损率沿用 S0.5 的结构，仅两处同意率上调：R-B 的告知负担轻于 R-A，
+# 同意率通常更高。⚠️ 全部为显式假设，无真实业务来源。
+# ---------------------------------------------------------------------------
+step_id: S0.6
+route: R-B
+route_name: 个人信息出境标准合同路径（PIPL 第 38 条第（三）项）
+seed: 42
+
+base_population:
+  low: 200000
+  mid: 500000
+  high: 1000000
+
+stages:
+  - name: 南向通投资者资格
+    rates: {low: 0.03, mid: 0.06, high: 0.12}
+  - name: 同时为香港行客户
+    rates: {low: 0.05, mid: 0.10, high: 0.20}
+  - name: 标识可匹配
+    rates: {low: 0.50, mid: 0.70, high: 0.85}
+  - name: 内地侧单独同意（PIPL 第 39 条）
+    rates: {low: 0.20, mid: 0.35, high: 0.55}
+    basis: R-B 的告知负担轻于 R-A（无需说明安全评估结论），同意率假设上调约 5 个百分点
+  - name: 香港侧直接促销同意（PDPO 第 35C/35E 条）
+    rates: {low: 0.20, mid: 0.40, high: 0.60}
+  - name: 数据质量达标
+    rates: {low: 0.80, mid: 0.90, high: 0.95}
+
+minimum_viable_n_eff: 30000
+
+# 出境机制阈值（《促进和规范数据跨境流动规定》第五、七、八条，逐字原文见 legal_references.md 一之二节）
+thresholds:
+  non_sensitive_exempt_below: 100000        # 第五条第（四）项：不满 10 万人个人信息（不含敏感）→ 豁免
+  non_sensitive_assessment_at_or_above: 1000000   # 第七条：100 万人以上（不含敏感）→ 安全评估
+  sensitive_assessment_at_or_above: 10000   # 第七条：1 万人以上敏感个人信息 → 安全评估
+
+# 判定矩阵的人数档位：跨越三条阈值的四个代表点
+scale_points: [5000, 30000, 150000, 1200000]
+
+# 三种 L3 形态：cn → hk 方向实际提供了什么
+l3_forms:
+  - id: 形态A
+    name: 双向 L3（嵌入 hk→cn + 梯度 cn→hk）
+    cn_to_hk_assets: [CBA-002 标识符哈希, CBA-005 梯度]
+    cn_to_hk_sensitive: true
+    note: 梯度承载标签，S0.4 已按敏感个人信息定性
+  - id: 形态B
+    name: 单向 L3（仅嵌入 hk→cn，不回传梯度）+ PSI
+    cn_to_hk_assets: [CBA-002 标识符哈希]
+    cn_to_hk_sensitive: false
+    note: cn→hk 只剩 PSI 阶段的标识符哈希；S0.3 定性为个人信息但未定为敏感
+  - id: 形态C
+    name: 无任何 cn→hk 个人信息流动
+    cn_to_hk_assets: []
+    cn_to_hk_sensitive: false
+    note: 需要 PSI 也不向香港侧提供任何标识符派生值，工程上是否可行须 M3 判定

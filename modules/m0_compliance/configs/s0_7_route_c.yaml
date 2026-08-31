@@ -1,0 +1,39 @@
+# S0.7 · R-C（粤港澳大湾区个人信息跨境流动标准合同）推演参数
+step_id: S0.7
+route: R-C
+route_name: 粤港澳大湾区（内地、香港）个人信息跨境流动标准合同
+seed: 42
+
+# 判定矩阵沿用 S0.6 的形态与档位，新增「是否适用大湾区标准合同」这一维
+scale_points: [5000, 30000, 150000, 1200000]
+
+thresholds:
+  non_sensitive_exempt_below: 100000
+  non_sensitive_assessment_at_or_above: 1000000
+  sensitive_assessment_at_or_above: 10000
+
+l3_forms:
+  - id: 形态A
+    name: 双向 L3（嵌入 hk→cn + 梯度 cn→hk）
+    cn_to_hk_sensitive: true
+  - id: 形态B
+    name: 单向 L3（仅嵌入 hk→cn）+ PSI
+    cn_to_hk_sensitive: false
+
+# 大湾区标准合同的三项适用前提——**全部未确认**，由 S0.7 列为不确定点
+gba_prerequisites:
+  - id: P1
+    name: 注册地要求
+    requirement: 个人信息处理者须注册于大湾区内地九市（穗深珠佛惠莞中江肇）
+    status: 未确认
+    note: 汇丰银行（中国）有限公司总部注册地不在九市之内；分行不具独立法人资格，能否满足「注册于」存疑
+  - id: P2
+    name: 重要数据排除
+    requirement: 排除被相关部门、地区告知或公开发布为重要数据的个人信息
+    status: 未确认
+    note: 金融行业数据是否被认定为重要数据，须查证行业目录
+  - id: P3
+    name: 敏感个人信息是否在免数量门槛范围内
+    requirement: 官方便利措施表述为「免除跨境传输个人信息数量上的限制」
+    status: 未确认
+    note: 字面覆盖敏感个人信息，但指引条文原文未明示；取最严解释前不得依赖

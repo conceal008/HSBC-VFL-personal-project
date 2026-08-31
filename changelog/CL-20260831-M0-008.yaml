@@ -1,0 +1,135 @@
+change_id: CL-20260831-M0-008
+timestamp: 2026-08-31T17:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.7 推演 R-C，更正 S0.5 的判断，并确认 M0 升级条件已满足
+waiver_ref: W-001
+
+step:
+  step_id: S0.7
+  step_name: R-C 大湾区标准合同路线推演
+  declaration: |
+    input_from: S0.5 的「R-B/R-C 在敏感口径下不可选」判断 · S0.6 的形态判定矩阵 ·
+                联网查证大湾区指引条文与香港官方便利措施
+    will_produce:
+      - modules/m0_compliance/route_C.md：四项齐全 + 三项适用前提 + 对 S0.5 的更正
+      - configs/s0_7_route_c.yaml + notebooks/S0.7_route_C_applicability.ipynb（带输出）
+        + results/route_C_mechanism_matrix.csv
+      - components/export_mechanism.py 增加 gba_eligible 参数
+      - route_A.md 第五节加更正指针（既有文件只加指针，不改写原判断）
+    will_not_produce:
+      - 不做三路线压力测试（S0.8）；不判决主线（S0.9）
+      - 不查证 P1/P2/P3 三项前提——P1 须需求方回答，P2/P3 须查行业目录与条文
+      - 不把「免除数量门槛」当作已确立的结论——依据强度为官方便利措施表述而非指引条文原文
+    success_criteria:
+      - 明确写出对 S0.5 的更正，且区分依据强度（条文原文 vs 官方表述）
+      - 三项适用前提逐条列出并标注未确认
+      - 判定矩阵由代码生成，可复跑
+    risk: |
+      最大风险是把「免除数量门槛」读成已确立的事实。它来自香港数字政策办公室的便利措施表述，
+      而 CAC 指引条文原文未明示。按 W-001 取最严解释：在法务复核确认前不得依赖。
+  scope:
+    files_changed: 8
+    lines_added: 26
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "无任何数据；bash ci/run_all_gates.sh 全绿"
+      G2: "未改动任何资产的定性或 allowed_path；applicable_routes 仍全为 pending"
+      G3: "will_not_produce 可核验：无 S0.8 产出；三项前提状态均为「未确认」；route_A.md 只加更正指针未改写原判断"
+      G4: "0.7 红线无适用对象"
+      D1: "四项产出齐全并在 route_C.md 第五节列表对照"
+      D2: "判定矩阵由代码生成（2 形态 × 4 档 × 2 种适用性 = 16 行），可逐行复核；依据强度分两档列表，「免除数量门槛」明确标为官方表述而非条文原文"
+      D3: "config + notebook 齐全，nbconvert 实测重跑；门禁 6 六项全过"
+      D4: "三条实质结论：①**更正 S0.5** —— R-C 因免除数量门槛而并非不可选；②**R-C 只对形态 A 有价值** —— 形态 B 本就落在豁免，走大湾区标准合同反而多做备案与 PIA；③**框架 M0 升级条件已满足** —— 三条路线可用样本估计均低于 30,000"
+  revisions: 0
+  verdict: committed
+  next_step: S0.8
+
+what: |
+  推演 R-C（粤港澳大湾区个人信息跨境流动标准合同），并**更正 S0.5 的一处判断**。
+
+  S0.5 曾写「R-B 与 R-C 在敏感个人信息口径下不可选」。关于 R-C 的那半句是错的：
+  依香港数字政策办公室公布的便利措施，《大湾区标准合同》**免除了跨境传输个人信息数量上的限制**，
+  并把 PIA 重点评估内容由 6 项减至 3 项。因此第七条「1 万人以上敏感个人信息须安全评估」
+  在大湾区标准合同下不再构成障碍——若适用，形态 A 不必走安全评估。
+
+  但三项适用前提目前全部未确认：
+  P1 处理者须注册于大湾区内地九市——**汇丰银行（中国）注册地不在九市之内，分行不具独立法人资格**；
+  P2 排除被认定为重要数据的个人信息——金融行业目录须查证；
+  P3 「免除数量限制」是否覆盖敏感个人信息——官方表述字面覆盖，条文原文未明示。
+
+  另确认：R-C 只对形态 A 有价值。形态 B 在一般规则下本就落在豁免，
+  走大湾区标准合同反而要多做备案与 PIA。
+
+why: |
+  S0.5 的判断建立在「三条出境路径都受第七、八条阈值约束」这一前提上，
+  而大湾区标准合同恰恰是该前提的例外。这个错误如果不纠正，
+  会让 S0.9 在一个被人为缩小的选项集里做判决——形态 A 会被过早否掉。
+
+  更正之后出现的新问题比原问题更实际：**内地侧的签约主体到底是谁、注册在哪里。**
+  这个问题此前没人问过，技术侧也无法自行判定，但它的分量不亚于业务四要素——
+  P1 成立则形态 A 的合规负担降到与形态 B 相近，「为合规牺牲建模效果」这个两难可能根本不存在；
+  P1 不成立则形态 A 只能走安全评估（6–12 个月、成本档高）。
+
+  同时必须记录：R-C 不改变漏斗的任何一层，可用样本仍是 low 4 / mid 264 / high 6,395。
+  **至此三条路线的可用样本估计均低于业务最小可行规模 30,000，框架 M0 的升级条件已经满足。**
+
+links:
+  branch_card: none
+  decision_record: none
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.7
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只推演路线，未改变任何资产的定性或允许路径。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次推演未经法务复核**；route_C.md 首部已带 mandatory_disclaimer。
+    内容为公开法规与官方发布的便利措施，不含任何真实业务数据。
+    须重点提示的残余风险：「免除数量门槛」这一关键结论来自官方便利措施表述而非指引条文原文，
+    依据强度为中；P1 注册地要求涉及汇丰内地法人主体的具体注册信息，本步只作一般性推断，
+    未查证工商登记，须需求方确认。
+
+downstream_affected: [M0, M5, M8, M9]
+breaking_change: false
+migration: |
+  S0.8 的压力测试须把 P1 作为对 R-C 的首要质询；
+  S0.9 的判决须在 P1 明确前保留形态 A 与形态 B 两条路线，不得提前排除形态 A。
+
+reproducibility:
+  config: modules/m0_compliance/configs/s0_7_route_c.yaml
+  config_hash: sha256:63f1dd21c118
+  seeds: [42]
+  env_lock: null
+  note: |
+    重跑：jupyter nbconvert --to notebook --execute --inplace
+    modules/m0_compliance/notebooks/S0.7_route_C_applicability.ipynb
+
+rollback: |
+  git revert 本提交：route_C.md 与判定矩阵移除，route_A.md 的更正指针消失（原判断恢复为未更正状态）。
+
+verification: |
+  1) python3 -c "import sys;sys.path.insert(0,'.');
+     from modules.m0_compliance.components.export_mechanism import required_mechanism as m;
+     th={'non_sensitive_exempt_below':100000,'non_sensitive_assessment_at_or_above':1000000,'sensitive_assessment_at_or_above':10000};
+     print(m(30000,True,th)); print(m(30000,True,th,gba_eligible=True))"
+     → 数据出境安全评估 / 大湾区标准合同（免数量门槛）
+  2) wc -l modules/m0_compliance/results/route_C_mechanism_matrix.csv → 17 行（含表头）
+  3) grep -c "已被 S0.7 更正" modules/m0_compliance/route_A.md → 1
+  4) bash ci/run_all_gates.sh → 全绿

@@ -104,15 +104,32 @@ steps:
       - modules/m0_compliance/results/export_mechanism_matrix.csv
       - modules/m0_compliance/components/export_mechanism.py
       - modules/m0_compliance/configs/s0_6_route_b.yaml
+  - step_id: S0.7
+    step_name: R-C 大湾区标准合同路线推演（并更正 S0.5 的一处判断）
+    status: committed
+    score: 12
+    gates: {G1: pass, G2: pass, G3: pass, G4: pass}
+    dimensions: {D1: 3, D2: 3, D3: 3, D4: 3}
+    revisions: 0
+    committed_at: 2026-08-31T17:00:00+08:00
+    change_id: CL-20260831-M0-008
+    waiver_ref: W-001
+    outputs:
+      - modules/m0_compliance/route_C.md
+      - modules/m0_compliance/notebooks/S0.7_route_C_applicability.ipynb（带输出）
+      - modules/m0_compliance/results/route_C_mechanism_matrix.csv
+      - modules/m0_compliance/configs/s0_7_route_c.yaml
+      - components/export_mechanism.py 增加 gba_eligible 参数
+      - route_A.md 第五节加更正指针
 current_step: null
-next_step: S0.7
+next_step: S0.8
 
 metrics:
   avg_score: 11.6           # <10 → 复审步骤划分与执行质量
   escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
   revision_rate: 0.0        # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 7
-  budget_usage: 0.7         # >1.5 → 触发全局复审
+  steps_used: 8
+  budget_usage: 0.8         # >1.5 → 触发全局复审
   consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
   pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
 

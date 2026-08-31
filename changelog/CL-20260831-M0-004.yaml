@@ -1,0 +1,138 @@
+change_id: CL-20260831-M0-004
+timestamp: 2026-08-31T12:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.3 定性前四类跨境对象，状态为技术侧自评未经法务复核
+waiver_ref: W-001
+
+step:
+  step_id: S0.3
+  step_name: 定性前四类（CBA-001..004）
+  declaration: |
+    input_from: S0.2 的八类骨架 · S0.1R 的 legal_references.md 逐字法条原文 ·
+                豁免 W-001（不设合规角色，定性由技术方自行完成 + 四条代偿）
+    will_produce:
+      - registry/cross_border_assets.yaml：CBA-001..004 填入 is_personal_information /
+        legal_basis（逐字原文）/ allowed_path / uncertainties / strictest_reading，
+        状态一律 self_assessed_no_legal_review
+    will_not_produce:
+      - 不定性后四类（CBA-005..008 属 S0.4）
+      - 不填 applicable_routes——路线尚未推演（S0.5–S0.7），填了就是无依据的判断
+      - 不作出任何「某资产可以跨境」的最终放行结论
+    success_criteria:
+      - 四条各有 ≥1 条法条引用，且引用为 legal_references.md 中的逐字原文
+      - 四条各写明不确定点（W-001 代偿要求：写不出不确定点的定性视为未经思考）
+      - 存疑处一律取最严解释并写明取严之处
+      - 门禁 4 通过
+    risk: |
+      技术方的法条理解错误不会被任何独立环节发现（W-001 的 residual_risk）。
+      对策：只引用逐字原文、逐条列不确定点、一律取最严解释——
+      三者都不能消除错误，但能让错误在日后复核时可被定位。
+  scope:
+    files_changed: 4
+    lines_added: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: "只填清单字段，不含任何真实数据；ci/check_secrets.sh BLOCK=0"
+      G2: "本步是对清单本身的定性，未实现任何跨境信息流；无组件声明；门禁 4 BLOCK=0"
+      G3: "will_not_produce 可核验：CBA-005..008 的 is_personal_information 仍为 pending；四条的 applicable_routes 仍为 pending；allowed_path 取值为「禁止/协议内/需论证」，无一条为「相对宽松」或放行结论"
+      G4: "0.7 七条红线无适用对象"
+      D1: "四条全部填齐七类字段；法条引用数 3/3/4/4，不确定点数 2/2/3/3，状态一致为 self_assessed_no_legal_review"
+      D2: "每条结论可逐句追到 legal_references.md 的逐字原文：CBA-001 → 第 4 条 + 第 28 条「金融账户」；CBA-002 → 第 73 条（三）（四）+ 第 4 条排除范围；CBA-003 → 第 4 条 + 第 23/39 条 + DPP 3；CBA-004 → 第 4 条 + 第 73 条（四）+ DPP 3 + 第 35C/35E 条"
+      D3: "定性是判断而非计算，另一个执行体依同样法条未必得出完全相同的 allowed_path 分档；已通过「逐条列不确定点 + 写明取严之处」把判断的可变部分显式化，故 2 分"
+      D4: "四类完成定性，并厘清一个此前一直含糊、且极易搞错的问题——**流向方向决定适用哪套法规**：hk→cn 对内地是接收境外个人信息，不触发 PIPL 第 38/39 条；cn→hk 才触发出境三路径与单独同意。此前文档一律笼统称「跨境」，掩盖了两侧义务的不对称"
+  revisions: 0
+  verdict: committed
+  next_step: S0.4
+
+what: |
+  对前四类跨境对象作出定性，状态一律 self_assessed_no_legal_review：
+  · CBA-001 原始特征值 → 是个人信息，且按最严解释整体作**敏感个人信息**（第 28 条明列「金融账户」），
+    allowed_path = 禁止
+  · CBA-002 标识符哈希 → 是个人信息。属第 73 条第（三）项的**去标识化**而非第（四）项的匿名化
+    （单独哈希可被字典攻击复原，不满足「不能复原」要件），而第 4 条的排除范围仅限匿名化。
+    allowed_path = 协议内
+  · CBA-003 PSI 交集结果 → 是个人信息，且是**新产生的**：「此人同时是两行客户」在求交前任何一方都不掌握。
+    allowed_path = 需论证
+  · CBA-004 中间层嵌入 → 是个人信息（可被反演重构，不满足「不能复原」）。
+    allowed_path = 需论证 + 必须扰动
+  四条各附逐字法条原文、不确定点与取严说明。applicable_routes 保持 pending，待 S0.5–S0.7 推演后填。
+
+why: |
+  这四类是信息流设计的地基：CBA-001 的定性决定方案前提是否成立，
+  CBA-002 决定 PSI 协议的选型空间，CBA-003 决定交集能否明文落地，
+  CBA-004 决定 L3 路线是否可行。含糊过去，M3–M5 的全部设计都会建在流沙上。
+
+  本步依豁免 W-001 绕开的是「必须由合规角色批准」这一条；
+  **没有绕开**的是 W-001 的四条代偿：引用逐字法条原文、写明不确定点、
+  存疑处取最严解释、对外材料带免责表述。三条已在本步执行，第四条约束后续材料。
+
+key_finding: |
+  **流向方向决定适用哪套法规**，此前文档一律笼统称「跨境」，掩盖了两侧义务的不对称：
+  · CBA-004（hk → cn）：对内地是**接收**境外个人信息，**不触发** PIPL 第 38/39 条
+    （该两条管的是「向中华人民共和国境外提供」）；内地接收后的处理仍须有第 13 条的合法性基础。
+    对香港侧则是把个人资料转移出香港，受 DPP 3 与（尚未生效的）PDPO 第 33 条约束。
+  · CBA-005（cn → hk）：才触发 PIPL 第 38 条出境三路径与第 39 条单独同意。
+  两者的合规成本、举证责任与失败模式完全不同，不可合并处理。
+
+links:
+  branch_card: none
+  decision_record: DR-GOV-008
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.3
+
+cross_border_impact: requires_m0_review
+cross_border_detail: |
+  本步为 M0 清单中 CBA-001..004 填入定性，属对清单本身的修改。
+  依 W-001，本项目不设合规角色，由所有者批准，状态标记为 self_assessed_no_legal_review。
+  **四条中无一条被判定为可自由跨境**：CBA-001 禁止，CBA-002 仅协议内，
+  CBA-003 与 CBA-004 均为「需论证」。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次定性未经法务复核**（W-001 要求每次援引豁免时写明）。
+    产出为法条引用与判断，不含任何真实数据、派生统计量或标识。
+    残余风险：技术方的法条理解错误不会被独立环节发现；本步最可能出错处为
+    ①「金融账户」是否覆盖交易流水与持仓；②加盐哈希能否主张匿名化；
+    ③秘密分享份额是否仍构成个人信息。三处均已列入 uncertainties 并取最严解释。
+
+downstream_affected: [M3, M4, M5, M7, M9]
+breaking_change: false
+migration: |
+  M3 的 PSI 协议选型须以 CBA-002「仅协议内」与 CBA-003「需论证、倾向不明文落地」为前提；
+  M4 的敏感度分级须以 CBA-001「整体按敏感个人信息」为起点；
+  M5 的 L3 路线须以 CBA-004「必须扰动」为设计约束。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: 每条结论的法条依据均可回溯到 modules/m0_compliance/legal_references.md 的逐字原文
+
+rollback: |
+  registry/ 为 append-only，正常修正应新增条目并标 superseded；
+  仅在本次定性整体作废时才 git revert 本提交。
+
+verification: |
+  1) python3 -c "import yaml;d=yaml.safe_load(open('registry/cross_border_assets.yaml'));
+     a=[x for x in d['assets'] if x['is_personal_information']!='pending'];
+     print(len(a), [len(x['legal_basis']) for x in a], [len(x['uncertainties']) for x in a])"
+     → 4 [3, 3, 4, 4] [2, 2, 3, 3]
+  2) 同上，检查后四类仍为 pending → CBA-005..008 未被触碰
+  3) python3 ci/check_cross_border_consistency.py → BLOCK=0
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

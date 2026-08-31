@@ -16,13 +16,20 @@ populated_by_steps:             # 登记填充本文件的步骤
     change_id: CL-20260830-M0-002
     what: 列出八类跨境对象骨架，**只列不定性**
     approved_by: conceal008（仓库所有者代行合规角色，依 DR-GOV-007 的限制 L1）
+  - step_id: S0.3
+    change_id: CL-20260831-M0-004
+    what: 定性前四类（CBA-001..004）
+    approved_by: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+    qualification_status: self_assessed_no_legal_review
 
 # ⚠️ 本文件当前**不含任何合规定性**。
 # 每条的 is_personal_information / legal_basis / allowed_path 均为 pending，
 # 由 S0.3（前四类）与 S0.4（后四类）填写。
-# 依 DR-GOV-007 的限制 L1：定性可由技术方起草，但每条须带
-# qualification_status: drafted_pending_review；approved 只能由合规角色赋予。
-# **处于 drafted_pending_review 的条目不得作为任何"该资产可以跨境"的放行依据。**
+# 定性状态说明（DR-GOV-008 + 豁免 W-001）：
+#   本项目**不设合规角色**，`approved` 状态不存在。已定性的条目状态为
+#   `self_assessed_no_legal_review`——技术方依公开法条自行判断，**未经法务复核**。
+#   引用这些结论的任何对外材料必须带 W-001 的 mandatory_disclaimer。
+#   代偿要求：每条须引用逐字法条原文、须写明不确定点、「可以跨境」一律取最严解释。
 
 # 条目 schema（新增条目时逐字段填写，缺字段即视为未登记）
 schema:
@@ -68,10 +75,23 @@ assets:
     produced_by: 双方本地数据层（M4 特征工程的输入）
     frequency: 不适用（方案前提为不发生此项流动）
     volume_estimate: 不适用
-    is_personal_information: pending   # ← S0.3
-    legal_basis: []                    # ← S0.3
-    allowed_path: pending              # ← S0.3
-    applicable_routes: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.3
+    legal_basis:
+      - "PIPL 第 4 条：个人信息是以电子或者其他方式记录的与已识别或者可识别的自然人有关的各种信息，不包括匿名化处理后的信息"
+      - "PIPL 第 28 条：敏感个人信息……包括生物识别、宗教信仰、特定身份、医疗健康、金融账户、行踪轨迹等信息"
+      - "PDPO 第 2 条：香港侧对应概念为个人资料"
+    sensitive_personal_information: true
+    sensitive_basis: |
+      本项目的原始特征值以账户余额、交易流水、持仓为主，直接对应第 28 条明列的「金融账户」。
+      按最严解释，整体按敏感个人信息处理 → 须单独同意（第 29 条）+ 事前 PIPIA（第 55 条第（一）项）。
+    allowed_path: 禁止
+    applicable_routes: pending          # ← S0.5–S0.7 路线推演后填
+    uncertainties:
+      - "「金融账户」的射程是否覆盖交易流水与持仓（而非仅账号本身），条文未细化；已取最严解释"
+      - "行为埋点类特征是否属敏感个人信息存疑；已按最严解释一并纳入"
+    strictest_reading: 全部原始特征值按敏感个人信息处理，任何路线下均禁止跨境
     status: active
     notes: |
       列此项不是因为方案打算传输它，而是因为清单必须能回答"它有没有跨境"——
@@ -85,10 +105,23 @@ assets:
     produced_by: M3 实体对齐组件（PSI 协议输入）
     frequency: 每次求交
     volume_estimate: 待测（随 PSI 协议选型变化）
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.3
+    legal_basis:
+      - "PIPL 第 73 条第（三）项：去标识化，是指个人信息经过处理，使其在不借助额外信息的情况下无法识别特定自然人的过程"
+      - "PIPL 第 73 条第（四）项：匿名化，是指个人信息经过处理无法识别特定自然人且不能复原的过程"
+      - "PIPL 第 4 条：不属于个人信息的排除范围**仅限匿名化**处理后的信息"
+    reasoning: |
+      标识符哈希属**去标识化**而非匿名化：单独哈希可被字典攻击复原（标识符空间有限、
+      格式固定），不满足第 73 条第（四）项「不能复原」的要件。
+      按第 4 条，只有匿名化后的信息才被排除在个人信息之外，因此哈希值**仍是个人信息**。
+    allowed_path: 协议内
     applicable_routes: pending
+    uncertainties:
+      - "加盐或加盲后的值能否主张匿名化？取最严解释：不主张——盐值本身即「额外信息」，双方共享盐则可复原"
+      - "PSI 协议内的中间消息（非最终交集）是否单独构成个人信息，需 M3 按具体协议逐一判定"
+    strictest_reading: 哈希值按个人信息处理；只允许在 PSI 协议内部使用，不得以任何形式明文交换或落地
     status: active
     notes: |
       跨境标识体系不同（内地手机号 / 身份证 vs 香港身份证号 / 护照 / 境外号码），
@@ -103,10 +136,26 @@ assets:
     produced_by: M3 实体对齐组件
     frequency: 每个营销周期（生产形态为离线周期性重跑）
     volume_estimate: 待测（等于 N_eff 量级，S0.1 给出下界 30,000）
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    newly_generated: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.3
+    legal_basis:
+      - "PIPL 第 4 条：与已识别或者可识别的自然人有关的各种信息——「某自然人同时为两行客户」即属此类"
+      - "PIPL 第 23 条：向其他个人信息处理者提供其处理的个人信息的，应当……取得个人的单独同意"
+      - "PIPL 第 39 条：向境外提供个人信息的，应当……取得个人的单独同意"
+      - "PDPO 保障资料原则 3（附表 1）：不得用于收集时述明目的以外的新目的，除非取得明示同意"
+    reasoning: |
+      交集结果不是既有信息的搬运，而是**新产生的个人信息**：
+      「此人同时是内地行与香港行客户」这一事实，在求交之前任何一方都不掌握。
+      它与可识别自然人有关，落入第 4 条定义。
+    allowed_path: 需论证
     applicable_routes: pending
+    uncertainties:
+      - "以秘密分享份额形式存在的交集，单个份额是否仍构成个人信息？取最严解释：仍按个人信息处理"
+      - "周期性重跑产生的**交集差分**（本期新增共同客户）是否构成独立的个人信息处理活动？倾向是，须 M7 量化其泄露面后在 S0.4 复核"
+      - "PDPO 第 33 条（跨境转移）尚未生效，香港侧的跨境转移依据须按 PCPD 指引尽职，具体要求待查证"
+    strictest_reading: 交集与其差分均按个人信息处理；倾向不明文落地（DR-MX-001 · D-6），正式判决在 S0.9
     status: active
     notes: |
       两点在定性时不可回避：①交集是**新产生的个人信息**，不是既有信息的搬运；
@@ -121,10 +170,35 @@ assets:
     produced_by: M5 的 L3 路线（分割学习 SplitNN 等）
     frequency: 每批次（训练）/ 每次打分（推理）
     volume_estimate: 待测（随表示维度与批大小变化）
-    is_personal_information: pending
-    legal_basis: []
-    allowed_path: pending
+    is_personal_information: true
+    qualification_status: self_assessed_no_legal_review
+    qualification_step: S0.3
+    legal_basis:
+      - "PIPL 第 4 条：与已识别或者可识别的自然人有关的各种信息"
+      - "PIPL 第 73 条第（四）项：匿名化须「不能复原」——嵌入可被反演重构，不满足该要件"
+      - "PDPO 保障资料原则 3（附表 1）：香港侧将客户资料用于跨境联合建模属新目的，须取得明示同意"
+      - "PDPO 第 35C、35E 条：若该建模服务于直接促销，使用前须告知并取得同意"
+    reasoning: |
+      嵌入由个人特征逐样本计算得到，与可识别自然人一一对应；且已有文献表明可通过反演攻击
+      重构原始特征（M7 攻击清单第 2 条）。在不能证明「不能复原」之前，不满足匿名化要件，
+      因此按个人信息处理。
+    direction_note: |
+      **本条的流向方向决定适用哪套法规，这一点极易搞错**：
+      CBA-004 是 hk → cn，即香港侧向内地提供。
+      · 对内地侧：这是**接收**境外个人信息，**不触发** PIPL 第 38/39 条
+        （该两条管的是「向中华人民共和国境外提供」）；但内地接收后的处理仍须有
+        PIPL 第 13 条的合法性基础，营销目的下只能是同意。
+      · 对香港侧：属把个人资料转移出香港，受 PDPO 约束（DPP 3 新目的须明示同意；
+        第 33 条跨境转移条文尚未生效，按 PCPD 指引尽职）。
+      反向的 CBA-005（梯度，cn → hk）才触发 PIPL 第 38/39 条的出境三路径与单独同意——
+      两者不可混为一谈。
+    allowed_path: 需论证
     applicable_routes: pending
+    uncertainties:
+      - "加噪或降维后的嵌入能否主张不可复原？取最严解释：不主张，除非 M7 给出量化的反演失败率证据"
+      - "PDPO 第 33 条未生效期间，香港侧跨境转移的合规依据强度存疑，须查证 PCPD 现行指引"
+      - "若建模不直接服务于促销（仅产出分数、由内地侧决定是否触达），是否仍落入 PDPO 第 VIA 部？须 S0.4 结合 CBA-008 一并判定"
+    strictest_reading: 嵌入按个人信息处理，必须扰动且必须论证出境依据；不因「不是原始数据」而放宽
     status: active
     notes: 可被反演重构原始特征（M7 攻击清单第 2 条），定性时须考虑扰动后的残余风险。
 

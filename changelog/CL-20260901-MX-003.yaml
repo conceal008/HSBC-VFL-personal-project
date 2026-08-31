@@ -1,0 +1,99 @@
+change_id: CL-20260901-MX-003
+timestamp: 2026-09-01T10:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 补充联邦学习的争论、批评性文献与发表地图
+
+what: |
+  按所有者要求「再补充一些对于联邦学习的评论讨论，论文期刊再找一些」，
+  执行 5 轮检索后产出 docs/04-reference/federated-learning-debates-and-venues.md（300 行，11 节），
+  作为 federated-learning-landscape.md 的**配套篇**：前篇讲「有什么」，本篇讲
+  「有什么争议、哪里被高估了、去哪读和发」。并在前篇加了互指链接。
+
+  六大争论：①隐私宣称被高估（cross-silo 聚合梯度仍可推断标签）②FL 不自动满足
+  GDPR/PIPL（「FL 系统并非天然符合 GDPR」；跨法域冲突造成不可能完成的合规局面）
+  ③研究与落地的鸿沟（**772 篇入选论文中仅 25 篇即 3.2% 是真实部署**；评测不可复现；
+  切分过于简化会高估准确率）④贡献度量与激励脆弱（On the Fragility of Contribution
+  Evaluation；商业化的成本与回报时间错配）⑤效率代价（MPC 低效、HE 缺乏可扩展性、
+  DP 小样本低信噪比；「FL 是一门权衡的艺术」）⑥产业互联互通障碍。
+
+  另含：生产一线反思（Federated Learning in Practice: Reflections and Projections，
+  Gboard 全部语言模型已用 FL + 形式化 DP 训练）· 补充论文 30+ 篇分五个主题 ·
+  发表地图（会议按方向分七类、期刊 9 类、workshop 与门户、两个论文追踪仓库）·
+  争论与本项目的对应关系表 · 五条局限。
+
+  可信度分档：🟢 66 处 · 🟡 6 处 · ⚪ 8 处。
+
+why: |
+  前篇列的是方法与工具，读完容易产生「这个领域已经成熟」的错觉。
+  但对一个要向法务、评审与业务方论证的项目来说，**最有用的恰恰是那些被高估之处**——
+  因为对方问的都是这些问题。
+
+  第十节把六大争论逐条映射回本项目，其中最值得记录的一条结论：
+  **本项目 M0 得出的「悲观」结论（三条路线可用样本均不达标、可验证性与轻量出境路径
+  不可兼得）与领域内的批评性文献是一致的，不是我们做错了什么。**
+
+  另外三条直接命中：①cross-silo 聚合梯度泄露——本项目正是两方 cross-silo，
+  是该攻击最有利的场景；②「FL 不自动合规」——正是 M0 全部工作的前提；
+  ③「3.2% 才是真实部署」——印证框架要求 S1–S4 切分协议与「模拟纵向切分高估效应」
+  量化证据的设计不是过度谨慎。
+
+  第六节（产业观察）全部标 ⚪ 并单独加了警示：来源为行业媒体与自媒体，
+  数字未经独立核实，不得引用为事实——这与 AGENTS.md 铁律 1 一致。
+
+gate_incident: |
+  提交时门禁 1 拦截：知乎链接的路径 ID（11 位、以 19 开头）被内地手机号模式命中，
+  与 2026-08-31 那次 CAC 官网 URL 被当成银行卡号属同类误报。
+
+  **这是第二次为 URL 放宽标识模式，累积代价已写进 ci/check_secrets.sh 的注释**：
+  银行卡号与内地手机号两类模式现均跳过含 URL 的行，意味着写在 URL 查询串里的
+  真实卡号或手机号会被漏掉。接受的理由是本仓库只承载文档与代码，
+  真实标识若泄露几乎必然在数据文件中，而数据类扩展名已被整体阻断。
+  **若日后仓库开始承载含 URL 查询串的日志或抓取结果，该豁免必须重新评估。**
+  身份证号与香港身份证号两类模式未放宽，仍对 URL 行生效。
+
+  回归新增两组用例（20 → 22）：URL 里的 11 位 ID 不得误报为手机号；
+  非 URL 上下文的手机号仍须拦截。
+
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 无（跨模块参考资料）
+
+cross_border_impact: none
+cross_border_detail: |
+  纯文献整理，不涉及任何数据流动。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    全部为公开论文、期刊、政府博客与行业分析的链接与简述，不含任何真实数据或业务信息。
+
+downstream_affected: [M1, M5, M6, M7]
+breaking_change: false
+migration: |
+  M7 开工时须把 Breaking Secure Aggregation（cross-silo 聚合梯度泄露标签）纳入威胁模型；
+  M6 报告结果时须同时报精度/隐私/成本三个维度，不能只给 AUC 对比表。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    检索于 2026-09-01 完成，5 轮 WebSearch（批评与局限 · GDPR 合规批评 ·
+    期刊会议地图 · 激励与贡献度量 · 研究落地鸿沟与可复现性 · 中文产业观察 ·
+    生产一线反思）。🟡 与 ⚪ 条目未逐条核对。
+
+rollback: |
+  git revert 本提交：配套篇移除，前篇的互指链接消失。
+
+verification: |
+  1) wc -l docs/04-reference/federated-learning-debates-and-venues.md → 300
+  2) 可信度分档计数：🟢 66 · 🟡 6 · ⚪ 8
+  3) 第十节含「争论 → 对本项目影响 → 我们已做了什么」三列对应表
+  4) 前篇开头含配套篇链接
+  5) bash ci/run_all_gates.sh → 全绿，回归 PASS=22（含门禁1-E/1-F 两组新用例）

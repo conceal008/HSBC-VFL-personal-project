@@ -76,6 +76,19 @@ printf '卡号 %s\n' "$CARD2" > "$C1B/leak.md"
 run bash "$C1B/ci/check_secrets.sh" "$C1B"
 assert "门禁1-D 非 URL 上下文的卡号仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
 
+# 误报回归：URL 路径里的 11 位 ID（如知乎文章号）不得被当成手机号
+C1C="$TMP/gate1c"; mkdir -p "$C1C/ci"
+cp "$ROOT/ci/check_secrets.sh" "$C1C/ci/"
+ZHIHU_ID="19$(printf '%09d' 535338799)"
+printf '来源：<https://zhuanlan.zhihu.com/p/%s>\n' "$ZHIHU_ID" > "$C1C/refs.md"
+run bash "$C1C/ci/check_secrets.sh" "$C1C"
+assert "门禁1-E URL 里的 11 位 ID 不误报为手机号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似内地手机号"
+
+PHONE2="139$(printf '%08d' 12345678)"
+printf '联系人 %s\n' "$PHONE2" > "$C1C/leak.md"
+run bash "$C1C/ci/check_secrets.sh" "$C1C"
+assert "门禁1-F 非 URL 上下文的手机号仍被拦截" 1 "$TMP/out.txt" "疑似内地手机号"
+
 echo
 echo "================ 门禁 4 · 合规一致性核验 ================"
 C4="$TMP/gate4"

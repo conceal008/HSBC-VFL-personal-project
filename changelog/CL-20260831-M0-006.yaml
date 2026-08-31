@@ -1,0 +1,134 @@
+change_id: CL-20260831-M0-006
+timestamp: 2026-08-31T14:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M0
+type: feat
+title: S0.5 推演 R-A 安全评估路径，可用样本三档均低于可验证下界
+waiver_ref: W-001
+
+step:
+  step_id: S0.5
+  step_name: R-A 最严姿态路线推演
+  declaration: |
+    input_from: S0.3/S0.4 的八类定性 · S0.1 的 N_eff ≥ 30,000 · 联网查证的出境阈值与评估时限
+    will_produce:
+      - modules/m0_compliance/route_A.md：可行域 · 可用样本估计（区间）· 合规成本档 · 周期估计
+      - components/funnel.py + configs/s0_5_funnel_route_a.yaml + notebooks/S0.5_route_A_funnel.ipynb（带输出）
+        + results/route_A_funnel.csv
+      - legal_references.md 新增《促进和规范数据跨境流动规定》第 3–9 条逐字原文
+    will_not_produce:
+      - 不推演 R-B / R-C（S0.6 / S0.7），不做三路线横向比较（S0.8）
+      - 不填任何资产的 applicable_routes——三条路线推完后统一填
+      - 不判决主线与回退线（S0.9）
+      - 不把「6–12 个月」这类经验口径写成法定时限
+    success_criteria:
+      - 框架要求的四项齐全，且可用样本估计以区间形式给出
+      - 漏斗计算可一条命令复跑，参数全部来自配置
+      - 出境阈值与评估时限均有逐字原文出处
+    risk: |
+      漏斗的六层折损率全部无来源。风险是这些假设被后续引用成事实。
+      对策：三处标注「无来源，纯假设」，并在结论中明确本 notebook 的价值是
+      「指出哪两个数最要紧」而非「宣布结论」。
+  scope:
+    files_changed: 10
+    lines_added: 58
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: "折损率均为假设值，非真实业务数据；notebook 输出仅为算术结果；ci/check_secrets.sh BLOCK=0"
+      G2: "未改动任何资产的定性或 allowed_path；applicable_routes 仍全为 pending；门禁 4 BLOCK=0"
+      G3: "will_not_produce 可核验：无 route_B.md / route_C.md；八类 applicable_routes 未变；周期估计中「6–12 个月」明确标注为经验口径非法定时限"
+      G4: "0.7 红线第 6 条（合成数据不外推真实业务）：本步的漏斗是假设推演，结论已三处标注为假设，未表述为业务事实"
+      D1: "框架 S0.5 要求的四项全部产出，并在 route_A.md 第六节列表对照"
+      D2: "关键数字可复核：可用样本 3/226/5,814 人来自 notebook 输出；反解 516 万 / 6,637 万来自同一 notebook；出境阈值来自 CAC 官网逐字原文；评估时限 5/7/45 个工作日来自《数据出境安全评估办法》"
+      D3: "config + component + notebook 三件套齐全，jupyter nbconvert --execute 实测重跑通过；门禁 6 六项全过"
+      D4: "两条实质结论：①R-A 可用样本三档均低于可验证下界，且瓶颈在结构性折损层（资格率 × 双持率 = 2.4%）而非同意率——提高同意率改变不了量级；②**可验证性与轻量出境路径不可兼得**，这是两条硬约束的算术关系而非假设"
+  revisions: 0
+  verdict: committed
+  next_step: S0.6
+
+what: |
+  推演 R-A（PIPL 第 38 条第（一）项数据出境安全评估路径），产出框架要求的四项：
+  · 可行域：八类资产逐条判定。R-A 真正解决的只有 CBA-005 梯度回传一条——
+    hk → cn 方向的资产本就不触发 PIPL 出境条款，CBA-001 在任何路线下都禁止。
+  · 可用样本估计：六层折损漏斗，N_eff 区间 **3 ~ 5,814 人**（中位 226），
+    合规折损率 0.0015% ~ 0.58%。三档全部低于 S0.1 的 30,000。
+  · 合规成本档：**高**（法务、技术、组织三项均高；评估结果有效期 3 年）。
+  · 周期估计：法定时限 5 + 7 + 45 个工作日 ≈ 57 个工作日；端到端 6–12 个月为经验口径。
+  同时把《促进和规范数据跨境流动规定》第 3–9 条逐字原文补入 legal_references.md。
+
+why: |
+  这一步本来只是三条路线推演的第一条，但算完漏斗后出现两个必须立刻记录的结果。
+
+  其一，**可用样本三档全部不达标**，且瓶颈在结构性折损层：南向通投资者资格率 ×
+  同时为香港行客户率，最乐观档也只有 2.4%。这意味着优化告知话术、提高同意率
+  都改变不了量级——出路只有扩大人群定义、降低 MDE 要求，或者承认本命题在真实规模下
+  不可验证、转为合成数据机制验证的交付形态。框架的 M0 升级条件是「三条路线均不达标 → 上报」，
+  R-A 已不达标，R-B / R-C 的结构性折损层与本路线相同，大概率同样不达标。
+
+  其二，把两条已确认的硬约束并置会得到一个此前没人算过的结论：
+  S0.1 要求 N_eff ≥ 30,000 才可验证；《促进和规范数据跨境流动规定》第七条规定
+  1 万人以上敏感个人信息必须申报安全评估；而 CBA-005 梯度已按敏感个人信息定性。
+  三者相交 → **任何达到可验证规模的双向 L3 方案都必然落入最重的出境路径，
+  R-B 与 R-C 在敏感口径下不可选**。这不是假设，是算术。
+  唯一的技术出路是把 L3 改造成 hk → cn 单向流动，该建议已写入 M5 的 README。
+
+links:
+  branch_card: none
+  decision_record: none
+  waiver: W-001
+  loop_step: 《Loop 执行规范 v2》LOOP M0 步骤分解表 · S0.5
+
+cross_border_impact: none
+cross_border_detail: |
+  本步只推演路线并计算折损漏斗，未改变任何资产的定性或允许路径，
+  八类的 applicable_routes 仍全为 pending。
+
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: |
+    **本项目不设合规角色，本次推演未经法务复核**（W-001 要求每次援引时写明），
+    route_A.md 首部已带 mandatory_disclaimer。
+    折损率全部为假设值，不含任何真实业务数据；对照 2.2 的五问：
+    不含统计量来源、不涉分组样本量、未泄露真实交集规模、无真实业务绝对量级、
+    公开后不构成商业敏感信息泄露。
+
+downstream_affected: [M1, M3, M5, M6, M8]
+breaking_change: false
+migration: |
+  M5 须增设 L3 的「单向流动」分支（hk → cn 送嵌入、不回传梯度）；
+  M3 的折损漏斗须以本步的六层结构为基础，并把南向通资格率单列为第一层；
+  M1 须优先寻找能校准「资格率」与「双持率」两个数的数据源或业务口径。
+
+reproducibility:
+  config: modules/m0_compliance/configs/s0_5_funnel_route_a.yaml
+  config_hash: sha256:f1953f6bdffc
+  seeds: [42]
+  env_lock: null
+  note: |
+    重跑：jupyter nbconvert --to notebook --execute --inplace
+    modules/m0_compliance/notebooks/S0.5_route_A_funnel.ipynb
+
+rollback: |
+  git revert 本提交：route_A.md 与漏斗产物移除，M0 回到 5/10 步。
+
+verification: |
+  1) python3 -c "import sys,yaml;sys.path.insert(0,'.');
+     from modules.m0_compliance.components.funnel import funnel;
+     c=yaml.safe_load(open('modules/m0_compliance/configs/s0_5_funnel_route_a.yaml'));
+     r=funnel(c['base_population'],c['stages']);
+     print(r[-1]['remaining_low'], r[-1]['remaining_mid'], r[-1]['remaining_high'])" → 3 226 5814
+  2) grep -c "第七条" modules/m0_compliance/legal_references.md → ≥1
+  3) python3 ci/check_reproducibility.py → BLOCK=0 WARN=0
+  4) 五个门禁 + bash ci/tests/run_gate_tests.sh → 全绿

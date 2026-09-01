@@ -1,0 +1,76 @@
+change_id: CL-20260901-MX-004
+timestamp: 2026-09-01T12:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 新增项目进度总览，并把文献整理与进度快照复制到汇丰项目根目录
+
+what: |
+  产出 `项目进度总览.md`（仓库根目录）：当前进度快照，八节——
+  一句话现状 · 总体进度（11 个模块状态）· M0 逐步进度（9 步含自评分与关键产出）·
+  产出清单（10 类计数）· 质量与门禁（含「门禁实际拦下过的缺陷」）·
+  已经确定的八条结论（逐条标注性质）· 卡在哪的四项待裁定 · 下一步 · 文件索引。
+  README 已加入口。
+
+  同时按所有者要求，把**文献整理两篇**与**项目进度总览**复制到汇丰项目根目录
+  `/Applications/总文件夹/汇丰/`，并扩展 `8-9月/仓库产出副本/同步.sh` 使其
+  一并刷新根目录的这三份拷贝。
+
+why: |
+  此前「进度」这件事分散在 module_status.yaml、step_ledger.yaml 与项目实时日志里，
+  三者各自只答一部分：模块状态、步骤分数、事件流水。**没有一份能回答
+  「这个项目现在到底做到哪、产出了什么、卡在哪」**——而这恰恰是需求方与 mentor 最先问的。
+
+  文档中两处刻意的写法：
+
+  1. **代码量对比单列并加注**：门禁与测试 1,356 行 vs 业务组件 181 行。
+     这个比例容易被误读为「本末倒置」，因此紧接着说明两点——框架要求如此
+     （一步一提交、可机器核验），且框架同样规定「主场景未锁定时不投入深度算法开发」。
+     藏起来比说明它更糟。
+  2. **「门禁实际拦下过的缺陷」列清单**：YAML 语法错误、notebook 写死参数、
+     changelog 中的数字字面量、DR 缺 falsifier、notebook 乱序执行、组件魔数。
+     没有这份清单，1,356 行门禁代码就只是成本，看不出收益。
+
+  复制到汇丰根目录而非只留仓库内：根目录的 README.md 是「整个项目文件夹的唯一入口」，
+  需求方与 mentor 会先打开那里。副本的漂移风险由同步脚本与副本说明控制。
+
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 无（跨模块状态文档）
+
+cross_border_impact: none
+cross_border_detail: |
+  纯进度整理与文件复制，不涉及任何数据流动。
+
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (Opus 5) 自查
+  conclusion: |
+    进度快照与文献整理均不含真实业务数据。文中引用的可用样本、折损率等数字
+    已在「已经确定的结论」表中逐条标注性质（显式假设 / 确定推论 / 未经法务复核）。
+
+downstream_affected: []
+breaking_change: false
+migration: |
+  进度总览是快照，每完成一个步骤须更新第一至三节与第六节。
+  汇丰根目录的三份拷贝用 8-9月/仓库产出副本/同步.sh 刷新，不要单独手改。
+
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: |
+    文中全部统计数字由脚本从仓库实时统计得出（git rev-list、ls 计数、yaml 解析、
+    回归套件 PASS 计数），未凭记忆书写。
+
+rollback: |
+  git revert 本提交：进度总览与 README 入口移除；汇丰根目录的拷贝需手工删除。
+
+verification: |
+  1) git rev-list --count HEAD 与文档「Git 提交」行一致
+  2) 门禁表与 ci/README.md 的状态一致；回归用例数与 run_gate_tests.sh 输出一致
+  3) 汇丰根目录存在三份拷贝，且 8-9月/仓库产出副本/同步.sh 能刷新它们
+  4) bash ci/run_all_gates.sh → 全绿

@@ -76,6 +76,22 @@ printf '卡号 %s\n' "$CARD2" > "$C1B/leak.md"
 run bash "$C1B/ci/check_secrets.sh" "$C1B"
 assert "门禁1-D 非 URL 上下文的卡号仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
 
+# 误报回归：浮点数小数部分的长数字串不得被当成卡号（实验结果 CSV 的常态）
+C1D="$TMP/gate1d"; mkdir -p "$C1D/ci"
+cp "$ROOT/ci/check_secrets.sh" "$C1D/ci/"
+# 18 位小数样本同样运行时拼装——写成字面量会被门禁 1 扫到本脚本自身
+FRAC1="0280822629$(printf '%08d' 67478067)"
+FRAC2="0306962634$(printf '%08d' 82280717)"
+printf 'auc,gap\n0.%s,0.%s\n' "$FRAC1" "$FRAC2" > "$C1D/results.md"
+run bash "$C1D/ci/check_secrets.sh" "$C1D"
+assert "门禁1-G 浮点数小数部分不误报为卡号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似银行卡号"
+
+# 边界回归：卡号**后**跟句点仍必须拦截——本次只收紧了前导边界，不得连带放宽后随边界
+CARD3="6225$(printf '%012d' 880137634567)"
+printf 'Card %s.\n' "$CARD3" > "$C1D/leak.md"
+run bash "$C1D/ci/check_secrets.sh" "$C1D"
+assert "门禁1-H 卡号后跟句点仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
+
 # 误报回归：URL 路径里的 11 位 ID（如知乎文章号）不得被当成手机号
 C1C="$TMP/gate1c"; mkdir -p "$C1C/ci"
 cp "$ROOT/ci/check_secrets.sh" "$C1C/ci/"

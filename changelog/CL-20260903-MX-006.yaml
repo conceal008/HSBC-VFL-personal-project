@@ -1,0 +1,60 @@
+change_id: CL-20260903-MX-006
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 初版实验结果与结论汇总，以及降级清单
+what: 新增两份根目录文档：《实验结果与结论.md》汇总 M2/M3/M5/M6/M7 的全部实测结果与三个主结论；《初版完成说明与降级清单.md》逐条说明本次降级了哪些标准、降到什么程度、代偿是什么、何时必须恢复。同步更新
+  registry/module_status.yaml。
+key_finding: '**三个主结论：**
+
+  C1 · L1 只捕获纵向联邦价值的 12.3%——商业前提成立，但成立得比预期窄。
+
+  C2 · 价值高度依赖互补性这一个条件（λ 跨度八倍），不是普遍成立。
+
+  C3 · 逐轮加高斯噪声不是有效防护——跨轮平均攻击下泄露 AUC 回到 1.0000；压到 0.67 需 σ=30，此时可用性 0.6352 低于 L0 基线 0.7089。
+
+
+  **降级清单同时记录了两处绕开的强制要求**（用户授权，须说明）：
+
+  ① 门禁 5（代码质量）与门禁 7（端到端冒烟）的触发条件本次首次满足但未实现，列为初版合入后第一优先项；
+
+  ② L3 三条路线未逐路线建分支卡，代偿为三条路线结果分别独立报告，未做择优隐藏。'
+why: 用户指令要求「标准导致做不了的就降级，但要进行相关说明」。降级若不留痕，后来者会把降级后的产物当作满足原标准的产物使用——这比不做更危险。故降级清单与结果文档同等重要，且必须并列在根目录。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  - DR-MX-001
+  waiver:
+  - W-001
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 文档为既有实验结果的汇总，未新增任何定性，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 《实验结果与结论.md》首部列明四条适用边界：合成数据仅验证机制不承诺真实效果；自实现算法非生产实现；合规判断未经法务复核；隐私结论限于所列攻击设定，不构成安全性证明。
+downstream_affected:
+- M0
+- M8
+- M9
+breaking_change: false
+migration: C3 对 M0 的形态 A/B 权衡有直接影响：若隐私方案原计划采用噪声类防护，须改为协议级手段。
+reproducibility:
+  config: 不适用（汇总文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 文档中每个数字均可追溯到 modules/*/results/ 下的 CSV 或对应 notebook 的输出。
+rollback: git revert 本提交：两份文档移除；实验结果本身仍在各模块目录中。
+verification: "1) 文档中的每个数字均可在 modules/*/results/*.csv 中核对\n2) 降级清单的七项降级与 W-002 的 downgrades 逐条对应\n3) 不可降级红线六项与\
+  \ DR-GOV-009 逐条对应\n4) bash ci/run_all_gates.sh → 全绿（22/22）\n\n自评（type=doc 为步骤豁免类型，不占步骤号）：D1=3 D2=3 D3=2\
+  \ D4=3 总分 11\n  D1: 两份文档均交付，含已知缺口与恢复条件\n  D2: 每个数字可追溯到 modules/*/results/ 下的 CSV\n  D3: 文档本身不可执行，追溯依赖结果文件的留存，故\
+  \ 2 分而非 3 分\n  D4: 把散在五个模块的结果整合为三个可决策的结论，并给出八条对项目决策的直接影响"
+outputs:
+- 实验结果与结论.md
+- 初版完成说明与降级清单.md
+- registry/module_status.yaml

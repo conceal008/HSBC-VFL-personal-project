@@ -1,0 +1,46 @@
+change_id: CL-20260903-MX-007
+timestamp: 2026-09-03 17:20:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 更新项目进度总览至初版完成状态，补 README 入口
+what: 把《项目进度总览.md》从 2026-09-01 快照更新到初版完成状态：五个模块状态由「未开始」改为「初版完成」，两个模块标注为降级；已确定结论由 8 条增至 15 条（新增 7 条均标注为合成数据实测）；待裁定由
+  4 项增至 6 项；下一步改为「合入后第一批工作」。README 补上两份新根目录文档的入口。
+key_finding: '进度总览新增的 7 条结论**全部标注为合成数据实测**，与前 8 条（显式假设 / 法条推论 / 技术侧自评）在性质上明确区分，并在表下补一句「只验证机制，不承诺真实业务效果」——避免后来者把机制层结论当作效果承诺引用。
+
+
+  待裁定第 5 项（神经网络禁令）**本次已部分解除阻塞**：DR-GOV-009 决定不预先裁定而是两条路线都实现，裁定所需的实测数据现已具备（形态A 比形态B 自监督高 0.045 AUC；形态B
+  随机编码器 0.7076 低于 L0 基线 0.7127）。'
+why: 进度总览是需求方与 mentor 的入口文档。初版完成后它立刻变得严重过时（仍写着 M5 未开始），过时的入口文档比没有入口文档更容易误导。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 文档快照更新，未新增任何定性，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 新增 7 条结论逐条标注性质为「合成数据实测」，并在表下声明不承诺真实效果。
+downstream_affected: []
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: 不适用（文档快照）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 新增的 7 条结论均可追溯到 modules/*/results/ 下的 CSV。
+rollback: git revert 本提交：进度总览回到 2026-09-01 快照。
+verification: '1) 15 条结论中新增的 9–15 条均可在 modules/*/results/*.csv 核对
+
+  2) 五个模块的状态与各自 README 的状态行一致
+
+  3) bash ci/run_all_gates.sh → 全绿'
+outputs:
+- 项目进度总览.md
+- README.md

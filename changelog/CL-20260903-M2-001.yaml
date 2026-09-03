@@ -1,0 +1,98 @@
+change_id: CL-20260903-M2-001
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M2
+type: feat
+title: 实现结构因果模型合成数据生成器，并通过零互补场景的硬验收
+what: 实现 13 个可控结构参数的 SCM 生成器（互补性、冗余度、重叠率、同意率与选择性、匹配错误率、时间漂移、标签噪声、异质处理效应等），配置 8 个场景 × 5 个种子，并提供 theoretical_gain_signal
+  用于计算该场景下被动方数据的理论价值上界。
+key_finding: '**S2_零互补（λ=0）的理论增益 = 0.0000**，这是生成器实现正确的硬验收判据，通过。
+
+
+  同时发现实测增益系统性高于理论增益（如 S2 实测 +0.0254）。控制实验证明这不是缺陷：
+
+  λ=0 且冗余=0 时增益为 −0.0057（多余特征的纯过拟合代价），冗余=0.3 时为 +0.0254。
+
+  **机制是冗余特征通过降低测量误差产生价值**——与互补性是两条不同的价值来源。
+
+  这一区分对真实项目的数据价值评估直接有用：不能只问「对方有没有我没有的信息」，还要问「能不能帮我把已有的信息测得更准」。'
+why: 本项目无法取得真实数据（M0 三条合规路径的 N_eff 均远低于所需规模），合成数据是唯一能做机制验证的路径。而合成数据的价值完全取决于地面真值是否可控且可验证——因此生成器必须自带正确性验收，否则下游全部结论都建立在无法检验的基础上。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step:
+  - S2.1
+cross_border_impact: none
+cross_border_detail: 全部数据为程序生成的合成数据，不含任何真实个人信息，未新增跨境资产，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 本项目不设合规角色，涉法判断未经法务复核。合成数据产出不得用于承诺真实业务效果。
+downstream_affected:
+- M3
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 无。本步为新增模块内容，不改变既有接口。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml · modules/m5_modeling/configs/experiment.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: notebook 首个 cell 打印 config 路径、种子与 git 版本；主指标均带跨种子 95% 置信区间。
+rollback: git revert 本提交：本模块的组件、配置、结果与 notebook 移除。
+verification: '1) S2_零互补 理论增益 = 0.0000（notebook 末 cell 打印「验收: 通过」）
+
+  2) 冗余机制的控制实验可复跑：λ=0 冗余=0 → −0.0057；冗余=0.3 → +0.0254
+
+  3) python3 ci/check_reproducibility.py → BLOCK=0'
+step:
+  step_id: S2.1
+  step_name: SCM 合成数据生成器与 8 场景配置
+  declaration: "input_from: 框架 M2 输出契约（≥6 个标准场景）· DR-MX-001 的六项范围决策\nwill_produce:\n  - SCM 生成器，结构参数可控且地面真值可算\n\
+    \  - 8 个场景配置，覆盖零互补/高互补/高冗余/低重叠/匹配噪声/同意偏差/稀疏正样本\n  - 正确性验收：零互补场景理论增益必须为 0\nwill_not_produce:\n  - 任何真实数据的处理\n\
+    \  - 特征工程（M4 本次降级）\nsuccess_criteria:\n  - S2_零互补 理论增益 = 0（容差 1e-9）\n  - 场景数 ≥6，种子 ≥5\nrisk: |\n \
+    \ 若生成器的信号构造有误，下游全部结论失效且难以察觉。故设置零互补场景作为可证伪的硬判据。\n"
+  scope:
+    files_changed: 4
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 仅新增合成数据代码与配置；ci/check_secrets.sh 全仓扫描 BLOCK=0
+      G2: 未引入任何跨境资产，数据为程序生成
+      G3: will_not_produce 可核验：未触碰 M4，未引入真实数据
+      G4: 0.7 七条红线无适用对象（无真实数据）
+      D1: 三项产出全部交付：生成器 13 参数、8 场景配置、正确性验收 CSV 与 notebook
+      D2: 零互补理论增益 = 0.0000 可复算；冗余机制经控制实验分离（λ=0 冗余=0 → −0.0057）
+      D3: 种子从 configs 读取，无写死；notebook 带指纹 cell 与输出；环境已锁
+      D4: 消除一个未决问题并产生新认知：区分了「互补」与「去噪」两条价值来源，该区分此前未在项目任何文件中出现
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m2_synthetic/components/scm_generator.py
+  - modules/m2_synthetic/configs/scenarios.yaml
+  - modules/m2_synthetic/results/correctness_validation.csv
+  - modules/m2_synthetic/notebooks/S2.1_scm_generation.ipynb

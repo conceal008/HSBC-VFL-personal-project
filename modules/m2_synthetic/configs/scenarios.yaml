@@ -1,0 +1,53 @@
+# M2 · 标准场景库
+# ---------------------------------------------------------------------------
+# ⚠️ 全部为合成数据参数，非真实业务口径。结论只能作机制层判断（W-002）。
+# 场景设计原则：让「VFL 在什么条件下有价值」成为可实验命题，
+# 因此必须同时包含 λ=0（香港侧无独有信息）与 λ 高（香港侧关键）两端。
+# ---------------------------------------------------------------------------
+step_id: S2.1
+seeds: [11, 22, 33, 44, 55]
+
+defaults:
+  n_party_a: 40000
+  overlap_rate: 0.30
+  complementarity: 0.8
+  redundancy: 0.3
+  marginal_drift: 0.0
+  size_asymmetry: 1.0
+  base_rate: 0.03
+  consent_rate: 0.6
+  consent_selectivity: 0.0
+  match_error_rate: 0.0
+  time_drift: 0.0
+  label_noise: 0.0
+  hte_strength: 0.5
+
+scenarios:
+  - name: S1_基准
+    # 中性设定：中等互补度、无噪声、无漂移
+  - name: S2_零互补
+    complementarity: 0.0
+    # ★ 香港侧不提供任何独有信息 → VFL 理论增益为 0。用于检验方法不会「无中生有」
+  - name: S3_高互补
+    complementarity: 2.0
+    # ★ 香港侧信号占主导 → VFL 应有明显增益
+  - name: S4_高冗余
+    redundancy: 1.2
+    complementarity: 0.8
+    # 两侧特征高度相关 → 即使 λ>0，增益也会被冗余稀释
+  - name: S5_低重叠高漂移
+    overlap_rate: 0.10
+    marginal_drift: 0.8
+    time_drift: 1.0
+    # 跨境场景的真实特征：交集小、分布漂移、有时间趋势
+  - name: S6_匹配噪声
+    match_error_rate: 0.05
+    # 假匹配 5%：把 A 的特征贴到 B 的标签上，等价于标签噪声
+  - name: S7_同意选择偏差
+    consent_selectivity: 1.0
+    consent_rate: 0.4
+    # 高分者更可能同意 → 可用样本非随机，引入选择偏差
+  - name: S8_稀疏正样本
+    base_rate: 0.01
+    complementarity: 1.2
+    # 正样本率 1%：营销场景的现实取值下限

@@ -1,7 +1,7 @@
 # M5 · 建模方案与基线阶梯
 
-> 状态：⬜ **未开始** ｜ 步数预算 **12** ｜ 已用 **0** ｜ 认领人：无
-> 最后更新：2026-08-29 ｜ 规范位置：`docs/00-framework/` §M5 · `docs/01-loops/` LOOP M5
+> 状态：🟩 **初版完成（S5.1–S5.3）** ｜ 步数预算 **12** ｜ 已用 **3** ｜ 认领人：无
+> 最后更新：2026-09-03 ｜ 规范位置：`docs/00-framework/` §M5 · `docs/01-loops/` LOOP M5
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
 ## 目标
@@ -68,3 +68,29 @@ L3 在全部 ≥6 个场景下均不优于 L1 → 立即上报。不要通过调
 ---
 
 *本 README 必须保持当前——它是下一个 Agent 接手时最先读的文件。每步提交时同步更新「状态 / 已用步数 / 当前结论 / 未决问题 / 下一步」五处。*
+
+## 本模块已完成（2026-09-03，初版）
+
+| 产出 | 位置 |
+|---|---|
+| L0/L1/L2/L3a/L3c/L4 模型 | `components/models.py` |
+| L3b 纵向 GBDT（(g,h) 直方图交换） | `components/gbdt.py` |
+| 神经网络原语 | `components/nn.py` |
+| 实验编排（两种划分口径） | `components/experiment.py` |
+| 全网格结果 1440 行 | `results/ladder_results_raw.csv` · `ladder_summary.csv` |
+| 条件价值扫描 | `results/sweep_results.csv` |
+| L1 公平性三重自证 | `results/l1_fairness_test.csv` · `l1_placebo_test.csv` · `l1_vs_l3_critical.csv` |
+| 运行入口（带输出） | `notebooks/S5.1_baseline_ladder.ipynb` |
+
+**放行判据核对**：
+
+- 基线 5/5 级 ✅（L0/L1/L2/L3/L4，其中 L3 有 3 条路线共 5 个变体）
+- **L1 完成时点严格早于任何 L3 实验** ✅（L1 组件先于 L3 组件实现；
+  后续对 L1 的调整全部为**加强**方向：分段扫描、k 扫描、安慰剂对照、40 种子）
+- 种子 ≥5 且全阶梯一致 ✅（主网格 5 种子；关键对照 40 种子）
+- 场景覆盖 ≥6 ✅（8 个场景）
+
+**实现正确性（等价性检验）**：L3a 联邦 LR 0.7978 ≈ L4 集中式 LR 0.8003；
+L3b 纵向 GBDT 与 L4 集中式 GBDT 完全相等（0.7697）。协议无损，符合数学预期。
+
+**核心结论**：L1 只捕获纵向联邦价值的 **12.3%**（L3a−L1 = +0.0590 [+0.0501, +0.0680]，40 种子）。

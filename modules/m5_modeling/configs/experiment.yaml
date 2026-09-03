@@ -1,0 +1,39 @@
+# M5 · 基线阶梯实验配置
+# ⚠️ 合成数据 + 自实现算法，结论仅作机制层判断（豁免 W-002）
+step_id: S5.1
+seeds: [11, 22, 33, 44, 55]          # ≥5 种子——统计严谨性红线，不降级
+splits: [random, oot]                # D-1 随机 / D-2 时间外推
+primary_topk: 0.10
+bootstrap_iters: 800
+
+hyperparams:
+  n_segments: 64          # L1 的分段数（分段键只用内地侧特征）
+  k_anonymity: 10         # k-匿名的 k（DR-MX-001 · D-5 定为 10 起步）
+  c_reg: 1.0
+  n_rounds: 60            # GBDT 提升轮数
+  max_depth: 3
+  gbdt_lr: 0.1
+  n_bins: 32              # 直方图分桶数（SecureBoost 的近似来源）
+  reg_lambda: 1.0
+  min_gain: 0.0
+  flr_rounds: 400         # 联邦逻辑回归的通信轮数
+  flr_lr: 0.5
+  flr_l2: 0.0001
+  dim_hidden: 16
+  dim_embed: 4
+  nn_epochs: 12
+  batch_size: 256
+  nn_lr: 0.01
+
+# 条件价值曲线的参数扫描（M6 的核心分析型产出）
+sweeps:
+  - param: complementarity
+    values: [0.0, 0.4, 0.8, 1.2, 1.6, 2.0]
+  - param: overlap_rate
+    values: [0.05, 0.10, 0.20, 0.30, 0.50]
+  - param: redundancy
+    values: [0.0, 0.3, 0.6, 1.2]
+  - param: match_error_rate
+    values: [0.0, 0.01, 0.03, 0.05, 0.10]
+  - param: k_anonymity_sweep
+    values: [5, 10, 20]

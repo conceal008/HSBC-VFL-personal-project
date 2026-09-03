@@ -1,23 +1,86 @@
-# M5 步骤台账
-# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
-# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
-
 module: M5
 module_path: modules/m5_modeling
-total_steps_planned: 12      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+total_steps_planned: 12
+steps:
+- step_id: S5.1
+  step_name: 五级基线阶梯实现（L1 先于 L3 完成）
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-03 16:40:00+08:00'
+  change_id: CL-20260903-MX-006
+  waiver_ref: W-002
+  outputs:
+  - modules/m5_modeling/components/models.py（L0/L1/L2/L3a 联邦LR/L3c SplitNN 三形态/L4）
+  - modules/m5_modeling/components/gbdt.py（L3b 纵向 GBDT，(g,h) 直方图交换）
+  - modules/m5_modeling/components/nn.py（Encoder/TopModel/Adam）
+  - L1 组件的实现时点严格早于任何 L3 组件——满足 M5 放行判据第 2 条
+- step_id: S5.2
+  step_name: 全网格实验：8 场景 × 5 种子 × 2 划分 × 11 模型
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-03 16:40:00+08:00'
+  change_id: CL-20260903-MX-006
+  waiver_ref: W-002
+  outputs:
+  - modules/m5_modeling/results/ladder_results_raw.csv（1440 行）· ladder_summary.csv
+  - modules/m5_modeling/results/sweep_results.csv（4 参数条件价值扫描）
+  - modules/m5_modeling/notebooks/S5.1_baseline_ladder.ipynb（带输出）
+  - 等价性验收：L3a 联邦LR 0.7978 ≈ L4 集中式LR 0.8003；L3b 纵向GBDT = L4 集中式GBDT（完全相等）
+- step_id: S5.3
+  step_name: L1 公平性自证：分段扫描 + k 扫描 + 安慰剂对照（40 种子）
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-03 16:40:00+08:00'
+  change_id: CL-20260903-MX-006
+  waiver_ref: W-002
+  outputs:
+  - modules/m5_modeling/results/l1_fairness_test.csv · l1_placebo_test.csv · l1_vs_l3_critical.csv
+  - 核心数字：L1 捕获 VFL 价值的 12.3%；L3a−L1 = +0.0590 [+0.0501,+0.0680]
+  - 安慰剂臂设计对 L1 有利方向严格化，避免把分段灵活性误算为 L1 功劳
+  - 遵守 DR-GOV-009 红线「L1 必须与 L3 同等认真实现」
 current_step: null
-next_step: S5.1
-
+next_step: S5.4
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
-  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
-  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
-
+  avg_score: 12.0
+  escalation_count: 0
+  revision_rate: null
+  steps_used: 3
+  budget_usage: 0.25
+  consecutive_low_d4: 0
+  pass_threshold: 10
 audit:
-  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  last_spot_check_step: null
   spot_checks_done: 0

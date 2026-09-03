@@ -1,0 +1,116 @@
+change_id: CL-20260903-M7-001
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M7
+type: feat
+title: 三类隐私攻击实现，并用跨轮平均攻击推翻了加噪防护的有效性
+what: '实现三类攻击（攻击者设定为诚实但好奇的协议内参与方）：
+
+  A1 被动方从每轮下发的残差反推主动方标签；
+
+  A2 主动方从被动方上传的嵌入用线性解码器重建被动方特征；
+
+  A3 被动方从回传梯度反推标签（仅 SplitNN 形态A 存在此暴露面）。
+
+  并评估逐轮加高斯噪声的防护效果，给出单轮 ε。'
+key_finding: '**C3：逐轮加高斯噪声不是本协议的有效防护——本步骤的证伪推翻了自己的初期读数。**
+
+
+  初期结果显示 σ=1.0 即可把泄露 AUC 从 1.00 压到 0.76 而几乎不损失可用性，看起来近乎免费。但攻击者只用了单轮残差。噪声在轮间独立而标签恒定，**跨轮平均即可消掉噪声**：
+
+  σ=1.0 时跨轮平均攻击的泄露 AUC 回到 **1.0000**；要压到 0.67 需 σ=30，此时可用性 0.6352 **低于 L0 内地单方基线 0.7089**——防护到有效时，还不如不做联邦。
+
+  → 可行路径只能是协议级手段（安全聚合 / 同态加密 / 秘密分享），或改变暴露面本身。
+
+
+  **另一个反直觉结果：「冻结编码器 = 更安全」是错的。** 形态B 挡住了梯度标签泄露（A3 从 1.00 降到 0.50），但特征反演风险反而更高（自监督形态 R²=0.667 > 形态A 的 0.488）——PCA
+  编码器是线性的、更易求逆。形态B 换掉的是标签暴露面，不是特征暴露面。
+
+
+  过程中自查发现并修复两处实现缺陷：①残差记录的是加噪**前**的干净值，而被动方实际收到的是加噪后的值，导致 DP 防护看起来完全无效；②泄露强度取了原始 AUC 而非 max(auc, 1−auc)，而
+  r = p − y 与标签负相关，攻击者翻转符号即可，故原始 AUC=0 实为**完全泄露**。'
+why: 框架要求 M7 给出攻防结论以支撑 L3 形态选择。而攻防结论最容易出现「防护看起来有效」的假象——因为防护效果高度依赖攻击者的强度假设。因此本步在得到有利结论后主动设计更强的攻击自证，这正是框架的证伪纪律所要求的。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step:
+  - S7.1
+cross_border_impact: none
+cross_border_detail: 全部数据为程序生成的合成数据，不含任何真实个人信息，未新增跨境资产，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 本项目不设合规角色，涉法判断未经法务复核。合成数据产出不得用于承诺真实业务效果。 隐私结论限于所列半诚实攻击设定，**不构成安全性证明**；ε 为单轮预算，不可作为差分隐私保证引用。
+downstream_affected:
+- M0
+- M5
+- M8
+- M9
+breaking_change: false
+migration: 无。本步为新增模块内容，不改变既有接口。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml · modules/m5_modeling/configs/experiment.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: notebook 首个 cell 打印 config 路径、种子与 git 版本；主指标均带跨种子 95% 置信区间。
+rollback: git revert 本提交：本模块的组件、配置、结果与 notebook 移除。
+verification: '1) A1 无防护泄露 AUC = 1.0000（首轮残差 r = 0.5 − y 符号与标签一一对应）
+
+  2) 证伪：σ=1.0 时单轮攻击 0.7574 vs 跨轮平均攻击 1.0000，见 multiround_attack.csv
+
+  3) σ=30 时可用性 0.6352 < L0 基线 0.7089，防护到有效时不如不做联邦
+
+  4) A2/A3：形态B 梯度泄露 0.50（形态A 为 1.00），但反演 R² 0.667 > 0.488
+
+  5) python3 ci/check_reproducibility.py → BLOCK=0'
+step:
+  step_id: S7.1
+  step_name: 隐私攻击实现与防护有效性证伪
+  declaration: "input_from: 框架 M7 输出契约 · M5 的三条 L3 路线及其中间量记录\nwill_produce:\n  - A1/A2/A3 三类攻击实现\n  -\
+    \ 隐私—可用性权衡曲线与单轮 ε\n  - 更强攻击（跨轮平均）的证伪检验\nwill_not_produce:\n  - RDP 会计与子采样放大（W-002 降级）\n  - 特征推断攻击、成员推断攻击、恶意（非半诚实）参与方设定\n\
+    success_criteria:\n  - 每条防护结论都必须经过一次更强攻击的检验\n  - ε 明确标注为单轮预算，不得作为端到端保证引用\nrisk: |\n  最大风险是在弱攻击下得出「防护有效」的假结论并写入方案。\n\
+    \  故强制要求：任何有利于防护的结论，必须先设计更强的攻击自证。\n"
+  scope:
+    files_changed: 5
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成标签与合成特征；无真实个人信息
+      G2: 无跨境对象
+      G3: 未实现 RDP 会计与其他攻击类型，已在 will_not_produce 声明并标注降级
+      G4: 红线无适用对象
+      D1: 三类攻击与防护评估全部交付；另交付证伪检验
+      D2: 证伪可复算：σ=1.0 时单轮攻击 0.7574、跨轮平均攻击 1.0000，见 multiround_attack.csv。两处实现缺陷的修复前后差异均可复现
+      D3: 5 种子；σ 网格在 notebook 中列明；结果 CSV 与图均落盘；notebook 带指纹与输出
+      D4: 推翻了本步骤自己的初期结论，并否定了一整条防护技术路线；同时纠正了「冻结编码器更安全」这一常见误解
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m7_security/components/attacks.py
+  - modules/m7_security/results/attack_results.csv
+  - modules/m7_security/results/multiround_attack.csv
+  - modules/m7_security/results/dp_privacy_utility.png
+  - modules/m7_security/notebooks/S7.1_privacy_attacks.ipynb

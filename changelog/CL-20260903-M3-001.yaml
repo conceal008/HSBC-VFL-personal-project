@@ -1,0 +1,96 @@
+change_id: CL-20260903-M3-001
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M3
+type: feat
+title: PSI 行为仿真与对齐质量敏感性分析：实体对齐不是本项目的主要风险
+what: 实现 PSI 的行为级仿真（不含密码学原语）：对齐规模与偏差、漏配与错配两类失败模式、ECDH-PSI 的通信量与模幂次数量级估计。错配以错位置换实现（保证无样本换回自己）。
+key_finding: '**实体对齐质量不是本项目的主要风险。**
+
+  漏配 10% 仅损失约 12% 增益；错配需达约 40% 才使增益折半。
+
+  ECDH-PSI 在千万级对千万级规模下约需 610 MB 通信、2000 万次模幂，工程上不构成障碍。
+
+
+  过程中修正了一处建模缺口：原生成器只建模漏配（少了人），未建模错配（把甲的特征接到乙身上）。错配危害更大——它注入无关噪声，且在合规上属于**错误的个人信息关联**。该机制本质属对齐层而非数据生成层，故实现在
+  M3 而非 M2。'
+why: 框架把实体对齐列为独立模块，但对齐质量究竟影响多大此前无量化依据。若对齐是主要风险，工程投入应大幅前移；实测表明不是，因此可按常规工程标准投入，把资源集中到互补性评估与合规折损上。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step:
+  - S3.1
+cross_border_impact: none
+cross_border_detail: 全部数据为程序生成的合成数据，不含任何真实个人信息，未新增跨境资产，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 本项目不设合规角色，涉法判断未经法务复核。合成数据产出不得用于承诺真实业务效果。 PSI 为行为仿真，不构成协议安全性证明。
+downstream_affected:
+- M5
+- M8
+breaking_change: false
+migration: 无。本步为新增模块内容，不改变既有接口。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml · modules/m5_modeling/configs/experiment.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: notebook 首个 cell 打印 config 路径、种子与 git 版本；主指标均带跨种子 95% 置信区间。
+rollback: git revert 本提交：本模块的组件、配置、结果与 notebook 移除。
+verification: '1) 漏配敏感性：召回从 1.000（0%）降至 0.899（10%），见 psi_quality.csv
+
+  2) 错配敏感性：增益剩余比例 1.000→0.369（0%→40%），见 misattribution_impact.csv
+
+  3) 成本量级：千万级对千万级 610.4 MB / 2000 万次模幂，见 psi_cost.csv
+
+  4) python3 ci/check_reproducibility.py → BLOCK=0'
+step:
+  step_id: S3.1
+  step_name: 实体对齐仿真、漏配与错配敏感性
+  declaration: "input_from: 框架 M3 输出契约 · M2 的重叠与匹配错误参数\nwill_produce:\n  - PSI 行为仿真与对齐质量指标\n  - 漏配与错配两类失败模式的下游影响\n\
+    \  - ECDH-PSI 成本量级\nwill_not_produce:\n  - 真实密码学 PSI 实现（W-002 降级，M8 前必须补齐）\nsuccess_criteria:\n  -\
+    \ 两类失败模式分别量化，不混为一谈\n  - 成本估算标注为量级判断而非性能基准\nrisk: |\n  仿真替代密码学实现，只能保证「下游影响」这一层可信，不能保证协议安全性。已明确标注。\n"
+  scope:
+    files_changed: 5
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 1
+    total: 10
+    evidence:
+      G1: 合成数据；无真实 ID
+      G2: 无跨境对象；PSI 为本地仿真
+      G3: 明确未实现密码学原语并标注降级
+      G4: 红线无适用对象
+      D1: 三项产出交付：对齐质量、错配影响、成本量级
+      D2: 漏配召回 1.000→0.899、错配增益剩余 1.000→0.369 逐行可复算
+      D3: 种子 5 个；结果 CSV 与 notebook 带输出；无随机性未固定处
+      D4: 消除一个未量化的风险假设；并修正了原生成器只建漏配不建错配的缺口。但结论方向（对齐不是主要风险）偏证实性，信息增益中等，故 D4 给 1 分
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m3_alignment/components/psi.py
+  - modules/m3_alignment/results/psi_quality.csv
+  - modules/m3_alignment/results/misattribution_impact.csv
+  - modules/m3_alignment/results/psi_cost.csv
+  - modules/m3_alignment/notebooks/S3.1_psi_alignment.ipynb

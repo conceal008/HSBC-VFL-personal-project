@@ -1,23 +1,41 @@
-# M6 步骤台账
-# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
-# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
-
 module: M6
 module_path: modules/m6_evaluation
-total_steps_planned: 9      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+total_steps_planned: 9
+steps:
+- step_id: S6.1
+  step_name: 评估指标库与条件价值曲线
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 0
+  committed_at: '2026-09-03 16:40:00+08:00'
+  change_id: CL-20260903-MX-006
+  waiver_ref: W-002
+  outputs:
+  - modules/m6_evaluation/components/metrics.py（AUC/KS/Lift/Recall/Qini/AUUC/Uplift@K/TopK重合/bootstrap）
+  - modules/m6_evaluation/results/conditional_value_curves.png
+  - modules/m6_evaluation/notebooks/S6.1_conditional_value.ipynb（带输出）
+  - 结论：互补性 λ 是主导因子（增益跨度八倍）；Top-10% 名单 L1 与 L3a 仅重合 46%
+  - 盈亏平衡：单人增益与可触达人数方向相反，总价值在中高重叠区最大
 current_step: null
-next_step: S6.1
-
+next_step: S6.2
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
-  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
-  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
-
+  avg_score: 11.0
+  escalation_count: 0
+  revision_rate: null
+  steps_used: 1
+  budget_usage: 0.111
+  consecutive_low_d4: 0
+  pass_threshold: 10
 audit:
-  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  last_spot_check_step: null
   spot_checks_done: 0

@@ -1,0 +1,97 @@
+change_id: CL-20260903-M6-001
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M6
+type: feat
+title: 实现评估指标库并画出纵向联邦的条件价值曲线
+what: 实现 AUC、KS、Lift@K、Recall@K、Qini 曲线、AUUC、Uplift@K、Top-K 名单重合度、bootstrap AUC 差值置信区间；在四个结构参数上画出增益曲线，并给出盈亏平衡分析。
+key_finding: '**互补性 λ 是唯一的主导因子**：增益从 λ=0 的 0.025 到 λ=2.0 的 0.209，跨度八倍。
+
+
+  **AUC 接近不等于决策一致**：L1 与 L3a 的 Top-10% 名单仅重合 46%，即改用 L1 会换掉一半以上的目标客户。
+
+
+  **盈亏平衡的反直觉结论**：单人增益在低重叠时最高（ρ=0.05 时 0.102），但可触达人数极小；总价值 = 增益 × 人数，在中高重叠区最大。只看 AUC 增益会得出「重叠率越低越好」的错误结论。
+
+
+  **响应率不等于增量**：被动方数据使 Top-10% 增量近乎翻倍（+91%），而 AUUC 只涨 29%——被动方数据主要帮助在高分段里把人挑对，这正是营销预算实际花的地方。'
+why: 「联邦学习有没有用」不可回答，「在什么条件下有用」才可回答。框架要求 M6 产出条件增益曲线而非单点指标，正是为此。另外 Top-K 名单重合度是把统计指标翻译成业务决策的唯一途径——业务上起作用的是名单，不是
+  AUC 小数点后第三位。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step:
+  - S6.1
+cross_border_impact: none
+cross_border_detail: 全部数据为程序生成的合成数据，不含任何真实个人信息，未新增跨境资产，未改变任何资产的 allowed_path。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 本项目不设合规角色，涉法判断未经法务复核。合成数据产出不得用于承诺真实业务效果。
+downstream_affected:
+- M5
+- M8
+- M9
+breaking_change: false
+migration: 无。本步为新增模块内容，不改变既有接口。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml · modules/m5_modeling/configs/experiment.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: notebook 首个 cell 打印 config 路径、种子与 git 版本；主指标均带跨种子 95% 置信区间。
+rollback: git revert 本提交：本模块的组件、配置、结果与 notebook 移除。
+verification: '1) 条件价值曲线可从 modules/m5_modeling/results/sweep_results.csv 复算
+
+  2) Top-10% 重合度 L1 vs L3a = 0.459 ± 0.109，见 ladder_results_raw.csv 的 OVERLAP_ 行
+
+  3) 指标库冒烟：AUC/KS/Lift/AUUC/Uplift/TopK 均返回合理值
+
+  4) python3 ci/check_reproducibility.py → BLOCK=0'
+step:
+  step_id: S6.1
+  step_name: 评估指标库与条件价值曲线
+  declaration: "input_from: 框架 M6 输出契约（条件增益曲线、盈亏平衡点）· M5 的全网格结果\nwill_produce:\n  - 指标库：判别力、名单质量、增量、决策等价性四类\n\
+    \  - 四参数条件价值曲线图\n  - 盈亏平衡分析\nwill_not_produce:\n  - 任何模型训练逻辑（属 M5）\nsuccess_criteria:\n  - 增量指标与判别力指标分开报告，不得混用\n\
+    \  - 曲线基于 ≥5 种子均值\nrisk: |\n  若只报告 AUC 而不报告名单重合度，会得出「L1 与 L3 差不多」的错误结论。\n"
+  scope:
+    files_changed: 3
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 仅新增评估代码；无数据落盘
+      G2: 无跨境对象
+      G3: 未越界进入 M5 建模逻辑
+      G4: 红线无适用对象
+      D1: 指标库九个函数全部交付；曲线图与 notebook 均产出
+      D2: 四条曲线均可从 sweep_results.csv 复算；Top-K 重合度 0.459/0.367/0.387 逐条可查
+      D3: 指标函数无随机性（bootstrap 显式传种子）；notebook 带指纹与输出
+      D4: 盈亏平衡分析推翻了「重叠率越低越好」的直觉，属新认知
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m6_evaluation/components/metrics.py
+  - modules/m6_evaluation/results/conditional_value_curves.png
+  - modules/m6_evaluation/notebooks/S6.1_conditional_value.ipynb

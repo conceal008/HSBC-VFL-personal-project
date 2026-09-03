@@ -1,0 +1,53 @@
+change_id: CL-20260903-GOV-012
+timestamp: 2026-09-03 16:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: chore
+title: 登记豁免 W-002（初版冲刺模式）与 DR-GOV-009，锁定运行环境
+what: 登记豁免 W-002 与决策记录 DR-GOV-009；新增 requirements.txt 与 environments/python.lock 锁定运行环境；新增 tools/ 下的 notebook
+  构建器（按门禁 6 的 N1–N5 规范生成并真实执行 notebook）。
+key_finding: 'W-002 明确了初版冲刺可降级的项与**不可降级的红线**。不可降级项包括：所有实验 ≥5 种子、主指标带置信区间、**L1 基线必须与 L3 同等认真实现**（DR-GOV-009
+  原文：弱化 L1 等于伪造结论）、数据分级与 0.7 红线、禁止事项数据类与科学性类。
+
+  DR-GOV-009 另决定：不预先裁定「7/29 不引入神经网络」与 v2 框架 SplitNN 路线的冲突，而是**两条路线都实现**，用实测数据支撑后续裁定。'
+why: 初版冲刺涉及 5 个模块约 9 个步骤，若严格执行单步一提交，元数据开销会超过实现本身，且中间状态无法通过门禁（组件未成套）。降级必须先登记再使用——未登记的绕行等同违规（维护约束 12.1.1）。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 本提交不含任何数据产出，未新增跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 纯治理与环境登记，不含数据与涉法判断。
+downstream_affected:
+- M2
+- M3
+- M5
+- M6
+- M7
+breaking_change: false
+migration: W-002 的降级项在初版合入后须按其 expiry_condition 逐条恢复。
+reproducibility:
+  config: 不适用
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: lock 由 importlib.metadata 从实际运行环境导出，覆盖 requirements.txt 声明的全部直接依赖。
+rollback: git revert 本提交：豁免与 DR 登记撤销，环境锁移除。
+verification: "1) python3 ci/check_changelog_schema.py → BLOCK=0\n2) python3 ci/check_reproducibility.py\
+  \ → R3 环境锁一致，BLOCK=0\n3) W-002 的 never_waivable 列表可核对 DR-GOV-009 的四条红线\n\n自评（type=chore 为步骤豁免类型，不占步骤号）：D1=3\
+  \ D2=3 D3=3 D4=1 总分 10\n  D1: 四项产出全部交付\n  D2: 门禁 2/6 可复跑验证\n  D3: lock 从实际环境导出，可重建\n  D4: 治理性登记，无新认知，故\
+  \ D4 给 1 分"
+outputs:
+- registry/waivers.yaml（新增 W-002）
+- registry/decision_records/DR-GOV-009.yaml
+- requirements.txt
+- environments/python.lock
+- tools/build_notebooks.py
+- tools/notebooks_spec.py

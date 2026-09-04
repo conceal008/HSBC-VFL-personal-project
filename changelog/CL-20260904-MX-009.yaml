@@ -1,0 +1,51 @@
+change_id: CL-20260904-MX-009
+timestamp: 2026-09-04 03:45:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 全模块走完一轮：入口文档整合与降级清单结算
+what: 把《项目进度总览》《实验结果与结论》《初版完成说明与降级清单》《README》更新到全模块完成状态；结论由 3 条增至 9 条；新增 M8/M9 产出章节与两份必读入口。
+key_finding: '**降级清单结算时发现一处此前的误判。**
+
+  初版把 M8/M9 降级为「文档级」，理由是「无真实数据与真实双方环境，服务化无对象」。但实际做下来，M8 的**故障注入 7 项全部不需要真实环境**——把故障注入 platform 的主链路即可真实验证。
+
+  **原降级把「无真实环境」误判为「什么都做不了」。** 这条记进降级清单，因为它是一类会反复出现的误判：环境缺失确实挡住了一部分工作，但把它当成挡住全部工作的理由，就变成了不做事的借口。
+
+
+  同样地，M9 的「一致性核验通过率 100%」也不需要真实数据——它核的是**结论与其证据文件的对应关系**，这在合成数据阶段同样成立且同样有价值。'
+why: 入口文档是需求方与 mentor 唯一会读的东西。全模块走完一轮后它们立刻严重过时——过时的入口文档比没有入口文档更容易误导。
+links:
+  branch_card: null
+  decision_record: []
+  waiver:
+  - W-001
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 文档整合，未新增任何定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: README 新增《对外表述红线》与《上线准入清单》两个入口——前者是对外发布前必读，后者说明当前 5 项阻塞全部未解除、不具备上线条件。
+downstream_affected: []
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: 不适用（文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 九条结论的每个数字均可追溯到 modules/*/results/，并由 M9 证据链核验机器保证。
+rollback: git revert 本提交：入口文档回到 2026-09-03 状态。
+verification: '1) 九条结论与 evidence_map.yaml 的 13 条 claim 一致，证据链核验 13/13
+
+  2) 降级清单的每项状态与对应模块 README 一致
+
+  3) bash ci/run_all_gates.sh → 全绿（45/45）'
+outputs:
+- 项目进度总览.md
+- 实验结果与结论.md
+- 初版完成说明与降级清单.md
+- README.md
+- registry/module_status.yaml

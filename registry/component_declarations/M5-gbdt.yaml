@@ -1,0 +1,19 @@
+component: gbdt
+module: M5
+path: modules/m5_modeling/components/gbdt.py
+purpose: 纵向 GBDT：SecureBoost 式的 (g,h) 直方图交换协议，被动方缺省时退化为单方模型。
+inputs:
+- 双方特征
+- 标签
+- 树超参数
+outputs:
+- 打分函数
+- 通信记账（轮数/消息数/浮点数）
+tests:
+- modules/m5_modeling/tests/test_models.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: '**不含加密**：本实现交换明文 (g,h)，只用于验证协议的数值等价性与通信量级，不是可部署的安全实现。'
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

@@ -16,12 +16,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Optional, Tuple
+from typing import Callable, Dict, Tuple
 
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
-from .gbdt import VerticalGBDT, CommLog
 from .nn import Adam, Encoder, TopModel, sigmoid
 
 LR_MAX_ITER = 2000
@@ -150,12 +149,12 @@ def federated_lr_score(res: FederatedLRResult, x_a: np.ndarray, x_b: np.ndarray)
 
 @dataclass
 class SplitNNResult:
-    score_fn: object
+    score_fn: Callable[[np.ndarray, np.ndarray], np.ndarray]
     comm: Dict[str, int]
     embedding_history: np.ndarray     # 被动方送出的表示（供 M7 反演攻击）
     grad_history: np.ndarray          # 回传给被动方的梯度（形态 B 下全为 0）
     embed_index: np.ndarray           # 上两者对应的训练集行号——攻击必须按它对齐
-    encode_b: object                  # 被动方最终编码器，攻击者可对任意样本求表示
+    encode_b: Callable[[np.ndarray], np.ndarray]   # 被动方最终编码器，攻击者可对任意样本求表示
 
 
 def fit_splitnn(x_a: np.ndarray, x_b: np.ndarray, y: np.ndarray,

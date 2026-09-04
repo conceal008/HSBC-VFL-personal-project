@@ -6,3 +6,9 @@ PyYAML
 matplotlib
 nbformat
 nbclient
+
+# 门禁 5 · 代码质量所需
+ruff
+mypy
+pytest
+types-PyYAML

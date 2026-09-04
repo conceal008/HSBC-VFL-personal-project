@@ -1,0 +1,19 @@
+component: export_mechanism
+module: M0
+path: modules/m0_compliance/components/export_mechanism.py
+purpose: 按《促进和规范数据跨境流动规定》的人数与敏感性门槛，判定向境外提供个人信息所需的机制。
+inputs:
+- 累计出境人数
+- 是否含敏感个人信息
+- 门槛表
+- 是否适用大湾区标准合同
+outputs:
+- 所需机制（豁免/标准合同/安全评估/大湾区标准合同/不适用）
+tests:
+- modules/m0_compliance/tests/test_compliance_components.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: ⚠️ 本项目不设合规角色，本组件编码的法条解读**未经法务复核**（豁免 W-001）。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

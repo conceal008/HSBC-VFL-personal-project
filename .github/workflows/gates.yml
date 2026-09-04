@@ -79,10 +79,24 @@ jobs:
       - name: 检查魔数 / 种子 / 环境锁 / notebook 规范
         run: python3 ci/check_reproducibility.py
 
+  gate5-code-quality:
+    name: 门禁 5 · 代码质量
+    runs-on: ubuntu-latest
+    needs: gate6-reproducibility
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 安装依赖
+        run: pip install --quiet -r requirements.txt
+      - name: lint / 类型 / 测试与覆盖 / 组件声明 / 术语
+        run: python3 ci/check_code_quality.py
+
   gate-regression:
     name: 门禁回归测试 · 拦截能力
     runs-on: ubuntu-latest
-    needs: gate6-reproducibility
+    needs: gate5-code-quality
     steps:
       - uses: actions/checkout@v4
         with:
@@ -91,6 +105,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: 安装依赖
-        run: pip install --quiet pyyaml
-      - name: 跑全部门禁用例（12 组）
+        run: pip install --quiet -r requirements.txt
+      - name: 跑全部门禁用例（28 组）
         run: bash ci/tests/run_gate_tests.sh

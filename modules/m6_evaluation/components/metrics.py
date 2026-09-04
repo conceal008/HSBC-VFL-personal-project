@@ -6,7 +6,7 @@
 """
 from __future__ import annotations
 
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 import numpy as np
 from sklearn.metrics import roc_auc_score
@@ -53,7 +53,11 @@ def recall_at_k(y: np.ndarray, score: np.ndarray, k_frac: float) -> float:
 
 def qini_curve(y: np.ndarray, treatment: np.ndarray,
                uplift_score: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-    """Qini 曲线：按预测增益降序累积「处理组转化数 − 对照组转化数×比例修正」。"""
+    """Qini 曲线：按预测增益降序累积「处理组转化数 − 对照组转化数×比例修正」。
+
+    曲线**含原点 (0, 0)**——一个人都不触达时增益必然为 0。
+    缺了原点会让 AUUC 的积分从 x=1/n 起算，与随机基准的对角线不可比。
+    """
     order = np.argsort(-uplift_score)
     y_o, t_o = y[order], treatment[order]
     n_t = np.cumsum(t_o)
@@ -62,7 +66,8 @@ def qini_curve(y: np.ndarray, treatment: np.ndarray,
     r_c = np.cumsum(y_o * (1 - t_o))
     with np.errstate(divide="ignore", invalid="ignore"):
         qini = r_t - np.where(n_c > 0, r_c * n_t / np.maximum(n_c, 1), 0.0)
-    return np.arange(1, len(y) + 1) / len(y), qini
+    frac = np.concatenate([[0.0], np.arange(1, len(y) + 1) / len(y)])
+    return frac, np.concatenate([[0.0], qini])
 
 
 def auuc(y: np.ndarray, treatment: np.ndarray, uplift_score: np.ndarray) -> float:

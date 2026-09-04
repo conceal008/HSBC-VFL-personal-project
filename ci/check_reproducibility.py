@@ -107,6 +107,24 @@ def scan_seeds(source, origin):
                         "（第 9 部分第 2 条）" % (origin, i, value))
 
 
+TEST_DIR_MARK = os.sep + "tests" + os.sep
+
+
+def is_test_file(path):
+    """测试文件豁免 R1 魔数扫描。
+
+    理由：**测试里的字面量就是测试的规格说明**。`assert lift * k == recall` 里的 k、
+    `abs(gain) < 1e-9` 里的容差，提成模块级常量只会让断言更难读，不会让实验更可复现。
+    第 9 部分要管的是**实验参数**被藏进代码，不是断言里的期望值。
+
+    ⚠️ 代价：测试若在内部硬编码实验参数（而不是从 configs/ 读）不会被本门禁发现。
+    兜底是门禁 5 的 Q3——测试必须真实通过且覆盖 ≥70%，与配置脱节的测试会先跑挂。
+    R2（种子来源）与 R3（环境锁）对测试文件**仍然生效**。
+    """
+    norm = os.sep + os.path.normpath(path).strip(os.sep)
+    return TEST_DIR_MARK in norm + os.sep
+
+
 def iter_code_files():
     for root in CODE_ROOTS:
         for dirpath, _dirs, files in os.walk(root):
@@ -127,8 +145,8 @@ def cell_source(cell):
     # 只剥**行首无缩进**且形如 %name / %%name / !cmd / ?obj 的行——
     # 字符串格式化的续行（如 `      % (a, b)`）有缩进且 % 后不是字母，不能剥，
     # 否则整个 cell 语法被破坏、魔数扫描被静默跳过。
-    return "\n".join(l for l in src.splitlines()
-                     if not MAGIC_LINE_RE.match(l))
+    return "\n".join(line for line in src.splitlines()
+                     if not MAGIC_LINE_RE.match(line))
 
 
 def check_notebook(path):
@@ -172,7 +190,7 @@ def check_notebook(path):
     total = 0
     for idx, cell in enumerate(cells):
         src = cell_source(cell)
-        total += len([l for l in src.splitlines() if l.strip()])
+        total += len([line for line in src.splitlines() if line.strip()])
         scan_magic_numbers(src, "%s[cell %d]" % (path, idx + 1))
         scan_seeds(src, "%s[cell %d]" % (path, idx + 1))
     if total > MAX_NOTEBOOK_CODE_LINES:
@@ -213,7 +231,8 @@ def main():
 
     for path in code_files:
         source = io.open(path, encoding="utf-8").read()
-        scan_magic_numbers(source, path)
+        if not is_test_file(path):
+            scan_magic_numbers(source, path)
         scan_seeds(source, path)
 
     for path in notebooks:

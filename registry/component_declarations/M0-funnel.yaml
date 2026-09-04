@@ -1,0 +1,18 @@
+component: funnel
+module: M0
+path: modules/m0_compliance/components/funnel.py
+purpose: 逐层计算合规折损，给出可用样本 N_eff 的悲观/中性/乐观三档区间。
+inputs:
+- 客户基数三档
+- 各层折损率三档
+outputs:
+- 逐层存活人数三档
+- 合规折损率
+tests:
+- modules/m0_compliance/tests/test_compliance_components.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: 折损率取值为**显式假设**，非实测——真实资格率与双持率仍待需求方提供。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

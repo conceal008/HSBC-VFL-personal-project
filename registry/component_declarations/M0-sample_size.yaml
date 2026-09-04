@@ -1,0 +1,21 @@
+component: sample_size
+module: M0
+path: modules/m0_compliance/components/sample_size.py
+purpose: 双侧两比例检验的样本量计算，给出可验证下界。
+inputs:
+- 基线转化率
+- 相对提升
+- 显著性水平
+- 检验功效
+- 对照臂占比
+outputs:
+- 每臂样本量
+- 所需总人群
+tests:
+- modules/m0_compliance/tests/test_compliance_components.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: 本组件产出的 N ≥ 30,000 是 M0 升级上报的算术依据。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

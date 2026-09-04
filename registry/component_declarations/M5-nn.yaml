@@ -1,0 +1,18 @@
+component: nn
+module: M5
+path: modules/m5_modeling/components/nn.py
+purpose: SplitNN 所需的最小神经网络原语：Adam 优化器、编码器、顶层模型。
+inputs:
+- 特征维数
+- 隐层与嵌入维数
+- 学习率
+outputs:
+- 前向与反向传播；顶层模型的 backward 显式返回对嵌入的梯度
+tests:
+- modules/m5_modeling/tests/test_models.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: 编码器的 backward **刻意不返回对输入的梯度**——被动方原始特征不参与跨方梯度流。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

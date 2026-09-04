@@ -112,3 +112,5 @@ step:
   - modules/m5_modeling/results/sweep_results.csv
   - modules/m5_modeling/results/l1_vs_l3_critical.csv
   - modules/m5_modeling/notebooks/S5.1_baseline_ladder.ipynb
+  revisions: 0
+  next_step: S5.4 各级别超参搜索，检验 C1 的稳健性

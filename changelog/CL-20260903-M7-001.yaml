@@ -114,3 +114,5 @@ step:
   - modules/m7_security/results/multiround_attack.csv
   - modules/m7_security/results/dp_privacy_utility.png
   - modules/m7_security/notebooks/S7.1_privacy_attacks.ipynb
+  revisions: 0
+  next_step: S7.3 补齐特征推断与成员推断攻击

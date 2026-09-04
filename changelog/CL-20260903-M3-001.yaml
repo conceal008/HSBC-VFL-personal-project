@@ -94,3 +94,5 @@ step:
   - modules/m3_alignment/results/misattribution_impact.csv
   - modules/m3_alignment/results/psi_cost.csv
   - modules/m3_alignment/notebooks/S3.1_psi_alignment.ipynb
+  revisions: 0
+  next_step: S3.2 接入真实密码学 PSI 实现（M8 前必须完成）

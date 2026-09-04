@@ -1,0 +1,20 @@
+component: psi
+module: M3
+path: modules/m3_alignment/components/psi.py
+purpose: 实体对齐（PSI）的行为级仿真：对齐质量、漏配与错配的下游影响、成本量级。
+inputs:
+- 真实交集掩码
+- 错配掩码
+- 双方规模
+outputs:
+- 匹配统计（精确率/召回率/误配数）
+- 错配后的被动方特征
+- ECDH-PSI 成本估计
+tests:
+- modules/m3_alignment/tests/test_psi.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: '**不含密码学原语**（豁免 W-002 降级）。只保证「下游影响」这一层可信，不构成协议安全性证明；进入 M8 前必须换为真实实现或成熟库。'
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

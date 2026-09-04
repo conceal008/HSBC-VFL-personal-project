@@ -1,0 +1,19 @@
+component: experiment
+module: M5
+path: modules/m5_modeling/components/experiment.py
+purpose: 实验编排：在一个（场景 × 种子 × 划分口径）上跑完整阶梯，产出逐模型记录。
+inputs:
+- 场景配置
+- 随机种子
+- 超参数
+- 划分口径（random / oot）
+outputs:
+- 逐模型的判别力指标、通信成本、增量指标与 Top-K 名单重合度
+tests:
+- modules/m5_modeling/tests/test_experiment.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: 同时做随机划分与时间外推两种口径——金融业的真实口径是后者。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

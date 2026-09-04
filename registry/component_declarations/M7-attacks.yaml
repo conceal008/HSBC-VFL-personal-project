@@ -1,0 +1,20 @@
+component: attacks
+module: M7
+path: modules/m7_security/components/attacks.py
+purpose: 隐私攻击：A1 残差标签推断、A2 嵌入反演、A3 梯度标签推断，攻击者为诚实但好奇的协议内参与方。
+inputs:
+- 协议中间量（残差历史/嵌入历史/梯度历史）
+- 对齐索引
+- 真实标签或特征
+outputs:
+- 泄露 AUC
+- 反演 R²
+- 单轮高斯机制 ε
+tests:
+- modules/m7_security/tests/test_attacks.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: ε 为**单轮**预算，未做 RDP 会计与子采样放大，**不可作为差分隐私保证引用**。结论限于所列半诚实攻击设定，不构成安全性证明。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

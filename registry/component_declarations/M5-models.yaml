@@ -1,0 +1,21 @@
+component: models
+module: M5
+path: modules/m5_modeling/components/models.py
+purpose: 五级基线阶梯的模型实现：L0 单方、L1 k-匿名分段统计、L2 粗粒度标记、L3a 联邦逻辑回归、L3c SplitNN 三形态、L4 集中式。
+inputs:
+- 双方特征
+- 标签
+- 超参数（从 configs/experiment.yaml 读取）
+- 随机种子
+outputs:
+- 各级别打分函数
+- 通信记账
+- 供 M7 攻击使用的协议中间量（残差/嵌入/梯度）
+tests:
+- modules/m5_modeling/tests/test_models.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: L1 的实现时点严格早于任何 L3 组件（DR-GOV-009 红线）。协议中间量为合成数值，不含真实个人信息。
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

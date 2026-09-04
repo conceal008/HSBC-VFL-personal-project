@@ -221,6 +221,56 @@ assert "门禁6-D lock 与 requirements 一致则放行" 0 "$TMP/out.txt" "门�
 run python3 "$ROOT/ci/check_reproducibility.py" "$ROOT"
 assert "门禁6-E 本仓库自检通过" 0 "$TMP/out.txt" "门禁 6 通过"
 
+echo "================ 门禁 5 · 代码质量 ================"
+
+# 缺声明 + 缺测试 + lint 错误 + 禁用词，必须逐项拦截
+C5="$TMP/gate5"; mkdir -p "$C5/ci" "$C5/modules/m5_modeling/components" \
+  "$C5/modules/m5_modeling/tests" "$C5/registry/component_declarations"
+cp "$ROOT/ci/check_code_quality.py" "$C5/ci/"
+printf 'terms:\n- term: 主动方\n  forbidden: [标签方]\n' > "$C5/registry/glossary.yaml"
+printf 'import os\n\n\ndef f(l):\n    return l + 1\n' > "$C5/modules/m5_modeling/components/orphan.py"
+printf '# 标签方是谁\n' > "$C5/note.md"
+run python3 "$C5/ci/check_code_quality.py" "$C5"
+assert "门禁5-A 拦截无声明/无测试/lint错误/禁用词" 1 "$TMP/out.txt" \
+  "没有组件声明" "没有任何冒烟测试" "禁用表述"
+
+# 补齐声明、测试与合规写法后必须放行
+cat > "$C5/registry/component_declarations/M5-orphan.yaml" <<'YAML'
+component: orphan
+module: M5
+path: modules/m5_modeling/components/orphan.py
+purpose: 回归夹具
+cross_border_assets: []
+tests: [modules/m5_modeling/tests/test_orphan.py]
+YAML
+printf 'def f(value):\n    return value + 1\n' > "$C5/modules/m5_modeling/components/orphan.py"
+printf 'import sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path(__file__).resolve().parents[3]))\nfrom modules.m5_modeling.components.orphan import f\n\n\ndef test_orphan():\n    assert f(1) == 2\n' \
+  > "$C5/modules/m5_modeling/tests/test_orphan.py"
+printf '# 主动方是谁\n' > "$C5/note.md"
+run python3 "$C5/ci/check_code_quality.py" "$C5"
+assert "门禁5-B 声明/测试/术语齐备则放行" 0 "$TMP/out.txt" "门禁 5 通过"
+
+# 覆盖率不足必须阻断
+cat >> "$C5/modules/m5_modeling/components/orphan.py" <<'PYX'
+
+
+def never_called(a, b, c):
+    x = a + b
+    y = x * c
+    z = y - a
+    w = z / max(c, 1)
+    v = w + b
+    u = v * 2
+    t = u - c
+    return t
+PYX
+run python3 "$C5/ci/check_code_quality.py" "$C5"
+assert "门禁5-C 行覆盖不足 70% 即阻断" 1 "$TMP/out.txt" "行覆盖"
+
+run python3 "$ROOT/ci/check_code_quality.py" "$ROOT"
+assert "门禁5-D 本仓库自检通过" 0 "$TMP/out.txt" "门禁 5 通过"
+
+echo
 echo
 echo "================ 汇总 ================"
 echo "PASS=$PASS  FAIL=$FAIL"

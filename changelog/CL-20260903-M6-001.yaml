@@ -95,3 +95,5 @@ step:
   - modules/m6_evaluation/components/metrics.py
   - modules/m6_evaluation/results/conditional_value_curves.png
   - modules/m6_evaluation/notebooks/S6.1_conditional_value.ipynb
+  revisions: 0
+  next_step: S6.2 待 M5 超参搜索完成后重算条件价值曲线

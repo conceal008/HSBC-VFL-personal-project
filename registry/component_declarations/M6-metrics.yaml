@@ -1,0 +1,18 @@
+component: metrics
+module: M6
+path: modules/m6_evaluation/components/metrics.py
+purpose: 评估指标库：判别力、名单质量、增量、决策等价性四类。
+inputs:
+- 标签
+- 打分
+- 处理指派
+outputs:
+- AUC/KS/Lift@K/Recall@K/Qini/AUUC/Uplift@K/Top-K 重合度/bootstrap 置信区间
+tests:
+- modules/m6_evaluation/tests/test_metrics.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: '**响应率 ≠ 增量**：判别力指标与增量指标必须分开报告，不得混用。'
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

@@ -96,3 +96,5 @@ step:
   - modules/m2_synthetic/configs/scenarios.yaml
   - modules/m2_synthetic/results/correctness_validation.csv
   - modules/m2_synthetic/notebooks/S2.1_scm_generation.ipynb
+  revisions: 0
+  next_step: S2.2 正确性验收（本条已合并记录）；后续 M2 的 next_step 见 modules/m2_synthetic/step_ledger.yaml

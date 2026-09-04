@@ -31,6 +31,10 @@ from modules.m7_security.components import attacks as A  # noqa: E402
 
 from pipeline import Stage  # noqa: E402
 
+class SchemaMismatch(ValueError):
+    """schema 不符时抛出。**不可被重试掩盖**——重试确定性错误只是把故障拖长。"""
+
+
 SCENARIO_CONFIG = "modules/m2_synthetic/configs/scenarios.yaml"
 EXPERIMENT_CONFIG = "modules/m5_modeling/configs/experiment.yaml"
 TRAIN_FRAC = 0.7
@@ -60,14 +64,38 @@ def build_stages(smoke: Dict) -> List[Stage]:
 
     def m3_align(ctx: Dict) -> Dict:
         psi = simulate_psi(ctx["in_overlap"].astype(bool), ctx["mismatch"].astype(bool))
-        keep = psi["matched_mask"] & ctx["consent"].astype(bool)
+        consent = ctx["consent"].astype(bool).copy()
+        # 同意撤回：被撤回的主体必须从**对齐结果**中剔除，而不是只在下游过滤。
+        # 若只在下游过滤，撤回主体的特征仍会参与训练，撤回就没有真正生效。
+        revoked = smoke.get("revoked_indices") or []
+        if len(revoked):
+            consent[np.asarray(revoked, dtype=int)] = False
+        keep = psi["matched_mask"] & consent
         return {"x_a": ctx["x_a_all"][keep], "x_b": ctx["x_b_all"][keep],
-                "y": ctx["y_all"][keep],
+                "y": ctx["y_all"][keep], "kept_mask": keep,
                 "psi_precision": psi["precision"], "psi_recall": psi["recall"],
                 "n_usable": int(keep.sum())}
 
     def m5_model(ctx: Dict) -> Dict:
         x_a, x_b, y = ctx["x_a"], ctx["x_b"], ctx["y"]
+        # —— schema 守卫：被动方特征维数变了必须**安全失败**，而不是照跑出错误名单 ——
+        expected_b = smoke.get("expected_dim_b")
+        if expected_b is not None and x_b.shape[1] != expected_b:
+            raise SchemaMismatch(
+                "被动方特征维数为 %d，与约定的 %d 不符——"
+                "拒绝出分。schema 变更必须先走变更评审，不得由流水线自行适配。"
+                % (x_b.shape[1], expected_b))
+        # —— 单方不可用降级：被动方下线时退回主动方单方模型 ——
+        if not smoke.get("party_b_available", True):
+            tr, te = _split(len(y), seed)
+            s_l0 = M.fit_logistic(x_a[tr], y[tr], seed,
+                                  hp["c_reg"]).decision_function(x_a[te])
+            return {"y_test": y[te], "score_l0": s_l0, "score_l1": s_l0,
+                    "score_l3a": s_l0, "score_l3b": s_l0,
+                    "residual_history": np.zeros((1, len(tr))), "y_train": y[tr],
+                    "comm_floats_l3a": 0, "comm_floats_l3b": 0,
+                    "__degraded__": True,
+                    "__degradation_reason__": "被动方不可用，已退回 L0 主动方单方模型"}
         tr, te = _split(len(y), seed)
         seg = M.build_segments(x_a, smoke["n_segments"], seed)
         stats, _ = M.k_anonymous_segment_stats(seg, x_b, smoke["k_anonymity"])

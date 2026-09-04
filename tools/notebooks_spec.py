@@ -406,3 +406,73 @@ def m7():
                "且本项目样本量约 2000、特征维数低，模型本身记忆有限。"
                "因此上述数值应读作**该设定下的下界**，不构成「成员推断不可行」的一般结论。"),
     ])
+
+
+def m8():
+    build("modules/m8_industrialization/notebooks/S8.1_guardrails_and_faults.ipynb", [
+        ("md", "# S8.1 · 部署护栏与故障注入\n\n"
+               "M8 的两件事：**上线前拦得住不合规配置**，**上线后扛得住故障**。\n\n"
+               "路线取舍这一环已被 C7 改写——合成数据上的效果排序不可用于选型，"
+               "取舍改以**暴露面与合规成本**为依据。因此本模块的重心是防护基线与鲁棒性，"
+               "而不是「哪条路线效果好」。"),
+        ("code", HEADER.format(cfg="modules/m8_industrialization/configs/deployment_profile.yaml")),
+        ("md", "## 防护基线：每条都对应一个已实测的攻击\n\n"
+               "写在文档里的基线，上线时没人会逐条核对。所以做成可执行检查。"),
+        ("code", "RATIONALE_CHARS = 60\n"
+                 "import tempfile\n"
+                 "sys.path.insert(0, str(ROOT / 'platform' / 'orchestration'))\n"
+                 "from modules.m8_industrialization.components import guardrails as G\n"
+                 "from modules.m8_industrialization.components import fault_injection as FI\n"
+                 "import pipeline as P, main_chain as MC\n"
+                 "rows = []\n"
+                 "BASELINE_KEYS = ['uplink_noise', 'label_protection', 'model_capacity',\n"
+                 "                 'k_anonymity', 'splitnn', 'route_selection']\n"
+                 "for key in BASELINE_KEYS:\n"
+                 "    item = config[key]\n"
+                 "    rows.append({'基线项': key,\n"
+                 "                 '依据': str(item.get('evidence', '—')),\n"
+                 "                 '理由': ' '.join(str(item.get('rationale', ''))"
+                 ".split())[:RATIONALE_CHARS]})\n"
+                 "pd.DataFrame(rows).set_index('基线项')"),
+        ("md", "### 违规配置必须被拒绝\n\n"
+               "一条只会放行的护栏比没有护栏更糟——它给人以已经检查过的错觉。"),
+        ("code", "# 合规配置直接由基线派生——「合规」的定义就是基线本身，不该另写一套数字\n"
+                 "good = {'uplink_sigma': config['uplink_noise']['sigma_min'],\n"
+                 "        'label_protection': config['label_protection']['required_mechanism'],\n"
+                 "        'gbdt_max_depth': config['model_capacity']['gbdt_max_depth'],\n"
+                 "        'k_anonymity': config['k_anonymity']['k_min'],\n"
+                 "        'splitnn_mode': 'frozen_pca',\n"
+                 "        'route_selected_by': 'exposure_and_compliance'}\n"
+                 "print('合规配置判定:', G.check_deployment(good, config)['verdict'])"),
+        ("code", "# 违规配置同样由基线派生：逐项推到基线之外\n"
+                 "OVER = 2\n"
+                 "bad = dict(good,\n"
+                 "           uplink_sigma=0.0,\n"
+                 "           label_protection='gaussian_noise',\n"
+                 "           gbdt_max_depth=config['model_capacity']['gbdt_max_depth'] * OVER,\n"
+                 "           k_anonymity=config['k_anonymity']['k_min'] // OVER,\n"
+                 "           splitnn_mode='frozen_random',\n"
+                 "           route_selected_by='effect_ranking')\n"
+                 "res = G.check_deployment(bad, config)\n"
+                 "print('判定:', res['verdict'], '| 命中规则数:', len(res['violations']),\n"
+                 "      '/ 共', res['checked_rules'])\n"
+                 "pd.DataFrame(res['violations'])[['rule', 'detail']]"),
+        ("md", "## 故障注入 7/7\n\n"
+               "框架的放行判据要求七项全过。这里不做仿真式的「假装失败」，"
+               "而是真的把故障注入 platform 的主链路。"),
+        ("code", "smoke = yaml.safe_load(open(ROOT / 'platform/configs/smoke.yaml', encoding='utf-8'))\n"
+                 "with tempfile.TemporaryDirectory() as d:\n"
+                 "    cases = FI.run_all(P, MC, smoke, d)\n"
+                 "fi = pd.DataFrame(cases).set_index('fault_id')\n"
+                 "fi[['name', 'result', 'detail']]"),
+        ("code", "s = FI.summarize(cases)\n"
+                 "print(f\"故障注入 {s['passed']}/{s['total']}\", \n"
+                 "      '——达标' if s['all_passed'] else f\"——未达标：{s['failed_ids']}\")"),
+        ("md", "**七项各自防的是不同的事故**，其中两项值得单独说：\n\n"
+               "- **F2 单方下线降级**：真正危险的不是崩溃，是**静默降级**——"
+               "下游会把 L0 单方模型的名单当作联邦模型的名单来用。"
+               "故判据要求降级后必须**如实上报** `degraded=True` 并给出原因。\n"
+               "- **F4 schema 变更安全失败**：对方悄悄改了字段而链路照常出分，"
+               "名单会全错而无人察觉。故要求抛异常停止出分，"
+               "且**不得被重试掩盖**——重试确定性错误只是把故障拖长。"),
+    ])

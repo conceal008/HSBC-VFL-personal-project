@@ -93,13 +93,52 @@ def check_e3(pipeline, main_chain, smoke, stages, baseline, workdir):
               % (len(stages) - 1))
 
 
-def check_e4(pipeline):
-    if pipeline.DEGRADATION_SUPPORTED:
-        block("E4", "已声明支持单方不可用降级，但本门禁尚未实现对应检查")
+def check_e4(pipeline, main_chain, smoke, workdir):
+    """单方不可用降级：被动方下线时链路必须**降级出分并如实上报**。
+
+    三条判据缺一不可：
+    1. 不崩——降级路径本身要能跑通；
+    2. 出分——降级后仍产出可用的名单，而不是空结果；
+    3. **如实上报** `degraded=True` 并给出原因——静默降级比崩溃更危险，
+       因为下游会把 L0 的名单当作联邦模型的名单来用。
+    """
+    if not pipeline.DEGRADATION_SUPPORTED:
+        print("ℹ️  E4 单方不可用降级：**未启用**（框架规定 M8 之后启用）。"
+              "触发条件——pipeline.py 的 DEGRADATION_SUPPORTED 置为 True 时，"
+              "本项必须实现并通过。")
         return
-    print("ℹ️  E4 单方不可用降级：**未启用**（框架规定 M8 之后启用）。"
-          "触发条件——platform/orchestration/pipeline.py 的 "
-          "DEGRADATION_SUPPORTED 置为 True 时，本项必须实现并通过。")
+
+    degraded_cfg = dict(smoke, party_b_available=False)
+    try:
+        ctx = pipeline.run_pipeline(main_chain.build_stages(degraded_cfg), degraded_cfg,
+                                    os.path.join(workdir, "degraded"))
+    except Exception as exc:                       # noqa: BLE001 —— 降级不该抛异常
+        block("E4", "被动方不可用时链路抛出 %s：%s——降级路径必须能跑通"
+              % (type(exc).__name__, exc))
+        return
+
+    report = ctx.get("__report__", {})
+    summary = main_chain.summarize(ctx)
+    if not report.get("degraded"):
+        block("E4", "被动方不可用，但运行报告未标记 degraded——"
+                    "**静默降级比崩溃更危险**：下游会把单方模型的名单当作联邦模型的名单")
+    if not str(report.get("degradation_reason") or "").strip():
+        block("E4", "标记了 degraded 但没有说明原因——运维看不出发生了什么")
+    # 判据用主链路自己声明的 SUMMARY_KEYS，不写死某个字段名——
+    # 写死字段名会让本检查只对当前这条链路有效，换条链路就形同虚设。
+    missing = [k for k in main_chain.SUMMARY_KEYS if k not in summary]
+    if missing:
+        block("E4", "降级后缺少摘要项 %s——降级的目的是继续出名单，不是停摆"
+              % "、".join(missing))
+
+    normal = pipeline.run_pipeline(main_chain.build_stages(smoke), smoke,
+                                   os.path.join(workdir, "normal_for_e4"))
+    if normal.get("__report__", {}).get("degraded"):
+        block("E4", "被动方可用时也被标记为 degraded——降级标记失去区分度")
+
+    if not BLOCKS:
+        print("✅ E4 单方不可用降级：降级出分且如实上报（原因：%s）"
+              % report.get("degradation_reason"))
 
 
 def main():
@@ -127,7 +166,7 @@ def main():
     try:
         stages, summary = check_e1_e2(pipeline, main_chain, smoke, workdir)
         check_e3(pipeline, main_chain, smoke, stages, summary, workdir)
-        check_e4(pipeline)
+        check_e4(pipeline, main_chain, smoke, workdir)
     finally:
         shutil.rmtree(workdir, ignore_errors=True)
 

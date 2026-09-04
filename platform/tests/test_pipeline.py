@@ -84,9 +84,23 @@ def test_运行清单可回答配置与指纹():
     assert m["report"]["fingerprint"]
 
 
-def test_降级开关默认关闭():
-    """单方不可用降级在 M8 之后启用；提前置 True 会被门禁 7 的 E4 拦下。"""
-    assert P.DEGRADATION_SUPPORTED is False
+def test_降级开关与实际能力一致():
+    """开关不是标志位，是承诺：置 True 就必须真的能降级并如实上报。
+
+    M8（S8.1）之前该开关为 False，门禁 7 的 E4 只作提示；
+    实现后置 True，E4 随即变成必须通过的检查——这个联动是设计好的。
+    这里守的是「开关为真则能力必须存在」，避免有人为了让 E4 跳过而随手改回 False，
+    也避免有人为了显得完备而在没实现时置为 True。
+    """
+    if not P.DEGRADATION_SUPPORTED:
+        return
+    smoke = dict(_smoke_cfg(), party_b_available=False)
+    with tempfile.TemporaryDirectory() as d:
+        ctx = P.run_pipeline(MC.build_stages(smoke), smoke, d)
+    report = ctx["__report__"]
+    assert report["degraded"] is True, "声明支持降级，但被动方下线时未标记 degraded"
+    assert report["degradation_reason"].strip(), "标记了降级却没说明原因"
+    assert "auc_l0" in MC.summarize(ctx), "降级后应继续出分，而不是停摆"
 
 
 # ————————————————— 主链路 —————————————————

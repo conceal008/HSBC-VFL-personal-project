@@ -1,0 +1,65 @@
+# M8 · 部署防护基线
+# ---------------------------------------------------------------------------
+# 本文件把 M7 的攻防结论固化为**部署时不可绕过的配置约束**。
+# 每一条都对应一个已实测的攻击，而不是「行业惯例」。
+#
+# ⚠️ 本项目不设合规角色，以下阈值为技术侧自评，**未经法务复核**（豁免 W-001）。
+# ⚠️ 全部阈值来自**合成数据**实验，接入真实数据后必须重新标定。
+# ---------------------------------------------------------------------------
+step_id: S8.1
+
+# —— 被动方自我保护：防主动方推断特征（攻击 A4）——
+uplink_noise:
+  sigma_min: 0.1              # 实测：σ=0.1 使特征 R² 由 1.0000 降至 0.196，可用性仅损失 0.0014
+  rationale: |
+    无防护时主动方只需 6 个辅助样本（= 特征维数）即可精确恢复被动方全部原始特征
+    （R² = 1.000000）。这不是理论风险，是本项目实测到的。
+  evidence: modules/m7_security/results/feature_inference.csv
+  ceiling_note: |
+    σ 不是越大越好：σ=1.0 时可用性损失 0.066（VFL 增益的 85%），
+    σ=3.0 时已低于 L0 内地单方基线。基线取 0.1 是「有效且几乎无代价」的点。
+
+# —— 标签侧：噪声无效，必须走协议级手段（攻击 A1）——
+label_protection:
+  gaussian_noise_allowed: false
+  rationale: |
+    实测证明逐轮加高斯噪声防不住标签推断：噪声轮间独立而标签恒定，
+    跨轮平均即可消掉（σ=1.0 时泄露 AUC 回到 1.0000）。
+    要压到 0.67 需 σ=30，届时可用性 0.6352 已低于 L0 基线 0.7089。
+  required_mechanism: 协议级手段（安全聚合 / 同态加密 / 秘密分享），本阶段未实现
+  evidence: modules/m7_security/results/multiround_attack.csv
+
+# —— 模型容量：控成员泄露（攻击 A5）——
+model_capacity:
+  gbdt_max_depth: 4           # 实测：深 3→6 使成员推断 AUC 由 0.5277 升至 0.5453
+  rationale: 成员泄露由模型容量驱动，与是否联邦无关；控树深比控联邦有效。
+  evidence: modules/m7_security/results/membership_lira.csv
+
+# —— L1 分段统计的 k-匿名下限 ——
+k_anonymity:
+  k_min: 10
+  rationale: DR-MX-001 · D-5 定为 10 起步；实测 k 取 5/10/20 对效果影响 < 0.0001，故取严不取松。
+
+# —— SplitNN 形态选择 ——
+splitnn:
+  frozen_encoder_requires_pretraining: true
+  rationale: |
+    形态B 随机冻结编码器（0.7076）**低于 L0 基线**（0.7127）——不但没价值，还不如不做联邦。
+    必须配自监督预训练（0.7213）才有意义。
+    另：形态B 挡住了梯度标签泄露（1.00→0.50），但特征反演反而更严重（R² 0.667 > 0.488）——
+    它换掉的是标签暴露面，不是特征暴露面，两类风险须分别评估。
+  evidence: modules/m7_security/results/attack_results.csv
+
+# —— 路线取舍的依据（C7 的直接后果）——
+route_selection:
+  effect_ranking_admissible: false
+  rationale: |
+    分支卡 BC-M5-001 的 falsifier 已触发：强交互信号下 L3b 纵向 GBDT 反超 L3a 联邦 LR。
+    合成数据上的效果排序度量的是「模型族与生成机制的匹配」，不是路线优劣，
+    **不得用于选型**。取舍改以暴露面与合规成本为主依据。
+  evidence: registry/branch_cards/BC-M5-001.yaml
+
+# —— 名单稳定性 ——
+list_stability:
+  min_topk_overlap_between_runs: 0.9
+  rationale: 相邻两期名单重合度低于此值应告警——名单剧烈跳动意味着模型或数据出了问题。

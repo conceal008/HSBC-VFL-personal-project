@@ -1,0 +1,19 @@
+component: guardrails
+module: M8
+path: modules/m8_industrialization/components/guardrails.py
+purpose: 部署护栏：核验一份拟上线配置是否满足 M7 攻防结论导出的防护基线，不满足则拒绝并给出证据与整改方向。
+inputs:
+- 拟上线的运行配置
+- modules/m8_industrialization/configs/deployment_profile.yaml
+outputs:
+- 判定（pass/block）与逐条违规，每条附实测证据文件与整改方向
+tests:
+- modules/m8_industrialization/tests/test_m8.py
+cross_border_assets: []
+cross_border_note: 本组件不接触真实数据；护栏核验的是配置，故障注入跑在合成数据主链路上。
+caveat: '**写在文档里的防护基线，上线时没人会逐条核对**——故做成可执行检查。
+
+  ⚠️ 全部阈值来自**合成数据**实验，接入真实数据后必须重新标定；且本项目不设合规角色，阈值为技术侧自评，未经法务复核（W-001）。'
+waiver_ref: W-002
+declared_at: '2026-09-04'
+declared_by: Claude (Opus 5, Claude Code)

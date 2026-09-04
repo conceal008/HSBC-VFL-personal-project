@@ -1,0 +1,19 @@
+component: fault_injection
+module: M8
+path: modules/m8_industrialization/components/fault_injection.py
+purpose: 故障注入：框架 M8 放行判据要求的 7 项，逐项真实注入 platform 主链路并核对行为。
+inputs:
+- platform 的 pipeline 与 main_chain
+- platform/configs/smoke.yaml
+outputs:
+- 七项逐条结果（编号/名称/通过与否/说明）与汇总
+tests:
+- modules/m8_industrialization/tests/test_m8.py
+cross_border_assets: []
+cross_border_note: 本组件不接触真实数据；护栏核验的是配置，故障注入跑在合成数据主链路上。
+caveat: '不做仿真式的「假装失败」，而是真的把故障注入主链路。
+
+  F5 曾一度写成与基线同配置的空测试（什么都没验），已改为真实的分批到达——先到一批跑一轮，余下晚到再跑，核对结果等于一次到齐且不复用陈旧产物。'
+waiver_ref: W-002
+declared_at: '2026-09-04'
+declared_by: Claude (Opus 5, Claude Code)

@@ -14,3 +14,9 @@ attack:
   dp_sigma: 1.0
   dp_delta: 1.0e-5              # 高斯机制的 δ；ε 为单轮预算，不可作差分隐私保证引用
   inversion_train_frac: 0.5
+
+# —— M8 故障注入所需的开关（默认值即正常运行）——
+party_b_available: true         # F2 单方下线降级
+expected_dim_b: 6               # F4 schema 守卫：约定的被动方特征维数
+revoked_indices: []             # F7 同意撤回的主体行号
+revoke_share: 0.1               # F7 注入时撤回的比例

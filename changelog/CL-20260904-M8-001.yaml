@@ -1,0 +1,110 @@
+change_id: CL-20260904-M8-001
+timestamp: 2026-09-04 01:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M8
+type: feat
+title: 部署护栏、故障注入 7/7 与 L3 路线取舍决议
+what: '把 M7 的攻防结论固化为**上线前不可绕过的机器检查**（六条防护基线 + guardrails 组件），并按框架 M8 放行判据实现 7 项故障注入，**真实注入 platform 主链路**而非仿真式假装失败。
+
+  配套：platform 流水线新增重试与降级上报；门禁 7 的 E4 由提示转为必过检查；产出《路线取舍决议》与《上线准入清单》。'
+key_finding: '**故障注入 7/7 全部通过**，达成 M8 放行判据的核心项。
+
+  其中两项的判据是刻意写严的：
+
+  - **F2 单方下线降级**：真正危险的不是崩溃，是**静默降级**——下游会把 L0 单方模型的名单当作联邦模型的名单来用。故要求降级后必须如实上报 degraded=True 并给出原因，只「不崩」不算通过。
+
+  - **F4 schema 变更安全失败**：要求抛异常停止出分，且**不得被重试掩盖**——重试确定性错误只是把故障拖长，而期间照常出的是全错的名单。
+
+
+  **路线取舍的依据已被 C7 改写**：合成数据上的效果排序不可用于选型，改以暴露面与合规成本为主依据。据此得出一条硬结论——**L3a 联邦逻辑回归与 L3c 形态A 的标签暴露面目前无解**（噪声防护已被实测证伪），在协议级手段落地前**不具备上线条件**；这不是效果不够，是暴露面无法闭合。
+
+
+  《上线准入清单》列出 5 项阻塞，当前全部未解除。其中「标签暴露面无解」是技术性阻塞，「不设合规角色，D 类准入项无人可签」是组织性阻塞。'
+why: '防护基线写在文档里，上线时没人会逐条核对——所以做成可执行检查，且每条拒绝都指回具体的实测证据文件与整改方向。
+
+  故障注入同理：框架要求 7/7，但「跑一遍没报错」不等于扛得住故障，必须真的把故障注进去看行为。'
+links:
+  branch_card: BC-M5-001
+  decision_record: []
+  waiver:
+  - W-001
+  - W-002
+  loop_step:
+  - S8.1
+cross_border_impact: none
+cross_border_detail: 护栏核验的是配置，故障注入跑在合成数据主链路上，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 防护基线阈值为**技术侧自评，未经法务复核**，且全部来自合成数据实验，接入真实数据后必须重新标定。《上线准入清单》D 节（合规）在本项目**无人可签**，已显式列为组织性阻塞而非留空。
+downstream_affected:
+- M9
+breaking_change: false
+migration: platform/orchestration/pipeline.py 的 DEGRADATION_SUPPORTED 由 False 改为 True，门禁 7 的 E4 随之成为必过检查（该联动是设计好的）。run_pipeline
+  新增可选参数 max_retries，默认 0，既有调用行为不变。
+reproducibility:
+  config: modules/m8_industrialization/configs/deployment_profile.yaml · platform/configs/smoke.yaml
+  config_hash: null
+  seeds:
+  - 11
+  env_lock: environments/python.lock
+  note: 故障注入全部跑在冒烟规模上，单次约数秒；七项结果由种子决定，可复现。
+rollback: git revert 本提交：护栏与故障注入移除，DEGRADATION_SUPPORTED 回落为 False，门禁 7 的 E4 退回提示态。
+verification: '1) 故障注入 7/7 通过，逐项可从 notebook 输出复核
+
+  2) 护栏六条规则各测两面：违规必拒、合规必放；违规配置命中 6/6 条
+
+  3) 门禁 7 的 E4 由提示转为必过并通过（降级出分且如实上报）
+
+  4) 新增 11 个测试；bash ci/run_all_gates.sh → 全绿（39/39）'
+step:
+  step_id: S8.1
+  step_name: 部署护栏、故障注入 7/7 与 L3 路线取舍决议
+  revisions: 0
+  next_step: S9.1 合规证据链与对外表述红线
+  declaration: "input_from: M7 的五类攻防结论 · C7（分支卡 falsifier 判决）· 框架 M8 放行判据\nwill_produce:\n  - 六条防护基线与其机器核验组件\n\
+    \  - 框架要求的 7 项故障注入（真实注入主链路）\n  - L3 路线取舍决议与上线准入清单\nwill_not_produce:\n  - 服务化实现（无真实数据与双方环境）\n  - RTO\
+    \ 实测\n  - 监控与审计日志的实现（仅列要求）\nsuccess_criteria:\n  - 故障注入 7/7\n  - 每条护栏都测两面：违规必拒、合规必放\n  - 准入清单必须显式列出阻塞项，而不是留空或写「条件不成熟」\n\
+    risk: |\n  最大风险是把故障注入写成「跑一遍没报错」的空测试。\n  本步确实一度踩到：F5 数据延迟批次一致最初写成与基线同配置，什么都没验；\n  已改为真实的分批到达——先到一批跑一轮，余下晚到再跑，\n\
+    \  核对结果等于一次到齐且不复用陈旧产物。\n"
+  scope:
+    files_changed: 12
+    lines_added: null
+    routes_covered: 3
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 无真实数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 护栏核验配置，故障注入跑合成数据，未新增跨境资产
+      G3: will_not_produce 三项可核验：无服务化实现、无 RTO 实测、监控仅列要求
+      G4: 未触碰红线；阈值的合成数据来源与未经法务复核两点均已显式标注
+      D1: 五项产出全部交付，放行判据逐条核对并标明达成与否
+      D2: 7/7 故障注入可复跑；护栏两面测试；E4 由提示转必过并通过
+      D3: 基线阈值全部来自配置文件；故障开关在 smoke.yaml 中；11 个测试锁住行为
+      D4: 把 M7 的结论从「报告里的数字」变成「上线时拦得住的检查」；并得出一条此前没有的硬结论：两条主力路线因暴露面无法闭合而不具备上线条件
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m8_industrialization/configs/deployment_profile.yaml
+  - modules/m8_industrialization/components/guardrails.py
+  - modules/m8_industrialization/components/fault_injection.py
+  - modules/m8_industrialization/路线取舍决议.md
+  - modules/m8_industrialization/上线准入清单.md
+  - modules/m8_industrialization/notebooks/S8.1_guardrails_and_faults.ipynb
+  - modules/m8_industrialization/tests/test_m8.py
+  - platform/orchestration/pipeline.py
+  - platform/orchestration/main_chain.py
+  - ci/check_e2e_smoke.py
+  - registry/component_declarations/M8-*.yaml（2 份）

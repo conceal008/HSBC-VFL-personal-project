@@ -22,7 +22,9 @@ import numpy as np
 
 FINGERPRINT_LEN = 12
 JSON_INDENT = 2
-DEGRADATION_SUPPORTED = False        # 单方不可用降级：M8 之后启用
+DEGRADATION_SUPPORTED = True         # 单方不可用降级：M8 已实现（S8.2 故障注入 F2）
+DEFAULT_MAX_RETRIES = 0              # 网络抖动重试：默认不重试，由调用方按阶段性质开启
+RETRY_BACKOFF_SECONDS = 0.0          # 本地仿真不引入真实退避，避免拖慢冒烟
 
 
 def fingerprint(payload: Dict) -> str:
@@ -44,6 +46,9 @@ class RunReport:
     stages_executed: List[str] = field(default_factory=list)
     stages_reused: List[str] = field(default_factory=list)
     seconds: Dict[str, float] = field(default_factory=dict)
+    retries: Dict[str, int] = field(default_factory=dict)
+    degraded: bool = False
+    degradation_reason: str = ""
 
     def as_dict(self) -> Dict:
         return {"fingerprint": self.fingerprint,
@@ -51,6 +56,9 @@ class RunReport:
                 "stages_reused": self.stages_reused,
                 "seconds": self.seconds,
                 "total_seconds": sum(self.seconds.values()),
+                "retries": self.retries,
+                "degraded": self.degraded,
+                "degradation_reason": self.degradation_reason,
                 "degradation_supported": DEGRADATION_SUPPORTED}
 
 
@@ -81,11 +89,16 @@ def _load(path: str) -> Dict:
 
 
 def run_pipeline(stages: List[Stage], config: Dict, checkpoint_dir: str,
-                 stop_after: Optional[str] = None) -> Dict:
+                 stop_after: Optional[str] = None,
+                 max_retries: int = DEFAULT_MAX_RETRIES) -> Dict:
     """按顺序跑各阶段，产物落盘并在重跑时复用。
 
     `stop_after` 给定时在该阶段之后停下——用于模拟中断。
     再次调用（不带 stop_after）即为续跑：已完成的阶段直接读盘，不重算。
+
+    `max_retries` > 0 时，阶段抛异常会重试。**重试只对瞬时故障有意义**：
+    确定性的错误（如 schema 不匹配）重试多少次都一样，
+    因此故障注入 F4 要求 schema 变更必须**安全失败**而不是被重试掩盖。
     """
     fp = fingerprint(config)
     report = RunReport(fingerprint=fp)
@@ -98,7 +111,16 @@ def run_pipeline(stages: List[Stage], config: Dict, checkpoint_dir: str,
             report.stages_reused.append(stage.name)
         else:
             started = time.time()
-            produced = stage.run(ctx)
+            attempt = 0
+            while True:
+                try:
+                    produced = stage.run(ctx)
+                    break
+                except Exception:
+                    attempt += 1
+                    if attempt > max_retries:
+                        raise
+                    report.retries[stage.name] = attempt
             report.seconds[stage.name] = time.time() - started
             _save(path, produced)
             ctx.update(produced)
@@ -106,6 +128,9 @@ def run_pipeline(stages: List[Stage], config: Dict, checkpoint_dir: str,
         if stop_after and stage.name == stop_after:
             break
 
+    if ctx.get("__degraded__"):
+        report.degraded = True
+        report.degradation_reason = str(ctx.get("__degradation_reason__", ""))
     ctx["__report__"] = report.as_dict()
     return ctx
 

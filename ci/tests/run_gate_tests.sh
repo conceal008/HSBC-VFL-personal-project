@@ -329,6 +329,7 @@ cat > "$C7/platform/configs/smoke.yaml" <<'YAML'
 scenario: 夹具
 seeds: [11]
 time_budget_seconds: 300
+party_b_available: true
 YAML
 
 # 确定性主链路：必须放行
@@ -344,6 +345,9 @@ def build_stages(smoke):
         return {"raw": np.arange(smoke["seeds"][0])}
 
     def two(ctx):
+        if not smoke.get("party_b_available", True):
+            return {"value": 0.0, "__degraded__": True,
+                    "__degradation_reason__": "夹具：被动方不可用，退回单方"}
         return {"value": float(ctx["raw"].sum())}
 
     return [Stage("one", one), Stage("two", two)]
@@ -368,6 +372,9 @@ def build_stages(smoke):
         return {"raw": np.arange(smoke["seeds"][0])}
 
     def two(ctx):
+        if not smoke.get("party_b_available", True):
+            return {"value": 0.0, "__degraded__": True,
+                    "__degradation_reason__": "夹具：被动方不可用，退回单方"}
         # 故意不播种：一口气跑完与中断续跑会得到不同结果
         return {"value": float(np.random.default_rng().normal())}
 
@@ -386,6 +393,7 @@ cat > "$C7/platform/configs/smoke.yaml" <<'YAML'
 scenario: 夹具
 seeds: [11]
 time_budget_seconds: 0
+party_b_available: true
 YAML
 cat > "$C7/platform/orchestration/main_chain.py" <<'PYX'
 import time
@@ -398,6 +406,9 @@ SUMMARY_KEYS = ("value",)
 def build_stages(smoke):
     def one(_ctx):
         time.sleep(0.2)
+        if not smoke.get("party_b_available", True):
+            return {"value": 0.0, "__degraded__": True,
+                    "__degradation_reason__": "夹具：被动方不可用，退回单方"}
         return {"value": float(np.arange(smoke["seeds"][0]).sum())}
 
     return [Stage("one", one)]

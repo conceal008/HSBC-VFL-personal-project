@@ -1,0 +1,18 @@
+component: evidence_chain
+module: M9
+path: modules/m9_documentation/components/evidence_chain.py
+purpose: 证据链核验：把「结论 → 证据文件」的映射变成可执行检查，覆盖一致性核验、DPIA 风险溯源、交付清单三项。
+inputs:
+- modules/m9_documentation/configs/evidence_map.yaml
+outputs:
+- 逐条可追溯性判定与三项通过率
+tests:
+- modules/m9_documentation/tests/test_evidence_chain.py
+cross_border_assets: []
+cross_border_note: 本组件只读取仓库内的文件路径与元数据，不接触任何数据内容。
+caveat: '**核验的是可追溯性，不是正确性。** 证据文件存在不代表结论正确，只代表读者能查到它依据的是什么。
+
+  已接入 ci/check_evidence_chain.py，随 run_all_gates.sh 每次提交前执行——它防的是「有人删掉结果文件，引用它的结论就此失去依据，而门禁照样全绿」。'
+waiver_ref: W-002
+declared_at: '2026-09-04'
+declared_by: Claude (Opus 5, Claude Code)

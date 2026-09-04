@@ -424,6 +424,86 @@ run python3 "$ROOT/ci/check_e2e_smoke.py" "$ROOT"
 assert "门禁7-E 本仓库主链路自检通过" 0 "$TMP/out.txt" "门禁 7 通过"
 
 echo
+echo "================ M9 · 证据链核验 ================"
+
+CEV="$TMP/evidence"; mkdir -p "$CEV/ci" "$CEV/modules/m9_documentation/components" \
+  "$CEV/modules/m9_documentation/configs"
+cp "$ROOT/ci/check_evidence_chain.py" "$CEV/ci/"
+cp "$ROOT/modules/m9_documentation/components/evidence_chain.py" \
+  "$CEV/modules/m9_documentation/components/"
+
+# 缺映射文件必须阻断
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-A 缺映射文件即阻断" 1 "$TMP/out.txt" "不存在"
+
+# 引用了不存在的证据文件必须阻断（本次真实踩到过的情形）
+cat > "$CEV/modules/m9_documentation/configs/evidence_map.yaml" <<'YAML'
+claims:
+  - id: C-TEST
+    statement: 夹具结论
+    nature: 合成数据实测
+    evidence: [modules/m9_documentation/components/evidence_chain.py]
+  - id: C-BAD
+    statement: 引用了不存在的文件
+    nature: 合成数据实测
+    evidence: [modules/m9_documentation/results/根本没有这个文件.csv]
+risks: []
+deliverables: []
+YAML
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-B 证据文件缺失即阻断" 1 "$TMP/out.txt" "一致性核验" "missing"
+
+# 性质未声明必须阻断——留空会让读者误以为是实测
+cat > "$CEV/modules/m9_documentation/configs/evidence_map.yaml" <<'YAML'
+claims:
+  - id: C-TEST
+    statement: 性质留空
+    nature: ""
+    evidence: [modules/m9_documentation/components/evidence_chain.py]
+risks: []
+deliverables: []
+YAML
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-C 结论性质未声明即阻断" 1 "$TMP/out.txt" "一致性核验"
+
+# 风险只写「可能存在」而无缓解措施必须阻断
+cat > "$CEV/modules/m9_documentation/configs/evidence_map.yaml" <<'YAML'
+claims: []
+risks:
+  - id: R-TEST
+    risk: 可能存在风险
+    severity: 高
+    mitigation: ""
+    evidence: [modules/m9_documentation/components/evidence_chain.py]
+deliverables: []
+YAML
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-D 风险无缓解措施即阻断" 1 "$TMP/out.txt" "风险溯源"
+
+# 齐备则放行
+cat > "$CEV/modules/m9_documentation/configs/evidence_map.yaml" <<'YAML'
+claims:
+  - id: C-TEST
+    statement: 夹具结论
+    nature: 合成数据实测
+    evidence: [modules/m9_documentation/components/evidence_chain.py]
+risks:
+  - id: R-TEST
+    risk: 夹具风险
+    severity: 中
+    mitigation: 夹具缓解措施
+    evidence: [modules/m9_documentation/components/evidence_chain.py]
+deliverables:
+  - name: 夹具交付物
+    path: modules/m9_documentation/components/evidence_chain.py
+YAML
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-E 三项齐备则放行" 0 "$TMP/out.txt" "证据链核验通过"
+
+run python3 "$ROOT/ci/check_evidence_chain.py" "$ROOT"
+assert "证据链-F 本仓库三项均 100%" 0 "$TMP/out.txt" "证据链核验通过"
+
+echo
 echo
 echo "================ 汇总 ================"
 echo "PASS=$PASS  FAIL=$FAIL"

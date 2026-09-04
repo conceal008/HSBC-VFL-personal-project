@@ -1,0 +1,53 @@
+# M9 · 剩余风险签署
+# ---------------------------------------------------------------------------
+# ⚠️ 本文件**未签署**，且在当前组织安排下**无人可签**。
+# 本项目不设合规角色（豁免 W-001），下列签署位全部空缺。
+# 保留本文件而不删除，是为了让「谁该签而没签」显式可见——
+# 删掉它会让缺口消失于无形。
+# ---------------------------------------------------------------------------
+step_id: S9.1
+status: unsigned
+signable: false
+reason_not_signable: 本项目不设合规角色，无人具备签署资格
+
+residual_risks:
+  - id: R2
+    risk: 主动方标签被被动方完全推断
+    severity: 高
+    mitigation_status: 无有效技术缓解
+    detail: |
+      噪声防护已被实测证伪。要把泄露压到 0.67 需 σ=30，
+      届时可用性 0.6352 已低于不做联邦的内地单方基线 0.7089。
+      在协议级手段落地前，涉及标签跨方交换的路线不应进入生产。
+    accepted_by: null
+
+  - id: R8
+    risk: 全部阈值来自合成数据，真实数据上未标定
+    severity: 高
+    mitigation_status: 无法在当前阶段缓解
+    accepted_by: null
+
+  - id: R9
+    risk: 攻防结论限于半诚实参与方设定，恶意参与方未评估
+    severity: 中
+    mitigation_status: 待补
+    accepted_by: null
+
+  - id: R10
+    risk: PSI 为行为仿真，非密码学实现
+    severity: 中
+    mitigation_status: M8 前必须换真实实现或成熟库
+    accepted_by: null
+
+  - id: R11
+    risk: 全部涉法判断未经法务复核
+    severity: 高
+    mitigation_status: 组织性缺口，技术侧无法缓解
+    accepted_by: null
+
+signoff:
+  compliance_officer: null      # 未指定
+  legal_review: null            # 未进行
+  business_owner: null          # 未签署
+  technical_lead: Claude (Opus 5, Claude Code) —— 仅确认技术侧实测内容属实，不构成风险接受
+  signed_at: null

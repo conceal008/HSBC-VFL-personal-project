@@ -1,0 +1,114 @@
+change_id: CL-20260904-M9-001
+timestamp: 2026-09-04 03:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M9
+type: feat
+title: 合规证据链、DPIA 与对外表述红线：三项核验均 100%
+what: '把「结论 → 证据文件」的映射做成**可执行检查**（13 条结论 · 7 条风险 · 10 项交付），接入 run_all_gates.sh 与 CI，配 6 组回归用例。
+
+  并产出 M9 输出契约要求的全部交付物：对外表述红线 · DPIA · 模型卡 · 跨境流动清单 · 审计日志规格 · 同意管理规格 · 数据卡 · 剩余风险签署。'
+key_finding: '**三项核验均 100%**：一致性 13/13 · 风险溯源 7/7 · 交付清单 10/10。
+
+
+  **先做机器核验再写文档**，因为 M9 的验收人是法务与合规而非技术方——写成「已核验」四个字，谁也不知道核了什么。核验器防的是一类很安静的事故：**有人删掉或重命名一个结果文件，引用它的结论就此失去依据，而七道门禁照样全绿。**
+
+  写本模块的过程中它就抓到过一次：证据映射引用了不存在的 funnel_scenarios.csv，通过率掉到 92.3%。
+
+
+  **《对外表述红线》是本步最有分量的产出。** 本项目实测到的东西推翻了这个领域里几句流传很广的话，沿用它们会被一问就穿，且在合规上站不住。列出 9 条绝对不能说，其中第一条是「原始数据不出本地，所以是安全的」——C4
+  已证明无防护协议双向完全泄露。
+
+  同时要求三句必须**主动说**，不能等人问，其中「无防护的协议是双向完全泄露的」尤其不能省：**隐去它去讲「联邦学习保护隐私」，是把风险留给下一个人。**
+
+
+  `residual_risk_signoff.yaml` **未签署且无人可签**——本项目不设合规角色。保留该文件而不删除，是为了让「谁该签而没签」显式可见；删掉它会让缺口消失于无形。'
+why: 框架给 M9 的定位是「验收人不是技术方，而是法务与合规」。对这类验收人来说，最没用的交付物是一份自称已核验的文档；最有用的是一份能自己跑一遍、告诉你哪条结论追不到依据的检查。
+links:
+  branch_card: null
+  decision_record: []
+  waiver:
+  - W-001
+  - W-002
+  loop_step:
+  - S9.1
+cross_border_impact: none
+cross_border_detail: 证据链核验只读取仓库内的文件路径与元数据，不接触数据内容；跨境流动清单是既有定性的整理，未新增任何定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: '**DPIA 为草案，不构成合规意见。** 全部涉法结论在证据映射中一律标注「未复核」，并由 test_涉法结论必须标注未复核 机器锁定。剩余风险签署位全部空缺且显式声明 signable:
+    false。'
+downstream_affected: []
+breaking_change: false
+migration: run_all_gates.sh 新增一项「M9 · 证据链核验」（非编号门禁）。此后删除或重命名被引用的结果文件会被拦下——这是刻意的。
+reproducibility:
+  config: modules/m9_documentation/configs/evidence_map.yaml
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 核验只依赖文件系统状态，无随机性；三份核验结果落盘于 results/。
+rollback: git revert 本提交：证据链核验与全部 M9 交付物移除；run_all_gates.sh 退回七道门禁 + 回归套件。
+verification: '1) 三项核验均 100%，结果落盘 results/consistency_check.csv 等三份
+
+  2) 回归用例 A–F 六组：缺映射 / 证据缺失 / 性质未声明 / 风险无缓解 各自阻断，齐备则放行
+
+  3) 新增 9 个单元测试，含「涉法结论必须标注未复核」的机器锁定
+
+  4) 核验器在本步骤中抓到一处真实错误（不存在的 funnel_scenarios.csv）
+
+  5) bash ci/run_all_gates.sh → 全绿（45/45）'
+step:
+  step_id: S9.1
+  step_name: 合规证据链、DPIA 与对外表述红线
+  revisions: 0
+  next_step: S9.2 待合规责任人指定后补齐签署与法务复核
+  declaration: "input_from: M0–M8 全部产出 · 框架 M9 输出契约与放行判据\nwill_produce:\n  - 证据链核验组件与映射，接入提交前流程\n  - M9\
+    \ 输出契约要求的全部交付物\n  - 对外表述红线\nwill_not_produce:\n  - 任何合规意见或签署（本项目不设合规角色）\n  - 真实数据的数据卡\nsuccess_criteria:\n\
+    \  - 三项核验均 100% 且为机器核验，不是自称\n  - 涉法结论一律标注未复核，且该约束有测试锁定\n  - 签署位空缺必须显式，不得留空蒙混\nrisk: |\n  最大风险是把 M9\
+    \ 做成一份自我背书的文档集——每份都写着「已核验」，\n  但没人能说出核了什么。故先做机器核验再写文档，\n  并给核验器配 6 组回归用例证明它「该拦时真的拦」。\n  第二个风险是替不存在的合规角色签字：故签署位全部留\
+    \ null 并显式声明 signable: false。\n"
+  scope:
+    files_changed: 16
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 无真实数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 跨境清单是既有定性的整理，未新增定性
+      G3: will_not_produce 两项可核验：无合规意见、无签署、无真实数据卡
+      G4: 涉法结论一律标注未复核并有测试锁定；签署位空缺显式声明
+      D1: 证据链 + 8 份交付物全部交付，放行判据五项逐条达成
+      D2: 三项核验为机器核验，可复跑；6 组回归用例证明拦截能力；核验器在本步骤中实际抓到一处错误
+      D3: 核验只依赖文件系统状态，无随机性；结果落盘
+      D4: 把「一致性核验通过率 100%」从一句自称变成可执行判定；并产出《对外表述红线》——它把本项目推翻的几个常见说法固定成了可核对的清单
+  verdict: committed
+  waiver_ref: W-001
+  outputs:
+  - modules/m9_documentation/components/evidence_chain.py
+  - modules/m9_documentation/configs/evidence_map.yaml
+  - modules/m9_documentation/对外表述红线.md
+  - modules/m9_documentation/DPIA.md
+  - modules/m9_documentation/model_card.md
+  - modules/m9_documentation/cross_border_flow_registry.csv
+  - modules/m9_documentation/audit_log_spec.md
+  - modules/m9_documentation/consent_management_spec.md
+  - modules/m9_documentation/data_cards/synthetic_data_card.md
+  - modules/m9_documentation/residual_risk_signoff.yaml
+  - modules/m9_documentation/notebooks/S9.1_evidence_chain.ipynb
+  - modules/m9_documentation/tests/test_evidence_chain.py
+  - ci/check_evidence_chain.py
+  - ci/run_all_gates.sh
+  - .github/workflows/gates.yml

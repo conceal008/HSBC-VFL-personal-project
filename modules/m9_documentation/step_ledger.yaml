@@ -1,23 +1,43 @@
-# M9 步骤台账
-# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
-# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
-
 module: M9
 module_path: modules/m9_documentation
-total_steps_planned: 10      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+total_steps_planned: 10
+steps:
+- step_id: S9.1
+  step_name: 合规证据链、DPIA 与对外表述红线
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-04 03:00:00+08:00'
+  change_id: CL-20260904-M9-001
+  waiver_ref: W-001
+  outputs:
+  - components/evidence_chain.py + configs/evidence_map.yaml（13 结论 · 7 风险 · 10 交付项）
+  - ci/check_evidence_chain.py 接入 run_all_gates.sh 与 CI，回归用例 A–F 六组
+  - 一致性核验 13/13 · DPIA 风险溯源 7/7 · 交付清单 10/10 —— 三项均 100%
+  - 对外表述红线.md：9 条绝对不能说 · 5 条须带限定 · 3 条必须主动说
+  - DPIA.md · model_card.md · cross_border_flow_registry.csv · audit_log_spec.md
+  - consent_management_spec.md · data_cards/ · residual_risk_signoff.yaml（未签署且无人可签）
+  - 核验过程中抓到一处真实错误：证据映射引用了不存在的 funnel_scenarios.csv
 current_step: null
-next_step: S9.1
-
+next_step: S9.2
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
-  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
-  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
-
+  avg_score: 12.0
+  escalation_count: 0
+  revision_rate: null
+  steps_used: 1
+  budget_usage: 0.1
+  consecutive_low_d4: 0
+  pass_threshold: 10
 audit:
-  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  last_spot_check_step: null
   spot_checks_done: 0

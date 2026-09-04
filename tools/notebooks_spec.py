@@ -476,3 +476,46 @@ def m8():
                "名单会全错而无人察觉。故要求抛异常停止出分，"
                "且**不得被重试掩盖**——重试确定性错误只是把故障拖长。"),
     ])
+
+
+def m9():
+    build("modules/m9_documentation/notebooks/S9.1_evidence_chain.ipynb", [
+        ("md", "# S9.1 · 合规证据链核验\n\n"
+               "M9 的验收人不是技术方，而是法务与合规。所以本模块的第一件事不是写文档，"
+               "而是**让「每条结论追得到证据」成为可执行的检查**——"
+               "写成「已核验」四个字，谁也不知道核了什么。\n\n"
+               "> ⚠️ 核验的是**可追溯性**，不是**正确性**。"
+               "证据文件存在不代表结论正确，只代表读者能查到它依据的是什么。"),
+        ("code", HEADER.format(cfg="modules/m9_documentation/configs/evidence_map.yaml")),
+        ("code", "from modules.m9_documentation.components import evidence_chain as EC\n"
+                 "claims = EC.verify_claims(config['claims'])\n"
+                 "risks = EC.verify_risk_traceability(config['risks'])\n"
+                 "deliv = EC.verify_deliverables(config['deliverables'])\n"
+                 "PCT = 100\n"
+                 "for label, res, ok, tot in [('一致性核验', claims, 'traceable', 'total'),\n"
+                 "                            ('DPIA 风险溯源', risks, 'traced', 'total'),\n"
+                 "                            ('交付清单', deliv, 'present', 'total')]:\n"
+                 "    print(f'{label:14s} {res[ok]}/{res[tot]} = {res[\"rate\"]*PCT:.1f}%')"),
+        ("md", "## 逐条结论的可追溯性\n\n"
+               "`nature` 一列必须显式声明性质——**留空会让读者误以为是实测**。"
+               "凡涉法结论一律标注「未复核」：本项目不设合规角色。"),
+        ("code", "pd.DataFrame(claims['rows'])[['id', 'statement', 'nature',\n"
+                 "                              'n_evidence', 'traceable']]"),
+        ("md", "## DPIA 风险溯源\n\n"
+               "每条风险必须指向具体的实验产出，并给出缓解措施——"
+               "只写「可能存在」不算溯源。"),
+        ("code", "pd.DataFrame(risks['rows'])[['id', 'risk', 'severity',\n"
+                 "                             'has_mitigation', 'traced']]"),
+        ("md", "**R2 是本评估最重要的一条：主动方标签被完全推断，目前无有效技术缓解。**\n\n"
+               "噪声防护已被实测证伪——把泄露压到 0.67 需要 σ=30，"
+               "而那时模型可用性（0.6352）已低于不做联邦的内地单方基线（0.7089）。"
+               "**防护到有效时，还不如不做联邦。**"),
+        ("md", "## 交付清单"),
+        ("code", "pd.DataFrame(deliv['rows'])[['name', 'path', 'status']]"),
+        ("md", "## 这套核验防的是什么\n\n"
+               "一类很安静的事故：有人删掉或重命名了一个结果文件，"
+               "文档里引用它的那条结论就此失去依据，而**七道门禁照样全绿**。\n\n"
+               "本核验已接入 `ci/check_evidence_chain.py`，随 `run_all_gates.sh` "
+               "每次提交前执行。写这份 notebook 的过程中它就抓到过一次："
+               "证据映射里引用了一个不存在的 `funnel_scenarios.csv`，通过率因此掉到 92.3%。"),
+    ])

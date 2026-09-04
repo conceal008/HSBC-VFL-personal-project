@@ -1,0 +1,11 @@
+name,path,status,note
+DPIA（数据保护影响评估）,modules/m9_documentation/DPIA.md,ok,
+对外表述红线,modules/m9_documentation/对外表述红线.md,ok,
+模型卡,modules/m9_documentation/model_card.md,ok,
+跨境流动清单,modules/m9_documentation/cross_border_flow_registry.csv,ok,
+审计日志规格,modules/m9_documentation/audit_log_spec.md,ok,
+同意管理规格,modules/m9_documentation/consent_management_spec.md,ok,
+数据卡（合成数据）,modules/m9_documentation/data_cards/synthetic_data_card.md,ok,
+剩余风险签署,modules/m9_documentation/residual_risk_signoff.yaml,ok,
+路线取舍决议,modules/m8_industrialization/路线取舍决议.md,ok,
+上线准入清单,modules/m8_industrialization/上线准入清单.md,ok,

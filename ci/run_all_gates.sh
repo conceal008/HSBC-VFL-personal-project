@@ -33,6 +33,7 @@ run_gate "门禁 4 · 合规一致性核验"      python3 ci/check_cross_border_
 run_gate "门禁 5 · 代码质量"            python3 ci/check_code_quality.py
 run_gate "门禁 6 · 可复现性"            python3 ci/check_reproducibility.py
 run_gate "门禁 7 · 端到端冒烟"          python3 ci/check_e2e_smoke.py
+run_gate "M9 · 证据链核验"              python3 ci/check_evidence_chain.py
 run_gate "门禁回归测试"                 bash ci/tests/run_gate_tests.sh
 
 echo "═════════════════════════════════"

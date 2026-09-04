@@ -10,9 +10,9 @@
 | — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ 17 组用例，每次 push 跑 |
 | 3 | ~~单步规模~~ | ~~`check_step_scope.py`~~ | ⛔ **已取消**（2026-08-30，DR-GOV-003）：编号保留不复用，脚本不再实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
-| 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟） | — | ⬜ 待第一份代码组件出现后接入 |
+| 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟 / **术语禁用词**） | `check_code_quality.py` | ✅ 已实现并在 CI 生效 |
 | 6 | 可复现性（魔数 = 0 / 种子来自配置 / 环境锁一致 / notebook N1·N2·N4·N5） | `check_reproducibility.py` | ✅ 已实现并在 CI 生效 |
-| 7 | 端到端冒烟（合并到 main 时跑） | — | ⬜ 待主链路出现后接入 |
+| 7 | 端到端冒烟（主链路 / 时长 ≤5 分钟 / **断点续跑逐位一致**） | `check_e2e_smoke.py` | ✅ 已实现并在 CI 生效 |
 
 ## 门禁 4 依赖的两份契约文件
 
@@ -35,7 +35,9 @@
 
 ## 实现顺序（附录 B）
 
-`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ `check_changelog_schema.py` → `check_reproducibility.py`（门禁 6，待做）。
+`check_cross_border_consistency.py`（越早上线 M9 越省事）→ `check_step_metadata.py`（步进机制的强制力来源）→ `check_changelog_schema.py` → `check_reproducibility.py`（门禁 6）→ `check_code_quality.py`（门禁 5）→ `check_e2e_smoke.py`（门禁 7）。门禁 5 与 7 的触发条件是「第一份代码组件 / 主链路出现」，2026-09-03 初版满足后随即补齐。
+
+**唯一正确的提交前入口是 `bash ci/run_all_gates.sh`**——不要手写 `cmd | tail -1 && git push` 这类管道链，管道的退出码是 tail 的（永远 0），本项目已因此两次把不通过门禁的提交推进 main。
 门禁 3（单步规模）已取消，不再实现。
 
 ## 门禁回归测试
@@ -62,6 +64,8 @@ python3 ci/check_cross_border_consistency.py      # 门禁 4，改动声明或 M
 python3 ci/check_step_metadata.py                 # 门禁 2，校验 HEAD；查别的提交加 --rev <sha>
 python3 ci/check_changelog_schema.py              # 门禁 2 下半，校验全部 changelog 条目
 python3 ci/check_reproducibility.py               # 门禁 6，改动代码/notebook/配置后必跑
+python3 ci/check_code_quality.py                  # 门禁 5，改动组件或测试后必跑
+python3 ci/check_e2e_smoke.py                     # 门禁 7，改动主链路或 platform/ 后必跑
 bash ci/tests/run_gate_tests.sh                   # 门禁回归，改任何门禁脚本后必跑
 ```
 

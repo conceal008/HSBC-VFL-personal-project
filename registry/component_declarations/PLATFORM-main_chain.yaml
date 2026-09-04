@@ -1,0 +1,18 @@
+component: main_chain
+module: PLATFORM
+path: platform/orchestration/main_chain.py
+purpose: 主链路装配：M2 生成 → M3 对齐 → M5 建模 → M6 评估 → M7 攻击，五个阶段。
+inputs:
+- platform/configs/smoke.yaml
+- 各模块的 configs/
+outputs:
+- 逐阶段产物与用于一致性比对的标量摘要
+tests:
+- platform/tests/test_pipeline.py
+cross_border_assets: []
+cross_border_note: 本组件为编排层，不接触任何真实数据；主链路全程使用程序生成的合成数据，不向境外传输任何数据，故无跨境资产。
+caveat: ⚠️ 仓库目录 `platform/` 与 Python 标准库模块 `platform` 同名，无法按包路径导入（stdlib 的 platform 是模块不是包）；调用方须把 `platform/orchestration`
+  加入 sys.path 后直接 import。
+waiver_ref: null
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

@@ -1,0 +1,22 @@
+component: pipeline
+module: PLATFORM
+path: platform/orchestration/pipeline.py
+purpose: 编排层：阶段抽象、产物落盘与断点续跑、运行指纹与运行清单。
+inputs:
+- 阶段列表
+- 配置字典
+- 检查点目录
+- 可选的中断点
+outputs:
+- 各阶段产物
+- 运行报告（执行/复用的阶段、耗时、指纹）
+- 运行清单 JSON
+tests:
+- platform/tests/test_pipeline.py
+cross_border_assets: []
+cross_border_note: 本组件为编排层，不接触任何真实数据；主链路全程使用程序生成的合成数据，不向境外传输任何数据，故无跨境资产。
+caveat: '**platform/ 的接口变更一律视为 breaking change**（维护约束 6.5），须走 DR + 下游 approve + 保留旧接口 ≥1 个模块周期。`DEGRADATION_SUPPORTED`
+  现为 False——单方不可用降级在 M8 之后启用，置 True 时门禁 7 的 E4 会要求对应检查已实现。'
+waiver_ref: null
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

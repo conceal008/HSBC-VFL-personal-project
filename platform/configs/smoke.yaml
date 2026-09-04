@@ -1,0 +1,16 @@
+# 门禁 7 · 端到端冒烟的运行配置
+# 规模刻意压小：冒烟要验证的是「链路通不通、续跑一不一致」，不是效果。
+scenario: S1_基准
+seeds: [11]
+n_party_a: 6000
+time_budget_seconds: 300        # 框架门槛：主链路 ≤5 分钟
+k_anonymity: 10
+n_segments: 64
+hyperparams:
+  n_rounds: 15
+  flr_rounds: 60
+  nn_epochs: 3
+attack:
+  dp_sigma: 1.0
+  dp_delta: 1.0e-5              # 高斯机制的 δ；ε 为单轮预算，不可作差分隐私保证引用
+  inversion_train_frac: 0.5

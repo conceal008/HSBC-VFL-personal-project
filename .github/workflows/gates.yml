@@ -93,10 +93,24 @@ jobs:
       - name: lint / 类型 / 测试与覆盖 / 组件声明 / 术语
         run: python3 ci/check_code_quality.py
 
+  gate7-e2e-smoke:
+    name: 门禁 7 · 端到端冒烟
+    runs-on: ubuntu-latest
+    needs: gate5-code-quality
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 安装依赖
+        run: pip install --quiet -r requirements.txt
+      - name: 主链路跑通 / 时长 / 断点续跑一致性
+        run: python3 ci/check_e2e_smoke.py
+
   gate-regression:
     name: 门禁回归测试 · 拦截能力
     runs-on: ubuntu-latest
-    needs: gate5-code-quality
+    needs: gate7-e2e-smoke
     steps:
       - uses: actions/checkout@v4
         with:
@@ -106,5 +120,5 @@ jobs:
           python-version: '3.11'
       - name: 安装依赖
         run: pip install --quiet -r requirements.txt
-      - name: 跑全部门禁用例（28 组）
+      - name: 跑全部门禁用例（33 组）
         run: bash ci/tests/run_gate_tests.sh

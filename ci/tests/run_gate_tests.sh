@@ -271,6 +271,105 @@ run python3 "$ROOT/ci/check_code_quality.py" "$ROOT"
 assert "门禁5-D 本仓库自检通过" 0 "$TMP/out.txt" "门禁 5 通过"
 
 echo
+echo "================ 门禁 7 · 端到端冒烟 ================"
+
+# 用最小夹具替换主链路，验证门禁 7 的三项检查各自能拦住什么
+C7="$TMP/gate7"; mkdir -p "$C7/ci" "$C7/platform/orchestration" "$C7/platform/configs"
+cp "$ROOT/ci/check_e2e_smoke.py" "$C7/ci/"
+cp "$ROOT/platform/orchestration/pipeline.py" "$C7/platform/orchestration/"
+
+# 缺配置必须阻断——冒烟规模不得写死在脚本里
+run python3 "$C7/ci/check_e2e_smoke.py" "$C7"
+assert "门禁7-A 缺冒烟配置即阻断" 1 "$TMP/out.txt" "不存在"
+
+cat > "$C7/platform/configs/smoke.yaml" <<'YAML'
+scenario: 夹具
+seeds: [11]
+time_budget_seconds: 300
+YAML
+
+# 确定性主链路：必须放行
+cat > "$C7/platform/orchestration/main_chain.py" <<'PYX'
+import numpy as np
+from pipeline import Stage
+
+SUMMARY_KEYS = ("value",)
+
+
+def build_stages(smoke):
+    def one(_ctx):
+        return {"raw": np.arange(smoke["seeds"][0])}
+
+    def two(ctx):
+        return {"value": float(ctx["raw"].sum())}
+
+    return [Stage("one", one), Stage("two", two)]
+
+
+def summarize(ctx):
+    return {k: ctx[k] for k in SUMMARY_KEYS if k in ctx}
+PYX
+run python3 "$C7/ci/check_e2e_smoke.py" "$C7"
+assert "门禁7-B 确定性主链路放行" 0 "$TMP/out.txt" "门禁 7 通过" "断点续跑"
+
+# 未固定的随机性：续跑结果与不中断不一致，E3 必须抓到
+cat > "$C7/platform/orchestration/main_chain.py" <<'PYX'
+import numpy as np
+from pipeline import Stage
+
+SUMMARY_KEYS = ("value",)
+
+
+def build_stages(smoke):
+    def one(_ctx):
+        return {"raw": np.arange(smoke["seeds"][0])}
+
+    def two(ctx):
+        # 故意不播种：一口气跑完与中断续跑会得到不同结果
+        return {"value": float(np.random.default_rng().normal())}
+
+    return [Stage("one", one), Stage("two", two)]
+
+
+def summarize(ctx):
+    return {k: ctx[k] for k in SUMMARY_KEYS if k in ctx}
+PYX
+run python3 "$C7/ci/check_e2e_smoke.py" "$C7"
+assert "门禁7-C 未固定的随机性被断点续跑比对抓到" 1 "$TMP/out.txt" \
+  "与不中断不一致" "未固定的随机性"
+
+# 超时必须阻断
+cat > "$C7/platform/configs/smoke.yaml" <<'YAML'
+scenario: 夹具
+seeds: [11]
+time_budget_seconds: 0
+YAML
+cat > "$C7/platform/orchestration/main_chain.py" <<'PYX'
+import time
+import numpy as np
+from pipeline import Stage
+
+SUMMARY_KEYS = ("value",)
+
+
+def build_stages(smoke):
+    def one(_ctx):
+        time.sleep(0.2)
+        return {"value": float(np.arange(smoke["seeds"][0]).sum())}
+
+    return [Stage("one", one)]
+
+
+def summarize(ctx):
+    return {k: ctx[k] for k in SUMMARY_KEYS if k in ctx}
+PYX
+run python3 "$C7/ci/check_e2e_smoke.py" "$C7"
+assert "门禁7-D 超出时间预算即阻断" 1 "$TMP/out.txt" "耗时"
+
+run python3 "$ROOT/ci/check_e2e_smoke.py" "$ROOT"
+assert "门禁7-E 本仓库主链路自检通过" 0 "$TMP/out.txt" "门禁 7 通过"
+
+echo
 echo
 echo "================ 汇总 ================"
 echo "PASS=$PASS  FAIL=$FAIL"

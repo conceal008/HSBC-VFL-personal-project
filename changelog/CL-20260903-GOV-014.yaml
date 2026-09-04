@@ -1,0 +1,110 @@
+change_id: CL-20260903-GOV-014
+timestamp: 2026-09-03 19:40:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: feat
+title: 实现门禁 7 · 端到端冒烟，落地 platform 编排层与断点续跑
+what: '实现 ci/check_e2e_smoke.py 四项检查：E1 主链路跑通 · E2 时长 ≤5 分钟 · E3 断点续跑结果与不中断**逐位一致** · E4 单方不可用降级（M8 后启用，现报告未启用及触发条件）。
+
+  配套落地 platform 编排层（此前为空目录）：pipeline.py 提供阶段抽象、产物落盘复用、运行指纹与运行清单；main_chain.py 装配 M2 生成 → M3 对齐 → M5 建模
+  → M6 评估 → M7 攻击五个阶段；platform/configs/smoke.yaml 给出配置驱动的冒烟规模。
+
+  回归套件新增门禁7-A/B/C/D/E 五组（28→33 组）；接入 run_all_gates.sh 与 GitHub Actions。'
+key_finding: '**E3 的真正价值不是验证「续跑机制可用」，而是验证「主链路没有未固定的随机性」。**
+
+  任何一处用了系统时间、未播种的随机数或依赖字典遍历顺序，「一口气跑完」与「中断后续跑」就会分叉。回归用例门禁7-C 用一个故意不播种的阶段证明了这条检查真能抓到——这是本门禁唯一无法靠「本仓库恰好通过」自证的部分。
+
+
+  实现中发现一处此前未被记录的工程约束：**仓库目录 `platform/` 与 Python 标准库模块 `platform` 同名**，`import platform.orchestration.xxx`
+  不可行（stdlib 的 platform 是模块不是包）。调用方必须把该目录本身加入 sys.path。目录名由框架规定，只能在导入侧绕开，已在 pipeline.py、main_chain.py、组件声明与测试中各处注明。
+
+
+  同时把 platform/ 纳入门禁 5 的管辖范围：platform/README 明写「每个组件必须有 schema 声明与冒烟测试」，若门禁 5 只管 modules/，跨模块共享代码反而绕过了质量门槛，而它的影响面更大。'
+why: '门禁 7 与门禁 5 同为初版绕开的两处强制要求，已在《初版完成说明与降级清单.md》列为合入后第一优先项。本步兑现其余一半。
+
+  门禁 7 还补上了一个此前没有的能力：**主链路的确定性验证**。此前只有「同种子同结果」的单元测试，没有跨阶段、跨进程的一致性检验；而合成数据实验的全部可信度都建立在确定性之上。'
+links:
+  branch_card: null
+  decision_record: []
+  waiver: []
+  loop_step:
+  - S-INIT.7
+cross_border_impact: none
+cross_border_detail: 编排层不接触任何真实数据；主链路全程使用程序生成的合成数据。两份平台层组件声明的 cross_border_assets 均为空列表。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 纯治理与编排代码，不含数据与涉法判断。
+downstream_affected:
+- M8
+breaking_change: false
+migration: platform/ 的接口变更一律视为 breaking change（维护约束 6.5）：后续改动 pipeline.py 的 Stage 与 run_pipeline 签名须走
+  DR + 下游 approve + 保留旧接口 ≥1 个模块周期。
+reproducibility:
+  config: platform/configs/smoke.yaml
+  config_hash: null
+  seeds:
+  - 11
+  env_lock: environments/python.lock
+  note: 冒烟规模由配置给定，未写死在脚本里；运行指纹由配置内容的 SHA-256 前 12 位决定，产物按「阶段名 + 指纹」命名，配置一变即不复用旧产物。
+rollback: git revert 本提交：门禁 7 下线，platform 编排层与主链路移除；门禁 5 对 platform/ 的管辖一并回退。
+verification: '1) python3 ci/check_e2e_smoke.py → BLOCK=0；主链路 5 个阶段、13 项产物、耗时 0.1s ≤ 300s；4 个中断点续跑结果逐位一致
+
+  2) 回归门禁7-C：故意不播种的阶段被 E3 抓到并报「未固定的随机性」——证明该检查不是只在本仓库恰好通过
+
+  3) 回归门禁7-A/D：缺冒烟配置、超出时间预算分别被阻断
+
+  4) platform/tests/ 新增 9 个测试；门禁 5 覆盖率 817/843 = 96.9%
+
+  5) bash ci/run_all_gates.sh → 全绿（33/33）'
+step:
+  step_id: S-INIT.7
+  step_name: 实现门禁 7 · 端到端冒烟
+  revisions: 0
+  next_step: S7.3 补齐特征推断与成员推断攻击（《初版完成说明与降级清单.md》§6 第 3 项）
+  declaration: "input_from: 《项目维护约束 v2》第 8 部分门禁 7 表格 · platform/README 的编排层职责 · 《初版完成说明与降级清单.md》§5 绕开说明\n\
+    will_produce:\n  - ci/check_e2e_smoke.py（E1–E4）\n  - platform/orchestration/{pipeline,main_chain}.py\
+    \ 与 platform/configs/smoke.yaml\n  - platform/tests/ 单元测试；两份平台层组件声明\n  - 回归套件五组新用例；接入 run_all_gates.sh\
+    \ 与 GitHub Actions\nwill_not_produce:\n  - 单方不可用降级的实现（框架规定 M8 之后）\n  - 任何模型或实验结论的改动\nsuccess_criteria:\n\
+    \  - 断点续跑与不中断逐位一致，不给浮点容差\n  - 回归用例能证明 E3 真会因未固定的随机性而阻断\nrisk: |\n  最大风险是 E3 写成「跑通即通过」而不真比对结果——那样门禁\
+    \ 7 只是个耗时检查。\n  故 E3 在每个阶段之后各中断一次，逐个中断点比对全部标量摘要，且容差取 0。\n"
+  scope:
+    files_changed: 10
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 本 changelog 条目与 registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 编排层不含任何数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 两份平台层声明的 cross_border_assets 均为空；门禁 4 自检 BLOCK=0
+      G3: will_not_produce 可核验：DEGRADATION_SUPPORTED 仍为 False；无实验结论改动
+      G4: 未触碰任何红线
+      D1: 四项产出全部交付并接入 CI
+      D2: 五组构造样本可复跑；门禁7-C 用故意不播种的阶段证明 E3 的拦截能力
+      D3: 冒烟规模配置驱动；运行指纹由配置内容决定；同配置两次运行结果相同（已测）
+      D4: 补上了主链路的确定性验证能力，并发现 platform 与 stdlib 同名这一工程约束；但未产生新的项目结论，故 D4 给 2 分
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - ci/check_e2e_smoke.py
+  - platform/orchestration/pipeline.py
+  - platform/orchestration/main_chain.py
+  - platform/configs/smoke.yaml
+  - platform/tests/test_pipeline.py
+  - registry/component_declarations/PLATFORM-*.yaml（2 份）
+  - ci/tests/run_gate_tests.sh（+5 组）
+  - ci/run_all_gates.sh
+  - .github/workflows/gates.yml
+  - ci/README.md

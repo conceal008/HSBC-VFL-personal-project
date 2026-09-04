@@ -29,10 +29,13 @@ import sys
 import trace
 
 COVERAGE_FLOOR = 0.70
-COMPONENT_GLOB = "modules/*/components/*.py"
-TEST_GLOB = "modules/*/tests/test_*.py"
+# 平台层同样纳入管辖：platform/README 明写「每个组件必须有 schema 声明与冒烟测试」，
+# 若只管 modules/，跨模块共享代码反而绕过了质量门槛，而它的影响面更大。
+COMPONENT_GLOBS = ("modules/*/components/*.py", "platform/*/*.py")
+TEST_GLOBS = ("modules/*/tests/test_*.py", "platform/tests/test_*.py")
+TEST_ROOTS = ("modules/", "platform/")
 DECLARATION_DIR = "registry/component_declarations"
-LINT_DIRS = ("modules", "ci", "tools")
+LINT_DIRS = ("modules", "platform", "ci", "tools")
 GLOSSARY = "registry/glossary.yaml"
 TERM_WAIVER_MARK = "术语豁免:"
 QUOTE_PAIRS = (("「", "」"), ("\u201c", "\u201d"), ('"', '"'), ("'", "'"))
@@ -50,6 +53,12 @@ def run(cmd):
     return p.returncode, (p.stdout + p.stderr).strip()
 
 
+def is_test_path(path):
+    """测试文件不是组件——它们不需要组件声明，也不需要「自己的冒烟测试」。"""
+    norm = os.sep + os.path.normpath(path).strip(os.sep)
+    return (os.sep + "tests" + os.sep) in norm + os.sep
+
+
 def source_files():
     out = []
     for d in LINT_DIRS:
@@ -65,14 +74,17 @@ def check_lint(files):
         print("✅ Q1 lint：%d 个源文件 0 error" % len(files))
         return
     for line in out.splitlines():
-        if line.strip() and not line.startswith("Found"):
-            block("Q1", "lint：%s" % line.strip())
+        text = line.strip()
+        # ruff 的汇总行（"Found N errors."／"[*] N fixable..."）不是错误本身
+        if not text or text.startswith("Found") or text.startswith("[*]"):
+            continue
+        block("Q1", "lint：%s" % text)
 
 
 def check_types():
     code, out = run([sys.executable, "-m", "mypy", "--ignore-missing-imports",
                      "--no-strict-optional", "--namespace-packages",
-                     "--explicit-package-bases", "modules/"])
+                     "--explicit-package-bases", "modules/", "platform/"])
     if code == 0:
         print("✅ Q2 类型检查：0 error")
         return
@@ -103,8 +115,9 @@ def check_tests_and_coverage(components):
     # ⚠️ 不传 ignoredirs：stdlib trace 的 _Ignore 按**模块名**缓存判定，
     #    site-packages 里若有同名模块（如 models），我们的同名文件会被连坐漏计。
     tracer = trace.Trace(count=1, trace=0)
-    rc = tracer.runfunc(pytest.main, ["modules/", "-q", "--no-header",
-                                      "-p", "no:cacheprovider"])
+    roots = [r for r in TEST_ROOTS if os.path.isdir(r)]   # 只传存在的路径，否则 pytest 直接报错
+    rc = tracer.runfunc(pytest.main, roots + ["-q", "--no-header",
+                                              "-p", "no:cacheprovider"])
     if rc != 0:
         block("Q3", "单元测试未全部通过（pytest 退出码 %s）——通过率必须 100%%" % rc)
         return
@@ -163,8 +176,9 @@ def check_declarations(components, decls):
 
 
 def check_smoke(components, decls):
+    before = len(BLOCKS)
     test_src = ""
-    for t in glob.glob(TEST_GLOB):
+    for t in [f for g in TEST_GLOBS for f in glob.glob(g)]:
         test_src += io.open(t, encoding="utf-8").read()
     for path in components:
         mod = os.path.splitext(os.path.basename(path))[0]
@@ -175,7 +189,8 @@ def check_smoke(components, decls):
         for t in declared:
             if not os.path.exists(t):
                 block("Q5", "%s 声明的测试 %s 不存在" % (path, t))
-    print("✅ Q5 组件冒烟测试：%d 个组件各有 ≥1 个测试" % len(components))
+    if len(BLOCKS) == before:
+        print("✅ Q5 组件冒烟测试：%d 个组件各有 ≥1 个测试" % len(components))
 
 
 # ————————————————————————— Q6 —————————————————————————
@@ -252,7 +267,8 @@ def main():
         print("依赖缺失：%s（需要 PyYAML 与 pytest）" % exc)
         return 2
 
-    components = sorted(glob.glob(COMPONENT_GLOB))
+    components = sorted(c for g in COMPONENT_GLOBS for c in glob.glob(g)
+                        if not is_test_path(c))
     files = source_files()
     print("源文件：%d ｜ 组件：%d" % (len(files), len(components)))
     print()

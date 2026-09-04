@@ -14,6 +14,7 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
+DENOM_EPS = 1e-12          # 分母下限，防 reg_lambda=0 时空桶除零
 MIN_CHILD_WEIGHT = 1.0
 GAIN_EPS = 1e-12
 PROB_CLIP = 1e-6
@@ -74,8 +75,11 @@ def _best_split_from_hist(g_hist: np.ndarray, h_hist: np.ndarray,
     h_right = h_total - h_left
 
     valid = (h_left >= MIN_CHILD_WEIGHT) & (h_right >= MIN_CHILD_WEIGHT)
-    parent = (g_total ** 2) / (h_total + reg_lambda)
-    gain = (g_left ** 2) / (h_left + reg_lambda) + (g_right ** 2) / (h_right + reg_lambda) - parent
+    # reg_lambda 可以为 0（无正则），此时空桶的 h 也为 0，分母会是 0。
+    # 加 DENOM_EPS 兜底：它只在分母本就趋零时起作用，不改变正常分裂的增益。
+    parent = (g_total ** 2) / (h_total + reg_lambda + DENOM_EPS)
+    gain = ((g_left ** 2) / (h_left + reg_lambda + DENOM_EPS)
+            + (g_right ** 2) / (h_right + reg_lambda + DENOM_EPS) - parent)
     gain = np.where(valid, gain, -np.inf)
 
     if not np.isfinite(gain).any():

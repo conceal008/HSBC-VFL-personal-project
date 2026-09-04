@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from modules.m5_modeling.components import models as M  # noqa: E402
+from modules.m5_modeling.components.gbdt import VerticalGBDT  # noqa: E402
 from modules.m7_security.components import attacks as A  # noqa: E402
 
 SEED = 11
@@ -101,3 +102,100 @@ def test_单轮epsilon随噪声单调下降():
     eps = [A.gaussian_epsilon_per_round(s, DELTA) for s in (0.1, 1.0, 10.0)]
     assert eps[0] > eps[1] > eps[2] > 0
     assert A.gaussian_epsilon_per_round(0.0, DELTA) == float("inf")
+
+
+# ————————————————— A4 特征推断 —————————————————
+
+def test_无防护时特征被精确恢复(data):
+    """辅助样本数达到特征维数即可精确反解——这是本项目最严重的单项发现。"""
+    x_a, x_b, y = data
+    fed = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 0.0, SEED)
+    out = A.feature_inference_with_auxiliary(fed.partial_b_history, x_b, DIM + 2, SEED)
+    assert out["feat_r2_mean"] > PERFECT
+    assert out["feat_r2_min"] > PERFECT
+
+
+def test_辅助样本少于特征维数则解不出(data):
+    x_a, x_b, y = data
+    fed = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 0.0, SEED)
+    few = A.feature_inference_with_auxiliary(fed.partial_b_history, x_b, DIM - 2, SEED)
+    enough = A.feature_inference_with_auxiliary(fed.partial_b_history, x_b, DIM + 2, SEED)
+    assert few["feat_r2_mean"] < enough["feat_r2_mean"]
+
+
+def test_上行加噪显著削弱特征推断(data):
+    """与标签推断相反：特征推断依赖病态线性系统的精确解，对噪声高度敏感。"""
+    x_a, x_b, y = data
+    clean = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 0.0, SEED)
+    noisy = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 0.0, SEED,
+                                     uplink_sigma=1.0)
+    c = A.feature_inference_with_auxiliary(clean.partial_b_history, x_b, DIM + 2, SEED)
+    n = A.feature_inference_with_auxiliary(noisy.partial_b_history, x_b, DIM + 2, SEED)
+    assert n["feat_r2_mean"] < c["feat_r2_mean"] - 0.5
+
+
+def test_上行噪声被记录进上传量(data):
+    x_a, x_b, y = data
+    clean = M.fit_federated_logistic(x_a, x_b, y, 20, 0.5, 1e-4, 0.0, SEED)
+    noisy = M.fit_federated_logistic(x_a, x_b, y, 20, 0.5, 1e-4, 0.0, SEED,
+                                     uplink_sigma=1.0)
+    assert not np.allclose(clean.partial_b_history, noisy.partial_b_history)
+
+
+def test_两个噪声旋钮作用于不同方向(data):
+    """下行噪声防标签推断（A1），上行噪声防特征推断（A4），二者不可互相替代。
+
+    两者的传导方式不对称，首轮即可分辨：
+    - **下行噪声**加在残差上，首轮不影响上传量（此时 w_b 仍为零向量，上传量恒为 0），
+      要到下一轮才经由 w_b 的更新间接传导过去。
+    - **上行噪声**加在已算出的 x_b·w_b 之上，首轮就同时影响上传量**与**残差——
+      因为加噪后的部分 logit 立刻进入主动方的 logit，从而改变预测与残差。
+
+    这条不对称性有实际含义：上行噪声会直接扰动模型自身的训练信号，
+    因此它的可用性代价必须单独测量，不能沿用下行噪声的结论。
+    """
+    x_a, x_b, y = data
+    kw = dict(n_rounds=20, lr=0.5, l2=1e-4, seed=SEED)
+    base = M.fit_federated_logistic(x_a, x_b, y, dp_sigma=0.0, **kw)
+    down = M.fit_federated_logistic(x_a, x_b, y, dp_sigma=1.0, **kw)
+    up = M.fit_federated_logistic(x_a, x_b, y, dp_sigma=0.0, uplink_sigma=1.0, **kw)
+
+    # 首轮上传量：下行噪声尚未传导过来，上行噪声已直接体现
+    assert np.allclose(down.partial_b_history[0], base.partial_b_history[0])
+    assert not np.allclose(up.partial_b_history[0], base.partial_b_history[0])
+    # 首轮残差：两者都会改变，但成因不同——下行是直接加噪，上行是经 logit 传导
+    assert not np.allclose(down.residual_history[0], base.residual_history[0])
+    assert not np.allclose(up.residual_history[0], base.residual_history[0])
+    # 两个旋钮不是同一件事
+    assert not np.allclose(down.partial_b_history, up.partial_b_history)
+
+
+# ————————————————— A5 成员推断 —————————————————
+
+def test_成员推断在无记忆时接近随机(data):
+    x_a, _, y = data
+    n = len(y)
+    tr, te = np.arange(n // 2), np.arange(n // 2, n)
+    mdl = M.fit_logistic(x_a[tr], y[tr], SEED, 1.0)
+    out = A.membership_inference_from_loss(mdl.decision_function(x_a[tr]), y[tr],
+                                           mdl.decision_function(x_a[te]), y[te])
+    assert 0.5 <= out["membership_auc"] < 0.6
+
+
+def test_LiRA随模型容量单调增强(data):
+    """攻击有效性验证：容量越大记忆越多，攻击必须能反映出来——
+    若不能，说明攻击太弱，不足以支持任何「安全」结论。"""
+    x_a, x_b, y = data
+    x = np.hstack([x_a, x_b])
+
+    def lr_fit(x_t, y_t):
+        return M.fit_logistic(x_t, y_t, SEED, 1.0).decision_function
+
+    def gbdt_fit(x_t, y_t):
+        g = VerticalGBDT(200, 10, 0.3, 32, 0.0, 0.0)
+        g.fit(x_t, None, y_t)
+        return lambda z: g.decision_function(z, None)
+
+    low = A.membership_inference_lira(lr_fit, x, y, 8, SEED)["membership_auc_lira"]
+    high = A.membership_inference_lira(gbdt_fit, x, y, 8, SEED)["membership_auc_lira"]
+    assert high > low, "高容量模型的成员泄露未高于低容量模型——攻击可能失效"

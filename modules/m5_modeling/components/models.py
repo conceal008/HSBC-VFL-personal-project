@@ -102,18 +102,23 @@ class FederatedLRResult:
     bias: float
     comm: Dict[str, int]
     residual_history: np.ndarray   # 每轮**实际下发给被动方**的残差，供 M7 标签推断攻击使用
+    partial_b_history: np.ndarray  # 每轮**实际上传给主动方**的部分 logit，供 M7 特征推断攻击使用
 
 
 def fit_federated_logistic(x_a: np.ndarray, x_b: np.ndarray, y: np.ndarray,
                            n_rounds: int, lr: float, l2: float,
-                           dp_sigma: float, seed: int) -> FederatedLRResult:
+                           dp_sigma: float, seed: int,
+                           uplink_sigma: float = 0.0) -> FederatedLRResult:
     """纵向联邦逻辑回归。
 
     协议：主动方算 logit = X_A·w_A + X_B·w_B + b（需要被动方送来部分 logit），
     再算残差 r = sigmoid(logit) − y 发给被动方；被动方用 r 更新自己的 w_B。
     **被动方全程看不到标签，主动方全程看不到 X_B。**
 
-    `dp_sigma > 0` 时对下发的残差加高斯噪声——这是 M7 要评估的防御手段。
+    两个噪声旋钮对应两个方向、两类攻击：
+    - `dp_sigma`：主动方对**下发的残差**加噪，防的是被动方推断标签（攻击 A1）。
+    - `uplink_sigma`：被动方对**上传的部分 logit**加噪，防的是主动方推断特征（攻击 A4）。
+      两者是不同参与方的自我保护，不可互相替代。
     数学上等价于集中式逻辑回归（dp_sigma=0 时），因此可与 L4 对照检验实现是否正确。
     """
     rng = np.random.default_rng(seed)
@@ -122,10 +127,14 @@ def fit_federated_logistic(x_a: np.ndarray, x_b: np.ndarray, y: np.ndarray,
     bias = 0.0
     n = len(y)
     residuals = np.zeros((n_rounds, n))
+    partials = np.zeros((n_rounds, n))
     floats = 0
 
     for t in range(n_rounds):
-        partial_b = x_b @ w_b                    # 被动方 → 主动方
+        partial_b = x_b @ w_b                    # 被动方本地计算
+        if uplink_sigma > 0:
+            partial_b = partial_b + rng.normal(0.0, uplink_sigma, size=n)
+        partials[t] = partial_b                  # 记录**实际上传**的值
         logit = x_a @ w_a + partial_b + bias
         r = sigmoid(logit) - y                   # 主动方本地计算
         r_sent = r + rng.normal(0.0, dp_sigma, size=n) if dp_sigma > 0 else r
@@ -138,7 +147,7 @@ def fit_federated_logistic(x_a: np.ndarray, x_b: np.ndarray, y: np.ndarray,
 
     return FederatedLRResult(w_a, w_b, bias,
                              {"comm_rounds": n_rounds, "comm_floats": floats},
-                             residuals)
+                             residuals, partials)
 
 
 def federated_lr_score(res: FederatedLRResult, x_a: np.ndarray, x_b: np.ndarray) -> np.ndarray:

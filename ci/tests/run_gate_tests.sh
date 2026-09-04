@@ -92,6 +92,19 @@ printf 'Card %s.\n' "$CARD3" > "$C1D/leak.md"
 run bash "$C1D/ci/check_secrets.sh" "$C1D"
 assert "门禁1-H 卡号后跟句点仍被拦截" 1 "$TMP/out.txt" "疑似银行卡号"
 
+# 误报回归：浮点数小数部分的 11 位数字串不得被当成手机号（与卡号同源的第二次触发）
+rm -f "$C1D/leak.md"
+FRAC3="18587877$(printf '%03d' 366)"
+printf 'cond\n175999.%s\n' "$FRAC3" > "$C1D/results.md"
+run bash "$C1D/ci/check_secrets.sh" "$C1D"
+assert "门禁1-I 浮点数小数部分不误报为手机号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似内地手机号"
+
+# 边界回归：手机号后跟句点仍必须拦截
+PHONE3="138$(printf '%08d' 12345678)"
+printf 'Tel %s.\n' "$PHONE3" > "$C1D/leak.md"
+run bash "$C1D/ci/check_secrets.sh" "$C1D"
+assert "门禁1-J 手机号后跟句点仍被拦截" 1 "$TMP/out.txt" "疑似内地手机号"
+
 # 误报回归：URL 路径里的 11 位 ID（如知乎文章号）不得被当成手机号
 C1C="$TMP/gate1c"; mkdir -p "$C1C/ci"
 cp "$ROOT/ci/check_secrets.sh" "$C1C/ci/"

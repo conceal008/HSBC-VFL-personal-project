@@ -1,0 +1,128 @@
+change_id: CL-20260903-M7-002
+timestamp: 2026-09-03 21:10:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M7
+type: feat
+title: 补齐特征推断与成员推断攻击：发现无防护协议是双向完全泄露的
+what: '实现两类此前列为「最可能改变结论的缺口」的攻击：
+
+  A4 特征推断——主动方从每轮上传的部分 logit 反解被动方原始特征（两步最小二乘，需少量辅助样本）；
+
+  A5 成员推断——朴素损失阈值版与 LiRA 式影子模型校准版。
+
+  配套在 fit_federated_logistic 中记录**实际上传**的部分 logit，并新增被动方自我保护噪声 uplink_sigma（与既有的下行 dp_sigma 是不同参与方、不同攻击面）。'
+key_finding: '**C4 · 无防护的纵向联邦逻辑回归是双向完全泄露的。**
+
+  只要辅助样本数达到特征维数（本例 6 个），主动方即可**精确**恢复被动方全部原始特征（R² = 1.000000，误差约 1e-15）。加上 S7.1 已证的标签完全泄露，**「原始数据不出本地」在这个协议下不构成任何实质保护**。
+
+
+  **C5 · 防护必须逐攻击面设计：同一种加噪手段对两类攻击效果完全相反。**
+
+  上行加噪 σ=0.1 使特征 R² 从 1.0000 降到 0.196，可用性仅损失 0.0014；而 S7.2 已证下行加噪防不住标签推断（需 σ=30 才有效，届时可用性低于 L0 基线）。
+
+  机制：A1 的信号（标签）**轮间恒定**，跨轮平均即可消噪；A4 需要解**病态线性系统**（w_b 轨迹条件数约 4.8×10⁴），噪声被放大五个数量级。
+
+  证伪检验：岭正则化 + 2000 个辅助样本的加强版攻击确实优于朴素最小二乘，但 σ=1.0 时 R² 也只到 0.129，**未推翻结论**。
+
+
+  **C6 · 成员泄露由模型容量驱动，与是否联邦无关。**
+
+  L0（0.5105）≈ L1（0.5105）≈ L4/L3 信息集（0.5103）——引入对方数据不增加成员泄露；而纵向 GBDT 深 3→6 使泄露从 0.5277 升到 0.5453。工程含义：控制树深，而非纠结是否联邦。
+
+
+  **方法论要点：朴素的损失阈值成员推断攻击没有通过有效性验证。**在刻意制造记忆的模型上（训练 AUC = 1.0000、过拟合间隙 0.32）它也只到 0.52。据此宣称「成员推断无威胁」会重蹈 S7.1
+  的覆辙（只是方向相反），故改用 LiRA 式影子模型校准，确认其随模型容量单调增强后才采信。'
+why: 《实验结果与结论.md》§9 把「未覆盖特征推断与成员推断」列为**最可能改变结论**的缺口第 4 项。本步补齐后结论确实发生实质变化——新增 C4/C5/C6，其中 C4 与 C5 改变了对协议安全性的整体判断。这说明「已知缺口」不是免责声明，是待办清单。
+links:
+  branch_card: null
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step:
+  - S7.3
+cross_border_impact: none
+cross_border_detail: 攻击对象为合成标签与合成特征，不含任何真实个人信息，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 本项目不设合规角色，涉法判断未经法务复核。攻防结论限于**半诚实参与方**设定，**不构成安全性证明**。A5 用 32 个影子模型（LiRA 原文通常 64–256），数值应读作该设定下的下界。
+downstream_affected:
+- M0
+- M5
+- M8
+- M9
+breaking_change: false
+migration: 'fit_federated_logistic 新增可选参数 uplink_sigma（默认 0.0，行为不变）与新字段 partial_b_history；既有调用不受影响。
+
+  C4/C5 对 M0 的形态权衡与 M8 的隐私方案有直接影响：被动方必须对上行加噪，标签侧仍须走协议级手段。'
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml · modules/m5_modeling/configs/experiment.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: A4 的防护扫描用 5 种子；加强版攻击与容量验证用 3 种子（计算量较大，已在文中标注）；A5 的 LiRA 用 32 个影子模型 × 3 种子。
+rollback: git revert 本提交：A4/A5 攻击与 uplink_sigma 移除；C4/C5/C6 三条结论与 gbdt 除零修复一并回退。
+verification: '1) A4 无防护：辅助样本 6（= 特征维数）时 R² = 1.000000，误差约 1e-15；辅助样本 4（< 维数）时 R² = 0.282，最差维 −1.250——门槛效应可复现
+
+  2) A4 防护：σ=0.1 时 R² 0.196、可用性 0.7854（vs 无防护 1.0000 / 0.7868）
+
+  3) 证伪：岭正则化 + 2000 辅助样本，σ=1.0 时 R² 0.129，未推翻结论
+
+  4) A5 有效性验证：朴素攻击在训练 AUC=1.0 时仅 0.52（**验证不通过**）；LiRA 随容量单调上升 0.514→0.531→0.556（验证通过）
+
+  5) 新增 8 个测试；核心逻辑行覆盖 881/907 = 97.1%
+
+  6) bash ci/run_all_gates.sh → 全绿（33/33）'
+step:
+  step_id: S7.3
+  step_name: 补齐特征推断（A4）与成员推断（A5）攻击
+  revisions: 0
+  next_step: S5.4 各级别超参搜索，检验 C1 的稳健性
+  declaration: "input_from: 《实验结果与结论.md》§9 已知缺口第 4 项 · 框架 M7 输出契约\nwill_produce:\n  - A4 特征推断攻击与上行噪声防护评估\n\
+    \  - A5 成员推断攻击（朴素版 + LiRA 校准版）与有效性验证\n  - 攻击有效性验证实验：证明攻击在真有记忆时抓得到\nwill_not_produce:\n  - 恶意（非半诚实）参与方设定\n\
+    \  - 针对纵向 GBDT 的专门特征推断攻击\n  - 模型窃取攻击\nsuccess_criteria:\n  - 每条有利于防护的结论都必须经过一次更强攻击的检验\n  - 每个「攻击无效」的结论都必须先证明攻击本身有效\n\
+    risk: |\n  两个方向的风险对称：①在弱攻击下得出「防护有效」的假结论（S7.2 已踩过）；\n  ②在弱攻击下得出「无威胁」的假结论。第二类更隐蔽，因为它看起来像好消息。\n  故本步对每个负面结论都先做攻击有效性验证——A5\
+    \ 的朴素攻击正是因此被判定不可用。\n"
+  scope:
+    files_changed: 12
+    lines_added: null
+    routes_covered: 1
+    conclusions: 3
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 无跨境对象
+      G3: will_not_produce 三项可核验：无恶意参与方、无 GBDT 专门攻击、无模型窃取
+      G4: 红线无适用对象；半诚实设定与影子模型数的限制均已在文档与 README 标注
+      D1: 三项产出全部交付，另附攻击有效性验证
+      D2: 门槛效应（辅助样本 4 vs 6）、防护曲线、加强版证伪、LiRA 容量单调性均可复算
+      D3: 种子在配置中列明；5/3/3 种子的差异已标注；新增 8 个测试锁住行为
+      D4: 新增三条结论，其中 C4 与 C5 改变了对协议安全性的整体判断；并暴露出 gbdt 在 reg_lambda=0 时的除零缺陷
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m7_security/components/attacks.py
+  - modules/m5_modeling/components/models.py
+  - modules/m5_modeling/components/gbdt.py（除零修复）
+  - modules/m7_security/results/（6 份新结果表）
+  - modules/m7_security/notebooks/S7.1_privacy_attacks.ipynb
+  - modules/m7_security/tests/test_attacks.py（+8 用例）
+  - 实验结果与结论.md
+  - modules/m7_security/README.md

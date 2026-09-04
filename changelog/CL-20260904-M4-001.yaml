@@ -1,0 +1,55 @@
+change_id: CL-20260904-M4-001
+timestamp: 2026-09-04 03:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M4
+type: doc
+title: M4 特征工程规格：合规可用性筛查前置，实现待真实数据
+what: 产出《待真实数据的特征工程规格》：F1–F4 合规可用性筛查前置于 F5–F9 常规特征工程，并写下本项目已实测到的三个坑。不在合成数据上做实现。
+key_finding: '**本项目的特征工程有一步是常规项目没有的：合规可用性筛查必须最先做。**
+
+  常规流程从「这个特征有没有预测力」开始；本项目必须先问「这个特征能不能用」——对一个最终不能跨境的字段做分箱、WOE、稳定性筛选是纯浪费。故 F1–F4 未完成前，后续步骤全部不得开始。
+
+
+  规格里固化了三个**已实测到**的坑：
+
+  ① 不要因为「冗余」就剔除对方特征——冗余通过降低测量误差产生价值（λ=0 且冗余=0 时增益 −0.0057，冗余=0.3 时 +0.0254）；
+
+  ② 不要只用线性模型评估特征价值——交互型价值的可实现比例约为线性的 1/4（C9），用线性模型筛特征会系统性漏掉它；
+
+  ③ 不要试图用分段统计层面的特征工程替代联邦——那是 L1 的结构性上界（C1、C8）。'
+why: '合成数据的特征是 SCM 直接生成的干净连续变量：无缺失、无重尾、无类别型、无业务含义。在其上做特征工程会产出**看似完整、实则没有信息量**的产物——它证明不了方法可行，只证明代码能跑。
+
+  比起交付一份自我背书的假工作，更有价值的是把「数据到位时必须做什么」写清楚。何况 M4 的真正输入（M1 的特征清单）本身就被 M0 的合规裁定卡住。'
+links:
+  branch_card: null
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 纯规格文档，无数据处理，未新增定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: F1–F4 的字段级跨境定性需由合规责任人执行，本项目无人可担，已列为阻塞项。
+downstream_affected:
+- M5
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: 不适用（规格文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 规格中引用的三个坑，其数字均可追溯到 M2/M5 的结果表。
+rollback: git revert 本提交：规格文档移除。
+verification: '1) 三个坑的数字可追溯：冗余机制见 correctness_validation.csv 与控制实验；C9 见 nonlinear_ladder.csv；C1/C8 见 l1_vs_l3_critical.csv
+  与 nonlinear_ladder.csv
+
+  2) 两项阻塞（无真实特征清单、字段级定性需合规角色）与既有阻塞清单一致
+
+  3) bash ci/run_all_gates.sh → 全绿'
+outputs:
+- modules/m4_features/待真实数据的特征工程规格.md
+- modules/m4_features/README.md

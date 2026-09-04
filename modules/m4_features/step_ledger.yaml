@@ -1,23 +1,39 @@
-# M4 步骤台账
-# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
-# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
-
 module: M4
 module_path: modules/m4_features
-total_steps_planned: 10      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+total_steps_planned: 10
+steps:
+- step_id: S4.1
+  step_name: 待真实数据的特征工程规格（合规可用性筛查前置）
+  status: committed
+  score: 10
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 2
+  revisions: 0
+  committed_at: '2026-09-04 03:30:00+08:00'
+  change_id: CL-20260904-M4-001
+  waiver_ref: W-002
+  outputs:
+  - 待真实数据的特征工程规格.md：合规可用性筛查 F1–F4 前置于常规特征工程 F5–F9
+  - 写下三个已实测到的坑：冗余不可简单剔除 · 不可只用线性模型筛特征 · 分段统计替代不了联邦
+  - 明确不在合成数据上做的理由：会产出看似完整实则无信息量的产物
 current_step: null
-next_step: S4.1
-
+next_step: S4.2（待真实数据）
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
-  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
-  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
-
+  avg_score: 10.0
+  escalation_count: 0
+  revision_rate: null
+  steps_used: 1
+  budget_usage: 0.1
+  consecutive_low_d4: 0
+  pass_threshold: 10
 audit:
-  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  last_spot_check_step: null
   spot_checks_done: 0

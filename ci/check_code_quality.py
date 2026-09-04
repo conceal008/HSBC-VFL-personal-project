@@ -32,8 +32,10 @@ COVERAGE_FLOOR = 0.70
 # 平台层同样纳入管辖：platform/README 明写「每个组件必须有 schema 声明与冒烟测试」，
 # 若只管 modules/，跨模块共享代码反而绕过了质量门槛，而它的影响面更大。
 COMPONENT_GLOBS = ("modules/*/components/*.py", "platform/*/*.py")
-TEST_GLOBS = ("modules/*/tests/test_*.py", "platform/tests/test_*.py")
-TEST_ROOTS = ("modules/", "platform/")
+TEST_GLOBS = ("modules/*/tests/test_*.py", "platform/tests/test_*.py",
+              "tools/tests/test_*.py")
+# tools/ 是全部 notebook 的唯一生成入口，2026-09-04 的审视发现它此前不在管辖内。
+TEST_ROOTS = ("modules/", "platform/", "tools/")
 DECLARATION_DIR = "registry/component_declarations"
 LINT_DIRS = ("modules", "platform", "ci", "tools")
 GLOSSARY = "registry/glossary.yaml"

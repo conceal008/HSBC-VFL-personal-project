@@ -203,3 +203,32 @@ deliverables:
     path: modules/m8_industrialization/路线取舍决议.md
   - name: 上线准入清单
     path: modules/m8_industrialization/上线准入清单.md
+
+# —— 数字一致性核验：文档里声明的数字必须与仓库真值一致 ——
+# 补的是证据链此前的盲区：它只查「证据文件在不在」，不查「文档里写的数字对不对」。
+# 真值只能从仓库本身算出，不能从文档里抄——否则就是自己证明自己。
+consistency_assertions:
+  - id: F1
+    what: 门禁回归用例数
+    source:
+      type: count_matching
+      path: ci/tests/run_gate_tests.sh
+      pattern: '^assert '
+    context_keyword: 组用例
+    must_appear_in: [ci/README.md, 项目进度总览.md, 项目目标与要求.md]
+
+  - id: F2
+    what: 带输出的 notebook 份数
+    source:
+      type: count_files
+      glob: modules/*/notebooks/*.ipynb
+    context_keyword: 份 notebook
+    must_appear_in: [项目进度总览.md]
+
+  - id: F3
+    what: 组件声明份数
+    source:
+      type: count_files
+      glob: registry/component_declarations/*.yaml
+    context_keyword: 份组件声明
+    must_appear_in: [项目进度总览.md]

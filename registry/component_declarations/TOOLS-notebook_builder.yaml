@@ -1,0 +1,20 @@
+component: notebook_builder
+module: TOOLS
+path: tools/build_notebooks.py
+purpose: 按门禁 6 的 N1–N5 规范生成并真实执行 notebook，把结果固化进 .ipynb。
+inputs:
+- notebooks_spec.py 中的逐份规格
+- 各模块的 configs/
+outputs:
+- 带输出的 .ipynb（全部 11 份 notebook 的唯一生成入口）
+tests:
+- tools/tests/test_notebook_builder.py
+cross_border_assets: []
+cross_border_note: 构建器本身不接触数据；notebook 执行时使用的是合成数据。
+caveat: '2026-09-04 的整体审视发现：本目录此前**既无测试、也不在门禁 5 的管辖内**，而它是全部 notebook 的唯一生成入口——坏掉不会有任何检查发现。已补齐测试并纳入管辖。
+
+  ⚠️ **残留风险**：门禁 6 只校验 notebook 的形式（命名 / 指纹 / 执行顺序），不校验它**现在还跑不跑得起来**。组件接口变更后，已提交的 notebook 可能静默过时。当前缓解是「改组件后随手重建相关
+  notebook」这一约定，**不是机器保证**。'
+waiver_ref: null
+declared_at: '2026-09-04'
+declared_by: Claude (Opus 5, Claude Code)

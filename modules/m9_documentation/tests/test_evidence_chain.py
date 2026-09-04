@@ -85,3 +85,74 @@ def test_涉法结论必须标注未复核(evidence_map):
     assert legal, "证据映射中应存在涉法结论"
     for c in legal:
         assert "未复核" in c["nature"], f"{c['id']} 的性质未标注未复核"
+
+
+# ————————————————— 数字一致性核验（2026-09-04 审视后新增）—————————————————
+
+def test_本仓库数字一致性满分(evidence_map):
+    r = EC.verify_consistency(evidence_map["consistency_assertions"])
+    assert r["rate"] == FULL, f"不一致项：{r['inconsistent_ids']}"
+
+
+def test_陈旧数字被抓出(tmp_path):
+    """真正的失误形态是「新值加上了、旧值忘删」——本检查抓的就是这个。"""
+    doc = tmp_path / "d.md"
+    doc.write_text("旧文里写着 17 组用例，另一处写 45 组用例。", encoding="utf-8")
+    src = tmp_path / "s.sh"
+    src.write_text("assert a\nassert b\n", encoding="utf-8")
+    r = EC.verify_consistency([{
+        "id": "T", "what": "用例数", "context_keyword": "组用例",
+        "source": {"type": "count_matching", "path": str(src), "pattern": "^assert "},
+        "must_appear_in": [str(doc)]}])
+    assert r["rate"] == 0.0
+    assert "17" in str(r["rows"][0]["problems"])
+
+
+def test_真值缺失被抓出(tmp_path):
+    doc = tmp_path / "d.md"
+    doc.write_text("这里写着 99 组用例。", encoding="utf-8")
+    src = tmp_path / "s.sh"
+    src.write_text("assert a\n", encoding="utf-8")
+    r = EC.verify_consistency([{
+        "id": "T", "what": "用例数", "context_keyword": "组用例",
+        "source": {"type": "count_matching", "path": str(src), "pattern": "^assert "},
+        "must_appear_in": [str(doc)]}])
+    assert r["rate"] == 0.0
+    assert "未出现真值" in str(r["rows"][0]["problems"])
+
+
+def test_正确陈述不被跳过规则误伤(tmp_path):
+    """跳过规则只对与真值不符的数字生效——否则会把「写对了」判成「没写」。"""
+    doc = tmp_path / "d.md"
+    doc.write_text("共 2 组用例。", encoding="utf-8")
+    src = tmp_path / "s.sh"
+    src.write_text("assert a\nassert b\n", encoding="utf-8")
+    r = EC.verify_consistency([{
+        "id": "T", "what": "用例数", "context_keyword": "组用例",
+        "source": {"type": "count_matching", "path": str(src), "pattern": "^assert "},
+        "must_appear_in": [str(doc)]}])
+    assert r["rate"] == FULL
+
+
+def test_历史对照与显式豁免被放行(tmp_path):
+    """同行并列真值的是对照；带 `数字豁免:` 标记的是历史记录。"""
+    src = tmp_path / "s.sh"
+    src.write_text("assert a\nassert b\n", encoding="utf-8")
+    spec = {"id": "T", "what": "用例数", "context_keyword": "组用例",
+            "source": {"type": "count_matching", "path": str(src), "pattern": "^assert "}}
+
+    compare = tmp_path / "a.md"
+    compare.write_text("此前写着 9 组用例，而实际是 2 组用例。", encoding="utf-8")
+    assert EC.verify_consistency([dict(spec, must_appear_in=[str(compare)])])["rate"] == FULL
+
+    waived = tmp_path / "b.md"
+    waived.write_text("当时交付 9 组用例（数字豁免: 历史值）。\n共 2 组用例。",
+                      encoding="utf-8")
+    assert EC.verify_consistency([dict(spec, must_appear_in=[str(waived)])])["rate"] == FULL
+
+
+def test_未知来源类型被拒绝():
+    r = EC.verify_consistency([{"id": "T", "what": "x", "context_keyword": "个",
+                                "source": {"type": "不存在的类型"},
+                                "must_appear_in": []}])
+    assert r["rate"] == 0.0

@@ -7,7 +7,7 @@
 | 1 | 数据合规扫描（凭证·数据扩展名·体积·个人标识模式·.env） | `check_secrets.sh` | ✅ 已实现并在 CI 生效 |
 | 2 | 步骤与元数据完整性（Change-Id / Step-Id / **Step-Score ≥10** / 声明 / 证据 / 修正轮次） | `check_step_metadata.py` | ✅ 已实现并在 CI 生效 |
 | 2 | changelog schema 校验（字段类型与必填、命名规范、step_id 唯一） | `check_changelog_schema.py` | ✅ 已实现并在 CI 生效 |
-| — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ 17 组用例，每次 push 跑 |
+| — | **门禁回归测试**（验证门禁真的拦得住） | `tests/run_gate_tests.sh` | ✅ **47 组用例**，每次 push 跑 |
 | 3 | ~~单步规模~~ | ~~`check_step_scope.py`~~ | ⛔ **已取消**（2026-08-30，DR-GOV-003）：编号保留不复用，脚本不再实现 |
 | 4 | 合规一致性核验（六项，原则三的载体） | `check_cross_border_consistency.py` | ✅ 已实现并在 CI 生效 |
 | 5 | 代码质量（lint / 类型 / 单测覆盖 ≥70% / 组件 schema / 冒烟 / **术语禁用词**） | `check_code_quality.py` | ✅ 已实现并在 CI 生效 |
@@ -46,7 +46,7 @@
 bash ci/tests/run_gate_tests.sh
 ```
 
-12 组用例覆盖三个门禁的**放行**与**拦截**两侧：门禁 1（干净放行 / 拦数据·凭证·手机号·身份证·卡号）、
+47 组用例覆盖全部门禁的**放行**与**拦截**两侧：门禁 1（干净放行 / 拦数据·凭证·手机号·身份证·卡号）、
 门禁 4（合规声明放行 / 六项逐项拦截 / 契约文件缺失不放行）、门禁 2（无 trailer / 元数据全面违规 /
 DR 无 falsifier / 本仓库 HEAD 自检）、changelog schema（缺字段与非法枚举 / 文件名与 step_id 冲突 / 本仓库全绿）。
 

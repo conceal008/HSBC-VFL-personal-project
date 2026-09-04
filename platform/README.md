@@ -17,4 +17,15 @@
 - **`platform/` 的接口变更一律视为 breaking change**，须走 DR + 下游 approve + 保留旧接口 ≥1 个模块周期
 - 审计日志本身不进 git（运行时产物），但**日志 schema 与写入代码必须在 git 里**且有测试保证格式正确
 
-当前为空，等待第一个组件落地。
+## 当前内容（2026-09-04）
+
+| 目录 | 内容 |
+|---|---|
+| `orchestration/` | `pipeline.py`（阶段抽象 · 产物落盘复用 · 断点续跑 · 重试 · 降级上报）· `main_chain.py`（M2→M3→M5→M6→M7 五阶段主链路） |
+| `configs/` | `smoke.yaml`（门禁 7 与故障注入的配置驱动入口） |
+| `tests/` | `test_pipeline.py`（9 个用例） |
+| `devices/` `dataframe/` `operators/` `components/` `governance/` | 仍为空，待真实环境 |
+
+⚠️ **导入方式**：本目录与 Python 标准库模块 `platform` 同名，
+`import platform.orchestration.xxx` **不可行**（stdlib 的 platform 是模块不是包）。
+调用方须把 `platform/orchestration` 加入 `sys.path` 后直接 `import pipeline`。

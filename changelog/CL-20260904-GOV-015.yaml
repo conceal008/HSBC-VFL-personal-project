@@ -1,0 +1,104 @@
+change_id: CL-20260904-GOV-015
+timestamp: 2026-09-04 09:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: GOV
+type: fix
+title: 整体审视：修四处文档与事实不符，并补上让它们能通过的那个盲区
+what: '对全仓做一次整体审视，修复四类确凿缺陷，并补上其根因——M9 证据链此前只查「证据文件在不在」，不查「文档里的数字对不对」。
+
+  新增第四项核验「数字一致」，配 6 个单元测试与 2 组回归用例；tools/ 补测试并纳入门禁 5 管辖。'
+key_finding: '🔴 **审视发现的最严重一处：入口文档的摘要表与正文冲突。**
+
+  《实验结果与结论》的一句话结论表 C1 仍写「L1 只捕获 12.3%」，而正文 §2.2b 已被 S5.4 收紧到 2.1%（正规选参口径）。**读摘要和读正文会得到两个不同的数**，而全部门禁绿灯。同类问题在《项目进度总览》第
+  128 行与决策影响表 I1。已统一为「2.1%–15.5%（三口径）」。
+
+
+  另三处陈述与事实不符：`ci/README.md` 写着 17 组用例、12 组用例；《项目目标与要求》写着 22 组——实际 47 组；`platform/README.md` 写着「当前为空，等待第一个组件落地」，而实际已有
+  2 个组件、9 个测试。
+
+
+  **根因是我自己刚建那套机制的盲区**：证据链核验只确认证据文件存在，而**入口文档里的一个陈旧数字比缺一个证据文件更容易误导人**——读者不会去核对，只会照着用。
+
+
+  新检查上线后**立刻抓到了我自己**：加完两组回归用例（真值 45→47）后忘了改文档，四份文件同时被拦。这比任何设计论证都更能说明它有用。
+
+
+  另一处结构性缺陷：`tools/` 共 651 行、是全部 11 份 notebook 的**唯一生成入口**，却既无测试也不在门禁 5 的组件管辖内——坏掉不会有任何检查发现。已补 14 个测试并纳入管辖。'
+why: 用户要求「重新审视整体，看哪里需要优化改进」。审视的价值不在于列出一堆改进项，而在于**找出那些「全绿但实际是错的」的地方**——因为它们不会自己暴露。四处缺陷全部属于这一类。
+links:
+  branch_card: null
+  decision_record: []
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 文档订正与检查增强，未触及任何数据或定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: C1 的对外口径由单一的 12.3% 改为「2.1%–15.5%（三口径）」，更保守也更准确——《对外表述红线》的 Y2 本就要求「给出三个口径，不要只报一个数」，此前摘要表恰恰违反了它。
+downstream_affected: []
+breaking_change: false
+migration: 证据链核验新增第四项，文档中声明的数字与仓库真值不符将被阻断。新增数字断言时在 evidence_map.yaml 的 consistency_assertions 中登记。
+reproducibility:
+  config: modules/m9_documentation/configs/evidence_map.yaml
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 真值只能从仓库本身算出（文件计数 / 行匹配计数），不得从文档里抄——否则是自己证明自己。
+rollback: git revert 本提交：第四项核验与 tools/ 测试移除；四处文档订正一并回退。
+verification: '1) 数字一致核验 3/3；新检查上线后即抓到真值 45→47 的漏改，四份文件被拦
+
+  2) 6 个单元测试覆盖两面：陈旧值被抓、真值缺失被抓、正确陈述不被误伤、历史对照与显式豁免放行、未知来源类型被拒
+
+  3) 回归用例证据链-G/H：陈旧数字阻断、数字正确放行
+
+  4) tools/ 新增 14 个测试并纳入门禁 5 的 TEST_ROOTS
+
+  5) bash ci/run_all_gates.sh → 全绿（47/47）'
+step:
+  step_id: S-INIT.8
+  step_name: 整体审视：文档与事实一致性的修复与机器化
+  revisions: 0
+  next_step: 待定——技术缺口已收敛，后续取决于合规责任人指定与真实数据到位
+  declaration: "input_from: 用户要求「重新审视整体，看哪里需要优化改进」\nwill_produce:\n  - 全仓审视，找出「全绿但实际是错的」的地方\n  - 修复确凿缺陷并补上其根因（证据链的数字盲区）\n\
+    \  - tools/ 补测试并纳入门禁 5\nwill_not_produce:\n  - 新的实验或结论\n  - notebook 与代码脱节的机器保证（成本高于收益，已记为残留风险）\n\
+    \  - notebooks_spec.py 的重写（596 行代码写在字符串里，可维护性差但重写成本高于收益）\nsuccess_criteria:\n  - 每处缺陷都有证据，不凭印象\n \
+    \ - 新增的检查必须证明「该拦时真的拦」\n"
+  scope:
+    files_changed: 13
+    lines_added: null
+    routes_covered: 1
+    conclusions: 0
+    metadata_files: 本 changelog 条目与 registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 仅文档订正与检查增强；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 未触及任何跨境对象或定性
+      G3: will_not_produce 三项可核验：无新实验、无 notebook 脱节保证、未重写 notebooks_spec
+      G4: C1 的对外口径改为更保守的三口径表述，与《对外表述红线》Y2 一致
+      D1: 四处缺陷全部修复，根因已机器化
+      D2: 新检查上线后立刻抓到真值 45→47 的漏改——最强的有效性证据；另有 6 个单元测试与 2 组回归用例覆盖两面
+      D3: 真值只从仓库算出，不从文档抄；检查无随机性
+      D4: 未产生新的项目结论，但消除了一类「全绿但错」的失效模式；故 D4 给 2 分
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - modules/m9_documentation/components/evidence_chain.py（+verify_consistency）
+  - modules/m9_documentation/configs/evidence_map.yaml（+consistency_assertions）
+  - ci/check_evidence_chain.py（三项→四项）
+  - ci/tests/run_gate_tests.sh（+2 组）
+  - ci/check_code_quality.py（tools/ 纳入 TEST_ROOTS）
+  - tools/tests/test_notebook_builder.py（14 个用例）
+  - registry/component_declarations/TOOLS-notebook_builder.yaml
+  - 实验结果与结论.md · 项目进度总览.md · 初版完成说明与降级清单.md · ci/README.md · 项目目标与要求.md · platform/README.md（订正）

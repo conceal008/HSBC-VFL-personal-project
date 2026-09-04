@@ -7,10 +7,16 @@
 它防的是一类很安静的事故：有人删掉或重命名了一个结果文件，
 文档里引用它的那条结论就此失去依据，而所有门禁照样全绿。
 
-三项核验，任一不足 100% 即阻断：
+四项核验，任一不足 100% 即阻断：
   一致性核验   每条结论的证据文件都存在且非空，且性质已显式声明
   风险溯源     每条 DPIA 风险都指向具体实验产出，且有缓解措施
   交付清单     每项交付物都真实存在
+  数字一致     文档中声明的数字与仓库真值一致
+
+第四项是 2026-09-04 的整体审视中补的：此前 ci/README.md 写着 17 组用例、
+项目目标与要求.md 写着 22 组，而实际已是 45 组——**全部门禁绿灯**。
+只查「证据文件在不在」拦不住这类错误，而**入口文档里的陈旧数字比缺一个证据文件
+更容易误导人**：读者不会去核对，只会照着用。
 
 退出码：0 通过；1 阻断；2 依赖缺失。
 """
@@ -45,6 +51,7 @@ def main():
     claims = ec.verify_claims(data.get("claims") or [])
     risks = ec.verify_risk_traceability(data.get("risks") or [])
     deliverables = ec.verify_deliverables(data.get("deliverables") or [])
+    consistency = ec.verify_consistency(data.get("consistency_assertions") or [])
 
     blocked = 0
     for label, res, ok_key, total_key, bad_key, hint in [
@@ -54,6 +61,8 @@ def main():
          "风险必须指向具体实验产出并给出缓解措施，不能只写「可能存在」"),
         ("交付清单", deliverables, "present", "total", "missing",
          "交付清单里列了但文件不在，等于没交付"),
+        ("数字一致", consistency, "consistent", "total", "inconsistent_ids",
+         "文档里写的数字与仓库真值对不上——读者不会核对，只会照着用"),
     ]:
         rate = res["rate"]
         mark = "✅" if rate >= FULL_RATE else "❌"
@@ -65,13 +74,16 @@ def main():
             print("   %s" % hint)
             for row in res.get("rows", []):
                 for problem in row.get("problems") or []:
-                    print("     - %s：%s" % (problem["path"], problem["status"]))
+                    detail = problem.get("status") or problem.get("note", "")
+                    extra = ("，找到 %s" % "、".join(problem["found"])
+                             if problem.get("found") else "")
+                    print("     - %s：%s%s" % (problem["path"], detail, extra))
 
     print()
     if blocked:
         print("证据链核验未通过：%d 项不足 100%%。" % blocked)
         return 1
-    print("证据链核验通过：结论、风险、交付三项均 100%。")
+    print("证据链核验通过：结论、风险、交付、数字四项均 100%。")
     return 0
 
 

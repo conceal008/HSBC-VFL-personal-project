@@ -500,8 +500,32 @@ YAML
 run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
 assert "证据链-E 三项齐备则放行" 0 "$TMP/out.txt" "证据链核验通过"
 
+# 数字一致性：陈旧数字必须被抓出（2026-09-04 审视后新增的第四项）
+cat > "$CEV/modules/m9_documentation/configs/evidence_map.yaml" <<'YAML'
+claims: []
+risks: []
+deliverables: []
+consistency_assertions:
+  - id: F-TEST
+    what: 用例数
+    context_keyword: 组用例
+    source:
+      type: count_matching
+      path: probe.sh
+      pattern: '^assert '
+    must_appear_in: [stale.md]
+YAML
+printf 'assert a\nassert b\n' > "$CEV/probe.sh"
+printf '旧文写着 17 组用例。\n' > "$CEV/stale.md"
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-G 文档中的陈旧数字被抓出" 1 "$TMP/out.txt" "数字一致"
+
+printf '共 2 组用例。\n' > "$CEV/stale.md"
+run python3 "$CEV/ci/check_evidence_chain.py" "$CEV"
+assert "证据链-H 数字正确则放行" 0 "$TMP/out.txt" "证据链核验通过"
+
 run python3 "$ROOT/ci/check_evidence_chain.py" "$ROOT"
-assert "证据链-F 本仓库三项均 100%" 0 "$TMP/out.txt" "证据链核验通过"
+assert "证据链-F 本仓库四项均 100%" 0 "$TMP/out.txt" "证据链核验通过"
 
 echo
 echo

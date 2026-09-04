@@ -1,0 +1,59 @@
+# M2 · 非线性信号场景库（S2.3）
+# ---------------------------------------------------------------------------
+# 目的：检验既有结论对**数据生成假设**的稳健性。
+#
+# 分支卡 BC-M5-001 的 falsifier 写明：若换用非线性信号后 L3b 纵向 GBDT 的排序
+# 反超线性路线，则「调参后 L3a > L3c > L3b」这一排序应判定为生成假设的产物。
+#
+# 三种信号形式检验的是**不同的机制**：
+#   linear       s_shared + s_a + λ·s_b            —— 可加贡献（原场景库，此处作对照）
+#   interaction  s_shared + s_a + λ·(s_a × s_b)    —— 被动方**只经交互**起作用
+#   threshold    s_shared + s_a + λ·1[s_b > 0]     —— 被动方以阶跃方式起作用
+#
+# interaction 形式最有理论动机：同样的 s_b，在 s_a 高的人身上是正向、低的人身上是负向。
+# 线性模型无论怎么调参都拿不到它（需要显式交叉项），树模型可以逼近。
+# 「双方特征的交互只有联合建模才能捕获」正是纵向联邦的核心论点之一。
+#
+# N6_线性_对照 与原场景库的 S1_基准 参数完全相同，用于确认两份配置口径一致。
+# ⚠️ 全部为合成数据参数，非真实业务口径。结论只能作机制层判断（W-002）。
+# ---------------------------------------------------------------------------
+step_id: S2.3
+seeds:
+- 11
+- 22
+- 33
+- 44
+- 55
+defaults:
+  n_party_a: 40000
+  overlap_rate: 0.3
+  complementarity: 0.8
+  redundancy: 0.3
+  marginal_drift: 0.0
+  size_asymmetry: 1.0
+  base_rate: 0.03
+  consent_rate: 0.6
+  consent_selectivity: 0.0
+  match_error_rate: 0.0
+  time_drift: 0.0
+  label_noise: 0.0
+  hte_strength: 0.5
+scenarios:
+- name: N1_交互_基准
+  signal_form: interaction
+  complementarity: 0.8
+- name: N2_交互_高
+  signal_form: interaction
+  complementarity: 2.0
+- name: N3_阶跃_基准
+  signal_form: threshold
+  complementarity: 0.8
+- name: N4_阶跃_高
+  signal_form: threshold
+  complementarity: 2.0
+- name: N5_交互_零互补
+  signal_form: interaction
+  complementarity: 0.0
+- name: N6_线性_对照
+  signal_form: linear
+  complementarity: 0.8

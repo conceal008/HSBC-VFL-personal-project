@@ -92,3 +92,75 @@ def test_八个场景全部可生成(scenarios):
     for name, cfg in scenarios.items():
         d = generate(cfg, SEED)
         assert usable_mask(d).sum() > 0, f"{name} 的可用样本为 0"
+
+
+# ————————————————— 非线性信号形式（S2.3）—————————————————
+
+def test_三种信号形式在零互补时都无贡献(scenarios):
+    """λ=0 的硬验收判据必须对三种形式同时成立，否则新形式的实现有误。"""
+    from sklearn.metrics import roc_auc_score
+    base = scenarios["S1_基准"]
+    for form in ("linear", "interaction", "threshold"):
+        cfg = replace(base, signal_form=form, complementarity=0.0)
+        d = generate(cfg, SEED)
+        g, m = theoretical_gain_signal(d), usable_mask(d)
+        gain = (roc_auc_score(d["y_control"][m], g["with_b"][m])
+                - roc_auc_score(d["y_control"][m], g["without_b"][m]))
+        assert abs(gain) < ZERO_TOL, f"{form} 在 λ=0 时理论增益应为 0，实际 {gain}"
+
+
+def test_三种信号形式的增益都随互补性上升(scenarios):
+    from sklearn.metrics import roc_auc_score
+    base = scenarios["S1_基准"]
+    for form in ("linear", "interaction", "threshold"):
+        gains = []
+        for lam in (0.0, 0.8, 2.0):
+            cfg = replace(base, signal_form=form, complementarity=lam)
+            d = generate(cfg, SEED)
+            g, m = theoretical_gain_signal(d), usable_mask(d)
+            gains.append(roc_auc_score(d["y_control"][m], g["with_b"][m])
+                         - roc_auc_score(d["y_control"][m], g["without_b"][m]))
+        assert gains[0] < gains[1] < gains[2], f"{form} 的增益未单调上升：{gains}"
+
+
+def test_默认形式为线性且向后兼容(scenarios):
+    """既有全部结论都建立在 linear 上，默认值一旦改变会静默污染历史结论。"""
+    base = scenarios["S1_基准"]
+    assert base.signal_form == "linear"
+    a = generate(base, SEED)
+    b = generate(replace(base, signal_form="linear"), SEED)
+    assert np.array_equal(a["y_control"], b["y_control"])
+
+
+def test_不同信号形式产生不同标签(scenarios):
+    base = scenarios["S1_基准"]
+    lin = generate(replace(base, signal_form="linear"), SEED)
+    inter = generate(replace(base, signal_form="interaction"), SEED)
+    step = generate(replace(base, signal_form="threshold"), SEED)
+    assert not np.array_equal(lin["y_control"], inter["y_control"])
+    assert not np.array_equal(lin["y_control"], step["y_control"])
+
+
+def test_未知信号形式被拒绝(scenarios):
+    with pytest.raises(ValueError):
+        generate(replace(scenarios["S1_基准"], signal_form="不存在的形式"), SEED)
+
+
+def test_非线性场景库可加载并与线性对照一致():
+    """N6_线性_对照 与原场景库 S1_基准 参数相同，理论增益应一致。"""
+    from sklearn.metrics import roc_auc_score
+    raw = yaml.safe_load(open(ROOT / "modules/m2_synthetic/configs/scenarios_nonlinear.yaml",
+                              encoding="utf-8"))
+    nonlinear = {s.name: s for s in load_scenarios(raw)}
+    assert len(nonlinear) >= 5
+    old = yaml.safe_load(open(ROOT / "modules/m2_synthetic/configs/scenarios.yaml",
+                              encoding="utf-8"))
+    s1 = [s for s in load_scenarios(old) if s.name == "S1_基准"][0]
+
+    def gain(cfg):
+        d = generate(cfg, SEED)
+        g, m = theoretical_gain_signal(d), usable_mask(d)
+        return (roc_auc_score(d["y_control"][m], g["with_b"][m])
+                - roc_auc_score(d["y_control"][m], g["without_b"][m]))
+
+    assert abs(gain(nonlinear["N6_线性_对照"]) - gain(s1)) < 1e-12

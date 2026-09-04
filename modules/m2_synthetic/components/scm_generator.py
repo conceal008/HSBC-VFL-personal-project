@@ -25,6 +25,12 @@ from typing import Dict, List
 import numpy as np
 
 # —— 生成器内部常量（非可调参数，故为具名常量而非配置项）——
+SIGNAL_LINEAR = "linear"            # s_shared + s_a + λ·s_b（可加，默认）
+SIGNAL_INTERACTION = "interaction"  # s_shared + s_a + λ·(s_a × s_b)：B 只经交互起作用
+SIGNAL_THRESHOLD = "threshold"      # s_shared + s_a + λ·1[s_b > 0]：B 以阶跃方式起作用
+SIGNAL_FORMS = (SIGNAL_LINEAR, SIGNAL_INTERACTION, SIGNAL_THRESHOLD)
+THRESHOLD_AT = 0.0                  # 阶跃形式的切点（标准化后取 0 即中位数附近）
+
 DIM_SHARED_DEFAULT = 4        # 共享潜变量维数：双方都能观测到的结构
 DIM_PRIVATE_A_DEFAULT = 6     # 主动方私有特征维数
 DIM_PRIVATE_B_DEFAULT = 6     # 被动方私有特征维数
@@ -53,6 +59,7 @@ class GeneratorConfig:
     time_drift: float                   # 时间漂移强度（用于 OOT 划分）
     label_noise: float                  # 标签噪声率
     hte_strength: float                 # 异质处理效应强度（uplift 评估必需）
+    signal_form: str = SIGNAL_LINEAR    # 信号形式：linear / interaction / threshold
     dim_shared: int = DIM_SHARED_DEFAULT
     dim_private_a: int = DIM_PRIVATE_A_DEFAULT
     dim_private_b: int = DIM_PRIVATE_B_DEFAULT
@@ -65,6 +72,30 @@ def _sigmoid(x: np.ndarray) -> np.ndarray:
 
 def _standardize(x: np.ndarray) -> np.ndarray:
     return (x - x.mean(axis=0)) / (x.std(axis=0) + STANDARDIZE_EPS)
+
+
+def _b_contribution(cfg: "GeneratorConfig", s_a: np.ndarray,
+                    s_b: np.ndarray) -> np.ndarray:
+    """被动方对标签信号的贡献。三种形式检验的是**不同的机制**：
+
+    - `linear`：可加贡献。被动方带来一份独立的信息，与主动方的信息不交互。
+    - `interaction`：**只经交互起作用**。同样的 s_b，在 s_a 高的人身上是正向，
+      在 s_a 低的人身上是负向。线性模型无论怎么调参都拿不到它（需要显式交叉项），
+      树模型可以逼近。这是纵向联邦最有理论动机的一类价值来源。
+    - `threshold`：阶跃贡献。被动方的信息只在越过某个门槛后才起作用，
+      线性模型只能近似，树模型天然契合。
+
+    λ=0 时三种形式都退化为「被动方无贡献」，零互补的硬验收判据因而对三者同时成立。
+    """
+    if cfg.signal_form == SIGNAL_LINEAR:
+        return cfg.complementarity * s_b
+    if cfg.signal_form == SIGNAL_INTERACTION:
+        return cfg.complementarity * _standardize(s_a * s_b)
+    if cfg.signal_form == SIGNAL_THRESHOLD:
+        return cfg.complementarity * _standardize(
+            (s_b > THRESHOLD_AT).astype(float))
+    raise ValueError("未知的 signal_form：%s（可取 %s）"
+                     % (cfg.signal_form, "/".join(SIGNAL_FORMS)))
 
 
 def _solve_intercept(signal: np.ndarray, target_rate: float) -> float:
@@ -108,7 +139,8 @@ def generate(cfg: GeneratorConfig, seed: int) -> Dict:
     s_a = _standardize(z_a @ w_a)
     s_b = _standardize(z_b @ w_b)
 
-    signal = s_shared + s_a + cfg.complementarity * s_b
+    b_term = _b_contribution(cfg, s_a, s_b)
+    signal = s_shared + s_a + b_term
     intercept = _solve_intercept(signal, cfg.base_rate)
     true_logit = signal + intercept
     prob = _sigmoid(true_logit)
@@ -120,7 +152,7 @@ def generate(cfg: GeneratorConfig, seed: int) -> Dict:
 
     # —— 随机对照与异质处理效应（uplift 评估必需）——
     treatment = (rng.uniform(size=n) < TREATMENT_SHARE).astype(int)
-    tau = cfg.hte_strength * _standardize(s_shared + cfg.complementarity * s_b)
+    tau = cfg.hte_strength * _standardize(s_shared + b_term)
     prob_treated = _sigmoid(true_logit + tau)
     y_treated = (rng.uniform(size=n) < prob_treated).astype(int)
     y_observed = np.where(treatment == 1, y_treated, y)
@@ -175,7 +207,8 @@ def theoretical_gain_signal(data: Dict) -> Dict[str, np.ndarray]:
     用于 M2 的正确性验收（理论增益 vs 实测增益偏差 <5%）。
     """
     cfg = data["config"]
-    with_b = data["signal_shared"] + data["signal_a"] + cfg.complementarity * data["signal_b"]
+    b_term = _b_contribution(cfg, data["signal_a"], data["signal_b"])
+    with_b = data["signal_shared"] + data["signal_a"] + b_term
     without_b = data["signal_shared"] + data["signal_a"]
     return {"with_b": with_b, "without_b": without_b}
 

@@ -1,0 +1,121 @@
+change_id: CL-20260903-M2-002
+timestamp: 2026-09-03 23:50:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M2
+type: exp
+title: 第二种 SCM 结构：模型排序被推翻，C1 被加固
+what: '给生成器加两种非线性信号形式并重跑调参后的阶梯：
+
+  interaction（被动方只经与主动方的交互起作用）与 threshold（阶跃贡献），linear 保持为默认以确保既有全部结论一字不变。
+
+  新建 scenarios_nonlinear.yaml（6 场景，含 λ=0 零互补与线性对照两项验收），在其上重跑 S5.4 的全套超参搜索（6 场景 × 5 种子 × 237 组 = 7110 次拟合）。'
+key_finding: '🔴 **分支卡 BC-M5-001 的 falsifier 触发。**
+
+  强交互场景 N2（λ=2.0）下排序反转：L3b 纵向 GBDT(0.8193) > L3c SplitNN(0.7966) > L3a 联邦 LR(0.7903)；阶跃场景 N4 下 L3b 也升到第二。而
+  λ=0.8 的弱非线性与线性对照下 L3a 仍居首。
+
+  **按分支卡写下的条件，tuned_test_auc 不得再作为路线取舍依据。**它度量的是「在本 SCM 的生成假设下谁更契合」，不是「哪条路线更好」。
+
+  这不是某条路线更差，而是**模型族与数据生成机制的匹配问题**——信号可加时线性路线占优，含强交互时树模型占优。真实数据的机制未知，故**任何单一合成数据上的效果排序都不可外推**。
+
+  L3b 的 verdict 由 keep_with_caveat 改回 keep：它此前的「落后」已被证明是生成假设造成的。
+
+
+  **C8 · C1 不依赖生成机制，反而更强。**L1 − L0 在 6 个场景中有 5 个为负，捕获比例均 ≤1%。交互信号下 L1 尤其差——分段统计量是主动方特征的函数，捕获不了逐人的交互效应。
+
+
+  **C9 · 理论上限高 ≠ 可实现比例高。**同样 λ=0.8，交互形式的理论增益（0.0378）高于线性（0.0360），但实测最优 L3 增益只有 0.0209，远低于线性的 0.0755——可实现比例相差近四倍。→
+  用一个数字概括「对方数据值多少」不可靠；尽调阶段若只用线性模型估增益，可能严重偏离真实可实现值。'
+why: S5.4 的次级发现已经提示：本 SCM 的信号是潜变量的线性组合，天然对线性模型有利。当时把它写进分支卡的 falsifier 而不是当作定论——本步就是去执行那条 falsifier。一条写下来却从不检验的
+  falsifier 等于没写。
+links:
+  branch_card: BC-M5-001
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step:
+  - S2.3
+cross_border_impact: none
+cross_border_detail: 全程合成数据，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 合成数据结论。本步的核心产出恰恰是**否定**了一类外推：合成数据上的模型效果排序不可用于选真实场景的技术路线。
+downstream_affected:
+- M5
+- M6
+- M8
+- M9
+breaking_change: false
+migration: GeneratorConfig 新增 signal_form 字段，默认 linear，既有场景与结论不受影响。BC-M5-001 的 tuned_test_auc 一列已标注作废，引用它的下游判断须改依暴露面与合规成本。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios_nonlinear.yaml · modules/m5_modeling/configs/hyperparam_search.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 7110 次拟合，耗时约 460 秒。向后兼容已验证：linear 形式下 S1_基准 的理论增益逐位等于此前记录的 0.028082（种子 11）。
+rollback: git revert 本提交：非线性信号形式与场景库移除；C7/C8/C9 与分支卡的 falsifier 判决一并回退（但排序不可外推这一事实不因回退而消失）。
+verification: '1) 向后兼容：signal_form 默认 linear，S1_基准 理论增益 0.028082 与此前逐位一致
+
+  2) 零互补验收：三种形式在 λ=0 时理论增益均为 0（硬判据）
+
+  3) 配置口径验收：N6_线性_对照 与原场景库 S1_基准 的理论增益差 < 1e-12
+
+  4) falsifier 触发证据：N2_交互_高 下 L3b 0.8193 > L3a 0.7903，可从 nonlinear_ladder.csv 复算
+
+  5) 新增 6 个测试覆盖三种信号形式的分支与向后兼容不变量
+
+  6) bash ci/run_all_gates.sh → 全绿'
+step:
+  step_id: S2.3
+  step_name: 第二种 SCM 结构：非线性信号形式与生成假设稳健性检验
+  revisions: 0
+  next_step: S8.1 起草工业化方案，路线取舍改以暴露面与合规成本为依据（C7 的直接后果）
+  declaration: "input_from: 分支卡 BC-M5-001 的 falsifier · S5.4 的次级发现 · 《实验结果与结论》§9 第 6 项\nwill_produce:\n\
+    \  - 生成器的 interaction 与 threshold 两种信号形式（linear 保持默认）\n  - 非线性场景库与其上的完整调参阶梯\n  - falsifier 的判决与分支卡更新\n\
+    will_not_produce:\n  - 真实数据的重尾 / 缺失 / 类别型特征 / 时序结构\n  - 第三种生成器族（仍是同一族参数化生成器）\nsuccess_criteria:\n\
+    \  - 向后兼容：linear 形式的既有结果一字不变\n  - 三种形式在 λ=0 时理论增益均为 0\n  - falsifier 无论触发与否都必须给出明确判决\nrisk: |\n  最大风险是改动生成器时静默污染既有结论。故把\
+    \ signal_form 默认设为 linear，\n  并写测试锁住「默认形式为线性且向后兼容」这一不变量；\n  另设 N6_线性_对照 场景与原场景库逐位比对，确认两份配置口径一致。\n"
+  scope:
+    files_changed: 9
+    lines_added: null
+    routes_covered: 7
+    conclusions: 3
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 无跨境对象
+      G3: will_not_produce 两项可核验：未引入真实数据特性；仍是同一族生成器
+      G4: 未触碰红线；「合成数据不得用于承诺真实效果」这条本步反而进一步强化
+      D1: 三项产出全部交付，含 falsifier 的明确判决
+      D2: 三项验收（向后兼容、零互补、配置口径）全部可复算；触发证据可从结果表复现
+      D3: signal_form 从配置读取；两份配置口径经比对；6 个新测试锁住不变量
+      D4: 推翻了一条已发布的排序结论并说明其失效机制；同时加固了 C1 并产生 C9 这一新认知（理论上限与可实现比例的分离）
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m2_synthetic/components/scm_generator.py
+  - modules/m2_synthetic/configs/scenarios_nonlinear.yaml
+  - modules/m5_modeling/results/nonlinear_ladder.csv
+  - modules/m2_synthetic/tests/test_scm_generator.py（+6 用例）
+  - modules/m2_synthetic/notebooks/S2.1_scm_generation.ipynb
+  - registry/branch_cards/BC-M5-001.yaml（falsifier 判决）
+  - registry/component_declarations/M2-scm_generator.yaml
+  - 实验结果与结论.md

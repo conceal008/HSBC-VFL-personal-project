@@ -56,6 +56,54 @@ def m2():
                  "v = float(th.loc['S2_零互补', 'mean'])\n"
                  "print('S2_零互补 理论增益 =', v)\n"
                  "print('验收:', '通过' if abs(v) < ZERO_TOL else '不通过')"),
+        ("md", "## S2.3 · 第二种 SCM 结构：检验结论对生成假设的稳健性\n\n"
+               "上面全部场景的信号都是潜变量的**线性组合**。这带来一个隐患："
+               "「调参后 L3a 联邦LR > L3c SplitNN > L3b 纵向GBDT」这个排序，"
+               "有多少是模型本身的差别，有多少只是**生成方式偏向线性模型**？\n\n"
+               "分支卡 `BC-M5-001` 的 falsifier 正是为此写下的。这里加两种非线性信号形式：\n\n"
+               "| 形式 | 信号 | 检验的机制 |\n|---|---|---|\n"
+               "| `linear` | s_shared + s_a + λ·s_b | 可加贡献（原场景库） |\n"
+               "| `interaction` | s_shared + s_a + λ·(s_a × s_b) | 被动方**只经交互**起作用 |\n"
+               "| `threshold` | s_shared + s_a + λ·1[s_b > 0] | 被动方以阶跃方式起作用 |\n\n"
+               "`interaction` 最有理论动机：同样的 s_b，在 s_a 高的人身上是正向、低的人身上是负向。"
+               "线性模型无论怎么调参都拿不到它（需要显式交叉项），树模型可以逼近。"
+               "**「双方特征的交互只有联合建模才能捕获」正是纵向联邦的核心论点之一。**"),
+        ("code", "nl_raw = yaml.safe_load(open(\n"
+                 "    ROOT / 'modules/m2_synthetic/configs/scenarios_nonlinear.yaml', encoding='utf-8'))\n"
+                 "nl = load_scenarios(nl_raw)\n"
+                 "rows = []\n"
+                 "for c in nl:\n"
+                 "    g = [roc_auc_score(generate(c, sd)['y_control'][usable_mask(generate(c, sd))],\n"
+                 "                       theoretical_gain_signal(generate(c, sd))['with_b']"
+                 "[usable_mask(generate(c, sd))])\n"
+                 "         - roc_auc_score(generate(c, sd)['y_control'][usable_mask(generate(c, sd))],\n"
+                 "                         theoretical_gain_signal(generate(c, sd))['without_b']"
+                 "[usable_mask(generate(c, sd))])\n"
+                 "         for sd in nl_raw['seeds']]\n"
+                 "    rows.append({'场景': c.name, '信号形式': c.signal_form,\n"
+                 "                 '互补性': c.complementarity, '理论增益': float(np.mean(g))})\n"
+                 "pd.DataFrame(rows).set_index('场景').round(ROUND_DP)"),
+        ("md", "**两项验收**：`N5_交互_零互补` 的理论增益必须为 0（λ=0 对三种形式同时成立）；"
+               "`N6_线性_对照` 与原场景库 `S1_基准` 的理论增益必须一致（两份配置口径相同）。"),
+        ("md", "### 调参后的模型排序：分支卡 falsifier 的判决"),
+        ("code", "nlad = pd.read_csv(ROOT / 'modules/m5_modeling/results/nonlinear_ladder.csv')\n"
+                 "COLS = ['N6_线性_对照', 'N1_交互_基准', 'N2_交互_高',\n"
+                 "        'N3_阶跃_基准', 'N4_阶跃_高', 'N5_交互_零互补']\n"
+                 "piv = nlad.pivot_table(index='level', columns='scenario', values='test_auc',\n"
+                 "                       aggfunc='mean')\n"
+                 "piv[COLS].round(ROUND_DP)"),
+        ("code", "L3 = ['L3a_联邦LR', 'L3b_纵向GBDT', 'L3c_SplitNN']\n"
+                 "for sc in COLS:\n"
+                 "    order = piv.loc[L3, sc].sort_values(ascending=False)\n"
+                 "    print(f\"{sc:14s} \" + ' > '.join(f'{k}({v:.4f})' for k, v in order.items()))"),
+        ("code", "PCT = 100\n"
+                 "print('C1 稳健性：L1 捕获比例')\n"
+                 "for sc in COLS:\n"
+                 "    l0, l1 = piv.loc['L0_LR', sc], piv.loc['L1_LR', sc]\n"
+                 "    best3 = piv.loc[L3, sc].max()\n"
+                 "    share = (l1 - l0) / (best3 - l0) * PCT if best3 > l0 else float('nan')\n"
+                 "    print(f'  {sc:14s} L1−L0={l1-l0:+.4f}  最优L3−L0={best3-l0:+.4f}  "
+                 "L1 捕获 {share:5.1f}%')"),
     ])
 
 

@@ -1,9 +1,10 @@
 component: scm_generator
 module: M2
 path: modules/m2_synthetic/components/scm_generator.py
-purpose: 结构因果模型合成数据生成器，13 个可控结构参数，地面真值已知因而可做正确性验收。
+purpose: 结构因果模型合成数据生成器，13 个可控结构参数 + 三种信号形式，地面真值已知因而可做正确性验收。
 inputs:
 - 场景配置（互补性/冗余度/重叠率/同意率/匹配错误率/时间漂移/异质处理效应等）
+- 信号形式 signal_form：linear（默认）/ interaction / threshold
 - 随机种子
 outputs:
 - 双方特征 x_a/x_b
@@ -15,7 +16,11 @@ tests:
 - modules/m2_synthetic/tests/test_scm_generator.py
 cross_border_assets: []
 cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
-caveat: '**合成数据只能验证机制，不得用于承诺真实业务效果。**'
+caveat: '**合成数据只能验证机制，不得用于承诺真实业务效果。**
+
+  `signal_form` 默认为 linear——既有全部结论都建立在该形式上，默认值一旦改变会静默污染历史结论，该不变量由 test_默认形式为线性且向后兼容 锁定。
+
+  interaction 形式下被动方**只经与主动方的交互**起作用，线性模型无论怎么调参都拿不到；这是检验「模型排序是否为生成假设产物」的核心工具。'
 waiver_ref: W-002
 declared_at: '2026-09-03'
 declared_by: Claude (Opus 5, Claude Code)

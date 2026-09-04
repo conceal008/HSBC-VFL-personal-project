@@ -10,8 +10,8 @@ module: M5
 status: active                    # active | archived | abandoned
 opened_at: 2026-09-03
 opened_by: Claude (Opus 5, Claude Code)
-related_steps: [S5.1, S5.2, S5.3, S5.4]
-related_changes: [CL-20260903-M5-001, CL-20260903-M5-002]
+related_steps: [S5.1, S5.2, S5.3, S5.4, S2.3]
+related_changes: [CL-20260903-M5-001, CL-20260903-M5-002, CL-20260903-M2-002]
 decision_records: [DR-GOV-009]
 
 question: |
@@ -57,7 +57,7 @@ routes:
     name: 纵向联邦逻辑回归（残差 ↔ 部分 logit 交换）
     role: L3 路线一
     exposure: 逐人中间量（双向）
-    tuned_test_auc: 0.8352
+    tuned_test_auc: 0.8352      # ⚠️ 已作废为取舍依据，见 falsifier_outcome
     verdict: keep
     note: |
       效果最好且与集中式数学等价（可用于实现正确性验收）。
@@ -69,19 +69,20 @@ routes:
     name: 纵向 GBDT（SecureBoost 式 (g,h) 直方图交换）
     role: L3 路线二
     exposure: 逐人梯度与分桶统计
-    tuned_test_auc: 0.7954
-    verdict: keep_with_caveat
+    tuned_test_auc: 0.7954      # ⚠️ 已作废为取舍依据，见 falsifier_outcome
+    verdict: keep
     note: |
-      在本合成数据上始终落后于线性路线。**但这很可能是生成假设造成的**——
-      本 SCM 的信号是潜变量的线性组合，天然对线性模型有利。
-      **不得据此淘汰该路线**；待 S2.3 换第二种 SCM 结构后重估。
+      在**线性**合成数据上落后于线性路线，当时已标注「很可能是生成假设造成的」。
+      **S2.3 证实了这一点**：换用强交互信号后（N2，λ=2.0）它反超至第一
+      （0.8193 vs L3a 的 0.7903）。原先的「落后」是模型族与生成机制不匹配，
+      不是路线本身的缺陷。verdict 由 keep_with_caveat 改为 keep。
       另：M7 发现它的成员泄露随树深上升（深 3→6 为 0.528→0.545）。
 
   - id: L3c
     name: SplitNN（形态A 双向 / 形态B 冻结随机 / 形态B 冻结自监督）
     role: L3 路线三
     exposure: 形态A 含梯度回传；形态B 仅上行嵌入
-    tuned_test_auc: 0.8210
+    tuned_test_auc: 0.8210      # ⚠️ 已作废为取舍依据，见 falsifier_outcome
     verdict: keep_pending_ruling
     note: |
       **本路线的存废取决于待裁定第 5 项**（7/29「不引入神经网络」是否仍有效）。
@@ -104,4 +105,24 @@ falsifier: |
   则「调参后 L3a > L3c > L3b」这一排序被判定为生成假设的产物，本卡的 tuned_test_auc
   一列不得再作为路线取舍依据，须重新登记。
 
-next_review: S2.3 完成后（换第二种 SCM 结构）
+falsifier_outcome:
+  status: FIRED                     # 2026-09-03，S2.3
+  evidence: |
+    在强交互信号场景 N2_交互_高（signal_form=interaction，λ=2.0）下排序反转：
+    L3b 纵向 GBDT(0.8193) > L3c SplitNN(0.7966) > L3a 联邦LR(0.7903)。
+    阶跃形式的 N4_阶跃_高 下 L3b(0.7926) 也升到第二，超过 SplitNN(0.7843)。
+    而在 λ=0.8 的弱非线性场景（N1、N3）与线性对照（N6）下，L3a 仍居首。
+  ruling: |
+    **`tuned_test_auc` 一列自即日起不得作为路线取舍依据。**
+    它度量的是「在本 SCM 的生成假设下谁更契合」，不是「哪条路线更好」。
+    三条 L3 路线的取舍必须改由**暴露面与合规成本**决定（M7 的攻防结果），
+    效果维度只能给出「在已知机制下的条件性排序」。
+  what_it_means: |
+    这不是某条路线更差，而是**模型族与数据生成机制的匹配问题**：
+    信号可加时线性路线占优，信号含强交互时树模型占优。
+    真实业务数据的机制未知，因此**任何单一合成数据上的效果排序都不可外推**。
+  next_action: |
+    路线取舍改以 M7 的暴露面结论为主（见 routes 各条的 exposure 与 note）；
+    效果维度在接入真实数据前只作条件性陈述。
+
+next_review: 接入真实数据后，或引入第三种生成机制时

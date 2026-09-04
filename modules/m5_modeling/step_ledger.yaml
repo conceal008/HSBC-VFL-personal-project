@@ -71,14 +71,39 @@ steps:
   - 核心数字：L1 捕获 VFL 价值的 12.3%；L3a−L1 = +0.0590 [+0.0501,+0.0680]
   - 安慰剂臂设计对 L1 有利方向严格化，避免把分段灵活性误算为 L1 功劳
   - 遵守 DR-GOV-009 红线「L1 必须与 L3 同等认真实现」
+- step_id: S5.4
+  step_name: 各级别超参搜索：检验 C1 是否只是「L1 欠调参」
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-03 22:30:00+08:00'
+  change_id: CL-20260903-M5-002
+  waiver_ref: W-002
+  outputs:
+  - modules/m5_modeling/components/search.py（网格展开、三分划分、逐级别选参）
+  - modules/m5_modeling/configs/hyperparam_search.yaml（L1 给最大网格 60 组，是 L0 的 12 倍）
+  - results/hyperparam_search.csv（105 行）· oracle_upper_bound.csv
+  - C1 未被翻转且更强：正规口径 L1 只捕获 2.1%，oracle 上界（测试集选参，作弊）也只 15.5%
+  - 方法自检：验证减测试的乐观量随网格增大而增大（L3b 81 组差 0.0412）
+  - 新增 8 个测试，含专门锁住「选参只看验证集」这一不变量的用例
 current_step: null
-next_step: S5.4
+next_step: S5.5
 metrics:
   avg_score: 12.0
   escalation_count: 0
   revision_rate: null
-  steps_used: 3
-  budget_usage: 0.25
+  steps_used: 4
+  budget_usage: 0.333
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

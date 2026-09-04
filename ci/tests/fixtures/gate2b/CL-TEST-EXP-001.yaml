@@ -1,0 +1,73 @@
+change_id: CL-TEST-EXP-001
+timestamp: 2026-09-03 23:00:00+08:00
+agent: 回归夹具
+module: M5
+type: exp
+title: 分支卡回归夹具
+what: 夹具
+why: 夹具
+links:
+  branch_card: BC-TEST-001
+  decision_record: []
+  waiver: []
+  loop_step: [S5.9]
+cross_border_impact: none
+cross_border_detail: 夹具，无数据
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: 夹具
+  conclusion: 夹具
+downstream_affected: []
+breaking_change: false
+migration: 无
+reproducibility:
+  config: 无
+  config_hash: null
+  seeds: []
+  env_lock: null
+  note: 夹具
+rollback: 无
+verification: 夹具
+step:
+  step_id: S5.9
+  step_name: 分支卡回归夹具
+  revisions: 0
+  next_step: S5.10
+  declaration: |
+    input_from: 夹具
+    will_produce:
+      - 无
+    will_not_produce:
+      - 无
+    success_criteria:
+      - 无
+    risk: 无
+  scope:
+    files_changed: 1
+    lines_added: null
+    routes_covered: 1
+    conclusions: 1
+    metadata_files: 无
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 夹具
+      G2: 夹具
+      G3: 夹具
+      G4: 夹具
+      D1: 夹具
+      D2: 夹具
+      D3: 夹具
+      D4: 夹具
+  verdict: committed
+  outputs: [夹具]

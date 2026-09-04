@@ -1,0 +1,115 @@
+change_id: CL-20260903-M5-002
+timestamp: 2026-09-03 22:30:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M5
+type: exp
+title: 各级别超参搜索：C1 未被翻转，反而从 12.3% 收紧到 2.1%
+what: '实现逐级别超参搜索组件，在 3 场景 × 5 种子上按 60/20/20 三分划分，各级别按自身网格在**验证集**上选参、在**测试集**上报告。依 DR-GOV-009 的红线，L1 的搜索空间刻意给到最大——60
+  组，是 L0 的 12 倍。
+
+  另做 oracle 上界实验：让 L1 直接在测试集上挑最优点（等于作弊，非有效估计），给出「调参最多能帮 L1 到什么程度」的上限。'
+key_finding: '**C1 未被翻转，反而更强。**
+
+  - 正规口径（验证集选参）：L1 − L0 = +0.0026，L3a − L0 = +0.1230 → **L1 只捕获 2.1%**
+
+  - oracle 口径（测试集选参，作弊）：L1 − L0 = +0.0193 → **也只有 15.5%**
+
+  - 此前 40 种子安慰剂对照给出 12.3%，正好落在两者之间
+
+  **三个独立口径互相印证：调参救不回 L1。** 其瓶颈是结构性的——分段键只能用主动方特征，回传统计量因而是主动方特征的函数。
+
+
+  **方法自检成立**：「验证减测试」的乐观量随网格增大而增大（L3b 的 81 组差 0.0412 > L3c 的 54 组 0.0241 > L3a 的 27 组 0.0114），说明选参乐观度被正确检出，而非被实现掩盖。
+
+
+  顺带的次级发现：调参后 **L3a 联邦LR（0.8352）与 L3c SplitNN（0.8210）的差距缩小**，而 L3b 纵向 GBDT（0.7954）在本合成数据上始终落后——本 SCM 的信号是潜变量的线性组合，对线性模型有利，这是**生成假设带来的偏向**，不可外推到真实数据。'
+why: 《实验结果与结论.md》§9 把「未做超参搜索」列为可能改变结论的第 5 项。C1 是本项目最核心的结论，它若只是调参不当造成的假象，整个商业前提就要重估。而验证一个结论「经得起推敲」与推翻它同样有价值——两种结果都只有做了才知道。
+links:
+  branch_card: BC-M5-001
+  decision_record:
+  - DR-GOV-009
+  waiver:
+  - W-002
+  loop_step:
+  - S5.4
+cross_border_impact: none
+cross_border_detail: 全程合成数据，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 合成数据结论，只验证机制，不承诺真实业务效果。oracle 上界一栏**不是有效估计**，文中已明确标注为「作弊口径」，不得单独引用。
+downstream_affected:
+- M6
+- M8
+- M9
+breaking_change: false
+migration: 无。search.py 为新增组件，不改变既有接口。
+reproducibility:
+  config: modules/m5_modeling/configs/hyperparam_search.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 237 组超参 × 5 种子 × 3 场景 = 3555 次拟合，全网格耗时 228 秒；oracle 上界实验另需 30 秒。划分与选参全部由种子决定，可复现。
+rollback: git revert 本提交：搜索组件与两份结果表移除；C1 回到 12.3% 的单一口径。
+verification: '1) 正规口径：L1 测试 AUC 0.7148 vs L0 0.7122，L3a 0.8352 → L1 捕获 2.1%
+
+  2) oracle 上界：L1 0.7351 vs L0 0.7158，L3a 0.8404 → 15.5%
+
+  3) 方法自检：验证减测试的乐观量按网格大小排序 L3b(81)0.0412 > L3c(54)0.0241 > L3a(27)0.0114
+
+  4) 单元测试 test_选参只看验证集：逐点算出验证与测试 AUC，确认返回的 test_auc 等于「验证集最优点」的测试值，而非全网格测试最大值
+
+  5) bash ci/run_all_gates.sh → 全绿'
+step:
+  step_id: S5.4
+  step_name: 各级别超参搜索：检验 C1 是否只是「L1 欠调参」
+  revisions: 0
+  next_step: S2.3 换用第二种 SCM 结构，检验结论对生成假设的稳健性
+  declaration: "input_from: 《实验结果与结论.md》§9 已知缺口第 5 项 · DR-GOV-009 的 L1 红线\nwill_produce:\n  - 逐级别超参搜索组件与配置（L1\
+    \ 给最大网格）\n  - 正规口径（验证集选参）与 oracle 上界（测试集选参）两套结果\n  - 锁住「选参只看验证集」的单元测试\nwill_not_produce:\n  - M6 增量模型与\
+    \ M7 攻击的超参搜索\n  - 任何真实数据实验\nsuccess_criteria:\n  - L1 的网格必须显著大于 L0（否则不算给了机会）\n  - 选参不得触碰测试集，且该不变量有测试锁定\n\
+    risk: |\n  最大风险是在测试集上选参。它会让搜索空间大的级别虚高更多——恰好是 L1，\n  污染方向**有利于 L1**，读者会以为我在偏袒对照组，实则毁掉的是结论本身的可信度。\n\
+    \  故采用 60/20/20 三分，并写专门的单元测试锁住这条不变量。\n"
+  scope:
+    files_changed: 8
+    lines_added: null
+    routes_covered: 7
+    conclusions: 1
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 无跨境对象
+      G3: will_not_produce 两项可核验：未搜索 M6/M7 超参；无真实数据
+      G4: DR-GOV-009 的 L1 红线不仅遵守且强化——L1 拿到 12 倍于 L0 的搜索空间
+      D1: 三项产出全部交付
+      D2: 三个独立口径（2.1% / 15.5% / 12.3%）互相印证；方法自检的乐观量排序可复算
+      D3: 237 组网格全部来自配置文件；三分划分由种子决定；8 个测试锁住行为
+      D4: 把 C1 从「一组固定超参下的观测」升级为「经得起最大化调参与 oracle 上界检验的结论」；并识别出本 SCM 对线性模型的生成假设偏向
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m5_modeling/components/search.py
+  - modules/m5_modeling/configs/hyperparam_search.yaml
+  - modules/m5_modeling/results/hyperparam_search.csv
+  - modules/m5_modeling/results/oracle_upper_bound.csv
+  - modules/m5_modeling/tests/test_search.py
+  - modules/m5_modeling/notebooks/S5.1_baseline_ladder.ipynb
+  - registry/component_declarations/M5-search.yaml
+  - 实验结果与结论.md

@@ -185,6 +185,21 @@ def check_entry(entry, path, ctype, trailers):
         card = str(links.get("branch_card") or "")
         if not card or card == "none":
             block("branch_card", "type=exp 必须绑定分支卡（links.branch_card）")
+        else:
+            # 只检查「字段非空」拦不住空引用与坏文件：
+            # 2026-09-03 曾出现分支卡里 Markdown 粗体的 `*` 被 YAML 当成别名、
+            # 文件根本无法解析，而全部门禁照样报绿。故此处解析到文件为止。
+            card_id = card.split()[0].split("·")[0].strip()
+            card_path = "registry/branch_cards/%s.yaml" % card_id
+            if not os.path.exists(card_path):
+                block("branch_card", "%s 对应文件不存在：%s" % (card_id, card_path))
+            else:
+                card_doc = load_yaml(card_path)
+                for field in ("card_id", "status", "routes", "falsifier"):
+                    if not card_doc.get(field):
+                        block("branch_card", "%s 缺 %s——"
+                              "分支卡没有 falsifier 就只是一份记录，不构成取舍依据"
+                              % (card_id, field))
     if ctype == "decision":
         dr = str(links.get("decision_record") or "")
         if not dr or dr == "none":

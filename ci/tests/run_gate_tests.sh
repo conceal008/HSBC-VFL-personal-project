@@ -175,6 +175,36 @@ assert "门禁2-B 元数据全面违规拦截" 1 "$TMP/out.txt" \
 run python3 "$C2/ci/check_step_metadata.py" --rev "$(cat "$TMP/sha_c")" "$C2"
 assert "门禁2-C decision 的 DR 无 falsifier" 1 "$TMP/out.txt" "缺 falsifier"
 
+# 分支卡回归：2026-09-03 曾出现分支卡 YAML 无法解析而全部门禁照样报绿
+C2B="$TMP/gate2b"; mkdir -p "$C2B/ci" "$C2B/changelog" "$C2B/registry/branch_cards"
+cp "$ROOT/ci/check_step_metadata.py" "$C2B/ci/"
+(
+  cd "$C2B"
+  git init -q -b main && git config user.email t@t && git config user.name t
+  cp "$FIX/gate2b/CL-TEST-EXP-001.yaml" changelog/
+  git add -A && git commit -q -F "$FIX/gate2b/msg_exp.txt"
+) > /dev/null
+
+run python3 "$C2B/ci/check_step_metadata.py" "$C2B"
+assert "门禁2-E 分支卡文件不存在即阻断" 1 "$TMP/out.txt" "对应文件不存在"
+
+# 存在但缺 falsifier：没有 falsifier 的分支卡只是记录，不构成取舍依据
+printf 'card_id: BC-TEST-001\nstatus: active\nroutes:\n  - id: A\n' \
+  > "$C2B/registry/branch_cards/BC-TEST-001.yaml"
+run python3 "$C2B/ci/check_step_metadata.py" "$C2B"
+assert "门禁2-F 分支卡缺 falsifier 即阻断" 1 "$TMP/out.txt" "falsifier"
+
+# 存在但 YAML 坏掉（Markdown 粗体的 * 被当成别名）——本次真实踩到的坑
+printf 'card_id: BC-TEST-001\nstatus: active\nrole: **粗体**\nroutes:\n  - id: A\nfalsifier: x\n' \
+  > "$C2B/registry/branch_cards/BC-TEST-001.yaml"
+run python3 "$C2B/ci/check_step_metadata.py" "$C2B"
+assert "门禁2-G 分支卡 YAML 坏掉即阻断" 1 "$TMP/out.txt" "无法解析"
+
+printf 'card_id: BC-TEST-001\nstatus: active\nroutes:\n  - id: A\nfalsifier: 若 X 则本卡作废\n' \
+  > "$C2B/registry/branch_cards/BC-TEST-001.yaml"
+run python3 "$C2B/ci/check_step_metadata.py" "$C2B"
+assert "门禁2-H 分支卡齐备则放行" 0 "$TMP/out.txt" "门禁 2 通过"
+
 run python3 "$ROOT/ci/check_step_metadata.py" "$ROOT"
 assert "门禁2-D 本仓库 HEAD 自检通过" 0 "$TMP/out.txt" "门禁 2 通过"
 

@@ -147,6 +147,45 @@ def m5():
                "**响应率 ≠ 增量**。营销真正要的是「因为营销才转化」的人。"),
         ("code", "u = df[df.auuc.notna()]\n"
                  "u[u.split=='random'].groupby('level')[['auuc','uplift@10']].mean().round(ROUND_DP)"),
+        ("md", "## 表7 · 稳健性检验：调参能否救回 L1？\n\n"
+               "上面的全部结论都用**同一组固定超参**。一个合理的质疑是："
+               "「L1 只捕获 12.3%」会不会只是 L1 欠调参？\n\n"
+               "依 DR-GOV-009 的红线「L1 必须与 L3 同等认真实现」，"
+               "**L1 的搜索空间刻意给到最大**——60 组，是 L0 的 12 倍。"
+               "若调参能翻转 C1，必须让它有机会翻转。\n\n"
+               "方法上有一条硬要求：**选参只看验证集**（60/20/20 三分）。"
+               "在测试集上选参会让搜索空间大的级别虚高更多，"
+               "污染方向恰好**有利于 L1**，同样会毁掉结论。"),
+        ("code", "hs = pd.read_csv(ROOT / 'modules/m5_modeling/results/hyperparam_search.csv')\n"
+                 "t = hs.groupby('level').agg(网格点数=('n_points','first'),\n"
+                 "                            验证AUC=('valid_auc','mean'),\n"
+                 "                            测试AUC=('test_auc','mean'))\n"
+                 "t['验证减测试'] = t['验证AUC'] - t['测试AUC']\n"
+                 "t.sort_values('测试AUC', ascending=False).round(ROUND_DP)"),
+        ("md", "「验证减测试」一列随网格增大而增大（L3b 的 81 组差 0.0412），"
+               "说明选参乐观度被正确检出——这是方法本身的自检。"),
+        ("md", "### 最强的一击：让 L1 直接在测试集上挑最优点\n\n"
+               "下表的 oracle 上界**不是有效估计**（它用了测试集选参，等于作弊），"
+               "但它给出「调参最多能帮 L1 到什么程度」的上限。"),
+        ("code", "ob = pd.read_csv(ROOT / 'modules/m5_modeling/results/oracle_upper_bound.csv')\n"
+                 "o = ob.groupby('level').oracle_test_auc.mean()\n"
+                 "h = hs.groupby('level').test_auc.mean()\n"
+                 "cmp2 = pd.DataFrame({'正规选参': h[o.index], 'oracle上界': o})\n"
+                 "cmp2['乐观量'] = cmp2['oracle上界'] - cmp2['正规选参']\n"
+                 "cmp2.round(ROUND_DP)"),
+        ("code", "PCT = 100\n"
+                 "for tag, col in [('正规选参', h), ('oracle上界（作弊）', o)]:\n"
+                 "    gap_l1 = col['L1_LR'] - col['L0_LR']\n"
+                 "    gap_l3 = col['L3a_联邦LR'] - col['L0_LR']\n"
+                 "    print(f'{tag:18s} L1−L0={gap_l1:+.4f}  L3a−L0={gap_l3:+.4f}  '\n"
+                 "          f'L1 捕获 {gap_l1/gap_l3*PCT:.1f}%')"),
+        ("md", "**C1 站住了，而且更强了。**\n\n"
+               "- 正规口径：L1 只捕获 **2.1%**\n"
+               "- oracle 口径（让 L1 作弊）：也只有 **15.5%**\n"
+               "- 此前 40 种子安慰剂对照给出 12.3%，正好落在两者之间\n\n"
+               "三个独立口径互相印证：**调参救不回 L1**。"
+               "L1 的瓶颈是结构性的——分段键只能用主动方特征，"
+               "回传的统计量因而是主动方特征的函数。"),
     ])
 
 

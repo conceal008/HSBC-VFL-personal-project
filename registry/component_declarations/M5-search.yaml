@@ -1,0 +1,20 @@
+component: search
+module: M5
+path: modules/m5_modeling/components/search.py
+purpose: 各级别超参搜索：在验证集上选参、在测试集上报告，用于检验 C1 是否只是「L1 欠调参」的假象。
+inputs:
+- 场景数据
+- 各级别的超参网格（modules/m5_modeling/configs/hyperparam_search.yaml）
+- 训练/验证/测试三分划分
+- 随机种子
+outputs:
+- 每个级别的最优超参点、验证集 AUC 与测试集 AUC
+tests:
+- modules/m5_modeling/tests/test_search.py
+cross_border_assets: []
+cross_border_note: 本组件全程只处理程序生成的合成数据，不接触真实个人信息，不向境外传输任何数据。
+caveat: '**选参只准看验证集。** 在测试集上选参会让搜索空间大的级别虚高更多——本文刻意给 L1 最大的搜索空间（60 组，是 L0 的 12 倍），污染方向恰好有利于 L1，会毁掉 C1 的可信度。该不变量由
+  test_选参只看验证集 锁定。'
+waiver_ref: W-002
+declared_at: '2026-09-03'
+declared_by: Claude (Opus 5, Claude Code)

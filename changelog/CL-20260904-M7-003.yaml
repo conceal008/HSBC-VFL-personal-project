@@ -1,0 +1,108 @@
+change_id: CL-20260904-M7-003
+timestamp: 2026-09-04 05:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M7
+type: exp
+title: 恶意参与方攻防：两项防护必须同时开启，补上防护基线自身的漏洞
+what: '放开此前全部结论所依赖的**半诚实**假设，实现两类恶意攻击：A6 恶意主动方探针攻击（发构造的残差直接把被动方特征「问」出来）与A7 恶意被动方定向抬分（发构造的部分 logit 把指定人群顶进名单），以及残差合法性检查这一防御维度。
+
+  据此更新 M8 的防护基线：新增残差合法性检查为**强制项**，名单稳定性阈值由 0.9 收紧至 0.95，护栏规则由 6 条增至 8 条，威胁模型声明由「半诚实」改为「半诚实 + 部分恶意」。'
+key_finding: "\U0001F534 **C10 · 上行加噪与残差合法性检查必须同时开启，任一单独存在时另一条即失效。**\n  只加噪（幅度不受约束）：幅度放大到 1000 时**仅需 100\
+  \ 次重复**即攻破 σ=0.1；\n  只查合法性（无噪声）：伪装探针（叠在真实残差上、幅度压在 1 以内）R²=0.859，**26 次全部未被标记**；\n  两者同时：合法幅度下需约 **10⁸\
+  \ 次重复**，实际不可行。\n机制：单次探针的信号量级是 lr·amplitude/n，而噪声固定为 σ——**信噪比与幅度成正比**。约束幅度的唯一手段就是合法性检查。\n→ **合法性检查把攻击成本抬高六个数量级。它不是锦上添花，是让加噪防护有意义的前提。**\n\
+  **而这条此前不在 M8 的防护基线里——本步补上的是我自己配置的漏洞。**\n\n\U0001F534 **C11 · 恶意被动方可操纵名单，且中等幅度不触发原有告警。**\n抬分幅度 1.0 时\
+  \ 45% 的目标客户被顶进 Top-10% 名单，而名单重合度仍有 0.93——**高于旧阈值 0.9，不会告警**。基线已收紧至 0.95。但这只是**检测**手段，不是防护：攻击者压低幅度仍可缓慢渗透。\n\
+  \n另一处方法上的修正：最初把探针幅度固定为 1 来测，得到「攻击在噪声下彻底失效」的结论——**但恶意攻击者凭什么受这个限制？** 幅度参数化之后结论才立得住。这提醒一件事：**给攻击者设的限制，必须说得出是谁在强制执行它。**"
+why: '《实验结果与结论》§9 把「恶意参与方设定」列为**目前唯一最可能改变结论**的缺口。半诚实假设在真实场景中往往不成立——协议由代码执行，而代码由某一方控制，对方无从验证收到的数字是不是真按协议算的。
+
+  补齐后确实改变了结论，而且改的是本项目自己的防护配置。'
+links:
+  branch_card: BC-M5-001
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step:
+  - S7.4
+cross_border_impact: none
+cross_border_detail: 攻击对象为合成特征与合成打分，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 威胁模型已由「半诚实」升级为「半诚实 + 部分恶意」，但**仍不构成安全性证明**：合谋、模型窃取、攻击者篡改自身模型结构均未覆盖。《对外表述红线》已据此新增 X10、X11
+    两条，并把 Y3 的限定由一重改为三重。
+downstream_affected:
+- M8
+- M9
+breaking_change: false
+migration: M8 的 deployment_profile.yaml 新增 residual_plausibility 段（enabled 必须为 true），list_stability 阈值由
+  0.9 改为 0.95。既有部署配置若未声明这两项，guardrails.check_deployment 将拒绝——这是刻意的。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 重复取平均用等价形式实现（k 次平均等价于一次 σ/√k 抽样），既数学精确也让 k 取到 10⁸ 量级仍可计算；该等价性由单元测试锁定。
+rollback: git revert 本提交：A6/A7 与合法性检查移除，M8 基线退回 6 条规则、阈值 0.9。但「噪声单独无效」这一事实不因回退而消失。
+verification: '1) 无防护时 A6 精确还原：16 次探针 + 6 个辅助样本，R² = 1.000000
+
+  2) C10 的三行对照可复算：幅度 1000×100 次 → 0.95；伪装探针 → R²=0.859 且 0 次标记；合法幅度 ×10⁸ → 0.95
+
+  3) C11：幅度 1.0 时目标进入率 0.45、重合度 0.93（> 旧阈值 0.9）
+
+  4) 新增 7 个单元测试，含「重复取平均按根号衰减」的等价性检验
+
+  5) 证据链核验 15/15 · 风险溯源 9/9；bash ci/run_all_gates.sh → 全绿（45/45）'
+step:
+  step_id: S7.4
+  step_name: 恶意（非半诚实）参与方的攻防
+  revisions: 0
+  next_step: S7.5 合谋与模型窃取（仍未覆盖的最后两类偏离）
+  declaration: "input_from: 《实验结果与结论》§9 已知缺口第 4 项 · M8 的防护基线\nwill_produce:\n  - A6 恶意主动方探针攻击与 A7 恶意被动方定向抬分\n\
+    \  - 残差合法性检查及其局限（伪装探针）\n  - 据此更新 M8 防护基线\nwill_not_produce:\n  - 合谋攻击\n  - 模型窃取\n  - 攻击者篡改自身模型结构\n\
+    success_criteria:\n  - 每条防护结论都必须给出「单独用是否有效」的对照\n  - 给攻击者设的每个限制，都要说得出是谁在强制执行它\nrisk: |\n  最大风险是给攻击者设了一个没人强制执行的限制，从而得出虚假的安全结论。\n\
+    \  本步确实踩到：最初把探针幅度固定为 1，得到「攻击在噪声下彻底失效」——\n  但恶意攻击者凭什么受这个限制？幅度参数化后才发现噪声单独无效。\n"
+  scope:
+    files_changed: 11
+    lines_added: null
+    routes_covered: 1
+    conclusions: 2
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 无跨境对象
+      G3: will_not_produce 三项可核验：无合谋、无模型窃取、无结构篡改
+      G4: 威胁模型的升级与其仍存的局限均已在 README、DPIA、对外表述红线三处标注
+      D1: 三项产出全部交付，并回流更新了 M8 基线
+      D2: C10 的三行对照均可复算；等价性实现由单元测试锁定
+      D3: 种子在配置中；重复取平均用解析等价形式，无暴力循环；7 个新测试
+      D4: 补齐了此前列为「唯一最可能改变结论」的缺口，且确实改变了结论——并且改的是本项目自己的防护配置：发现 M8 基线缺了让加噪有意义的那个前提
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m7_security/components/malicious.py
+  - modules/m7_security/results/malicious_probe.csv
+  - modules/m7_security/results/malicious_boost.csv
+  - modules/m7_security/tests/test_attacks.py（+7 用例）
+  - modules/m8_industrialization/configs/deployment_profile.yaml
+  - modules/m8_industrialization/components/guardrails.py（6→8 条规则）
+  - modules/m9_documentation/DPIA.md
+  - modules/m9_documentation/对外表述红线.md
+  - modules/m9_documentation/configs/evidence_map.yaml
+  - 实验结果与结论.md

@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 from modules.m5_modeling.components import models as M  # noqa: E402
 from modules.m5_modeling.components.gbdt import VerticalGBDT  # noqa: E402
 from modules.m7_security.components import attacks as A  # noqa: E402
+from modules.m7_security.components import malicious as MAL  # noqa: E402
 
 SEED = 11
 N = 1200
@@ -199,3 +200,88 @@ def test_LiRA随模型容量单调增强(data):
     low = A.membership_inference_lira(lr_fit, x, y, 8, SEED)["membership_auc_lira"]
     high = A.membership_inference_lira(gbdt_fit, x, y, 8, SEED)["membership_auc_lira"]
     assert high > low, "高容量模型的成员泄露未高于低容量模型——攻击可能失效"
+
+
+# ————————————————— A6 / A7 恶意参与方（S7.4）—————————————————
+
+def test_恶意探针在无防护时精确还原特征(data):
+    """恶意攻击者不必等自然的梯度轨迹——它自己设计探针，条件数由它掌控。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    idx = np.random.default_rng(SEED).permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 20]
+    out = MAL.probe_attack(x_b, aux, tgt, 0.5, 0.0, 1, SEED)
+    assert out["feat_r2_mean"] > PERFECT
+    assert out["plausible_amplitude"] is True
+
+
+def test_放大探针幅度可攻破上行噪声(data):
+    """噪声单独无效：信噪比与幅度成正比，攻击者放大幅度即可。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    idx = np.random.default_rng(SEED).permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 20]
+    legal = MAL.probe_attack(x_b, aux, tgt, 0.5, 0.1, 1, SEED, amplitude=1.0)
+    huge = MAL.probe_attack(x_b, aux, tgt, 0.5, 0.1, 1, SEED, amplitude=1e6)
+    assert huge["feat_r2_mean"] > legal["feat_r2_mean"]
+    assert huge["plausible_amplitude"] is False, "超大幅度必须被标为不合法"
+
+
+def test_重复取平均按根号衰减噪声(data):
+    """k 次重复等价于一次 σ/√k 的抽样——这是等价形式的正确性检验。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    idx = np.random.default_rng(SEED).permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 10]
+    one = MAL.probe_attack(x_b, aux, tgt, 0.5, 0.1, 1, SEED)
+    hundred = MAL.probe_attack(x_b, aux, tgt, 0.5, 0.1, 100, SEED)
+    assert hundred["effective_sigma"] < one["effective_sigma"]
+    assert abs(hundred["effective_sigma"] * 10 - one["effective_sigma"]) < 1e-12
+    assert hundred["n_probes"] == one["n_probes"] * 100
+
+
+def test_合法性检查识别朴素探针():
+    """单位探针越界或过于稀疏，都会被识破。"""
+    probe = np.zeros(100)
+    probe[3] = 1000.0
+    assert MAL.residual_plausibility_check(probe)["suspicious"] is True
+    rng = np.random.default_rng(SEED)
+    real = 1.0 / (1.0 + np.exp(-rng.normal(size=100))) - (rng.random(100) < 0.5)
+    assert MAL.residual_plausibility_check(real)["suspicious"] is False
+
+
+def test_伪装探针绕过合法性检查(data):
+    """检查单独也无效：把探针叠在真实残差上、幅度压在 1 以内即可绕过。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    rng = np.random.default_rng(SEED)
+    idx = rng.permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 10]
+    p = 1.0 / (1.0 + np.exp(-rng.normal(size=n)))
+    baseline = p - (rng.random(n) < p).astype(float)
+    out = MAL.disguised_probe_attack(x_b, aux, tgt, 0.5, baseline, 1.0)
+    assert out["flagged_by_check"] == 0, "伪装探针不应被合法性检查标记"
+    assert out["feat_r2_mean"] > 0.5, "伪装探针在无噪声时仍应有效"
+
+
+def test_定向抬分能把目标顶进名单():
+    """A7 是完整性攻击：不偷数据，操纵决策。"""
+    rng = np.random.default_rng(SEED)
+    score = rng.normal(size=2000)
+    boost = rng.choice(2000, size=40, replace=False)
+    weak = MAL.targeted_boost_attack(score, boost, 0.0, 0.1)
+    strong = MAL.targeted_boost_attack(score, boost, 5.0, 0.1)
+    assert strong["attacked_in_topk"] > weak["attacked_in_topk"]
+    assert strong["attacked_in_topk"] == strong["target_size"]
+    assert weak["list_churn"] == 0.0, "零幅度不应改变名单"
+
+
+def test_中等幅度抬分不触发宽松的稳定性阈值():
+    """这正是把阈值由 0.9 收紧到 0.95 的理由。"""
+    rng = np.random.default_rng(SEED)
+    score = rng.normal(size=4000)
+    boost = rng.choice(4000, size=80, replace=False)
+    r = MAL.targeted_boost_attack(score, boost, 1.0, 0.1)
+    overlap = 1.0 - r["list_churn"]
+    assert r["attacked_in_topk"] > r["baseline_in_topk"], "中等幅度应能顶进目标"
+    assert overlap > 0.9, "重合度仍高于旧阈值 0.9——旧阈值抓不到这种操纵"

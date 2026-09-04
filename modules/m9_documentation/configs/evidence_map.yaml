@@ -71,6 +71,16 @@ claims:
       - modules/m5_modeling/results/nonlinear_ladder.csv
       - modules/m2_synthetic/results/correctness_validation.csv
 
+  - id: C10
+    statement: 上行加噪与残差合法性检查必须同时开启，任一单独存在时另一条即失效
+    nature: 合成数据实测（恶意参与方设定）
+    evidence: [modules/m7_security/results/malicious_probe.csv]
+
+  - id: C11
+    statement: 恶意被动方可定向操纵名单，且中等幅度不触发原有的稳定性告警
+    nature: 合成数据实测（恶意参与方设定）
+    evidence: [modules/m7_security/results/malicious_boost.csv]
+
   - id: A1
     statement: 实体对齐质量不是本项目的主要风险——漏配 10% 仅损失约 12% 增益
     nature: 合成数据实测（PSI 为行为仿真，非密码学实现）
@@ -135,6 +145,18 @@ risks:
     severity: 中
     mitigation: 降级必须上报 degraded=True 并告警；故障注入 F2 已验证
     evidence: [modules/m8_industrialization/components/fault_injection.py]
+
+  - id: R12
+    risk: 恶意主动方用构造探针直接读出被动方原始特征
+    severity: 高
+    mitigation: 上行加噪 σ≥0.1 **与** 残差合法性检查必须同时开启——两者缺一即失效
+    evidence: [modules/m7_security/results/malicious_probe.csv]
+
+  - id: R13
+    risk: 恶意被动方定向抬分操纵营销名单
+    severity: 高
+    mitigation: 名单稳定性阈值收紧至 0.95（仅为检测手段）；根治需可验证的部分 logit，本阶段未实现
+    evidence: [modules/m7_security/results/malicious_boost.csv]
 
   - id: R7
     risk: schema 变更后照常出分，名单全错而无人察觉

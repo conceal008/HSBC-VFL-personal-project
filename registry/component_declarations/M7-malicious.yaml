@@ -1,0 +1,28 @@
+component: malicious
+module: M7
+path: modules/m7_security/components/malicious.py
+purpose: 恶意（非半诚实）参与方的攻防：A6 恶意主动方探针攻击（机密性）、A7 恶意被动方定向抬分（完整性），以及残差合法性检查这一防御维度。
+inputs:
+- 被动方特征
+- 辅助集与目标集索引
+- 学习率
+- 上行噪声 σ
+- 探针幅度与重复次数
+outputs:
+- 特征还原 R²
+- 有效噪声与探针次数
+- 合法性检查信号
+- 名单被顶入率与换手率
+tests:
+- modules/m7_security/tests/test_attacks.py
+cross_border_assets: []
+cross_border_note: 攻击对象为合成特征与合成打分，不含任何真实个人信息。
+caveat: '**放开了此前全部结论所依赖的半诚实假设。** 攻击者可偏离协议、发送构造的值。
+
+  核心结论：**上行加噪与残差合法性检查必须同时开启，任一单独存在时另一条即失效**——噪声单独可被放大幅度攻破（幅度 1000 仅需 100 次重复），检查单独可被伪装探针绕过（R²=0.859，0
+  次标记）。
+
+  ⚠️ 仍未覆盖：合谋、攻击者篡改自身模型结构等更强的偏离方式。'
+waiver_ref: W-002
+declared_at: '2026-09-04'
+declared_by: Claude (Opus 5, Claude Code)

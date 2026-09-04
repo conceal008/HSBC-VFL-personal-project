@@ -40,7 +40,8 @@ def smoke():
 def _ok_config():
     return {"uplink_sigma": 0.1, "label_protection": "secure_aggregation",
             "gbdt_max_depth": 3, "k_anonymity": 10,
-            "splitnn_mode": "frozen_pca", "route_selected_by": "exposure_and_compliance"}
+            "splitnn_mode": "frozen_pca", "route_selected_by": "exposure_and_compliance",
+            "residual_plausibility_check": True, "list_stability_threshold": 0.95}
 
 
 def test_合规配置放行(profile):
@@ -88,11 +89,25 @@ def test_以效果排序选路线被拒(profile):
     assert any("route_selection" in v["rule"] for v in r["violations"])
 
 
+def test_未开合法性检查被拒(profile):
+    """它是让上行加噪有意义的前提——缺了它，加多大噪声都能被放大幅度攻破。"""
+    r = G.check_deployment(dict(_ok_config(), residual_plausibility_check=False), profile)
+    assert any("residual_plausibility" in v["rule"] for v in r["violations"])
+
+
+def test_名单稳定性阈值过松被拒(profile):
+    """0.9 防不住定向操纵：45% 目标进入名单时重合度仍有 0.93。"""
+    r = G.check_deployment(dict(_ok_config(), list_stability_threshold=0.9), profile)
+    assert any("list_stability" in v["rule"] for v in r["violations"])
+
+
 def test_每条违规都给出证据与整改方向(profile):
     r = G.check_deployment({"uplink_sigma": 0.0, "gbdt_max_depth": 9,
                             "k_anonymity": 2, "splitnn_mode": "frozen_random",
                             "label_protection": "gaussian_noise",
-                            "route_selected_by": "effect_ranking"}, profile)
+                            "route_selected_by": "effect_ranking",
+                            "residual_plausibility_check": False,
+                            "list_stability_threshold": 0.5}, profile)
     assert len(r["violations"]) == r["checked_rules"], "六条规则应全部命中"
     for v in r["violations"]:
         assert v["evidence"] and v["remedy"], "拒绝必须附实测证据与整改方向"

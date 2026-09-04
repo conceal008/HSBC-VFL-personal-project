@@ -14,7 +14,7 @@ from typing import Dict, List
 
 VERDICT_PASS = "pass"
 VERDICT_BLOCK = "block"
-CHECKED_RULES = 6            # 本模块实现的护栏规则数，供调用方核对是否漏检
+CHECKED_RULES = 8            # 本模块实现的护栏规则数，供调用方核对是否漏检
 
 
 class GuardrailViolation(Dict):
@@ -41,6 +41,29 @@ def check_deployment(config: Dict, profile: Dict) -> Dict:
             % (sigma, up["sigma_min"]),
             up["evidence"],
             "把被动方上行噪声调至 ≥%s；实测该强度下可用性仅损失 0.0014" % up["sigma_min"]))
+
+    rp = profile["residual_plausibility"]
+    if rp["enabled"] and not config.get("residual_plausibility_check"):
+        violations.append(_violation(
+            "residual_plausibility.enabled",
+            "未对收到的残差做合法性检查——**这会让上行加噪失去意义**："
+            "恶意主动方放大探针幅度即可攻破（幅度 1000 时仅需 100 次重复）",
+            rp["evidence"],
+            "开启残差合法性检查（范围 [%s, %s]、非零比例 ≥%s）；"
+            "它把攻击成本抬高约六个数量级"
+            % (rp["range_min"], rp["range_max"], rp["min_nonzero_ratio"])))
+
+    ls = profile["list_stability"]
+    threshold = config.get("list_stability_threshold")
+    if threshold is None or threshold < ls["min_topk_overlap_between_runs"]:
+        violations.append(_violation(
+            "list_stability.min_topk_overlap_between_runs",
+            "名单稳定性告警阈值 %s 低于 %s——恶意被动方以中等幅度抬分时"
+            "（45%% 目标客户进入名单）重合度仍有 0.93，不会触发告警"
+            % (threshold, ls["min_topk_overlap_between_runs"]),
+            ls["evidence"],
+            "把阈值提到 ≥%s；注意这只是检测手段，不是防护"
+            % ls["min_topk_overlap_between_runs"]))
 
     lp = profile["label_protection"]
     if not lp["gaussian_noise_allowed"] and config.get("label_protection") == "gaussian_noise":

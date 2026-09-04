@@ -76,14 +76,40 @@ steps:
   - C5：上行加噪 σ=0.1 使特征 R² 1.00→0.20，可用性仅损失 0.0014——与下行加噪结论完全相反
   - C6：成员泄露由模型容量驱动，与是否联邦无关（L0/L1/L4 均 0.510；GBDT 深 3→6 为 0.528→0.545）
   - 修复 gbdt.py 在 reg_lambda=0 时的除零缺陷（由攻击有效性验证实验暴露）
+- step_id: S7.4
+  step_name: 恶意（非半诚实）参与方的攻防
+  status: committed
+  score: 12
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 3
+  revisions: 0
+  committed_at: '2026-09-04 05:00:00+08:00'
+  change_id: CL-20260904-M7-003
+  waiver_ref: W-002
+  outputs:
+  - components/malicious.py：A6 恶意主动方探针攻击 · A7 恶意被动方定向抬分 · 残差合法性检查
+  - results/malicious_probe.csv · malicious_boost.csv
+  - 🔴 C10：上行加噪与残差合法性检查必须同时开启——只加噪时幅度 1000 仅需 100 次重复即攻破；只查合法性时伪装探针 R²=0.859 且 0 次标记；两者同时需约
+    10⁸ 次重复
+  - 🔴 C11：恶意被动方幅度 1.0 抬分使 45% 目标进入 Top-10%，重合度 0.93 高于旧阈值 0.9 不告警
+  - 补上 M8 防护基线自身的漏洞：新增残差合法性检查为强制项，名单稳定性阈值 0.9→0.95
+  - 护栏规则由 6 条增至 8 条；威胁模型声明由「半诚实」改为「半诚实 + 部分恶意」
 current_step: null
-next_step: S7.4
+next_step: S7.5
 metrics:
-  avg_score: 11.67
+  avg_score: 11.75
   escalation_count: 0
   revision_rate: null
-  steps_used: 3
-  budget_usage: 0.2
+  steps_used: 4
+  budget_usage: 0.267
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

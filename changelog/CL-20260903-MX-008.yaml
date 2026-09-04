@@ -1,0 +1,43 @@
+change_id: CL-20260903-MX-008
+timestamp: 2026-09-03 19:55:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: MX
+type: doc
+title: 更新降级清单与进度总览：两处绕开的强制要求已兑现
+what: 《初版完成说明与降级清单.md》§5 的第 1 项由「未实现」改为「已兑现」并附兑现情况；§6 下一步重排，已完成项划掉。《项目进度总览.md》门禁状态由「5 道」改为「七道全部上线」，回归用例
+  24→33 组，下一步同步重排。
+key_finding: '降级清单里被划掉的两项，**留痕方式是划掉而非删除**：读者需要看到「这里曾经欠过什么、后来怎么还的」，直接删掉会让降级记录退化成一份只写成绩的清单。
+
+  同理，仍未处理的第 2 项（多路线分支卡未逐路线建立）明确标注「仍未处理」，不因为另一项完成了就一起淡化。'
+why: 降级清单的价值在于它记录的是**欠账**。欠账还了要记，没还的更要显眼——否则后来者会把降级后的产物当作满足原标准的产物使用。
+links:
+  branch_card: null
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 文档状态更新，未新增任何定性。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 纯状态更新，不含数据与涉法判断。
+downstream_affected: []
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: 不适用（文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 兑现情况的每个数字可追溯到 CL-20260903-GOV-013 / GOV-014。
+rollback: git revert 本提交：两份文档回到门禁 5/7 上线前的状态。
+verification: '1) 降级清单 §5 第 1 项的兑现数字（71 个测试、13 份声明、96.9% 覆盖、33 组回归）可核对 CL-20260903-GOV-013 与 GOV-014
+
+  2) 仍未处理的第 2 项已显式标注「仍未处理」
+
+  3) bash ci/run_all_gates.sh → 全绿'
+outputs:
+- 初版完成说明与降级清单.md
+- 项目进度总览.md

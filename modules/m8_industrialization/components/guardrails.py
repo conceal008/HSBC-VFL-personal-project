@@ -14,7 +14,7 @@ from typing import Dict, List
 
 VERDICT_PASS = "pass"
 VERDICT_BLOCK = "block"
-CHECKED_RULES = 8            # 本模块实现的护栏规则数，供调用方核对是否漏检
+CHECKED_RULES = 9            # 本模块实现的护栏规则数，供调用方核对是否漏检
 
 
 class GuardrailViolation(Dict):
@@ -72,6 +72,17 @@ def check_deployment(config: Dict, profile: Dict) -> Dict:
             "把高斯噪声当作标签防护——实测无效：跨轮平均即可消噪，泄露 AUC 回到 1.0000",
             lp["evidence"],
             "改用协议级手段（安全聚合 / 同态加密 / 秘密分享）；本阶段未实现，不得带此配置上线"))
+
+    ma = profile["model_asset_protection"]
+    down = config.get("downlink_sigma")
+    if down is None or down < ma["downlink_sigma_min"]:
+        violations.append(_violation(
+            "model_asset_protection.downlink_sigma_min",
+            "下行噪声 σ=%s 低于基线 %s——无防护时被动方可**独立复现整份名单**"
+            "（Top-10%% 重合度 1.000）" % (down, ma["downlink_sigma_min"]),
+            ma["evidence"],
+            "把下行噪声调至 ≥%s。注意它防的不是标签（对标签无效），而是模型资产；"
+            "实测可用性代价几乎为零" % ma["downlink_sigma_min"]))
 
     mc = profile["model_capacity"]
     depth = config.get("gbdt_max_depth")

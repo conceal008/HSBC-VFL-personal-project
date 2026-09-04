@@ -25,6 +25,8 @@ DIM = 4
 ROUNDS = 50
 DELTA = 1e-5
 PERFECT = 0.999
+HALF_CHANCE = 0.5           # 平衡夹具下标签瞎猜的准确率
+TOPK_CHANCE = 0.1           # Top-10% 名单瞎猜的重合度
 
 
 @pytest.fixture(scope="module")
@@ -285,3 +287,71 @@ def test_中等幅度抬分不触发宽松的稳定性阈值():
     overlap = 1.0 - r["list_churn"]
     assert r["attacked_in_topk"] > r["baseline_in_topk"], "中等幅度应能顶进目标"
     assert overlap > 0.9, "重合度仍高于旧阈值 0.9——旧阈值抓不到这种操纵"
+
+
+# ————————————————— A8 / A9（S7.5）—————————————————
+
+def test_无防护时模型被完全窃取(data):
+    """被动方由已证的 A1 反解出主动方逐样本打分，进而独立复现整份名单。"""
+    x_a, x_b, y = data
+    fed = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 0.0, SEED)
+    partial_b = x_b @ fed.w_b
+    a_true = x_a @ fed.w_a + fed.bias
+    out = MAL.model_stealing_attack(fed.residual_history, partial_b, a_true, y,
+                                    0.1, False)
+    assert out["label_accuracy"] > PERFECT
+    assert out["score_correlation"] > PERFECT
+    assert out["topk_overlap"] > PERFECT, "无防护时名单应被完整复现"
+
+
+def test_下行加噪防住模型窃取但防不住标签(data):
+    """S7.5 的核心不对称：一类信息只需符号，另一类需要数值。
+
+    断言写成**相对**形式而非绝对阈值——绝对数字取决于正样本率与轮数，
+    换个夹具就不成立；而「标签远好于瞎猜、名单接近瞎猜」这个不对称是结论本身。
+    本测试夹具是平衡数据（正样本率约 0.46），故标签的瞎猜水平为 0.5、
+    Top-10% 名单的瞎猜水平为 0.1。
+    """
+    x_a, x_b, y = data
+    fed = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 3.0, SEED)
+    partial_b = x_b @ fed.w_b
+    a_true = x_a @ fed.w_a + fed.bias
+    out = MAL.model_stealing_attack(fed.residual_history, partial_b, a_true, y,
+                                    0.1, True)
+    label_lift = out["label_accuracy"] - HALF_CHANCE
+    list_lift = out["topk_overlap"] - TOPK_CHANCE
+    assert label_lift > 0.25, "标签推断应远好于瞎猜——噪声防不住它"
+    assert list_lift < 0.1, "名单复现应接近瞎猜——噪声防得住它"
+    assert label_lift > list_lift * 3, "两者的抗噪性应相差数倍，这是本条结论的核心"
+
+
+def test_阈值必须按正样本率取而非固定为零(data):
+    """固定阈值 0 会把一个排序完美的信号切得很差——最初版本正是因此得出错误结论。"""
+    x_a, x_b, y = data
+    fed = M.fit_federated_logistic(x_a, x_b, y, 200, 0.5, 1e-4, 3.0, SEED)
+    out = MAL.model_stealing_attack(fed.residual_history, x_b @ fed.w_b,
+                                    x_a @ fed.w_a + fed.bias, y, 0.1, True)
+    assert abs(out["base_rate_used"] - float(np.mean(y))) < 1e-12
+
+
+def test_多次建模累积在合法幅度下不构成威胁(data):
+    """6000 次重训约等于每天重训 16 年——但该结论完全依赖合法性检查在场。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    idx = np.random.default_rng(SEED).permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 10]
+    out = MAL.multi_run_accumulation(x_b, aux, tgt, 0.5, 0.1, 6000, 1.0, SEED)
+    assert out["accumulated_r2"] < 0.5, "合法幅度下累积 6000 次仍不应攻破"
+    assert out["effective_sigma"] < 0.01, "有效噪声应随重训次数按 1/√N 衰减"
+
+
+def test_累积攻击在幅度不受限时迅速攻破(data):
+    """对照组：证明上一条的「安全」来自合法性检查，而不是攻击太弱。"""
+    _, x_b, _ = data
+    n = len(x_b)
+    idx = np.random.default_rng(SEED).permutation(n)
+    aux, tgt = idx[:DIM], idx[DIM:DIM + 10]
+    legal = MAL.multi_run_accumulation(x_b, aux, tgt, 0.5, 0.1, 100, 1.0, SEED)
+    illegal = MAL.multi_run_accumulation(x_b, aux, tgt, 0.5, 0.1, 100, 1e4, SEED)
+    assert illegal["accumulated_r2"] > 0.9
+    assert legal["accumulated_r2"] < illegal["accumulated_r2"]

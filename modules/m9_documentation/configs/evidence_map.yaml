@@ -81,6 +81,18 @@ claims:
     nature: 合成数据实测（恶意参与方设定）
     evidence: [modules/m7_security/results/malicious_boost.csv]
 
+  - id: C12
+    statement: 下行加噪防不住标签推断，却防得住模型窃取——一类只需符号，另一类需要数值
+    nature: 合成数据实测（恶意参与方设定）
+    evidence:
+      - modules/m7_security/results/model_stealing.csv
+      - modules/m7_security/results/model_stealing_tail.csv
+
+  - id: C13
+    statement: 多次建模的信息累积不构成实际威胁，但该结论完全依赖残差合法性检查在场
+    nature: 合成数据实测（恶意参与方设定）
+    evidence: [modules/m7_security/results/multi_run_accumulation.csv]
+
   - id: A1
     statement: 实体对齐质量不是本项目的主要风险——漏配 10% 仅损失约 12% 增益
     nature: 合成数据实测（PSI 为行为仿真，非密码学实现）
@@ -157,6 +169,12 @@ risks:
     severity: 高
     mitigation: 名单稳定性阈值收紧至 0.95（仅为检测手段）；根治需可验证的部分 logit，本阶段未实现
     evidence: [modules/m7_security/results/malicious_boost.csv]
+
+  - id: R14
+    risk: 被动方窃取主动方模型，独立复现整份营销名单（商业资产直接转移）
+    severity: 高
+    mitigation: 下行加噪 σ≥1.0——它防不住标签，但能把名单复现度由 1.000 压到 0.13，且可用性代价几乎为零
+    evidence: [modules/m7_security/results/model_stealing.csv]
 
   - id: R7
     risk: schema 变更后照常出分，名单全错而无人察觉

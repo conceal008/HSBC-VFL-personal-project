@@ -41,7 +41,8 @@ def _ok_config():
     return {"uplink_sigma": 0.1, "label_protection": "secure_aggregation",
             "gbdt_max_depth": 3, "k_anonymity": 10,
             "splitnn_mode": "frozen_pca", "route_selected_by": "exposure_and_compliance",
-            "residual_plausibility_check": True, "list_stability_threshold": 0.95}
+            "residual_plausibility_check": True, "list_stability_threshold": 0.95,
+            "downlink_sigma": 1.0}
 
 
 def test_合规配置放行(profile):
@@ -101,13 +102,20 @@ def test_名单稳定性阈值过松被拒(profile):
     assert any("list_stability" in v["rule"] for v in r["violations"])
 
 
+def test_下行噪声不足被拒(profile):
+    """它防的不是标签（对标签无效），而是模型资产——无防护时名单可被完整复现。"""
+    r = G.check_deployment(dict(_ok_config(), downlink_sigma=0.0), profile)
+    assert any("model_asset_protection" in v["rule"] for v in r["violations"])
+
+
 def test_每条违规都给出证据与整改方向(profile):
     r = G.check_deployment({"uplink_sigma": 0.0, "gbdt_max_depth": 9,
                             "k_anonymity": 2, "splitnn_mode": "frozen_random",
                             "label_protection": "gaussian_noise",
                             "route_selected_by": "effect_ranking",
                             "residual_plausibility_check": False,
-                            "list_stability_threshold": 0.5}, profile)
+                            "list_stability_threshold": 0.5,
+                            "downlink_sigma": 0.0}, profile)
     assert len(r["violations"]) == r["checked_rules"], "六条规则应全部命中"
     for v in r["violations"]:
         assert v["evidence"] and v["remedy"], "拒绝必须附实测证据与整改方向"

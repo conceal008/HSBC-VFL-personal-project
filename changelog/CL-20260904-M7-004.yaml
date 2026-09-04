@@ -1,0 +1,116 @@
+change_id: CL-20260904-M7-004
+timestamp: 2026-09-04 07:00:00+08:00
+agent: Claude (Opus 5, Claude Code)
+module: M7
+type: exp
+title: 模型窃取与信息累积：噪声防不住标签，却防得住模型资产
+what: 补齐最后两类偏离：A9 模型窃取（被动方由已证的 A1 反解主动方逐样本打分）与 A8 多次建模的信息累积（最现实的一类「合谋」）。据此为 M8 基线新增 model_asset_protection（下行
+  σ≥1.0），护栏由 8 条增至 9 条。
+key_finding: '🔴 **C12 · 被动方可独立复现整份名单。**
+
+  推导完全建立在已证的 A1 之上，不需要任何新假设：能推断标签 → 反解 logit →减去自己算得出的 partial_b → 得到主动方的全部贡献，逐样本。无防护时 Top-10% 名单重合度 **1.000**。
+
+  后果不是「偷到几个参数」，而是**被动方可以不依赖主动方独立出名单**——商业资产的直接转移。**「原始特征没出域」不等于「资产没被拿走」。**
+
+
+  **一个有用的不对称**：σ=1.0 时标签推断准确率仍是 1.0000（C3 得到印证），但名单复现重合度已从 1.000 跌到 0.126（随机水平 0.10）。加强攻击（平均收敛段末 200 轮）也只到
+  0.408。
+
+  机制清楚：**标签只需要残差的符号**——轮间恒定的一位信息，跨轮平均即可恢复；**模型窃取需要残差的精确数值**——随训练变化不可跨轮平均，且信号量级只有 O(正样本率)=0.03，被 σ=1.0
+  完全淹没。
+
+  → **不要因为「噪声防不住标签」就不加噪声。它保的是另一样东西，且代价近零。**
+
+
+  **C13 · 多次建模累积不构成实际威胁，但完全依赖合法性检查在场。**合法幅度下 6000 次重训（约每天重训 16 年）仍失败；幅度不受限时 100 次即攻破。已配对照实验单独验证，避免把「攻击太弱」误读为「防护有效」。
+
+
+  **过程中修正一处攻击写弱的问题**：A9 初版用固定阈值 0 切分残差，把一个排序完美（AUC=1.0）的信号切得很差，因而误得「噪声挡住了模型窃取」。改为按已知正样本率取分位后，标签准确率才恢复到
+  1.0000——**结论的方向没变，但理由完全不同了**：不是噪声挡住了标签，而是噪声只挡住了数值、挡不住符号。'
+why: 《实验结果与结论》§9 把合谋与模型窃取列为最后未覆盖的偏离类型。模型窃取尤其值得做——它问的不是「数据有没有泄露」，而是「资产还在不在」，这是需求方真正关心的问题，而此前整个项目都没回答过。
+links:
+  branch_card: BC-M5-001
+  decision_record: []
+  waiver:
+  - W-002
+  loop_step:
+  - S7.5
+cross_border_impact: none
+cross_border_detail: 攻击对象为合成打分与合成标签，未新增跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: conceal008（仓库所有者；本项目不设合规角色，依豁免 W-001）
+  conclusion: 《对外表述红线》新增 X12、X13 两条，并在「必须主动说」的第 3 句补上「泄露的还不止是数据：被动方能独立复现整份名单」。仍不构成安全性证明——多方合谋、黑盒查询变体、结构篡改均未覆盖。
+downstream_affected:
+- M8
+- M9
+breaking_change: false
+migration: deployment_profile.yaml 新增 model_asset_protection 段。既有部署配置若未声明 downlink_sigma，guardrails 将拒绝——这是刻意的。
+reproducibility:
+  config: modules/m2_synthetic/configs/scenarios.yaml
+  config_hash: null
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: A9 用 5 种子；尾部平均加强与 A8 累积用 3 种子（计算量较大，已标注）。
+rollback: git revert 本提交：A8/A9 与 model_asset_protection 移除。但「无防护时名单可被完整复现」这一事实不因回退而消失。
+verification: '1) A9 无防护：标签准确率 1.0000、打分相关 1.0000、名单重合 1.0000
+
+  2) C12 的不对称可复算：σ=1.0 时标签 1.0000 而名单 0.126；加强后 0.408
+
+  3) C13 对照：合法幅度 6000 次仍失败 vs 幅度 1e4 时 100 次即攻破
+
+  4) 新增 5 个单元测试，断言写成相对形式（抗夹具变化）
+
+  5) 证据链 17/17 · 风险溯源 10/10；bash ci/run_all_gates.sh → 全绿（45/45）'
+step:
+  step_id: S7.5
+  step_name: 模型窃取与多次建模的信息累积
+  revisions: 0
+  next_step: S7.6 多方合谋与模型窃取的黑盒查询变体
+  declaration: "input_from: 《实验结果与结论》§9 未覆盖的偏离类型 · 已证的 A1\nwill_produce:\n  - A9 模型窃取与 A8 多次建模累积\n  -\
+    \ 据此更新 M8 防护基线\nwill_not_produce:\n  - 多方合谋\n  - 模型窃取的黑盒查询变体\n  - 结构篡改\nsuccess_criteria:\n  - 每个「攻击失败」的结论都必须先验证攻击本身够强\n\
+    \  - 断言写成相对形式，不依赖特定夹具的正样本率\nrisk: |\n  最大风险仍是攻击写弱后得出虚假的安全结论。本步又踩到一次：\n  A9 初版用固定阈值 0，把排序完美的信号切坏，误得「噪声挡住了窃取」。\n\
+    \  修正后结论方向未变但理由完全不同——这正说明「结论对了」不等于「推理对了」。\n"
+  scope:
+    files_changed: 10
+    lines_added: null
+    routes_covered: 1
+    conclusions: 2
+    metadata_files: 本 changelog 条目、模块 step_ledger.yaml、registry/module_status.yaml 不计入。
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 12
+    evidence:
+      G1: 合成数据；ci/check_secrets.sh 全仓 BLOCK=0
+      G2: 无跨境对象
+      G3: will_not_produce 三项可核验：无多方合谋、无黑盒变体、无结构篡改
+      G4: 威胁模型的局限已在 README、DPIA、对外表述红线三处同步标注
+      D1: 两类攻击与基线更新全部交付
+      D2: C12 的不对称与 C13 的对照实验均可复算；断言为相对形式，抗夹具变化
+      D3: 种子在配置中；5 个新测试；尾部平均与累积的种子数已标注
+      D4: 回答了此前整个项目都没回答的问题——「资产还在不在」；并给出一条可直接落地的防护（下行加噪保模型、代价近零）
+  verdict: committed
+  waiver_ref: W-002
+  outputs:
+  - modules/m7_security/components/malicious.py（+A8/A9）
+  - modules/m7_security/results/model_stealing.csv · model_stealing_tail.csv
+  - modules/m7_security/results/multi_run_accumulation.csv
+  - modules/m7_security/tests/test_attacks.py（+5 用例）
+  - modules/m8_industrialization/configs/deployment_profile.yaml
+  - modules/m8_industrialization/components/guardrails.py（8→9 条）
+  - modules/m9_documentation/DPIA.md · 对外表述红线.md · configs/evidence_map.yaml
+  - 实验结果与结论.md

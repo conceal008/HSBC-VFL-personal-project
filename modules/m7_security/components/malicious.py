@@ -13,6 +13,10 @@
   直接把被动方的原始特征"问"出来。
 - **A7 恶意被动方 · 定向抬分**（完整性）：不发真实的部分 logit，改发构造值，
   把指定人群顶到名单前列。这不是偷数据，是**操纵决策**。
+- **A8 多次建模的信息累积**（最现实的一类「合谋」）：周期性重训是协议要求的正常行为，
+  而每次重训都给攻击者一批全新的独立观测。
+- **A9 模型窃取**：被动方由已证的 A1 反解出主动方的逐样本打分，
+  进而**独立复现整份名单**——资产转移，而不只是信息泄露。
 
 以及一个防御维度：**可检测性**——诚实方能否看出对方偏离了协议。
 """
@@ -27,6 +31,7 @@ RESIDUAL_LO = -1.0          # 合法残差 r = p − y 的取值下界
 RESIDUAL_HI = 1.0           # 上界；越界即为协议偏离的直接证据
 PLAUSIBLE_TOL = 1e-9
 DENSE_RATIO_FLOOR = 0.5     # 真实残差的非零比例下限；低于此即形似探针
+HALF = 0.5                  # 标签推断的方向判定阈值
 
 
 def probe_attack(x_b: np.ndarray, aux_idx: np.ndarray, target_idx: np.ndarray,
@@ -157,3 +162,85 @@ def targeted_boost_attack(score_a: np.ndarray, boost_idx: np.ndarray,
             "baseline_in_topk": baseline_hits, "attacked_in_topk": attacked_hits,
             "target_size": int(len(boost_idx)),
             "list_churn": 1.0 - len(baseline_top & attacked_top) / k}
+
+
+def model_stealing_attack(residual_history: np.ndarray, partial_b: np.ndarray,
+                          a_contrib_true: np.ndarray, y_true: np.ndarray,
+                          top_k: float, use_round_average: bool) -> Dict:
+    """A9：被动方窃取主动方的模型输出，进而独立复现整份名单。
+
+    推导链条完全建立在已证的 A1 之上，不需要任何新假设：
+      1. A1 已证被动方能从残差完全推断标签 y；
+      2. 有了 y，由 `r = sigmoid(logit) − y` 反解出 logit；
+      3. 被动方自己算得出 `partial_b = x_b·w_b`；
+      4. 相减即得**主动方的全部贡献** `x_a·w_a + bias`——逐样本。
+
+    后果不是「偷到几个参数」，而是**被动方可以不依赖主动方独立出名单**：
+    它已经掌握了最终打分的每一项。这是商业价值的直接转移，
+    也解释了为什么「原始特征没出域」并不等于「资产没被拿走」。
+
+    `use_round_average=True` 时攻击者跨轮平均残差再推断标签——
+    这正是 S7.2 用来击穿噪声防护的那一手。
+
+    ⚠️ **阈值的选取会决定攻击强弱，不能想当然取 0。** 跨轮平均后的残差不再以 ±0.5
+    为中心，用 0 切分会把一个排序完美（AUC=1.0）的信号切得很差。
+    攻击者知道大致的正样本率（营销场景下这是公开常识），按该比例取分位数即可。
+    最初版本正是因为固定阈值 0 而得出「噪声挡住了模型窃取」的错误结论。
+    """
+    if use_round_average:
+        basis = residual_history.mean(axis=0)
+    else:
+        basis = residual_history[-1]
+    # 残差与标签负相关：正样本的残差更小。按已知正样本率取分位切分。
+    base_rate = float(np.mean(y_true))
+    cutoff = np.quantile(basis, base_rate)
+    y_hat = (basis <= cutoff).astype(int)
+    label_acc = float(max((y_hat == y_true).mean(), (y_hat != y_true).mean()))
+    if (y_hat == y_true).mean() < HALF:
+        y_hat = 1 - y_hat                      # 方向无关：攻击者翻转符号即可
+
+    p_hat = np.clip(residual_history[-1] + y_hat, RIDGE_EPS, 1.0 - RIDGE_EPS)
+    logit_hat = np.log(p_hat / (1.0 - p_hat))
+    a_hat = logit_hat - partial_b
+
+    denom = np.std(a_contrib_true) * np.std(a_hat)
+    corr = float(np.mean((a_hat - a_hat.mean()) * (a_contrib_true - a_contrib_true.mean()))
+                 / denom) if denom > RIDGE_EPS else 0.0
+
+    n = len(a_hat)
+    k = max(int(n * top_k), 1)
+    true_list = set(np.argsort(-(a_contrib_true + partial_b))[:k].tolist())
+    stolen_list = set(np.argsort(-(a_hat + partial_b))[:k].tolist())
+    return {"label_accuracy": label_acc, "score_correlation": corr,
+            "topk_overlap": len(true_list & stolen_list) / k,
+            "base_rate_used": base_rate,
+            "round_averaged": bool(use_round_average)}
+
+
+def multi_run_accumulation(x_b: np.ndarray, aux_idx: np.ndarray,
+                           target_idx: np.ndarray, lr: float,
+                           uplink_sigma: float, n_runs: int,
+                           amplitude: float, seed: int) -> Dict:
+    """A8：多次建模的信息累积——最现实的一类「合谋」。
+
+    生产系统本来就要周期性重训。**每次重训都给攻击者一批全新的独立观测**，
+    而防护噪声是每次独立抽的。攻击者把各次的观测合起来，噪声按 1/√N 衰减。
+
+    这与 S7.4 的「重复探针」不同：重复探针在**一次**建模内做，
+    会在流量上留下明显异常；而多次建模是**协议本身要求的正常行为**，
+    攻击者什么额外动作都不用做——它只需要有耐心。
+
+    → 防护强度必须按**模型生命周期内的累计重训次数**折算，而不是按单次。
+    """
+    per_run = []
+    for run in range(n_runs):
+        out = probe_attack(x_b, aux_idx, target_idx, lr, uplink_sigma, 1,
+                           seed + run, amplitude=amplitude)
+        per_run.append(out["feat_r2_mean"])
+    combined = probe_attack(x_b, aux_idx, target_idx, lr, uplink_sigma, n_runs,
+                            seed, amplitude=amplitude)
+    return {"n_runs": int(n_runs),
+            "single_run_r2": float(np.mean(per_run)),
+            "accumulated_r2": float(combined["feat_r2_mean"]),
+            "effective_sigma": float(combined["effective_sigma"]),
+            "amplitude": float(amplitude)}

@@ -185,3 +185,16 @@ modules:
     blocking_on:
     - M0–M8 全部产出
     open_questions: []
+
+# 2026-09-16：治理整理任务，历史模块记录保留；本次不变更模块验收状态。
+framework_refresh_20260916:
+  step_id: S-GOV.11
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-16T12:00:00+08:00'
+  expires_at: '2026-09-17T12:00:00+08:00'
+  scope: 8–9 月与根目录材料的目标、规划、进度统一；只读核对模块证据
+  current_entry: 项目框架与推进总览.md
+  completed_at: '2026-09-17T00:10:00+08:00'
+  change_id: CL-20260916-GOV-001
+  next_step: M1 候选评估与业务假设确认单可并行启动

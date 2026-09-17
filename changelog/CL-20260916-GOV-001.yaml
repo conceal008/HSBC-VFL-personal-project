@@ -1,0 +1,83 @@
+change_id: CL-20260916-GOV-001
+timestamp: 2026-09-16T22:50:00+08:00
+agent: Codex
+module: GOV
+type: doc
+title: 统一八九月材料中的项目目标、规划与进度口径
+what: |
+  新增《项目框架与推进总览》，以 8–9 月三份规范、根目录材料和模块台账为依据，
+  重整项目总目标、四条工作线、逐模块成熟度、过时状态和下一轮任务。
+  README 与旧《项目进度总览》只增加更新提示，历史正文保留供追溯。
+why: |
+  入口材料同时保留了仓库初始化、M0 上报和初版完成三个阶段的状态，
+  “未开始”“初版完成”“生产可用”等成熟度容易被混读，需要一份按证据核对的当前入口。
+key_finding: |
+  修改前十个模块台账合计记录 26 条步骤，而旧快照仍有“已用 9 步”与若干后续已完成事项。
+  26/103 也不能当完成率：初版曾按模块合并步骤，部分要求走了登记降级，模块成熟度差异很大。
+links:
+  branch_card: null
+  decision_record: []
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅整理既有公开仓库材料，未改变跨境资产、数据流或合规定性。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 未接触、复制或新增真实数据与真实数据派生统计量。
+downstream_affected: [M0, M1, M2, M3, M4, M5, M6, M7, M8, M9]
+breaking_change: false
+migration: 后续接手先读《项目框架与推进总览》，旧《项目进度总览》作为 2026-09-04 快照保留。
+reproducibility:
+  config: 不适用（治理文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 进度数字从十份 step_ledger 的条目与 steps_used 交叉核对；结果与实现状态核对对应产物。
+rollback: 删除新增总览与步骤声明，移除两个入口提示，并恢复本次 registry 整理记录。
+verification: |
+  核对 8–9 月三份规范与仓库副本逐字一致；核对外层根目录四份文档与仓库副本一致；
+  十个模块台账 entries 与 steps_used 一致并合计为 26；运行仓库全部门禁。
+step:
+  step_id: S-GOV.11
+  step_name: 统一项目目标、规划方向与进度口径
+  revisions: 0
+  next_step: M1 候选评估与业务假设确认单可并行启动
+  declaration: |
+    will_produce: 一份统一总览、入口提示、来源与交接记录。
+    will_not_produce: 新实验、算法修改、法律意见、真实效果结论、业务批准或数据下载。
+    success_criteria: 模块状态有证据；事实、假设、建议分开；旧快照不再冒充当前进度。
+    risk: 台账字段可能滞后，须与实际产物交叉核对。
+  scope:
+    files_changed: 8
+    lines_added: null
+    routes_covered: 1
+    conclusions: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: 新增内容仅引用 Public 仓库内既有文档、台账和合成结果；门禁 1 验证。
+      G2: 未修改 cross_border_assets、组件声明或跨方实现。
+      G3: git diff 仅含总览、入口提示及治理留痕，不含新实验或算法修改。
+      G4: 明确合成结论不外推、合规分析未经法务复核、当前不具备生产准入。
+      D1: 总览覆盖用户要求的任务目标、规划方向和任务进度，并给出下一轮任务。
+      D2: 逐模块状态指向台账及对应产物，列出停止沿用的旧说法及依据。
+      D3: 文档整理可核对但不产生可重跑实验，故为 2 分；核对命令记录于交接。
+      D4: 把混合快照改成成熟度分层，并识别 M1 与协议级安全为下一轮主线。
+  verdict: committed
+  waiver_ref: null
+  outputs:
+    - 项目框架与推进总览.md
+    - docs/02-governance/框架整理_步骤声明.md
+    - README.md 与 项目进度总览.md 的更新提示
+    - docs/03-handoff/HO-20260916-Codex-GOV.md

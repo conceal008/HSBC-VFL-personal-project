@@ -1,0 +1,82 @@
+change_id: CL-20260917-GOV-001
+timestamp: 2026-09-17T09:50:00+08:00
+agent: Codex
+module: GOV
+type: fix
+title: 修复 Bash 3.2 下门禁中文输出缺失
+what: |
+  将门禁脚本中后接中文字符的 `$var` 改为 `${var}`，修复 macOS Bash 3.2
+  把后续中文字符并入变量名、导致文件名和标签从输出消失的问题。
+why: |
+  框架整理后的全量门禁暴露了 5 个回归断言失败。实际扫描均已阻断，但输出标签缺失，
+  会让回归验证失败，也会降低人工诊断信息的完整性。
+key_finding: |
+  Bash 3.2 在 UTF-8 locale 下会把 `$f（`、`$label：`、`$name（` 解析成超出 ASCII
+  变量名的表达式。使用花括号明确变量边界后，扫描命中数不变，47 组回归全部恢复。
+links:
+  branch_card: null
+  decision_record: []
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅修复门禁输出与可移植性，不改变数据扫描规则或跨境实现。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 运行时测试样本由既有回归脚本动态构造，未提交任何真实标识或数据。
+downstream_affected: []
+breaking_change: false
+migration: 无；macOS Bash 3.2 与较新 Bash 均使用明确的变量边界。
+reproducibility:
+  config: ci/tests/run_gate_tests.sh
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 既有 47 组回归用例即为复现入口。
+rollback: git revert 本提交；会恢复 macOS Bash 3.2 下的中文标签缺失和回归失败。
+verification: |
+  沙箱外运行 `bash ci/tests/run_gate_tests.sh`：PASS=47, FAIL=0；
+  随后运行 `bash ci/run_all_gates.sh`，确认全部门禁通过。
+step:
+  step_id: S-INIT.9
+  step_name: 修复门禁在 macOS Bash 3.2 下的变量边界
+  revisions: 0
+  next_step: M1 候选评估与业务假设确认单可并行启动
+  declaration: |
+    will_produce: 修复变量后中文字符导致的输出缺失，并以既有回归验证。
+    will_not_produce: 改变扫描规则、放宽门禁或修改实验结论。
+    success_criteria: 五个失败用例恢复，完整回归 47/47。
+    risk: 若扫描命中数变化则停止；本次只允许输出层变化。
+  scope:
+    files_changed: 7
+    lines_added: null
+    routes_covered: 1
+    conclusions: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 扫描规则与模式未改；真实仓库门禁 1 仍为 BLOCK=0, WARN=0。
+      G2: 未触及跨境资产或组件。
+      G3: diff 仅给脚本变量加花括号并补治理记录。
+      G4: 未改变任何结果、指标或结论。
+      D1: 五个失败断言全部恢复，run_all_gates 的失败名称也可完整输出。
+      D2: 同一套既有回归由 PASS=42/FAIL=5 变为 PASS=47/FAIL=0。
+      D3: 测试无需新夹具，重复使用仓库固定回归入口。
+      D4: 修复平台可移植性但不产生项目新结论，故为 2 分。
+  verdict: committed
+  waiver_ref: null
+  outputs:
+    - ci/check_secrets.sh
+    - ci/run_all_gates.sh
+    - docs/02-governance/门禁可移植性_步骤声明.md
+    - docs/03-handoff/HO-20260916-Codex-GOV.md

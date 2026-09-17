@@ -20,7 +20,7 @@ run_gate() {
   if "$@"; then
     echo "✅ $name"
   else
-    echo "❌ $name（退出码 $?）"
+    echo "❌ ${name}（退出码 $?）"
     FAILED+=("$name")
   fi
   echo

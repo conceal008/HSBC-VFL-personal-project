@@ -36,11 +36,11 @@ echo
 for f in "${FILES[@]}"; do
   case "$f" in
     *.parquet|*.feather|*.pkl|*.npy|*.h5|*.csv.raw|*.pt|*.pth|*.ckpt|*.onnx)
-      say_block "数据/模型产物入库：$f（第 2.1 条 L-禁止；合成数据也不提交，只提交生成器+配置+种子）" ;;
+      say_block "数据/模型产物入库：${f}（第 2.1 条 L-禁止；合成数据也不提交，只提交生成器+配置+种子）" ;;
     *.csv)
       case "$f" in
         modules/*/results/*) : ;;   # 结果表白名单
-        *) say_block "CSV 出现在非白名单路径：$f（只有 modules/*/results/ 下的结果表可提交）" ;;
+        *) say_block "CSV 出现在非白名单路径：${f}（只有 modules/*/results/ 下的结果表可提交）" ;;
       esac ;;
   esac
 done
@@ -59,8 +59,8 @@ done
 for f in "${FILES[@]}"; do
   [ -f "$f" ] || continue
   sz=$(wc -c < "$f" | tr -d ' ')
-  if   [ "$sz" -gt 52428800 ]; then say_block "文件 >50MB：$f（$((sz/1048576))MB）"
-  elif [ "$sz" -gt 10485760 ]; then say_warn  "文件 >10MB：$f（$((sz/1048576))MB）"
+  if   [ "$sz" -gt 52428800 ]; then say_block "文件 >50MB：${f}（$((sz/1048576))MB）"
+  elif [ "$sz" -gt 10485760 ]; then say_warn  "文件 >10MB：${f}（$((sz/1048576))MB）"
   fi
 done
 
@@ -79,7 +79,7 @@ for f in "${FILES[@]}"; do
   file "$f" | grep -qi "text" || continue
   for p in "${SECRET_PATTERNS[@]}"; do
     if grep -nEi "$p" "$f" >/dev/null 2>&1; then
-      say_block "疑似凭证：$f（模式 /$p/）→ 命中即按 2.4 应急流程：先轮换凭证，再清历史"
+      say_block "疑似凭证：${f}（模式 /${p}/）→ 命中即按 2.4 应急流程：先轮换凭证，再清历史"
     fi
   done
 done
@@ -137,7 +137,7 @@ for f in "${FILES[@]}"; do
     fi
     hit=$(printf '%s' "$hit" | head -3)
     if [ -n "$hit" ]; then
-      say_block "疑似$label：$f"
+      say_block "疑似${label}：${f}"
       echo "$hit" | sed 's/^/          /'
     fi
   done

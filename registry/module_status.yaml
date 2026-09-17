@@ -198,3 +198,14 @@ framework_refresh_20260916:
   completed_at: '2026-09-17T00:10:00+08:00'
   change_id: CL-20260916-GOV-001
   next_step: M1 候选评估与业务假设确认单可并行启动
+
+gate_portability_20260917:
+  step_id: S-INIT.9
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-17T09:35:00+08:00'
+  expires_at: '2026-09-18T09:35:00+08:00'
+  scope: 修复 macOS Bash 3.2 的变量后中文解析问题，不改变扫描规则
+  completed_at: '2026-09-17T09:50:00+08:00'
+  change_id: CL-20260917-GOV-001
+  verification: 门禁回归 47/47

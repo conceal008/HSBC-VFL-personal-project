@@ -1,0 +1,106 @@
+change_id: CL-20260927-M1-001
+timestamp: '2026-09-27T22:14:50+08:00'
+agent: Codex
+module: M1
+type: feat
+title: 建立可重跑 Notebook 数据准备与原件保护框架
+what: 新增数据准备前置步骤 S1.P1：UCI/Hillstrom 只读输入，按方训练集拟合预处理，输出写入仓库外独立的新数据和结果目录；Notebook 源文件与带输出运行副本分开保存。同步修复旧
+  Notebook 输出测试未识别 9.1 受限输出例外的问题，必须有审查记录且输出清空才放行。
+why: 用户要求后续数据处理以 ipynb 查看结果，并禁止污染原件或混放结构、数据和结果。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S1.P1 用户新增工程前置步骤；S1.1–S1.9 保留
+cross_border_impact: none
+cross_border_detail: 仅本地离线处理公开代理文件；未新增协议或跨境通信。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 数据、新样本、预处理统计和完整 Notebook 输出均保存在仓库外。Public 源文件全部清除输出与 execution_count；metadata
+    仅含规则说明和本 change_id，无数据。
+downstream_affected:
+- M3
+- M4
+- M5
+- M6
+breaking_change: false
+migration: 新组件和新目录，不替换既有数据或实验接口。
+reproducibility:
+  config: modules/m1_data_selection/configs/uci_bank_preparation.yaml
+  config_hash: 5c4003ed1012772ddd9f9d941dd2cb95e7f2ec065cae50f2585aef397f1929f6
+  seeds:
+  - 20260927
+  - 20260928
+  env_lock: modules/m1_data_selection/configs/preparation_environment.lock
+  note: 另一配置为 hillstrom_preparation.yaml。种子仅用于记录划分和重叠；没有模型训练或单种子效果结论。
+rollback: git revert 本步骤提交；仓库外原件始终不变，已有运行产物保留并标注不再使用。
+verification: 两个 Notebook 已从头执行；同配置重复运行数据哈希一致；防覆盖、路径/符号链接隔离、训练集拟合、双方标签边界、失败保存均有测试。全仓门禁完成情况见交接记录。
+step:
+  step_id: S1.P1
+  step_name: Notebook 数据准备与原件保护
+  declaration: '# Notebook 数据准备框架：步骤声明
+
+
+    > 编写日期：2026-09-27 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：用户要求、M1 README 与维护约束第 9.1 节
+
+    > 口径基准：共同客户联合营销；公开数据仅作研究代理
+
+
+    步骤：S1.P1（用户要求新增的数据准备前置步骤，不代替原 S1.1–S1.9 的验收）。
+
+
+    - will_produce：Notebook 入口、可复用处理组件、UCI/Hillstrom 配置、训练集拟合的各方预处理、冻结切分、新数据与独立结果目录、原件哈希保护、运行快照、测试、带输出的本地
+    Notebook、运行准则。
+
+    - will_not_produce：修改任何原始数据、模型效果结论、真实 PSI、联邦训练、跨主机安全部署、其余数据集全部适配、M1 完整验收。
+
+    - success_criteria：两份 Notebook 从头运行成功；原件哈希前后一致；输出目录分离且不能覆盖；训练/验证/测试记录互斥；Bob 无标签；矩阵数值有限；配置重跑数据逐字节一致；关键防污染和防泄漏条件有测试。
+
+    - risk：UCI 缺稳定客户 ID，记录级划分无法保证客户级互斥；语义切分仍为构造条件；Hillstrom 为邮件试验而非银行；所有数据派生输出仅存仓库外。
+
+
+    下一步：回到 S1.1 定义候选评估矩阵，补齐正式选型与四种切分协议；本步骤不提前放行这些要求。
+
+    '
+  scope:
+    files_changed: 20
+    lines_added: null
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: components/data_preparation.py 的 prepare_context/run_pipeline 与两个 Notebook；目录独立、原件哈希核对及完成标志。
+      D2: tests/test_data_preparation.py：原件保护、类别类型、训练拟合、split/label/ID 边界与输出存档测试；本地验收报告。
+      D3: configs/preparation_environment.lock；运行目录 source_snapshot/fingerprint/data_manifest；各入口重复运行数据逐字节一致。
+      D4: 明确公开数据接入的输入契约与整数类别处理问题；未产生业务或算法结论，故 2 分。
+  revisions: 1
+  verdict: committed
+  next_step: S1.1
+  outputs:
+  - modules/m1_data_selection/数据准备框架_步骤声明.md
+  - modules/m1_data_selection/dataset_request.md
+  - modules/m1_data_selection/运行准则_本地副本.md
+  - modules/m1_data_selection/README.md
+  - modules/m1_data_selection/step_ledger.yaml
+  - modules/m1_data_selection/数据准备框架_使用说明.md
+  - modules/m1_data_selection/tests/test_data_preparation.py
+  - modules/m1_data_selection/components/data_preparation.py
+  - modules/m1_data_selection/components/execute_preparation.py
+  - modules/m1_data_selection/configs/hillstrom_preparation.yaml
+  - modules/m1_data_selection/configs/uci_bank_preparation.yaml
+  - modules/m1_data_selection/configs/preparation_environment.lock
+  - modules/m1_data_selection/notebooks/S1.P1_hillstrom_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P1_uci_preparation.ipynb

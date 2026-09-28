@@ -1,0 +1,16 @@
+component: execute_preparation
+module: M1
+path: modules/m1_data_selection/components/execute_preparation.py
+purpose: 隔离原始文件、派生数据和运行结果，以 Notebook 完成本地代理数据准备。
+inputs:
+- 数据版本配置
+- 仓库外原始文件
+outputs:
+- 仓库外新数据
+- 本地运行输出与校验
+cross_border_assets: []
+cross_border_note: 本地单机离线处理，无跨境通信；目录分离不是生产安全隔离。
+tests:
+- modules/m1_data_selection/tests/test_data_preparation.py
+declared_at: '2026-09-27'
+declared_by: Codex

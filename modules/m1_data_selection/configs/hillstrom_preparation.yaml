@@ -1,0 +1,43 @@
+dataset: hillstrom_email_marketing
+source:
+  relative_path: Hillstrom_邮件营销实验/hillstrom_email_marketing.csv
+  separator: ','
+  expected_columns: [recency, history_segment, history, mens, womens, zip_code, newbie, channel, segment, visit, conversion, spend]
+prediction_time: 邮件随机分组之前。
+label:
+  column: conversion
+  mapping: {0: 0, 1: 1}
+treatment:
+  column: segment
+  mapping: {'No E-Mail': 0, 'Mens E-Mail': 1, 'Womens E-Mail': 2}
+split:
+  method: stratified
+  fractions: [0.6, 0.2, 0.2]
+  reason: 按处理组与购买结果联合分层，保留三个随机组；尚不合并两个邮件组。
+seeds:
+  split: 20260927
+  overlap: 20260928
+overlap:
+  shared_fraction_of_union: 0.8
+  reason: 仅在训练记录中构造重叠，不模拟真实企业客户身份。
+parties:
+  alice:
+    features: [recency, history, mens, womens]
+    categorical: [mens, womens]
+    reason: 主动方持有历史消费与购买偏好，另持有结果和随机分组。
+  bob:
+    features: [zip_code, newbie, channel]
+    categorical: [zip_code, channel]
+    reason: 被动方持有区域、渠道与新客标记；均为构造的字段归属，不代表真实第二机构。
+excluded_features:
+  history_segment: 从 history 分箱得到，初版保留连续金额，排除此冗余字段。
+  segment: 处理变量单独映射为 treatment，由主动方保管，不进入特征矩阵。
+  visit: 邮件之后的访问结果，禁止用于事前预测。
+  spend: 邮件之后的消费结果，禁止用于事前预测。
+missing_categories: []
+limits:
+  - 零售邮件随机试验，不能外推银行理财产品的实际增量。
+  - 在构造的字段划分下模拟两方，没有自然的跨机构客户关系。
+  - 处理变量与结果仅由主动方持有；后续增量学习器需显式读取 treatment。
+  - 本次只准备输入，未估计个体效应，未完成营销策略评估。
+  - 记录键是文件内记录位置的可复现编码，不是真实客户身份凭证。

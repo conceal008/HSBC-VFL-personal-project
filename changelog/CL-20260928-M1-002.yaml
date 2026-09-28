@@ -1,0 +1,83 @@
+change_id: CL-20260928-M1-002
+timestamp: '2026-09-28T13:30:59+00:00'
+agent: Codex
+module: M1
+type: feat
+title: 归档隔离框架工程测试结果并锁定 CI Ruff 版本
+what: 新增工程验证汇总配置、带可见输出的 S1.P3 Notebook 与报告，公开本地全仓结果和首次 Linux CI 状态。将 requirements.txt 的 Ruff 固定为两个环境锁均记录的 0.12.0，修复新版 Ruff 未锁导致的远端 lint 门禁失败。
+why: 用户要求将相关测试结果同步到 GitHub 并更新日志。首次 PR 检查暴露根依赖漂移，测试汇总同时如实记录本地通过与远端初次失败。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S1.P3 工程测试结果归档
+cross_border_impact: none
+cross_border_detail: 只同步工程检查汇总；不包含公开数据集处理行数/统计、派生校验和、私有日志、标签或清洗参数。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 产物只包含源码 lint/类型/覆盖率、合成夹具测试总数和静态门禁状态；核对未发现数据集或数据派生字段。原始/处理数据与带数据日志留在本机。
+downstream_affected:
+- M1
+breaking_change: false
+migration: requirements.txt 固定 Ruff 版本，使干净环境使用与 environments/python.lock 一致的规则。
+reproducibility:
+  config: modules/m1_data_selection/configs/s1p3_engineering_verification.yaml
+  config_hash: sha256:58805ea71f18e7e7f3b13bb7433bb5cf1d5ed024dd79b318fd2ca13806b5e5ac
+  seeds: []
+  env_lock: environments/python.lock
+  note: 报告目标代码提交为 7b5d57c。Notebook 从仓库内汇总配置生成展示，不运行测试或读取实验目录；全仓测试结果引用该代码提交当时的本机 gate 日志。
+rollback: git revert 本步骤提交；恢复 Ruff 未锁前需同步检查两个已存在环境锁。
+verification: 已核验首次 GitHub Actions 日志：门禁 5 Q1 因新版 lint 规则失败、163 tests passed/1 skipped、96.1% coverage；固定 Ruff 0.12.0 后，按项目相同 Python 源文件范围运行 Q1 通过。其余状态见报告和新的 GitHub Actions 运行。
+step:
+  step_id: S1.P3
+  step_name: 工程测试结果归档与 CI 依赖漂移整改
+  declaration: '# 工程测试结果归档：步骤声明
+
+
+    > 编写日期：2026-09-28 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：已完成的本地 S1.P2 全仓门禁日志与 PR 首次 Linux CI
+
+    > 口径基准：CL-20260928-M1-002；本步骤同步工程测试结果并处理版本漂移
+
+
+    - will_produce：仅含代码质量、合成夹具测试和静态门禁结果的配置、带输出 Notebook、工程报告、依赖版本固定、变更日志与交接记录。
+
+    - will_not_produce：上传完整 gates.log、实验绝对路径、清洗数据/参数、数据派生哈希、业务/模型效果结论；不重跑单元测试或修改隔离实现。
+
+    - success_criteria：本地结果与日志一致；记录首次 Linux lint 失败及原因，Ruff 版本与 lock 文件一致；精确复用项目 lint 文件范围的检查通过；Notebook 输出清楚注明后续远端 CI 状态。
+
+    - risk：Ruff 锁定后远端完整工作流会重新运行；本步骤提交时其结果仍由 GitHub Actions 实际状态决定。
+
+    '
+  scope:
+    files_changed: 11
+    lines_added: 345
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: modules/m1_data_selection/report/S1.P3_工程测试报告.md：明确区分本地门禁与 GitHub CI。
+      D2: notebooks/S1.P3_engineering_verification.ipynb 输出引用配置与被测提交；远端 Actions 记录了 163 passed/1 skipped 与 lint 失败。
+      D3: configs/s1p3_engineering_verification.yaml 固定汇总源；Ruff 与 environments/python.lock、M1 preparation lock 均为 0.12.0；同范围本机 lint 通过。
+      D4: 首次 Linux CI 发现 requirements 中的 Ruff 漂移并记录修正；无新数据或算法结论。
+  revisions: 1
+  verdict: committed
+  next_step: S1.1（测试归档步骤已提交；本次推送 CI 仍需在 PR 中观察）
+  outputs:
+  - modules/m1_data_selection/configs/s1p3_engineering_verification.yaml
+  - modules/m1_data_selection/notebooks/S1.P3_engineering_verification.ipynb
+  - modules/m1_data_selection/report/S1.P3_工程测试报告.md
+  - modules/m1_data_selection/S1.P3_工程测试结果归档_步骤声明.md
+  - requirements.txt

@@ -1,0 +1,43 @@
+step_id: S1.P3
+change_id: CL-20260928-M1-002
+target_code_commit: 7b5d57cc19b158524aac285648ddf5122eaf668b
+run:
+  date: '2026-09-28'
+  scope: local macOS full pre-commit gates; engineering fixtures and static checks
+  status: passed
+quality:
+  pytest: 164 passed
+  core_line_coverage: 96.1% (1813/1887)
+  ruff: 45 Python source files; 0 errors
+  mypy: 0 errors
+  component_declarations: 22/22 present
+  component_smoke_tests: 22/22 present
+  terminology: 0 forbidden terms in 52 scanned documents
+gates:
+  data_compliance: pass
+  step_metadata: pass
+  changelog_schema: pass
+  cross_border_consistency: pass
+  code_quality: pass
+  reproducibility: pass_with_4_documented_warnings
+  end_to_end_smoke: pass
+  evidence_chain: pass
+  regression: 47 passed; 0 failed
+reproducibility_notes:
+- Four warnings are cleared execution counts/outputs for privacy-reviewed source notebooks;
+  gate 6 passed.
+- The native macOS enforcement test used synthetic fixtures.
+- This summary contains no source or party datasets, data rows, data-derived hashes,
+  learned preprocessing values, or model metrics.
+remote_ci_status_at_report_creation: pending_or_not_confirmed; consult PR checks for
+  current status
+toolchain_remediation:
+  finding: GitHub Actions initially resolved an unpinned Ruff release and gate 5 Q1
+    reported new ISC004/RUF100 findings; Q2–Q6 passed, including 163 tests passed
+    and 1 macOS-only test skipped (96.1% coverage).
+  change: Pin root requirements.txt to ruff==0.12.0, matching both committed environment
+    lock files.
+  local_verification: The same source-file lint command used by ci/check_code_quality.py
+    passes with the pinned Ruff 0.12.0.
+  remote_follow_up: A new workflow run will be triggered by this change; check the
+    PR for its current status.

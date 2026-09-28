@@ -9,7 +9,7 @@ nbclient
 ipykernel
 
 # 门禁 5 · 代码质量所需
-ruff
+ruff==0.12.0
 mypy
 pytest
 types-PyYAML

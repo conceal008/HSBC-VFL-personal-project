@@ -104,13 +104,14 @@ modules:
     current_step: null
     next_step: S1.1
     blocking_on: []
-    latest_completed_step: S1.P1
-    preparation_status: notebook_inputs_verified_locally
+    latest_completed_step: S1.P2
+    preparation_status: os_sandbox_preparation_only_training_blocked
     open_questions:
     - S1.P1 完成 UCI/Hillstrom 数据准备；原 S1.1–S1.9 验收尚未完成。
     - 两组口径已定（DR-MX-001 · D-2）：主口径 = 跨境理财通南向通；第二组 = 汇丰卓越理财跨境升级，互为对照（前者转化稀疏、后者样本充足）
     - '**必须补 ≥1 个含随机对照的数据源**（DR-MX-001 · D-1 的直接后果；候选 Criteo Uplift / Hillstrom）'
     - 必须为基线转化率假设 3.0% 找到可校准的代理数据集；校准后须重跑 S0.1 的 notebook 并更新 problem_statement.md（DR-MX-001 · D-3）
+    - S1.P2 取代集中式准备的隔离验收；本地沙箱不是物理隔离，需独立主机、真实 PSI、安全训练与攻击测试后方可验收完整流程。
   M2:
     name: 合成数据生成与仿真台
     path: modules/m2_synthetic

@@ -6,6 +6,7 @@ PyYAML
 matplotlib
 nbformat
 nbclient
+ipykernel
 
 # 门禁 5 · 代码质量所需
 ruff

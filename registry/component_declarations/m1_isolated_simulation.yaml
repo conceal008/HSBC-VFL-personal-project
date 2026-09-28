@@ -1,0 +1,8 @@
+component: isolated_simulation
+module: M1
+path: modules/m1_data_selection/components/isolated_simulation.py
+purpose: 按操作系统权限执行两方隔离数据准备与固定格式回执。
+cross_border_assets: []
+cross_border_note: 仅本机禁网处理；socket 调用为本地隔离探针，无对外数据传输。
+tests:
+- modules/m1_data_selection/tests/test_isolated_preparation.py

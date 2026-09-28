@@ -1,0 +1,98 @@
+change_id: CL-20260928-M1-001
+timestamp: '2026-09-28T13:16:15+00:00'
+agent: Codex
+module: M1
+type: fix
+title: 按系统权限隔离重做双方 Notebook 数据准备并统一实验留痕
+what: 新增 P0–P8 模块契约、隔离威胁边界和统一实验日志。可信离线分发后各方仅处理自己的字段；默认拒绝的 macOS 沙箱执行本方 Notebook，越权检查失败立即停止。旧集中入口标注历史并阻止误运行。
+why: 用户要求两方互不可读、模块职责清晰、目的与中间数据及最终结果统一留痕。旧目录分离不满足系统权限隔离，需从原件重新准备。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S1.P2 用户新增隔离整改前置步骤；不替代 S1.1–S1.9
+cross_border_impact: none
+cross_border_detail: 本机公开代理数据离线准备；本地回环端口仅用于验证禁网权限，未实施跨境通信。物理隔离、PSI、安全训练尚未完成。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 代码、配置和清空输出的 Notebook 可公开；原始文件、清洗数据、编码统计、完整 Notebook 及各方日志仅保存在仓库外。中心只收固定回执和允许的哈希。
+downstream_affected:
+- M3
+- M4
+- M5
+- M6
+breaking_change: true
+migration: S1.P1 入口保留但禁止继续运行，改用 S1.P2_isolated_simulation.ipynb；原件和旧实验均不删除。
+reproducibility:
+  config: modules/m1_data_selection/configs/uci_bank_preparation.yaml
+  config_hash: 5c4003ed1012772ddd9f9d941dd2cb95e7f2ec065cae50f2585aef397f1929f6
+  seeds:
+  - 20260927
+  - 20260928
+  env_lock: modules/m1_data_selection/configs/preparation_environment.lock
+  note: 另一配置为 hillstrom_preparation.yaml。UCI 按源顺序，Hillstrom 由记录序号模拟键与 split seed 哈希划分，不依赖结果值；未训练模型。
+rollback: git revert 本步骤提交；仓库外原件始终不变，已有运行产物保留并标注不再使用。
+verification: 原生沙箱拒绝检查、标签变更不影响划分、白名单回执、失败关闭和私有 Notebook 存档均有测试；两个公开代理数据集重跑两遍，完整验收记录仅存本地。全仓门禁结果见交接记录。
+step:
+  step_id: S1.P2
+  step_name: 两方隔离数据准备整改
+  declaration: '# 严格隔离审计与数据准备重跑
+
+
+    > 编写日期：2026-09-28 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：用户新增要求、S1.P1 源码与本地运行产物
+
+    > 口径基准：共同客户联合营销；S1.P2 为隔离整改前置步骤
+
+
+    - will_produce：全流程模块契约、隔离与披露规则、统一实验日志规范、S1.P1 审计结论、基于本机内核权限的两方独立预处理、负向越权检查、各方私有
+    Notebook/数据/参数、集中元数据日志、UCI/Hillstrom 从原件重新运行。
+
+    - will_not_produce：删除原件或旧实验、把本机进程隔离称为物理隔离、宣称零信息泄漏、未经审计的 PSI/安全训练、模型效果或业务结论、将两方数据集中到控制方。
+
+    - success_criteria：两方读取对方输入/中间文件与全量源文件均被内核拒绝；两方不能写对方数据，不能联网；本方源输入不可写；各自仅本方训练集拟合；新实验有目的、配置、过程、私有产物索引和最终状态；未满足训练门槛时训练保持
+    blocked。
+
+    - risk：本机管理员和离线分发者仍可信，不在本机进程隔离的防护范围；公开代理数据不证明真实客户保密；物理隔离需要两台主机及独立管理权限，现未提供。系统沙箱启动失败必须停止，禁止退回无隔离运行。
+
+
+    本步保留原步骤与原产物，以新实验 ID 重新开始；旧产物仅作集中式预处理调试记录。
+
+    '
+  scope:
+    files_changed: 21
+    lines_added: 1064
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: modules/m1_data_selection/联邦流程模块与隔离要求.md:9；components/isolated_simulation.py:133：P0–P8
+        契约与阻断式启动。
+      D2: modules/m1_data_selection/tests/test_isolated_preparation.py:75：原生内核越权检查；:112：标签变更不改变划分；可移植模拟执行测试不作为安全证明。
+      D3: modules/m1_data_selection/configs/preparation_environment.lock:1；各本地运行私有
+        code_snapshot/party_config/data_manifest 与双次重复验收。
+      D4: modules/m1_data_selection/集中式准备_隔离审计.md:9：证实目录分离不等于系统隔离并整改；未产生业务结论，D4=2。
+  revisions: 2
+  verdict: committed
+  next_step: S1.1
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P2_isolated_simulation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P2_party_preparation.ipynb
+  - modules/m1_data_selection/components/isolated_party.py
+  - modules/m1_data_selection/components/isolated_simulation.py
+  - modules/m1_data_selection/tests/test_isolated_preparation.py
+  - modules/m1_data_selection/联邦流程模块与隔离要求.md
+  - modules/m1_data_selection/集中式准备_隔离审计.md
+  - modules/m1_data_selection/隔离重跑_步骤声明.md

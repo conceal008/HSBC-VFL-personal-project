@@ -25,14 +25,41 @@ steps:
   - notebooks/S1.P1_uci_preparation.ipynb
   - notebooks/S1.P1_hillstrom_preparation.ipynb
   note: 用户指定的工程前置步骤，不代替原 S1.1–S1.9，不完成 M1 放行。
+- step_id: S1.P2
+  step_name: 新增前置：隔离审计与独立 Notebook 重跑
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 2
+  committed_at: '2026-09-28T13:16:15+00:00'
+  change_id: CL-20260928-M1-001
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P2_isolated_simulation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P2_party_preparation.ipynb
+  - modules/m1_data_selection/components/isolated_party.py
+  - modules/m1_data_selection/components/isolated_simulation.py
+  - modules/m1_data_selection/tests/test_isolated_preparation.py
+  - modules/m1_data_selection/联邦流程模块与隔离要求.md
+  - modules/m1_data_selection/集中式准备_隔离审计.md
+  - modules/m1_data_selection/隔离重跑_步骤声明.md
+  note: 仅本机内核隔离数据准备；物理隔离、真实 PSI 与安全训练未放行。
 current_step: null
 next_step: S1.1
 metrics:
   avg_score: 11.0
   escalation_count: 0
   revision_rate: 1.0
-  steps_used: 1
-  budget_usage: 0.1111111111111111
+  steps_used: 2
+  budget_usage: 0.2222222222222222
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

@@ -209,3 +209,23 @@ gate_portability_20260917:
   completed_at: '2026-09-17T09:50:00+08:00'
   change_id: CL-20260917-GOV-001
   verification: 门禁回归 47/47
+
+main_progress_sync_20260929:
+  step_id: S-GOV.12
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-29T19:09:30+08:00'
+  expires_at: '2026-09-30T19:09:30+08:00'
+  scope: 在 main 登记 M1 草稿 PR 的工程进度与远端检查结果
+  change_id: CL-20260929-GOV-001
+  completed_at: '2026-09-29T19:13:16+08:00'
+  pr: https://github.com/conceal008/HSBC-VFL-personal-project/pull/1
+  branch: m1/notebook-data-preparation-v1
+  head_sha: 31028763c3363c1600adea11560f1fd9bb0c2d59
+  merge_state: draft_unmerged
+  branch_latest_completed_step: S1.P4
+  main_m1_next_step: S1.1
+  ci_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36535579716
+  ci_conclusion: success
+  local_verification: main 全部门禁通过，147 项测试、97.3% 核心覆盖率、47/47 项门禁回归
+  next_step: M1 正式 S1.1；PR #1 合并后按实际提交更新 main 状态

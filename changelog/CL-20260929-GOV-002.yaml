@@ -1,0 +1,76 @@
+change_id: CL-20260929-GOV-002
+timestamp: '2026-09-29T19:18:00+08:00'
+agent: Codex
+module: GOV
+type: fix
+title: 修复 main 的 Ruff 漂移与 Jupyter 内核缺失
+what: |
+  添加 CI 所需 ipykernel，将 Ruff/MyPy 固定到仓库环境锁的版本；类型检查只传实际存在的源码目录；
+  PR 回归作业检出真实 head SHA，并更正回归数量提示。保留首次 main 远端失败事实与独立交接。
+why: |
+  main 的进度同步提交触发的 Linux 门禁 5 同时出现新版 Ruff 的 ISC004/RUF100 lint 错误，
+  以及缺 python3 内核导致的 Notebook 测试失败；两项均由未锁定或缺失的直接依赖引起。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S-INIT.10 main CI 兼容修复
+cross_border_impact: none
+cross_border_detail: 只修 CI 依赖与检查目录，不改数据流或跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 文档仅记录工程失败和检查状态；未复制真实数据、数据派生统计、完整私有运行日志或客户标识。
+downstream_affected:
+- GOV
+- M1
+breaking_change: false
+migration: 干净环境将安装 ipykernel 并使用锁定的 Ruff/MyPy；回归作业按 PR head 检查。
+reproducibility:
+  config: .github/workflows/gates.yml
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 精确依赖版本和 main Linux 原失败 run 36560490051 已登记；新远端运行由本步骤提交触发。
+rollback: git revert 本步骤提交；恢复前需核对 main 远端门禁是否再次失败。
+verification: |
+  失败来源为 GitHub run 36560490051 的门禁 5 Q1 与 Q3。修复后本机完整门禁通过：
+  147 项测试、核心行覆盖率 1297/1333（97.3%）、47/47 项回归；新 GitHub Actions 在推送后核对。
+step:
+  step_id: S-INIT.10
+  step_name: main 工程门禁兼容修复
+  declaration: |
+    will_produce: 安装内核、锁定 Ruff/MyPy、兼容精简 MyPy 夹具及 PR head 回归，并记录失败与复核。
+    will_not_produce: 合并 M1 实现、修改联邦训练逻辑、上传数据或抹除首次失败。
+    success_criteria: 本地完整门禁和提交后的远端八项作业全部通过。
+    risk: 不同平台的原生测试计数可能不同；本步不证明安全联合训练。
+  scope:
+    files_changed: 7
+    lines_added: 131
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: requirements.txt、ci/check_code_quality.py 与 .github/workflows/gates.yml 对应三项修复。
+      D2: GitHub run 36560490051 显示原始 Q1/Q3 失败；门禁回归验证修复未放宽拦截。
+      D3: 版本匹配 environments/python.lock；本机完整门禁与提交后远端 Actions 可重复核验。
+      D4: 区分进度文档提交与 main 既有依赖漂移，修复 Linux 内核缺失与新增 lint 规则。
+  revisions: 1
+  verdict: committed
+  next_step: 核对本提交的远端八项作业；M1 正式工作仍从 S1.1 开始。
+  outputs:
+  - requirements.txt
+  - ci/check_code_quality.py
+  - .github/workflows/gates.yml
+  - docs/02-governance/main门禁兼容修复_步骤声明.md
+  - docs/03-handoff/HO-20260929-Codex-GOV-ci.md

@@ -1,0 +1,3 @@
+component: m1.local_isolation_probes
+cross_border_assets: []
+purpose: 本模块的 socket 使用仅用于本机回环连接正向/拒绝探针；处理进程全部禁网，不产生跨境通信。

@@ -1,0 +1,33 @@
+step_id: S1.P4
+change_id: CL-20260929-M1-003
+date: '2026-09-29'
+local_full_gates_after_fixes:
+  status: passed
+  tests: 164 passed
+  core_line_coverage: 96.1% (1813/1887)
+  gate_regression: 47 passed; 0 failed
+  gate6_warnings: 4 documented privacy-cleared notebook warnings
+github_run_1:
+  commit: pre-S1.P3 Ruff pin
+  status: failed
+  finding: Ruff unpinned; gate 5 Q1 failed; Linux code-quality job had 163 tests pass,
+    1 native macOS-only test skipped, 96.1% coverage.
+github_run_2:
+  commit: 7e303cd
+  status: failed
+  gate_regression: 45 passed; 2 failed
+  findings:
+  - Pull request regression job checked out GitHub synthetic merge commit, so gate
+    2 HEAD self-check saw merge and skipped.
+  - Latest unpinned MyPy rejected absent platform/ fixture directory; gate 5-B regression
+    expected pass.
+remediation:
+  ruff: requirements.txt pinned to 0.12.0; matching committed lock
+  mypy: requirements.txt pinned to 1.17.1; matching committed lock
+  type_checker: only passes existing modules/ and platform/ roots to MyPy; reports
+    a hard failure if neither exists
+  workflow: gate regression job checks out pull request head SHA, not synthetic merge
+    ref
+  stale_workflow_count: updated test count from 33 to 47
+follow_up: GitHub Actions will rerun the full workflow on this commit. Check the PR
+  for live status; local tests do not substitute for remote results.

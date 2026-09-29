@@ -1,0 +1,44 @@
+dataset: uci_bank_marketing
+source:
+  relative_path: UCI_BankMarketing/解压/bank-additional/bank-additional-full.csv
+  separator: ';'
+  expected_columns: [age, job, marital, education, default, housing, loan, contact, month, day_of_week, duration, campaign, pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed, y]
+prediction_time: 当前营销活动开始前，仅保留客户属性、此前活动结果及宏观代理字段。
+label:
+  column: y
+  mapping: {'no': 0, 'yes': 1}
+split:
+  method: source_order
+  fractions: [0.6, 0.2, 0.2]
+  reason: 按发布文件的原始顺序向前留出；缺少完整日期，不称精确日期切分。
+seeds:
+  split: 20260927
+  overlap: 20260928
+  note: source_order 不使用随机切分种子；split 留供随机协议使用。未训练模型，无初始化种子。
+overlap:
+  shared_fraction_of_union: 0.8
+  reason: 仅对训练记录构造交集和单方独有记录，演示输入准备。
+parties:
+  alice:
+    features: [age, job, marital, education, default, housing, loan]
+    categorical: [job, marital, education, default, housing, loan]
+    reason: 主动方持有客户属性与标签；这只是来源语义代理。
+  bob:
+    features: [pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed]
+    categorical: [poutcome]
+    reason: 被动方持有历史营销信息和宏观代理；宏观信息通常可公开取得，后续必须加本方可得信息对照。
+excluded_features:
+  duration: 当次通话后才能获得。
+  campaign: 当前活动截至本次的联系次数，严格活动前预测排除。
+  contact: 本次联系渠道，严格活动前预测排除。
+  month: 本次联系月份，严格活动前预测排除。
+  day_of_week: 本次联系星期，严格活动前预测排除。
+numeric_sentinels:
+  pdays: 999
+missing_categories: [unknown]
+limits:
+  - 记录键由文件哈希和原始行号构造，只验证记录对齐，无法识别真实重复客户。
+  - 在构造的字段归属和重叠率条件下准备输入，不能解释为两家银行的实际交集。
+  - 没有随机未触达对照，不能估计营销因果增量。
+  - 宏观变量是代理特征，不能直接算作另一家企业独有信息。
+  - pdays 的未曾联系编码转为缺失并以训练中位数填补；previous 保留历史联系次数。

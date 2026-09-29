@@ -1,7 +1,7 @@
 # M1 · 数据资产盘点与数据集选型
 
-> 状态：⬜ **未开始** ｜ 步数预算 **9** ｜ 已用 **0** ｜ 认领人：无
-> 最后更新：2026-08-29 ｜ 规范位置：`docs/00-framework/` §M1 · `docs/01-loops/` LOOP M1
+> 状态：🟡 **隔离数据准备已重跑；本地测试与回归复核通过；完整训练未放行** ｜ 步数预算 **9** ｜ 已用 **4**（新增前置 S1.P1 / S1.P2 / S1.P3 / S1.P4）｜ 认领人：无
+> 最后更新：2026-09-28 ｜ 规范位置：`docs/00-framework/` §M1 · `docs/01-loops/` LOOP M1
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
 ## 目标
@@ -28,11 +28,25 @@ M0：`problem_statement.md`（转化定义决定标签口径）
 
 ## 当前结论
 
-暂无。本模块尚未开始，`step_ledger.yaml` 中 `steps` 为空。
+S1.P4 修复第二次 Linux CI 的两项门禁回归缺陷。整改细节、失败历史与本机全门禁结果见 [S1.P4 报告](report/S1.P4_GitHub_CI回归整改.md) 和带输出 [Notebook](notebooks/S1.P4_ci_regression_followup.ipynb)；修复后 GitHub 全工作流状态以 PR checks 为准。
+
+
+S1.P3 将本地工程门禁及首次 PR Linux 检查汇总到 [测试报告](report/S1.P3_工程测试报告.md) 和带输出的 [Notebook](notebooks/S1.P3_engineering_verification.ipynb)。首次远端 Q1 失败因 Ruff 未固定，已锁定 0.12.0；远端复核状态见 GitHub PR checks。报告不含数据处理统计或私有实验日志。
+
+
+S1.P2 根据新增要求重新审计并从原件重跑 UCI/Hillstrom：各方在默认拒绝的操作系统沙箱内执行自己的 Notebook；中心仅收白名单回执。详见 [模块与隔离要求](联邦流程模块与隔离要求.md) 和 [旧流程审计](集中式准备_隔离审计.md)。旧 S1.P1 仅保留集中式调试历史，不作为严格隔离通过证据。物理隔离、真实 PSI 与安全联合训练尚未完成。
+
+历史记录（已由 S1.P2 取代隔离验收）：
+
+S1.P1 已建立 UCI/Hillstrom 的 Notebook 数据准备框架，输入只读，新数据与完整运行输出分别存放在仓库外。两份入口已从头执行，并验证相同配置重复处理生成相同数据文件。详见 [使用说明](数据准备框架_使用说明.md)。
+
+此为新增工程前置步骤，原 S1.1–S1.9 尚未完成；未产生模型效果结论。
 
 ## 未决问题
 
-- 是否纳入 uplift 评估？若纳入必须补 ≥1 个随机对照数据源（Criteo Uplift / Hillstrom）
+- 已按 DR-MX-001 纳入增量转化评估；Hillstrom 输入已准备，增量模型与评估尚未运行。
+- 候选评估矩阵、正式数据卡与 S1–S4 切分比较待完成。
+- UCI 缺真实稳定客户 ID；构造的记录键不能验证客户身份匹配。
 
 ## 升级条件
 

@@ -1,23 +1,115 @@
-# M1 步骤台账
-# 每完成一步追加一条；status: declared | in_progress | committed | escalated | abandoned
-# 通过线：总分 ≥10 且无单项 ≤1（若触发《维护约束 v2》3.5 的回溯抽查上调，则为 11）
-
 module: M1
 module_path: modules/m1_data_selection
-total_steps_planned: 9      # 对齐《方案流程框架 v2》的步数预算
-steps: []
+total_steps_planned: 9
+steps:
+- step_id: S1.P1
+  step_name: 新增前置：Notebook 数据准备与原件保护
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 1
+  committed_at: '2026-09-27T14:14:50.305839+00:00'
+  change_id: CL-20260927-M1-001
+  outputs:
+  - components/data_preparation.py
+  - components/execute_preparation.py
+  - notebooks/S1.P1_uci_preparation.ipynb
+  - notebooks/S1.P1_hillstrom_preparation.ipynb
+  note: 用户指定的工程前置步骤，不代替原 S1.1–S1.9，不完成 M1 放行。
+- step_id: S1.P2
+  step_name: 新增前置：隔离审计与独立 Notebook 重跑
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 2
+  committed_at: '2026-09-28T13:16:15+00:00'
+  change_id: CL-20260928-M1-001
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P2_isolated_simulation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P2_party_preparation.ipynb
+  - modules/m1_data_selection/components/isolated_party.py
+  - modules/m1_data_selection/components/isolated_simulation.py
+  - modules/m1_data_selection/tests/test_isolated_preparation.py
+  - modules/m1_data_selection/联邦流程模块与隔离要求.md
+  - modules/m1_data_selection/集中式准备_隔离审计.md
+  - modules/m1_data_selection/隔离重跑_步骤声明.md
+  note: 仅本机内核隔离数据准备；物理隔离、真实 PSI 与安全训练未放行。
+- step_id: S1.P3
+  step_name: 新增前置：工程测试结果同步及 CI Ruff 锁定
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 1
+  committed_at: '2026-09-28T13:34:16+00:00'
+  change_id: CL-20260928-M1-002
+  outputs:
+  - configs/s1p3_engineering_verification.yaml
+  - notebooks/S1.P3_engineering_verification.ipynb
+  - report/S1.P3_工程测试报告.md
+  - requirements.txt
+  note: 本机工程测试结果归档并记录首次 Linux CI lint 失败；Ruff 锁定修复已纳入，等待此提交触发的远端完整门禁。
+- step_id: S1.P4
+  step_name: 新增前置：GitHub CI 回归缺陷修复
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 1
+  committed_at: '2026-09-29T07:12:11+00:00'
+  change_id: CL-20260929-M1-003
+  outputs:
+  - ci/check_code_quality.py
+  - .github/workflows/gates.yml
+  - requirements.txt
+  - configs/s1p4_ci_regression_followup.yaml
+  - notebooks/S1.P4_ci_regression_followup.ipynb
+  - report/S1.P4_GitHub_CI回归整改.md
+  note: 本机全门禁通过；修复后 GitHub 第三轮工作流由本次提交触发。
 current_step: null
 next_step: S1.1
-
 metrics:
-  avg_score: null           # <10 → 复审步骤划分与执行质量
-  escalation_count: 0       # ≥3 → 该模块整体复审是否假设有误
-  revision_rate: null       # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 0
-  budget_usage: 0.0         # >1.5 → 触发全局复审
-  consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
-  pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
-
+  avg_score: 11.0
+  escalation_count: 0
+  revision_rate: 1.25
+  steps_used: 4
+  budget_usage: 0.4444444444444444
+  consecutive_low_d4: 0
+  pass_threshold: 10
 audit:
-  last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
+  last_spot_check_step: null
   spot_checks_done: 0

@@ -16,6 +16,7 @@ from pathlib import Path
 
 import nbformat
 import pytest
+import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -93,13 +94,52 @@ def test_文件名符合门禁6的命名规范():
         assert pattern.match(path.name), f"{path.name} 不符合 N1 命名规范"
 
 
+def assert_output_policy(nb, path, root=ROOT):
+    """9.1 requires restricted outputs removed, with an explicit sensitive review."""
+    code_cells = [c for c in nb.cells if c.cell_type == "code"]
+    assert code_cells, f"{path.name} 没有代码 cell"
+    policy = nb.metadata.get("vfl", {})
+    if policy.get("outputs") == "external_only":
+        assert policy.get("classification") == "real_data_derived"
+        assert policy.get("reason"), "清除输出必须说明原因"
+        change_id = policy.get("review_change_id", "")
+        assert Path(change_id).name == change_id and change_id.startswith("CL-")
+        review = yaml.safe_load((root / "changelog" / f"{change_id}.yaml").read_text())
+        sensitive = review.get("sensitive_review", {})
+        assert sensitive.get("triggered") and sensitive.get("checklist_passed")
+        assert sensitive.get("conclusion")
+        assert str(path.relative_to(root)) in review["step"]["outputs"]
+        assert all(not c.get("outputs") and c.get("execution_count") is None for c in code_cells)
+        assert all(not c.get("attachments") for c in nb.cells)
+    else:
+        assert any(c.get("outputs") for c in code_cells), \
+            f"{path.name} 未带输出且没有受限产物清除记录"
+
+
+def test_受限输出必须清除且必须有审查记录(tmp_path):
+    path = tmp_path / "modules/m1/notebooks/S1.P1_test.ipynb"
+    nb = B.nb([("code", "print('result')")])
+    with pytest.raises(AssertionError):
+        assert_output_policy(nb, path, tmp_path)
+    nb.metadata["vfl"] = {"outputs": "external_only", "classification": "real_data_derived",
+                          "reason": "Public repository rule 9.1", "review_change_id": "CL-test"}
+    with pytest.raises(FileNotFoundError):
+        assert_output_policy(nb, path, tmp_path)
+    (tmp_path / "changelog").mkdir()
+    review = {"sensitive_review": {"triggered": True, "checklist_passed": True,
+                                   "conclusion": "Outputs kept outside public repository"},
+              "step": {"outputs": [str(path.relative_to(tmp_path))]}}
+    (tmp_path / "changelog/CL-test.yaml").write_text(yaml.safe_dump(review))
+    assert_output_policy(nb, path, tmp_path)
+    nb.cells[0].outputs = [nbformat.v4.new_output("stream", name="stdout", text="data")]
+    with pytest.raises(AssertionError):
+        assert_output_policy(nb, path, tmp_path)
+
+
 @pytest.mark.parametrize("module_dir", sorted(
     p.name for p in (ROOT / "modules").iterdir()
     if (p / "notebooks").is_dir() and any((p / "notebooks").glob("*.ipynb"))))
 def test_已提交的_notebook_都带输出(module_dir):
     for path in (ROOT / "modules" / module_dir / "notebooks").glob("*.ipynb"):
         nb = nbformat.read(path, as_version=4)
-        code_cells = [c for c in nb.cells if c.cell_type == "code"]
-        assert code_cells, f"{path.name} 没有代码 cell"
-        assert any(c.get("outputs") for c in code_cells), \
-            f"{path.name} 未带输出——打开仓库看不到它算出了什么"
+        assert_output_policy(nb, path)

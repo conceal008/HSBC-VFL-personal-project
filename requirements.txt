@@ -6,9 +6,10 @@ PyYAML
 matplotlib
 nbformat
 nbclient
+ipykernel
 
 # 门禁 5 · 代码质量所需
-ruff
-mypy
+ruff==0.12.0
+mypy==1.17.1
 pytest
 types-PyYAML

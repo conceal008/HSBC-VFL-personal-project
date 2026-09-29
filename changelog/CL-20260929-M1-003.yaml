@@ -1,0 +1,84 @@
+change_id: CL-20260929-M1-003
+timestamp: '2026-09-29T07:12:11+00:00'
+agent: Codex
+module: M1
+type: fix
+title: 修复 Linux 门禁回归的 PR ref 与 MyPy 路径检查
+what: 让门禁 5 的 MyPy 只扫描实际存在的模块目录，并固定 MyPy 1.17.1；GitHub 回归 job 改为检出 PR head SHA；更新陈旧的回归用例数量。增加带输出的 CI 故障整改 Notebook 和报告，保留此前失败事实。
+why: Ruff 锁定后 GitHub 第二次 CI 暴露两项回归问题：HEAD 自检在合成 merge commit 上按规则跳过，以及新版 MyPy 因不存在的 platform/ 目录使精简测试夹具失败。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S1.P4 远端回归修复，不改变 M1 正式 S1.1–S1.9 目标
+cross_border_impact: none
+cross_border_detail: 仅 CI 工作目录/依赖检查修复与工程日志更新，不触碰数据流或跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Notebook 与报告只记录代码测试计数、覆盖率和门禁状态，不含公开数据集的行数、统计、派生哈希、行级数据或预处理参数。
+downstream_affected:
+- GOV
+breaking_change: false
+migration: 现有 PR regression job 会检出 PR head SHA；其它工作流依赖不变。
+reproducibility:
+  config: modules/m1_data_selection/configs/s1p4_ci_regression_followup.yaml
+  config_hash: sha256:9fcc00e4f2329c8979acbc9e0634719cc546dc9bebfd6179cba53bfb1ca989cf
+  seeds: []
+  env_lock: environments/python.lock
+  note: 本机全门禁在编辑后的工作树运行；Ruff/MyPy 固定版本均匹配仓库锁。远端第三次检查将在提交后触发。
+rollback: git revert 本步骤提交；一并回退 PR checkout 与 MyPy 目录筛选，并核对 requirements 根依赖。
+verification: 本机 bash ci/run_all_gates.sh 通过：164 tests、96.1% 覆盖、47/47 门禁回归；更新测试汇总并等待该提交的 GitHub Actions 全门禁检查。
+step:
+  step_id: S1.P4
+  step_name: GitHub 回归兼容修复与结果同步
+  declaration: '# 远端回归兼容修复：步骤声明
+
+
+    > 编写日期：2026-09-29 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：CL-20260928-M1-002 后续 GitHub Actions 日志
+
+    > 口径基准：仅处理工程测试与 CI 复核，不涉及数据集结果
+
+
+    - will_produce：修复门禁回归作业的 PR 检出方式，令类型检查只传存在的目录，并固定 MyPy 到已提交 lock 的版本；同步失败/修复/复核状态与带输出的 Notebook 报告。
+
+    - will_not_produce：修改数据处理或联邦隔离逻辑、上传原始/派生数据、将失败检查改写成通过、合并 PR。
+
+    - success_criteria：本地回归套件全部通过；仓库完整门禁通过；提交后远端 GitHub Actions 全部门禁通过；公开结果报告明确记录第二次 CI 的两处失败和整改。
+
+    - risk：Linux 回归只验证门禁与合成夹具；macOS 内核隔离专测在 Linux 上仍按预期跳过。
+
+    '
+  scope:
+    files_changed: 13
+    lines_added: 322
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: report/S1.P4_GitHub_CI回归整改.md：记录失败条件、修复与门禁结果。
+      D2: 本地 ci/run_all_gates.sh：164 项测试通过、47 个 CI 回归案例通过；Notebook 输出显示两次远端失败与整改。
+      D3: requirements.txt 锁版本与 environments/python.lock 一致；从同一配置可重建 Notebook 汇总；GitHub 再次运行待提交后验证。
+      D4: 找出并修复 PR 合成 merge ref 与可选 MyPy 路径两个跨平台回归缺陷。
+  revisions: 1
+  verdict: committed
+  next_step: S1.1；新 GitHub Actions 结果以 PR checks 更新。
+  outputs:
+  - ci/check_code_quality.py
+  - .github/workflows/gates.yml
+  - requirements.txt
+  - modules/m1_data_selection/configs/s1p4_ci_regression_followup.yaml
+  - modules/m1_data_selection/notebooks/S1.P4_ci_regression_followup.ipynb
+  - modules/m1_data_selection/report/S1.P4_GitHub_CI回归整改.md

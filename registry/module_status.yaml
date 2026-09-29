@@ -102,8 +102,8 @@ modules:
     current_step: null
     next_step: S1.1
     blocking_on: []
-    latest_completed_step: S1.P3
-    preparation_status: engineering_report_published_ci_followup_pending
+    latest_completed_step: S1.P4
+    preparation_status: engineering_test_summary_published_remote_full_check_pending
     open_questions:
     - S1.P1 完成 UCI/Hillstrom 数据准备；原 S1.1–S1.9 验收尚未完成。
     - 两组口径已定（DR-MX-001 · D-2）：主口径 = 跨境理财通南向通；第二组 = 汇丰卓越理财跨境升级，互为对照（前者转化稀疏、后者样本充足）
@@ -111,6 +111,7 @@ modules:
     - 必须为基线转化率假设 3.0% 找到可校准的代理数据集；校准后须重跑 S0.1 的 notebook 并更新 problem_statement.md（DR-MX-001 · D-3）
     - S1.P2 取代集中式准备的隔离验收；本地沙箱不是物理隔离，需独立主机、真实 PSI、安全训练与攻击测试后方可验收完整流程。
     - S1.P3 测试结果已归档；因首次 Linux CI 暴露 Ruff 版本漂移，已固定到环境锁版本，等待远端完整门禁复核。
+    - S1.P4 修复 PR synthetic merge checkout 与可选 MyPy 目录问题。本机全部门禁通过；修复后 GitHub 第三轮全门禁状态以 PR checks 为准。
   M2:
     name: 合成数据生成与仿真台
     path: modules/m2_synthetic

@@ -1,6 +1,6 @@
 # M1 · 数据资产盘点与数据集选型
 
-> 状态：🟡 **隔离数据准备已重跑；测试结果已归档；完整训练未放行** ｜ 步数预算 **9** ｜ 已用 **3**（新增前置 S1.P1 / S1.P2 / S1.P3）｜ 认领人：无
+> 状态：🟡 **隔离数据准备已重跑；本地测试与回归复核通过；完整训练未放行** ｜ 步数预算 **9** ｜ 已用 **4**（新增前置 S1.P1 / S1.P2 / S1.P3 / S1.P4）｜ 认领人：无
 > 最后更新：2026-09-28 ｜ 规范位置：`docs/00-framework/` §M1 · `docs/01-loops/` LOOP M1
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
@@ -27,6 +27,9 @@ M0：`problem_statement.md`（转化定义决定标签口径）
 - 数据卡 6 字段完整度 100%
 
 ## 当前结论
+
+S1.P4 修复第二次 Linux CI 的两项门禁回归缺陷。整改细节、失败历史与本机全门禁结果见 [S1.P4 报告](report/S1.P4_GitHub_CI回归整改.md) 和带输出 [Notebook](notebooks/S1.P4_ci_regression_followup.ipynb)；修复后 GitHub 全工作流状态以 PR checks 为准。
+
 
 S1.P3 将本地工程门禁及首次 PR Linux 检查汇总到 [测试报告](report/S1.P3_工程测试报告.md) 和带输出的 [Notebook](notebooks/S1.P3_engineering_verification.ipynb)。首次远端 Q1 失败因 Ruff 未固定，已锁定 0.12.0；远端复核状态见 GitHub PR checks。报告不含数据处理统计或私有实验日志。
 

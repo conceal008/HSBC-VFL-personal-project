@@ -84,9 +84,15 @@ def check_lint(files):
 
 
 def check_types():
+    # Minimal fixture repositories may contain only modules/ or platform/.
+    # Passing an absent root to newer mypy versions is an error, not an empty scan.
+    roots = [path for path in ("modules/", "platform/") if os.path.isdir(path)]
+    if not roots:
+        block("Q2", "类型检查没有可扫描目录（modules/ 或 platform/）")
+        return
     code, out = run([sys.executable, "-m", "mypy", "--ignore-missing-imports",
                      "--no-strict-optional", "--namespace-packages",
-                     "--explicit-package-bases", "modules/", "platform/"])
+                     "--explicit-package-bases", *roots])
     if code == 0:
         print("✅ Q2 类型检查：0 error")
         return

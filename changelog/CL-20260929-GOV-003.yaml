@@ -1,0 +1,70 @@
+change_id: CL-20260929-GOV-003
+timestamp: '2026-09-29T20:08:34+08:00'
+agent: Codex
+module: GOV
+type: doc
+title: 在 main 补录 CI 修复后的远端验收结果
+what: 将 main 修复提交的 GitHub Actions 全绿结论写入仓库入口、总览和治理状态，保留前次失败链接并新增交接。
+why: 修复提交推送后远端八项作业已全部成功；此前 main 的治理状态仍将远端复核写为待执行，需要同步准确的最终事实。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S-GOV.13 main 远端验收补录
+cross_border_impact: none
+cross_border_detail: 仅补录公开工程 CI 状态，不改数据流或跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 文档只引用公开提交、PR 和门禁结果，不含原始数据、派生统计、客户标识或私有日志。
+downstream_affected:
+- GOV
+- M1
+breaking_change: false
+migration: 后续合并草稿 PR #1 后，按实际合入内容更新 main 的 M1 台账与状态。
+reproducibility:
+  config: .github/workflows/gates.yml
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 主证据为提交 6e5d749 的 GitHub Actions run 36561258977 completed/success；本次仅记录其状态。
+rollback: git revert 本步骤提交；不回退既有 CI 修复或删除原始失败记录。
+verification: gh run view 已核对 run 36561258977 的八项作业均 completed/success；本次本机完整门禁 147 项测试与 47/47 项回归通过。
+step:
+  step_id: S-GOV.13
+  step_name: main 远端工程门禁结果补录
+  declaration: |
+    will_produce: 在 main 入口、总览、治理状态、changelog 与交接中补录远端成功结果。
+    will_not_produce: 改工程实现、合并草稿 PR、上传数据或宣称生产安全。
+    success_criteria: 精确 run/提交可查，文档门禁通过，推送 main 后复核。
+    risk: 本补录提交会触发新的独立 CI，不能预写其结果。
+  scope:
+    files_changed: 6
+    lines_added: 116
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: README.md 与 项目框架与推进总览.md 同时注明 main 和草稿 PR 的状态。
+      D2: docs/03-handoff/HO-20260929-Codex-GOV-final-ci.md 给出失败与成功 run 的精确链接。
+      D3: GitHub Actions 作业结论可独立复核；没有新增实验或不可重建统计。
+      D4: 将 pending 的远端状态修正为已完成，并保留第一次失败的原因。
+  revisions: 0
+  verdict: committed
+  next_step: M1 正式 S1.1；草稿 PR #1 合入后按实际内容更新 main 状态。
+  outputs:
+  - README.md
+  - 项目框架与推进总览.md
+  - registry/module_status.yaml
+  - docs/02-governance/main远端验收补录_步骤声明.md
+  - docs/03-handoff/HO-20260929-Codex-GOV-final-ci.md

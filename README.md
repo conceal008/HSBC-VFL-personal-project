@@ -4,6 +4,7 @@
 > 建立日期：2026-08-29 ｜ 当前阶段：合成数据机制验证初版已形成，转向外部数据验证与安全协议补齐
 > Agent 与新成员入口：先读 [AGENTS.md](AGENTS.md)
 > 2026-09-29 进度补记：M1 数据准备的 S1.P1–S1.P4 已推送到 [草稿 PR #1](https://github.com/conceal008/HSBC-VFL-personal-project/pull/1)，[远端门禁全部通过](https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36535579716)；这些实现尚未合入 `main`，正式 S1.1 尚未完成。
+> `main` 工程门禁补录：修复提交 `6e5d749` 的 [Actions 运行 36561258977](https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36561258977) 八项作业全部通过；这与草稿 PR 的验收分别记录。
 
 ---
 

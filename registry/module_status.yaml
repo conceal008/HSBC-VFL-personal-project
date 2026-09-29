@@ -241,5 +241,20 @@ main_ci_repair_20260929:
   failed_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36560490051
   completed_at: '2026-09-29T19:21:03+08:00'
   local_verification: main 全部门禁通过，147 项测试、97.3% 核心覆盖率、47/47 项回归
-  remote_verification: 新 GitHub Actions 运行待本步骤提交触发，需以该运行实际状态为准
-  next_step: 核对本步骤远端八项作业；M1 正式 S1.1 仍未完成
+  remote_verification: GitHub Actions run 36561258977 completed/success，八项作业全部通过
+  successful_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36561258977
+  next_step: M1 正式 S1.1；草稿 PR #1 合并后更新 main 模块状态
+
+main_ci_verification_20260929:
+  step_id: S-GOV.13
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-29T20:08:34+08:00'
+  expires_at: '2026-09-30T20:08:34+08:00'
+  scope: 在 main 入口与日志补录前次修复提交的远端成功结果
+  change_id: CL-20260929-GOV-003
+  completed_at: '2026-09-29T20:10:33+08:00'
+  verified_commit: 6e5d7493ad8dc5b5523470532e49f8a6e2669994
+  verified_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36561258977
+  conclusion: 八项远端作业 completed/success；本步本地完整门禁 147 项测试、47/47 项回归通过
+  next_step: M1 正式 S1.1；草稿 PR #1 合入后更新 main 模块台账

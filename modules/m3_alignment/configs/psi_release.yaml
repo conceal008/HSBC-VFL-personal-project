@@ -1,0 +1,23 @@
+step_id: S3.P1
+api: secretflow_spu_psi_df_1_14
+protocol:
+  name: PROTOCOL_RR22
+  receiver: alice
+  broadcast_result: false
+policy:
+  s0_9_decision: pending
+  preferred_output: secret_shares
+  permitted_plaintext_recipients: []
+deployment:
+  hosts: []
+  fed_mutual_tls: false
+  spu_mutual_tls: false
+identifiers:
+  kind: constructed_row_id
+  business_matching_claim: false
+datasets: [uci_bank_marketing, hillstrom_email_marketing]
+source_evidence:
+  local_pinned_version: SecretFlow v1.14.0b0
+  api_file: 8-9月/隐语_SecretFlow/upstream/secretflow/device/device/spu.py
+  api_symbol: SPU.psi_df
+  decision_record: registry/decision_records/DR-MX-001.yaml#D-6

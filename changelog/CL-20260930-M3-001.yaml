@@ -1,0 +1,115 @@
+change_id: CL-20260930-M3-001
+timestamp: '2026-09-30T15:15:00+08:00'
+agent: Codex
+module: M3
+type: feat
+title: 建立外部数据 PSI 输出与部署放行审计门
+what: 新增锁定版 SecretFlow psi_df 输出语义的拒绝默认放行审计器、配置、合成测试与带工程状态输出的 Notebook；记录 UCI/Hillstrom P4 阻断项。未读取数据行或启动协议。
+why: 此前合成 RR22 冒烟使用单机、无双方认证且广播明文交集，不能替代两方数据在默认不明文落地目标下的 P4 放行；先把接口输出和部署证据缺口机器化，防止直接启动 P6。
+links:
+  branch_card: null
+  decision_record:
+  - DR-MX-001
+  loop_step:
+  - S3.P1 外部数据 PSI 放行工程前置；不替代正式 S3.2
+cross_border_impact: none
+cross_border_detail: 只审计代码接口与工程配置；不读取标识符、不执行跨方通信。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Notebook 仅显示协议输出语义、硬门状态和配置指纹；无公开数据集的行、统计、派生哈希、密钥或结果名单。
+downstream_affected:
+- M5
+- M6
+- M7
+- M8
+breaking_change: false
+migration: 新增 P4 阻断审计；已有仿真与单方 L0 产物不修改。
+reproducibility:
+  config: modules/m3_alignment/configs/psi_release.yaml
+  config_hash: sha256:6f062dfbaf6ca176ab816339823bc2240b64a503434fbccf780ea342fccc9a72
+  seeds: []
+  env_lock: environments/python.lock
+  note: 纯配置审计无随机采样；锁定 SecretFlow v1.14.0b0 的 SPU.psi_df 输出语义；Notebook 可从头运行。
+rollback: git revert 本步骤提交；保留本机总日志历史记录。
+verification: 本机 8-9月/实验日志/验收_20260930T1515_P4/gates.log 记录全部门禁通过、175 项测试、核心覆盖 2100/2205（95.2%）及 47/47 门禁回归；同目录 verification.json 记录 S3.P1 Notebook 从干净内核完整执行，输出 8 项工程阻塞且不读取数据行。P4 blocked，不代表真实 PSI、联合训练或安全评估通过。
+step:
+  step_id: S3.P1
+  step_name: 外部数据 PSI 输出与部署放行审计
+  declaration: '# S3.P1 PSI 放行审计步骤声明
+
+
+    > 编写日期：2026-09-30 ｜ 版本：v1.0 ｜ 状态：执行中
+
+    > 数据来源：S1.P2 隔离要求、DR-MX-001 D-6、SecretFlow v1.14.0b0 本地部署及锁定源码
+
+    > 口径基准：共同客户联合营销；交集不明文落地是默认倾向，正式裁定留待 M0/S0.9
+
+
+    ## 执行前声明
+
+
+    will_produce:
+
+    - 为 UCI/Hillstrom 的 P4 建立配置驱动、拒绝默认放行的审计器，分别核对 PSI 输出语义、交集接收者、双独立主机、身份认证、数据标识与日志披露边界。
+
+    - 给出当前 SecretFlow `psi_df` 路线与默认秘密分享交集要求的差距报告、可运行 Notebook 和合成夹具测试；完整审计结果只写工程状态，不读取数据集行。
+
+    - 把 P4 放行结果和后续 P6/P7 阻塞关系登记到模块台账、统一日志及交接。
+
+
+    will_not_produce:
+
+    - 不把 `broadcast_result=True` 的明文交集当作零泄漏；不为跑通而放宽 S1.P2 的 OS 沙箱策略。
+
+    - 不运行 UCI/Hillstrom 的 PSI 或联合训练；未有第二台主机、协议输出裁定和认证证据前不得放行。
+
+    - 不推断真实跨机构客户匹配质量；两组公开数据的记录键只是单表构造代理。
+
+
+    success_criteria:
+
+    - 审计器在缺少任一硬门时确定性返回 blocked，尤其是本机、无 mTLS、明文交集或 S0.9 未裁定；合成测试覆盖已知/未知 API、广播/单接收方及企图用配置自称通过的情况。真正的 released 路径留给后续有可验证适配器与主机证明的步骤。
+
+    - Notebook 从头执行显示当前具体阻塞项；测试覆盖通过/失败路径，并记录固定代码与配置指纹；Public 仓库无私有数据或密钥。
+
+
+    risk:
+
+    - SecretFlow 当前示例虽有真正 RR22 协议，但其 `psi_df` 的输出可见性与目标不一致。若误把加密求交过程等同于秘密分享结果，会把新产生的共同客户名单披露给接收方。
+
+    - 未取得第二台主机的网络及身份配置，无法验证“两地物理隔离”；审计通过与协议实际部署须分开。
+
+    '
+  scope:
+    files_changed: 13
+    lines_added: 501
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: modules/m3_alignment/components/psi_release.py 与 configs/psi_release.yaml 核验接口语义和硬门。
+      D2: modules/m3_alignment/tests/test_psi_release.py 覆盖广播、单接收方、未知接口、虚假配置与缺字段；Notebook 输出具体阻塞项。
+      D3: modules/m3_alignment/notebooks/S3.P1_psi_release.ipynb 打印配置指纹和代码 SHA；纯工程检查不需数据行或种子。
+      D4: 确认锁定版 psi_df 的明文接收语义与默认秘密分享目标不符，并显式阻断 P6。
+  revisions: 1
+  verdict: committed
+  next_step: S3.2：取得正式披露裁定、审计适配器与双独立主机认证证据后再运行真实 PSI。
+  outputs:
+  - modules/m3_alignment/components/psi_release.py
+  - modules/m3_alignment/configs/psi_release.yaml
+  - modules/m3_alignment/notebooks/S3.P1_psi_release.ipynb
+  - modules/m3_alignment/tests/test_psi_release.py
+  - modules/m3_alignment/PSI放行差距_SecretFlow_1.14.md
+  - registry/component_declarations/M3-psi-release.yaml
+  - docs/03-handoff/HO-20260930-Codex-M3-P4.md

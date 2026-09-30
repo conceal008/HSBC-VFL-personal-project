@@ -125,13 +125,19 @@ modules:
   M3:
     name: 实体对齐与样本空间构造
     path: modules/m3_alignment
-    status: not_started
+    status: in_progress
     claimed_by: null
-    next_step: S3.1
+    claimed_at: null
+    expires_at: null
+    current_step: null
+    next_step: S3.2
     blocking_on:
     - M2 仿真台正确性验收通过（偏差 <5%）
     open_questions:
-    - PSI 交集是否明文落地？五个必须先定的决策点之一
+    - PSI 交集是否明文落地须 M0/S0.9 正式裁定；DR-MX-001 D-6 当前默认倾向不明文落地。
+    - S3.P1 审计锁定版 SecretFlow psi_df 明文输出语义；P4 blocked，UCI/Hillstrom 真实 PSI、P6 联合训练及 P7 泄漏验收均未放行。
+    - 缺少经审计的秘密分享输出适配器、双独立主机、各方密钥及双方认证握手证据；公开数据构造记录键不能证明真实跨机构匹配质量。
+    latest_completed_step: S3.P1
   M4:
     name: 特征工程与跨域特征治理
     path: modules/m4_features

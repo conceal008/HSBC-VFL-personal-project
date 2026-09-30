@@ -1,0 +1,8 @@
+component: psi_release
+module: M3
+path: modules/m3_alignment/components/psi_release.py
+purpose: 不读取标识符的 PSI 输出语义与部署放行审计；当前仅返回阻断状态。
+cross_border_assets: []
+cross_border_note: 不运行协议、不启动跨方通信，也不读取任何客户标识或数据行。
+tests:
+  - modules/m3_alignment/tests/test_psi_release.py

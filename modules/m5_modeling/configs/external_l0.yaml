@@ -1,0 +1,17 @@
+step_id: S5.P1
+purpose: Frozen-split Alice-only reference before any cross-party protocol
+shared:
+  model_seeds: [11, 22, 33, 44, 55]
+  split_seed: 20260927
+  bootstrap_seed: 20260930
+  bootstrap_repeats: 300
+  alpha_grid: [0.0001, 0.001]
+  top_k_fraction: 0.1
+datasets:
+  uci_bank_marketing:
+    expected_feature_count: 34
+    excluded_source_features: [duration, campaign, contact, month, day_of_week]
+  hillstrom_email_marketing:
+    expected_feature_count: 6
+    excluded_source_features: [history_segment, segment, visit, spend]
+    treatment_arms: [1, 2]

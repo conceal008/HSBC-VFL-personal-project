@@ -1,0 +1,109 @@
+change_id: CL-20260930-M5-001
+timestamp: '2026-09-30T15:01:00+08:00'
+agent: Codex
+module: M5
+type: exp
+title: 在两组冻结数据上建立隔离的 Alice-only L0 参照
+what: |
+  新增配置驱动的 Alice 单方基线、macOS 默认拒绝沙箱启动器、Notebook 入口与合成夹具测试。
+  UCI 与 Hillstrom 各按同一配置重跑两次，五个模型种子与区间估计仅保存在 Alice 私有目录；
+  两次结果文件逐字节一致。控制端只记录状态及路径，不收集行级数据、逐条预测或指标。
+  同步项目进度总数并更正 M9 对 Notebook 数量的描述为“全部入口”。
+why: |
+  现有 S1.P2 只验收两方独立输入准备；若没有冻结切片上的单方参照，后续即使跑通
+  安全联合训练，也无法判断联邦相对低成本方案的增量。先固定 L0 评估契约，并保留
+  PSI、联合训练与泄漏评测的阻塞状态。
+links:
+  branch_card: BC-M5-002
+  decision_record: []
+  loop_step: S5.P1 外部数据工程前置；不替代正式 S5.5
+cross_border_impact: none
+cross_border_detail: 仅 Alice 本地计算；无跨方通信。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: |
+    UCI/Hillstrom 的数据派生指标、输入哈希、选参值、带输出 Notebook、私有结果分析
+    均只存在仓库外 Alice 私有运行目录；Public 仓库 Notebook 清空输出，仅提交代码与配置。
+downstream_affected: [M3, M6, M7]
+breaking_change: false
+migration: 无；新增外部数据入口，不改变合成数据实验。
+reproducibility:
+  config: modules/m5_modeling/configs/external_l0.yaml
+  config_hash: sha256:5913b6da969d3ec0664e03fab490d64e9897d60257c561169b19b4b1c7b13b51
+  seeds: [11, 22, 33, 44, 55]
+  env_lock: modules/m1_data_selection/configs/preparation_environment.lock
+  note: |
+    固定的 S1.P2 切分种子、bootstrap 种子均在配置；本机私有验收记录中两组各复跑两次。
+    隔离执行须在具有原生 macOS sandbox-exec 权限的环境运行，失败不降级。
+rollback: git revert 本步骤提交；本机已冻结的私有运行记录保留，不修改原始数据或 S1.P2 产物。
+verification: |
+  本机 8-9月/实验日志/验收_20260930T0701Z_L0/verification.json：
+  最终代码下两组各两次结果文件一致、五个模型种子、沙箱拒绝检查与 Notebook 完成。
+  同目录 gates.log：完整门禁通过，门禁回归 47/47。
+  PSI、安全联合训练、模型泄漏评估及双物理主机仍未验收。
+step:
+  step_id: S5.P1
+  step_name: 外部数据 Alice-only L0 冻结切片参照
+  declaration: |
+    # S5.P1 外部数据单方基线步骤声明
+
+    > 编写日期：2026-09-30 ｜ 版本：v1.0 ｜ 状态：执行中
+    > 数据来源：S1.P2 已验收的 UCI Bank Marketing、Hillstrom Email Marketing 双方隔离输入；本步仅读取 Alice 私有处理产物
+    > 口径基准：共同客户联合营销；本步为 S1.P2 后续工程前置，不替代正式 S5.5
+
+    ## 执行前声明
+
+    will_produce:
+    - 配置驱动、可独立重跑的 Alice-only L0 训练与冻结切分评估入口，UCI 做响应预测；Hillstrom 按两种邮件随机组分别与未发邮件组比较，做事前增量排序的 L0 参照。
+    - 在操作系统沙箱内读取 Alice 已验收的私有输入，执行至少五个训练种子，保存私有模型结果、聚合指标与置信区间；仓库仅提交代码、配置、清空输出的 Notebook、非数据化的执行说明及日志。
+    - 对输入哈希、字段边界、训练／验证／测试用途、对方目录访问拒绝和模型输出披露做可复核检查。
+
+    will_not_produce:
+    - 不读取 Bob 的行级特征，不做中心拼接，不把真实数据派生指标提交 Public 仓库。
+    - 不执行 PSI、L1/L3 联合训练或模型泄漏验收；这些须分别通过 P4/P6/P7 放行。
+    - 不声称 UCI 的响应指标是因果增量，也不把 Hillstrom 的零售邮件效果外推成银行业务收益。
+
+    success_criteria:
+    - 每组实验的原始投递与冻结输入哈希可追溯；沙箱拒绝读取对方文件和全量源；训练只用训练切片、选参只用验证切片、测试只做一次最终评价。
+    - UCI 与 Hillstrom 均输出至少五种训练种子下的有效指标及预先定义的区间估计；失败实验如实记录。
+    - 本地执行 Notebook 无错误；仓库提交前无原始记录、私有统计或逐条预测。
+
+    risk:
+    - 单表字段切分与构造交集不是真实机构协作，且单一冻结切分上的训练种子不能代表跨人群泛化不确定性；报告必须分别写明。
+    - 当前本机沙箱只约束参与方进程；可信宿主管理员仍能接触公开原件，因此不得称为双物理主机或生产级隔离。
+  scope:
+    files_changed: 18
+    lines_added: 945
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/components/external_l0.py 与 configs/external_l0.yaml 实现声明的两组 L0 契约。
+      D2: 8-9月/实验日志/验收_20260930T0701Z_L0/verification.json 记录两组各两次、五种子和隔离结果。
+      D3: modules/m5_modeling/tests/test_external_l0.py 锁住冻结切分重叠、禁用字段和仅验证集选参；私有结果文件复跑一致。
+      D4: 形成可供后续同切片 L1/L3 比较的独立 L0 参照；尚无联邦增益结论。
+  revisions: 1
+  verdict: committed
+  next_step: M3 的 P4 放行检查；随后在 M5 按同切片运行 L1/L3。
+  outputs:
+    - modules/m5_modeling/components/external_l0.py
+    - modules/m5_modeling/components/launch_external_l0.py
+    - modules/m5_modeling/configs/external_l0.yaml
+    - modules/m5_modeling/notebooks/S5.P1_external_l0.ipynb
+    - modules/m5_modeling/tests/test_external_l0.py
+    - modules/m5_modeling/外部数据L0执行说明.md
+    - modules/m5_modeling/declarations.yaml
+    - registry/component_declarations/M5-external-l0.yaml
+    - registry/component_declarations/M5-external-l0-launcher.yaml
+    - docs/03-handoff/HO-20260930-Codex-M5-L0.md

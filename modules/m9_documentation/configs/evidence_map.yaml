@@ -218,7 +218,7 @@ consistency_assertions:
     must_appear_in: [ci/README.md, 项目进度总览.md, 项目目标与要求.md]
 
   - id: F2
-    what: 带输出的 notebook 份数
+    what: 仓库 notebook 总份数（含因受限输出而清空的入口）
     source:
       type: count_files
       glob: modules/*/notebooks/*.ipynb

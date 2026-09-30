@@ -1,7 +1,7 @@
 # M5 · 建模方案与基线阶梯
 
-> 状态：🟩 **初版完成（S5.1–S5.4）** ｜ 步数预算 **12** ｜ 已用 **4** ｜ 认领人：无
-> 最后更新：2026-09-03 ｜ 规范位置：`docs/00-framework/` §M5 · `docs/01-loops/` LOOP M5
+> 状态：🟨 **合成初版完成；外部数据 L0 已验收，安全 L3 待放行** ｜ 步数预算 **12** ｜ 已用 **5**（含前置 S5.P1）｜ 认领人：无
+> 最后更新：2026-09-30 ｜ 规范位置：`docs/00-framework/` §M5 · `docs/01-loops/` LOOP M5
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
 ## 目标
@@ -29,7 +29,7 @@ M4：三套特征集 · M2：≥6 个标准场景
 
 ## 当前结论
 
-暂无。本模块尚未开始，`step_ledger.yaml` 中 `steps` 为空。
+外部数据工程前置 S5.P1 已在 UCI/Hillstrom 的 S1.P2 冻结切片上完成 Alice-only L0；方法与结果存放边界见 [执行说明](外部数据L0执行说明.md)。数据派生数值仅在本机私有实验日志和 Alice 结果目录，未提交 Public 仓库。此步不包含 PSI、L1/L3 联合训练或模型泄漏评估，不能据此判断联邦增益。
 
 ## 未决问题
 
@@ -61,7 +61,7 @@ L3 在全部 ≥6 个场景下均不优于 L1 → 立即上报。不要通过调
 
 ## 下一步
 
-**S5.1** —— 详见 `docs/01-loops/2_模块Loop执行规范_v2_步进量化版.md` 中 LOOP M5 的步骤分解表。
+**P4 放行后再启动外部数据 L1/L3；正式模块下一步 S5.5。** 详见 `docs/01-loops/2_模块Loop执行规范_v2_步进量化版.md` 中 LOOP M5 的步骤分解表。
 执行前必须先写步骤声明（will_produce / will_not_produce / success_criteria / risk），
 并在 `registry/module_status.yaml` 认领本模块。
 

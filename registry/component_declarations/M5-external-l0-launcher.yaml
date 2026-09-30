@@ -1,0 +1,8 @@
+component: launch_external_l0
+module: M5
+path: modules/m5_modeling/components/launch_external_l0.py
+purpose: 可信本机控制端复制代码和元数据并在 Alice 默认拒绝沙箱运行单方 Notebook。
+cross_border_assets: []
+cross_border_note: 控制端不读取行级数据，也不启动跨方通信；仅保留状态回执。
+tests:
+  - modules/m5_modeling/tests/test_external_l0.py

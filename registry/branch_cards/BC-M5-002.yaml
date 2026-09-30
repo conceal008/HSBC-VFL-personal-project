@@ -1,0 +1,30 @@
+card_id: BC-M5-002
+title: 外部数据 Alice-only L0 参照路线
+module: M5
+status: active
+opened_at: 2026-09-30
+opened_by: Codex
+related_steps: [S5.P1]
+related_changes: [CL-20260930-M5-001]
+decision_records: []
+question: |
+  在 UCI 与 Hillstrom 已冻结的事前特征和测试切片上，Alice-only 模型能否成为
+  后续 L1 与安全 L3 的同口径参照？
+selection_criteria: |
+  每组只用训练集拟合和验证集选参；至少五个模型种子，固定测试集，逐种子区间；
+  Hillstrom 两个邮件组分别与未发邮件组比较。任何公共结论必须遵守数据分级。
+routes:
+  - id: L0-UCI
+    role: 响应预测参照
+    status: evaluated_locally
+  - id: L0-Hillstrom
+    role: 随机对照增量排序参照
+    status: evaluated_locally
+falsifier: |
+  输入哈希、沙箱拒绝、训练/验证/测试隔离任一失败则本参照作废；
+  即便工程通过，若模型效果很弱或区间覆盖无效值，也不得把它说成有效业务模型。
+  后续 L1/L3 若未沿用同一冻结切片和指标，本卡比较资格自动失效。
+verdict: keep_as_comparator_only
+note: |
+  本卡不记录任何真实数据派生指标。数值与失败分支只在本机 Alice 私有结果中留存。
+  两方字段及交集为构造条件，不能外推到跨境共同客户业务。

@@ -1,0 +1,8 @@
+component: external_l0
+module: M5
+path: modules/m5_modeling/components/external_l0.py
+purpose: 仅 Alice 的冻结切片训练与本地评估；网络调用是预期被拒绝的本机隔离探针。
+cross_border_assets: []
+cross_border_note: 默认拒绝沙箱内，无跨方传输；不读取 Bob 的数据或结果。
+tests:
+  - modules/m5_modeling/tests/test_external_l0.py

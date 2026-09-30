@@ -1,0 +1,3 @@
+component: m5.external_l0_local_probe
+cross_border_assets: []
+purpose: 外部数据 L0 的 socket 调用仅测试本机回环网络是否被沙箱拒绝；训练无跨方通信。

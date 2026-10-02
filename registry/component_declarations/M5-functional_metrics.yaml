@@ -1,0 +1,8 @@
+component: functional_metrics
+module: M5
+path: modules/m5_modeling/components/functional_metrics.py
+purpose: Alice 私有验证集选参、配对自助区间、增量策略与输出成员诊断
+cross_border_assets: []
+cross_border_note: 仅 Alice 本地评估，无跨方传输。
+tests:
+  - modules/m5_modeling/tests/test_functional_training.py

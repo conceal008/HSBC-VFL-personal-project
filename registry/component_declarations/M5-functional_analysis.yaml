@@ -1,0 +1,8 @@
+component: functional_analysis
+module: M5
+path: modules/m5_modeling/components/functional_analysis.py
+purpose: 训练完成后的 Alice 获授权结果分析 Notebook、报告、区间图和事后并列分数诊断；不读取原始数据行或重新选择模型
+cross_border_assets: []
+cross_border_note: 可信管理员在 Alice 私有宿主目录读取获授权的评价和预测，不向 Bob/联邦驱动返回指标
+tests:
+  - modules/m5_modeling/tests/test_functional_analysis.py

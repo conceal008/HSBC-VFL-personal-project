@@ -1,0 +1,8 @@
+component: functional_tls
+module: M5
+path: modules/m5_modeling/components/functional_tls.py
+purpose: 修复锁定版隐语原生 gRPC ChannelCredentials 初始化并验证未认证客户端拒绝
+cross_border_assets: []
+cross_border_note: 本机双虚拟机 mTLS 与证书元数据；不传数据或模型参数。
+tests:
+  - modules/m5_modeling/tests/test_functional_training.py

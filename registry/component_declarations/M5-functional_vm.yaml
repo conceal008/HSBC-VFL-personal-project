@@ -1,0 +1,8 @@
+component: functional_vm
+module: M5
+path: modules/m5_modeling/components/functional_vm.py
+purpose: 可信环境提供方投递本方冻结文件、证书、代码并启动独立虚拟机训练
+cross_border_assets: []
+cross_border_note: 无实际跨境部署；不解析真实数据行；训练后由可信管理员导出本方获授权产物，模型份额不汇集。
+tests:
+  - modules/m5_modeling/tests/test_functional_training.py

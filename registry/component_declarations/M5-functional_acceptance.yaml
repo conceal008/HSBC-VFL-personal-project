@@ -1,0 +1,8 @@
+component: functional_acceptance
+module: M5
+path: modules/m5_modeling/components/functional_acceptance.py
+purpose: 可信管理员在训练完成后核对本方获授权文件、输入字节哈希、执行指纹、区间与输出边界；不读取原始行或模型份额
+cross_border_assets: []
+cross_border_note: 本机私有输出文件审核，不进行跨境通信；工程汇总不包含数据指标
+tests:
+  - modules/m5_modeling/tests/test_functional_acceptance.py

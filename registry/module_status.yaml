@@ -137,6 +137,7 @@ modules:
     - PSI 交集是否明文落地须 M0/S0.9 正式裁定；DR-MX-001 D-6 当前默认倾向不明文落地。
     - S3.P1 审计锁定版 SecretFlow psi_df 明文输出语义；P4 blocked，UCI/Hillstrom 真实 PSI、P6 联合训练及 P7 泄漏验收均未放行。
     - 缺少经审计的秘密分享输出适配器、双独立主机、各方密钥及双方认证握手证据；公开数据构造记录键不能证明真实跨机构匹配质量。
+    - DR-M5-001 为本轮预对齐功能模拟单独授权；双虚拟机训练不构成真实客户 PSI 放行，也不修改 S3.P1 历史阻断结论。
     latest_completed_step: S3.P1
   M4:
     name: 特征工程与跨域特征治理
@@ -152,16 +153,18 @@ modules:
     path: modules/m5_modeling
     status: in_progress
     claimed_by: null
-    claimed_at: '2026-09-30T09:30:00+08:00'
+    claimed_at: null
     expires_at: null
     current_step: null
     next_step: S5.5
     blocking_on:
-    - M4 特征集
-    - 外部数据 L1/L3 须先通过 P4 安全实体对齐、身份认证与交集披露范围验收
+    - M4 特征集（正式业务阶梯）
+    - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
     open_questions:
     - k 已定（DR-MX-001 · D-5）：**k = 10 起步，并做 k ∈ {5, 10, 20} 敏感性**；L3 vs L1 的结论须说明在哪些 k 下成立
     - 基线阶梯须在两组口径（南向通 / 卓越理财跨境升级）上分别跑，结论不一致时以主口径为准并如实报告差异
+    - S5.P2 功能训练及私有验收完成；本轮采用独立非特权账户、双 Linux 虚拟机、mTLS 和 CHEETAH，宿主管理员可信。
+    - 需新步骤执行同优化器active-only与独立未查看切片、输出限制；本轮不解除正式M0/M3/M4前置。
   M6:
     name: 效果验证与评估体系
     path: modules/m6_evaluation

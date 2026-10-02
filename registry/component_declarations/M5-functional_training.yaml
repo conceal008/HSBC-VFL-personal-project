@@ -1,0 +1,9 @@
+component: functional_training
+module: M5
+path: modules/m5_modeling/components/functional_training.py
+purpose: 独立账户读取本方冻结输入，以 CHEETAH 执行 L1 与 L3，预测只给 Alice
+cross_border_assets: []
+cross_border_note: 本轮无跨境部署；本机两方交换秘密份额、固定调度与维度、对齐布尔；不宣称无通信。
+tests:
+  - modules/m5_modeling/tests/test_functional_training.py
+implementation_note: 连续 SR 与分块权重投影在 MPC 内执行，双方只接收原概率有效性布尔；端点检查仅 Alice 使用训练分数，失败关闭。

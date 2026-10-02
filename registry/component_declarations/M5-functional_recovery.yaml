@@ -1,0 +1,8 @@
+component: functional_recovery
+module: M5
+path: modules/m5_modeling/components/functional_recovery.py
+purpose: 各方仅在新目录恢复已完整训练模型的收尾；复核原输入、处理数组、代码及候选完整性，不重新训练或选参定义
+cross_border_assets: []
+cross_border_note: 本方独立执行，不建立新的联合计算会话；实际训练与认证追溯原轮次，预测仍只 Alice 可见
+tests:
+  - modules/m5_modeling/tests/test_functional_recovery.py

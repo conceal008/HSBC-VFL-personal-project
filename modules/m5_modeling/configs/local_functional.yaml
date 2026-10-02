@@ -1,0 +1,60 @@
+step_id: S5.P2
+mode: two_vm_functional_simulation
+alignment: frozen_pre_alignment_secure_equality_only
+protocol: CHEETAH
+field: FM64
+smoke:
+  data_seed: 20261001
+  split_rows: [512, 128, 128]
+  features_per_party: 2
+  treatment_effect: 0.3
+  precision_logits: [-4096.0, -1024.0, -256.0, -128.0, -64.0, -32.0, -16.0, -8.0, -1.0, 0.0, 1.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 1024.0, 4096.0]
+  shared_overrides:
+    model_seeds: [11]
+    learning_rates: [0.1]
+    epochs: 2
+    bootstrap_repeats: 30
+    l0_c_grid: [1.0]
+    tree_iterations: 20
+shared:
+  model_seeds: [11, 22, 33, 44, 55]
+  initialization_std: 0.01
+  split_seed: 20260927
+  bootstrap_seed: 20261001
+  bootstrap_repeats: 300
+  top_k_fraction: 0.1
+  clip_features: 4.0
+  segments: 10
+  minimum_group: 10
+  prediction_batch_size: 2048
+  infeed_rows: 4096
+  precision_tolerance: 0.001
+  membership_max_rows: 4000
+  learning_rates: [0.1, 0.3]
+  epochs: 12
+  batch_size: 512
+  l2_norm: 0.1
+  sigmoid: df
+  weight_bound: 10.0
+  training_boundary_limit: 0.01
+  l0_c_grid: [0.1, 1.0]
+  l0_max_iter: 1000
+  tree_iterations: 100
+  tree_leaves: 15
+  tree_l2: 1.0
+  score_epsilon: 0.000001
+  ci_percentiles: [2.5, 97.5]
+  link_timeout_ms: 300000
+datasets:
+  uci_bank_marketing:
+    treatment: false
+    prohibited_features: [duration, campaign, contact, month, day_of_week]
+  hillstrom_email_marketing:
+    treatment: true
+    treatment_arms: [1, 2]
+    prohibited_features: [history_segment, segment, visit, spend]
+disclosure:
+  controller: [status, artifact_path]
+  both_parties: [dimensions, alignment_boolean, fixed_training_schedule, numerical_validity_boolean]
+  alice_only: [prediction, evaluation, model_selection]
+  prohibited: [cross_party_raw_values, plaintext_joint_weights, bob_labels, bob_residuals, bob_scores]

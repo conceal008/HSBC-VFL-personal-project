@@ -1,0 +1,31 @@
+card_id: BC-M5-003
+title: 本轮双虚拟机 L0/安全 L1/安全 L3 对照
+module: M5
+status: archived
+opened_at: '2026-10-01'
+opened_by: Codex
+related_steps:
+- S5.P2
+related_changes:
+- CL-20261001-M5-001
+decision_records:
+- DR-M5-001
+question: 在固定预对齐切片及半诚实两方条件下，安全联合模型相对强单方及安全组聚合对照的效果、成本和输出风险如何？
+selection_criteria: 只用验证集选参；五个训练种子与95%区间；输入及输出权限通过；结果不进入 Public。
+routes:
+- id: L0
+  role: Alice 强单方逻辑回归/梯度提升树候选
+  status: evaluated_locally
+- id: L1_secure
+  role: 组均值只在 MPC 内使用的对照
+  status: evaluated_locally
+- id: L3_secure
+  role: CHEETAH 联合逻辑回归；Hillstrom 处理组与特征交互
+  status: evaluated_locally
+failed_engineering_route: 逐行秘密索引开销、单块 FM128 OOM、清单误列未消耗文件均留档；旧 T3 实际训练完成但硬端点影响解释。新 SR 兼容性与合成生成器失败、协议 trace 最小化发现如实留档，改正后新目录重跑，来源
+  failed 不改。 SR正式轮范围检查failed保留；DF重新完成数值对照及两任务冒烟。UCI来宾已完成，主机归档进程中断后2026-10-02恢复收回，无重训、原退出码未知。
+falsifier: 权限/认证/输入不变/输出边界任一失败则不接纳该轮；测试集选参失去比较资格；安全 L1 成本不能冒充原低成本 L1；无指标优越性不等于安全失败。
+verdict: evaluated_locally
+note: 真实 PSI、恶意参与方及全攻击安全均未验收；逐条预测只给 Alice，其余结论受可信宿主假设限定。 两数据集最终DF功能验收和私有分析完成；工程通过不裁定业务增益，数字仅私有。
+method_recheck: 最终DF+权重界限+训练端点工程限值冻结；旧SR被实际原概率检查拒绝，合成秘密logit网格说明失真后更换原生DF，不依据新测试效果挑选；UCI旧测试已查看，正式确认需新切片。
+closed_at: '2026-10-02T21:58:31+08:00'

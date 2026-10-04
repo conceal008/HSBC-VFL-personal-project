@@ -1,0 +1,31 @@
+card_id: BC-M5-004
+title: 同优化器主动方安全参照与冻结联合输出诊断
+module: M5
+status: archived
+opened_at: '2026-10-03'
+opened_by: Codex
+related_steps:
+- S5.P3
+related_changes:
+- CL-20261003-M5-001
+decision_records:
+- DR-M5-001
+question: 同数学更新的主动方安全模型是否与本地参考一致，上一轮联合差异能够排除哪些混杂？
+selection_criteria: 五训练seed、原冻结候选；只用验证分数选参并冻结后解锁测试；已查看人群只作工程诊断。
+routes:
+- id: active_secure
+  role: 双VM原生CHEETAH主动方训练；Bob不提供字段值
+  status: evaluated_locally
+- id: native_reference
+  role: Alice本地原生更新字节码的NumPy数学参考；权重不导出
+  status: evaluated_locally
+- id: frozen_comparators
+  role: 只读复用上轮L0/L1/L3的冻结选择和预测；不重训或重选
+  status: readonly
+failed_engineering_route: CPU直接执行SPU缓存提示无custom call注册；仅移除提示后仍退出255，完整原因待查。改用相同字节码与NumPy绑定；失败纯合成目录保留。Hillstrom小样本Top10%冒烟执行完成但区间有效重复数不足，独立验收拒绝；仅冒烟改配置比例，实际参数不改。
+falsifier: 权限、认证、输出或源指纹失败则拒绝工程验收；测试参与选择则失去比较资格；预设数值阈值未通过则不能把对照差异归为纯字段效应。主动方数值通过不能替代联合全字段数学参考，更不能替代独立人群确认。
+verdict: evaluated_locally
+note: Public不含真实派生数值；真实PSI、完整攻击与生产安全未验收。新独立人群与输出限制另声明。
+closed_at: '2026-10-04T09:22:05+08:00'
+qualification: 两实际任务完成及独立验收通过；预测容差按预声明判定。Hillstrom仅恢复归档，原宿主退出未知，不重训、不重选；效果及数值只在私有目录。
+scope_review: 修正率超过0.4，下一轮拆开联合数学诊断、独立人群确认及输出攻击验证；当前已查看人群不冒充新的确认。

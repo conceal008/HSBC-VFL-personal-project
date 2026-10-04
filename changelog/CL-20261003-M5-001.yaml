@@ -1,0 +1,132 @@
+change_id: CL-20261003-M5-001
+timestamp: '2026-10-04T09:22:05+08:00'
+agent: Codex
+module: M5
+type: exp
+title: 同优化器主动方安全参照与原生数值核对
+what: 仅Alice字段的双VM安全训练与本地原生参照；验证冻结后解锁测试；旧联合输出只读复用。
+why: 上一轮强单方与安全联合使用不同优化器，不能据其差异直接解释字段增量；需预声明同更新/批次/投影/映射初始化对照。
+links:
+  branch_card: BC-M5-004
+  decision_record:
+  - DR-M5-001
+  loop_step:
+  - S5.P3 同优化器诊断；已查看切片
+cross_border_impact: none
+cross_border_detail: 本轮全部位于本机双 Linux 虚拟机，无实际跨境部署；本地两方交换秘密份额和允许的工程元数据，不能解释为无通信。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Public仅源代码、配置、工程状态与清空派生输出的S5.P3 Notebook；真实原件、指标、预测、处理参数、模型份额、凭证及带输出Notebook全留私有目录；不公布效果数字。
+downstream_affected:
+- M3
+- M6
+- M7
+breaking_change: false
+migration: 只为本轮功能模拟采用 DR-M5-001；真实业务 PSI、披露裁定与生产安全维持待定。旧冻结输入及实验不改。
+reproducibility:
+  config: modules/m5_modeling/configs/active_diagnostic.yaml
+  config_hash: sha256:f119cf40fb7d918a62539c106854bc1e69e5fdecd10d951d0f99ce20807b636b
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 五初始化/批次seed，切分seed20260927；原参数冻结，同数学更新/映射初始化/分块投影；纯合成两任务预检和实际主动方数学参照实测。CPU参考保留原生更新字节码使用NumPy绑定；完整实际轮未重复，已查看切片不作独立确认。实际源码/配置/环境指纹逐模型留存，运行git
+    parent不冒充最终提交。
+rollback: git revert 本步骤提交；新轮及失败私有目录永久留档，不修改历史资产。
+verification: 两个实际轮双方Notebook及独立验收通过；权限/认证/冻结来源/代码与配置/测试解锁/输出接收方/CI有效重复核验。246单元测试预检与两纯合成预检通过；提交前全门禁和提交后HEAD元数据见本步骤私有日志。Hillstrom原退出未知，仅恢复授权归档，未重训或重选。
+step:
+  step_id: S5.P3
+  step_name: 同优化器主动方诊断
+  declaration: '# S5.P3 同优化器单方诊断步骤声明
+
+
+    > 编写日期：2026-10-03 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S5.P2 最终DF冻结输入/源码/配置与Alice获授权输出；锁定版隐语原生SS-SGD更新
+
+    > 口径基准：DR-M5-001；可信宿主、半诚实不串通；已查看切片工程诊断
+
+
+    will_produce:
+
+    - 同优化器主动方参照：只用Alice字段，双VM CHEETAH秘密训练；Bob只参加安全协议及预对齐键布尔检查，不提供特征值。
+
+    - 同原12轮/学习率0.1与0.3/L2/批次/DF/投影/初始化映射/固定批次顺序的Alice本地原生数学参照；预测偏差验收阈值沿用0.001。
+
+    - 两数据集、五seed；只用验证分数选择主动方候选，选择冻结后才解锁测试预测。联合/聚合/强单方比较复用上轮已冻结Alice预测，不重训、不重选。
+
+    - 每次模型独立code/data/results/logs；原始与旧结果只读；新处理矩阵/权重仅各自VM，指标/带输出Notebook仅私有。新代码、脱敏工程日志、失败记录与清空输出Notebook推送Public。
+
+    - 每candidate训练/验证的安全与本地预测偏差、每seed测试及配对95%区间；解释数值差异、优化器混杂与字段增量的证据范围。
+
+
+    will_not_produce:
+
+    - 不根据旧测试选择参数、翻转分数、补调参或宣称新独立收益验证；原冻结切片已查看，只做预声明诊断。
+
+    - 不让Alice读取Bob字段、让Bob获取标签/残差/预测/明文权重，或在宿主汇集份额。
+
+    - 不重跑联合路线、不改变旧实验资产，不宣称真实PSI、恶意宿主防护或绝对零泄漏。
+
+    - 不在本步骤构造新的未查看人群；此项后续另声明，不把旧切片重新切分冒充独立样本。
+
+
+    success_criteria:
+
+    - 权限/双通道认证/输入指纹/输出约束实测通过；主动方设计的安全函数没有Bob特征输入。
+
+    - 五seed固定原候选参数；选择函数不接收测试，全部候选验证完成后才读取测试输入；测试在VM中仅授权Alice。
+
+    - 原生本地与MPC偏差输出有实际判定：超过阈值如实标记不可把比较解释为纯字段效应，不放宽阈值；概率有效性异常停止整轮。
+
+    - 实际Notebook完成且有输出、逐次目录和私有实验日志；有原输出/源码/配置哈希可追溯且原文件未变。
+
+
+    risk:
+
+    - 同优化器也不能消除原测试已查看和代理数据边界；数值偏差可能累积，必须实测而非用合成冒烟代替。
+
+    - 选择记录仅Alice可见；双方固定执行协议日程，不向Bob泄露选择值；维度、固定轮数和有效性布尔仍是允许披露。
+
+    '
+  scope:
+    files_changed: 17
+    lines_added: 2333
+    routes_covered: 3
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/同优化器诊断工程说明.md:9；components/active_diagnostic.py:168,386,426；只读来源、主动方字段、选择冻结后解锁测试与独立训练目录。
+      D2: modules/m5_modeling/components/active_vm.py:28；tests/test_active_diagnostic.py:1；docs/03-handoff/HO-20261003-Codex-M5-active.md:35；两实际轮私有独立验收和246工程测试。
+      D3: modules/m5_modeling/configs/active_diagnostic.yaml:1；components/active_diagnostic.py:223；components/active_vm.py:188；源代码、配置、环境指纹，纯合成实测及实际本地参考；完整实际轮未重复，故2分。
+      D4: modules/m5_modeling/同优化器诊断工程说明.md:23,39；components/active_diagnostic.py:331,446；同优化器数值判据、优化器混杂与已查看人群边界；私有效果解读不外推业务。
+  revisions: 2
+  verdict: committed
+  next_step: 正式S5.5仍受M4/业务前置；后续本地联合数学核验、未查看人群确认、输出攻击验证分开声明，不依据当前测试调参。
+  outputs:
+  - modules/m5_modeling/S5.P3_同优化器诊断_步骤声明.md
+  - modules/m5_modeling/同优化器诊断工程说明.md
+  - modules/m5_modeling/components/active_diagnostic.py
+  - modules/m5_modeling/components/active_vm.py
+  - modules/m5_modeling/configs/active_diagnostic.yaml
+  - modules/m5_modeling/notebooks/S5.P3_active_diagnostic.ipynb
+  - modules/m5_modeling/tests/test_active_diagnostic.py
+  - registry/branch_cards/BC-M5-004.yaml
+  - registry/component_declarations/M5-active_diagnostic.yaml
+  - registry/component_declarations/M5-active_vm.yaml
+  - docs/03-handoff/HO-20261003-Codex-M5-active.md
+  revision_note: 两个代码质量预检修正周期：新Notebook审查/状态数量、独立验收fixture证据；兼容性开发和不合格合成预检逐项留档。修正率3/7触发后续步骤重新拆分，不能隐去失败降低台账修正率。

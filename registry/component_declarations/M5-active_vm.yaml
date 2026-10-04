@@ -1,0 +1,8 @@
+component: active_vm
+module: M5
+path: modules/m5_modeling/components/active_vm.py
+purpose: 投递独立诊断目录和只读来源；不导出权重、处理矩阵或份额
+cross_border_assets: []
+cross_border_note: 仅本机双VM，复用DR-M5-001；协议秘密份额、固定调度和键一致性布尔；主动方设计没有Bob字段输入。
+tests:
+- modules/m5_modeling/tests/test_active_diagnostic.py

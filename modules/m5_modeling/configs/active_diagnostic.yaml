@@ -1,0 +1,27 @@
+step_id: S5.P3
+base_config: modules/m5_modeling/configs/local_functional.yaml
+expected_base_sha256: dfb23264ed6b0a98cc6f7879ad6591227c9eaa4614de40d435782d2c2c34668a
+comparison_scope: known frozen cohort; diagnostic only
+reference_tolerance: 0.001
+bootstrap_seed: 20261003
+model_seeds:
+- 11
+- 22
+- 33
+- 44
+- 55
+learning_rates:
+- 0.1
+- 0.3
+epochs: 12
+batch_size: 512
+infeed_rows: 4096
+sigmoid: df
+l2_norm: 0.1
+weight_bound: 10.0
+training_boundary_limit: 0.01
+private_directory_mode: 448
+private_file_mode: 384
+selection_order: all validation candidates first; test input capability only after
+  selections frozen
+smoke_top_k_fraction: 0.5

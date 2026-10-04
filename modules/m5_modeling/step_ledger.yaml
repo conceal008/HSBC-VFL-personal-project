@@ -146,16 +146,43 @@ steps:
     D3: 2
     D4: 3
   committed_at: '2026-10-02T21:58:31+08:00'
+- step_id: S5.P3
+  step_name: 同优化器主动方安全参照与本地数学诊断
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  committed_at: '2026-10-04T09:22:05+08:00'
+  change_id: CL-20261003-M5-001
+  outputs:
+  - modules/m5_modeling/同优化器诊断工程说明.md
+  - modules/m5_modeling/components/active_diagnostic.py
+  - modules/m5_modeling/components/active_vm.py
+  - modules/m5_modeling/notebooks/S5.P3_active_diagnostic.ipynb
+  - 本机8-9月/实验日志/S5P3_实际诊断汇总.md
+  note: 五seed两实际轮独立验收；数值一致范围限主动方；已查看切片诊断；Hillstrom只恢复授权归档，原宿主退出未知。两个预检修正周期，完整实际轮未重复。
 current_step: null
 next_step: S5.5
 metrics:
-  avg_score: 11.7
+  avg_score: 11.6
   escalation_count: 0
-  revision_rate: 0.333
-  steps_used: 6
-  budget_usage: 0.5
+  revision_rate: 0.429
+  steps_used: 7
+  budget_usage: 0.583
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:
   last_spot_check_step: null
   spot_checks_done: 0
+quality_actions:
+- 修正率3/7超过0.4，依维护约束3.4重新拆分后续步骤：联合全字段纯合成数学核验、未查看人群确认、输出限制和攻击验证独立声明。
+- 每五步他人回溯抽查仍未完成；本步骤自评不能代替人工复评。

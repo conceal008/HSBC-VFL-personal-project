@@ -1,0 +1,124 @@
+change_id: CL-20261004-M5-001
+timestamp: '2026-10-04T14:47:48+08:00'
+agent: Codex
+module: M5
+type: doc
+title: 文献候选方法、四格对照和实验记录预设计
+what: 新增十二项备选方案与前置核验、控制矩阵、指标/统计协议、私有单次训练记录模板；只写方案，不执行方法实验。
+why: 在当前隐语两方功能模拟上筛选适用方法，区分本地工程效果与合作信息价值，并避免把横向/神经网络论文结论直接移植。
+links:
+  branch_card: none
+  decision_record:
+  - DR-M5-001
+  - DR-MX-001
+  loop_step:
+  - S5.D1 文档预设计
+cross_border_impact: none
+cross_border_detail: 仅文档，不新增数据流、不启动模型训练，不改变现有 M0/M3/M4 放行状态。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 公开内容仅计划、来源、既有公开配置口径和治理状态；不包含实际效果数值、数据、派生统计、模型、凭证或私人路径内的内容。
+downstream_affected:
+- M4
+- M6
+- M7
+- M8
+breaking_change: false
+migration: 候选均 proposed；实施前另开步骤，不以本计划替代安全审查或已冻结协议。
+reproducibility:
+  config: modules/m5_modeling/候选方法与对照实验设计.md
+  config_hash: sha256:1b3a3b184bf43fb7b3e85032a96256c54a037b91ca34709de0a1317284b2306c
+  seeds: []
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 此处 config 指规划文档指纹，并非可执行配置；无实际训练 seed。文中 seed/重采样次数属于候选参数，待执行协议冻结。
+rollback: git revert 本步骤文档提交；不影响既有代码、配置或冻结实验结果。
+verification: 既有提交前全门禁通过，日志含全部通过结束标记；246项工程单元测试、47组门禁回归通过，核心覆盖3737/3994（93.6%）；旧代码/配置/结果/Notebook指纹未变。九个清空外部派生输出Notebook提示按既有Public边界保留。新步骤元数据另作HEAD核验；本轮未执行候选对照。
+step:
+  step_id: S5.D1
+  step_name: 候选方法与对照预设计
+  declaration: '# S5.D1 候选方法与对照设计声明
+
+
+    > 编写日期：2026-10-04 ｜ 版本：v1.0 ｜ 状态：执行前声明；仅文档步骤
+
+    > 数据来源：本机 `8-9月/文献/` 三份 Markdown、仓库冻结配置/实现及原始论文
+
+    > 口径基准：2026-07-29 会议纪要、仓库 AGENTS、DR-M5-001、DR-MX-001；用户本轮明确要求先提出方案，不运行对照实验
+
+
+    will_produce:
+
+
+    - 有来源和适配边界的候选改进清单，区分直接应用、需要改造与暂不适用。
+
+    - 各候选的假设、基线、消融、评价指标、优先级及信息披露约束。
+
+    - 开发集与独立确认集的区分、统计比较和停止规则、单次实验记录模板。
+
+    - 新文档、模块状态、步骤台账、变更日志与交接记录，提交推送文档分支。
+
+
+    will_not_produce:
+
+
+    - 不启动候选对照实验、不重新处理原始数据、不改训练代码/配置或已有结果。
+
+    - 不将论文报告的增益迁移为本项目预期数值，不把适配思路称为论文复现。
+
+    - 不公开真实数据派生数值，不将计划标记成已完成的实验或安全验收。
+
+    - 不裁定新跨方信息流、真实 PSI、业务最小效应量或生产安全。
+
+
+    success_criteria:
+
+
+    - 候选项均有可比较的对照和指标；明确处理已有交互项、公开可得变量及优化器混杂。
+
+    - 原始论文/官方文档可追溯；缺失或未核实的方法不作为立即执行依据。
+
+    - 每次拟议训练独立目录，数据/代码/结果/日志分开，负结果和失败保留。
+
+    - 文档检查及仓库既有提交门禁完成；既有合成回归仅用于工程检查，不作为本轮方法实验或收益证据。
+
+
+    risk:
+
+
+    - 原测试人群已查看；仅原 train/validation 可用于候选开发，不以旧 test 挑方法或重新切分冒充新确认集。
+
+    - 文献包含横向联邦、神经网络与旧 NTB 语境，不能覆盖当前共同客户营销和线性/树模型主线。
+
+    - 未来跨方交互、树、蒸馏、DP 可能改变披露面；必须先单独完成安全设计与数值核验。
+
+    '
+  scope:
+    files_changed: 9
+    lines_added: 613
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/候选方法与对照实验设计.md:26；十二候选、来源、适配、对照与指标；modules/m5_modeling/S5.D1_候选对照设计_步骤声明.md:15 不开训边界。
+      D2: modules/m5_modeling/候选方法与对照实验设计.md:46；modules/m5_modeling/候选方法与对照实验设计.md:225；本地函数/config和原始论文映射，区分论文动机与实际实现。
+      D3: modules/m5_modeling/候选对照实验记录模板.md:9；modules/m5_modeling/候选方法与对照实验设计.md:155；训练/数据/选择指纹与种子分别登记；具体协议未冻结且未运行，故2分。
+      D4: modules/m5_modeling/候选方法与对照实验设计.md:138；四格对照、公开可得信息参照、充分交互S/T表示边界，防止混淆工程增益和联邦价值。
+  revisions: 0
+  verdict: committed
+  next_step: 本轮仅文档；若后续实施先单独声明联合数学核验和独立确认集；正式 S5.5 保持原业务前置。
+  outputs:
+  - modules/m5_modeling/S5.D1_候选对照设计_步骤声明.md
+  - modules/m5_modeling/候选方法与对照实验设计.md
+  - modules/m5_modeling/候选对照实验记录模板.md
+  - docs/03-handoff/HO-20261004-Codex-M5-design.md

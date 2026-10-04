@@ -223,3 +223,70 @@ terms:
     forbidden: [数据不出域]
     note: 「数据不出域」口语化且易被误解为「所有数据都不出去」，掩盖了中间量仍可能泄露的事实。
     source: 本项目定义
+
+  # ---------- S5.D1 方法设计新增术语（2026-10-04） ----------
+  - term: 安全多方计算
+    en: Secure Multi-Party Computation
+    abbr: MPC
+    definition: 多方在协议假设下联合计算函数，只向指定接收方披露许可输出；不等于模型输出无推断风险。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 最小可察差异
+    en: Minimum Detectable Effect
+    abbr: MDE
+    definition: 实验按预定功效可分辨的最小效应量；须注明指标、绝对/相对口径和样本量假设。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: ROC曲线下面积
+    en: Area Under the Receiver Operating Characteristic Curve
+    abbr: AUROC
+    definition: 二分类分数排序指标，计及正负样本比较中的并列值；不表示因果增量。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 平均精确率
+    en: Average Precision
+    abbr: AP
+    definition: 以召回率增量加权的精确率汇总；与梯形积分的PR曲线下面积区分。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 增益曲线下面积
+    en: Area Under the Uplift Curve
+    abbr: AUUC
+    definition: 增益曲线面积，须声明曲线构造、归一化分母和积分方法。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 期望校准误差
+    en: Expected Calibration Error
+    abbr: ECE
+    definition: 概率分箱内预测均值与经验结果率的加权偏差；分箱规则须预先固定。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 逆概率加权
+    en: Inverse Probability Weighting
+    abbr: IPW
+    definition: 按处理或纳入概率倒数加权估计目标量；必须明确概率来源、支持条件和目标人群。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 双重稳健估计
+    en: Doubly Robust Estimation
+    abbr: DR
+    definition: 结合结果模型与分配模型的估计；正确性仍受识别与支持条件限制。DR作为估计器缩写与决策记录ID按语境区分。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 折外预测
+    en: Out-of-Fold Prediction
+    abbr: OOF
+    definition: 由未使用该记录训练的折内模型产生的预测，用于编码、校准、蒸馏或第二阶段学习。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 条件平均处理效应
+    en: Conditional Average Treatment Effect
+    abbr: CATE
+    definition: 给定处理前特征的潜在结果均值差，非响应概率本身。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 个体处理效应
+    en: Individual Treatment Effect
+    abbr: ITE
+    definition: 同一个体不同处理下的潜在结果之差；普通真实试验无法同时观测两种结果。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 证据权重
+    en: Weight of Evidence
+    abbr: WOE
+    definition: 类别/分箱与结果标签分布关联的编码；在本项目中是标签相关派生量，不能默认给被动方。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档
+  - term: 信息值
+    en: Information Value
+    abbr: IV
+    definition: 根据类别/分箱与标签分布计算的关联汇总；真实数据派生IV表不得进Public。
+    source: 学界通用；S5.D1候选设计§5–6及其原始文献/官方指标文档

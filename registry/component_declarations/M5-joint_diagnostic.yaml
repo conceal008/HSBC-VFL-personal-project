@@ -1,0 +1,8 @@
+component: joint_diagnostic
+module: M5
+path: modules/m5_modeling/components/joint_diagnostic.py
+purpose: 纯合成完整联合路径与独立方程核验；实际数据明文参照 capability 拒绝
+cross_border_assets: []
+cross_border_note: 仅本机双VM纯合成研究；DR-M5-001信任边界；秘密份额和固定调度，概率只回Alice。无真实跨境资产。
+tests:
+- modules/m5_modeling/tests/test_joint_diagnostic.py

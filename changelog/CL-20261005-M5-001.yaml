@@ -1,0 +1,125 @@
+change_id: CL-20261005-M5-001
+timestamp: '2026-10-05T09:11:04+08:00'
+agent: Codex
+module: M5
+type: exp
+title: 纯合成完整联合数学核验与独立方程参照
+what: 新增完整联合数学核验、双VM调度/验收、冻结配置、控制测试、已执行Notebook和纯合成误差汇总；二十最终拟合通过，失败保留。
+why: 主动方数值一致不能排除完整联合设计、处理组交互与末批填充的错误；方法对照前先验证联合路径。
+links:
+  branch_card: BC-M5-005
+  decision_record:
+  - DR-M5-001
+  loop_step:
+  - S5.V1 联合数学核验
+cross_border_impact: none
+cross_border_detail: 只用纯合成本机双VM，不新增真实跨境资产，保持DR-M5-001与现有业务前置。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 所有新结果与Notebook输出只来自配置再生的纯合成工程实验，已核对不含样本、凭证、权重或真实派生数值；两份公开Notebook保留实际汇总输出。
+downstream_affected:
+- M4
+- M6
+- M7
+breaking_change: false
+migration: 新增纯合成诊断，不修改冻结训练/旧结果。
+reproducibility:
+  config: modules/m5_modeling/configs/joint_numerical.yaml
+  config_hash: sha256:ad51a5e8ee2f28a9c3f9ef4fcbecb7a869c205761566c9cdb7f7b4989a6b4834
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 数据seed与顺序seed单独记录。当前源指纹与两最终轮一致；父Git仅为继承基线。
+rollback: git revert 本步骤提交，私有VM实验与历史失败仍保留。
+verification: 最终 ci/run_all_gates.sh 完整通过（日志 hsbc-g00-release-gates.log）；258项单元测试、47组门禁回归通过，核心覆盖4120/4396（93.7%），新增两组件各自覆盖≥70%。真实双VM纯合成20最终拟合、权限/认证/输入/输出/Notebook验收通过。9个既有外部派生Notebook清空输出提示保留。提交前修正时间格式、规模索引和新增控制测试，未改实验参数/容差或重写冻结结果。
+step:
+  step_id: S5.V1
+  step_name: 完整联合路径纯合成数学核验
+  declaration: '# S5.V1 联合数学核验
+
+
+    > 编写日期：2026-10-05 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：配置驱动的纯合成生成器；不读取真实数据或历史预测
+
+    > 口径基准：仓库规范、DR-M5-001、S5.D1；用户授权开始实验
+
+
+    will_produce:
+
+
+    - 双虚拟机 CHEETAH 完整联合路径与独立 NumPy 数学参照，含两方字段、处理组交互、偏置、末批零填充、分块更新和投影。
+
+    - 两种任务形式、五初始化 seed、两固定学习率；逐拟合独立目录、代码快照、新数据引用、Notebook 输出、数值差异与实验日志。
+
+    - 执行前冻结配置和通过阈值；独立工程验收、变更日志、交接及推送。
+
+
+    will_not_produce:
+
+
+    - 本步骤不训练真实数据、不执行 C01 特征工程，不读取旧测试集或旧模型预测。
+
+    - 不计算业务收益、不证明真实 PSI、生产安全、恶意宿主防护或所有输出攻击安全。
+
+    - 不导出联合明文权重、秘密份额；不提交合成样本、凭证或真实派生产物。
+
+
+    success_criteria:
+
+
+    - 所有拟合训练及验证预测与 NumPy 参照最大绝对误差 ≤ 0.001；不使用效果指标挑参数。
+
+    - 至少五 seed，预先确定的两种任务和全部配置必须完成，失败也保留，不按结果删选。
+
+    - 两方权限、无宿主挂载、匿名通信拒绝、输入只读与指纹、Bob 无预测输出均通过；Notebook 全部执行完成。
+
+    - 门禁通过后一步一提交与推送；数值失败则下一步不得运行数据集方法对照。
+
+
+    risk:
+
+
+    - NumPy 参照借用原生更新函数字节码，但独立重建联合设计；原生函数共有算法错误仍需独立方程控制测试。
+
+    - 生成器公开，所以纯合成数学参照可重建两方样本；此能力严格限定 synthetic_only，不能移植到实际数据。
+
+    - 零填充保持既有算法固定分母，可能改变最后批的有效学习率；本轮验证一致性，不宣称这种设计最优。
+
+    - 现有半诚实、非串通参与方和可信宿主假设保留；数值一致不能替代隐私安全证明。
+
+    '
+  scope:
+    files_changed: 19
+    lines_added: 2800
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/联合数学核验运行说明.md:8；声明范围纯合成且20最终拟合、各自独立目录。
+      D2: modules/m5_modeling/results/joint_numerical_verification.json:1；逐seed/两任务、阈值、CI、控制方程与来源哈希，验收验证全部完成。
+      D3: modules/m5_modeling/configs/joint_numerical.yaml:1；两份实际执行Notebook和代码指纹；未另一清洁环境独立重跑，故2分。
+      D4: modules/m5_modeling/联合数学核验实验记录.md:8；联合而非仅主动方路径通过冻结容差，无方法收益结论。
+  revisions: 2
+  verdict: committed
+  next_step: C01单变量非线性开发四格另声明；正式S5.5仍有业务前置。
+  outputs:
+  - modules/m5_modeling/联合数学核验实验记录.md
+  - modules/m5_modeling/results/joint_numerical_verification.json
+  - modules/m5_modeling/notebooks/S5.V1_joint_numerical.ipynb
+  - modules/m5_modeling/notebooks/S5.V1_joint_uplift.ipynb

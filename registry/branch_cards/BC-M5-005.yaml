@@ -1,0 +1,26 @@
+card_id: BC-M5-005
+title: 完整联合路径纯合成数学核验
+module: M5
+status: archived
+opened_at: '2026-10-05'
+opened_by: Codex
+related_steps:
+- S5.V1
+related_changes:
+- CL-20261005-M5-001
+decision_records:
+- DR-M5-001
+question: 两方联合设计、原生密态更新和独立数学方程在冻结调度下是否一致？
+selection_criteria: 五初始化/独立命名批次顺序seed、两固定学习率、两任务全部完成；不挑选方法或读取旧测试。
+routes:
+- id: joint_secure
+  role: 原生CHEETAH完整联合训练
+  status: evaluated_synthetic
+- id: independent_numpy
+  role: 公开纯合成配置再生成的独立方程及原生字节码控制
+  status: evaluated_synthetic
+falsifier: 任一误差超过0.001、方程控制超过0.000001、认证/权限/输入哈希/输出边界/Notebook不通过均拒绝，方法对照不得启动。
+note: 纯合成数学参照不证明业务效果或全部隐私风险解决。草稿PR7开工认领，暂继承PR6，步骤提交后调整base。
+closed_at: '2026-10-05T09:11:04.408127+08:00'
+verdict: passed within synthetic engineering scope
+qualification: 两最终轮各十拟合、五seed、Notebook与独立验收代码通过；原始失败目录及两次修正保留。

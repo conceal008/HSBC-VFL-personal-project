@@ -1,0 +1,137 @@
+change_id: CL-20261005-M5-002
+timestamp: '2026-10-05T23:58:12+08:00'
+agent: Codex
+module: M5
+type: exp
+title: C01单变量非线性四格开发预试验与私有归档
+what: 两任务固定pilot、五seed四格安全拟合、固定本地参照、配对CI与统计检验、输出过滤和工程验收。逐拟合目录及真实Notebook输出私有归档。
+why: 检验只在主动方构造非线性基底是否改变单方预测、联合效用及合作差值；分离表示变换和合作方信息影响，负结果同样保存。
+links:
+  branch_card: BC-M5-006
+  decision_record:
+  - DR-M5-001
+  loop_step:
+  - S5.E1 C01开发预试验
+cross_border_impact: none
+cross_border_detail: 本机双VM功能模拟；原始/派生矩阵、逐记录预测、份额不导出，不新增真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 实际数据派生指标、CI、分位点、样本量、模型参数及带输出Notebook仅留本机私有目录。Public Notebook所有输出和execution_count清空；仅发布代码、配置和工程验收，无真实指标、样本、凭证或份额。
+downstream_affected:
+- M4
+- M6
+- M7
+breaking_change: false
+migration: 新增独立预试验；原输入/冻结结果不改。逐记录预测留Alice VM，新导出过滤不追溯改变旧轮。
+reproducibility:
+  config: modules/m5_modeling/configs/nonlinear_pilot.yaml
+  config_hash: sha256:1548fb9bedd4d77e4edf3609693672d5a751778ddc189a4e111f131046b06735
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 原切分、记录选择、初始化和顺序seed分别记录；现有源指纹匹配两轮执行副本。
+rollback: git revert 本步骤；私有实验及原始中断目录保留。
+verification: ci/run_all_gates.sh完整通过（本机日志hsbc-c01-release-gates.log）；269项单元测试、47组门禁回归，核心逻辑4604/4903=93.9%，新增两组件各自≥70%。10份真实派生Notebook清空输出提示符合Public要求。初次质量检查发现新Notebook输出分类元数据缺审查引用，已补齐并全门禁复核；此前测试置乱seed修正为配置读取，未改变训练源码/参数/执行单元。两实际任务Notebook与工程验收通过；UCI原宿主退出未知，只恢复完成的授权工件。
+step:
+  step_id: S5.E1
+  step_name: 单变量非线性四格开发预试验
+  declaration: '# S5.E1 单变量非线性开发预试验
+
+
+    > 编写日期：2026-10-05 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：M1 两方冻结 train/validation；G00 已通过；不读取旧 test 或旧模型预测
+
+    > 口径基准：S5.D1/C01、DR-M5-001、用户授权开始实验
+
+
+    will_produce:
+
+
+    - 两数据集标签无关、固定记录选择的开发预试验；预算与抽样 seed 先冻结，抽样和新处理只在持有方执行。
+
+    - Alice 的 UCI 年龄与 Hillstrom 历史消费/近期性训练分位数分段线性基底；Bob 字段保持基础表示，分位点不外发。
+
+    - A0/A1/B0/B1 四格各五初始化 seed 和分别命名的顺序 seed，固定学习率/迭代与原生安全更新；新增坐标零初始化，共有坐标初始化保持一致。
+
+    - 补充同记录本地 LR/树、分组效应与配对置信区间；每次拟合独立目录、代码/环境/配置、新数据、结果与统一实验日志。
+
+    - 双 VM 权限/认证/数值输出/Notebook 与只读输入验收，预测、矩阵及权重留持有方，公开仅代码及脱敏工程验收。
+
+
+    will_not_produce:
+
+
+    - 不运行完整数据训练、其他特征族或十二候选，不以小规模预试验当作最终方法确认。
+
+    - 不读已查看 test、不以旧预测调参，不改变原始切分/源文件，不使用事后字段。
+
+    - 不还原 pdays 缺失状态或原始金额、不跨方明文拼接、不生成跨方交互，不添加 PSI 披露。
+
+    - 不公开实际数据派生指标/分箱/样本/参数，不释放逐样本预测至 Bob 或控制端。
+
+    - 不选定业务路线、不声称真实营销因果增益、生产安全或已抵抗全部攻击。
+
+
+    success_criteria:
+
+
+    - 预声明两数据集、五 seed 和全部四格均完成；负效果保留，不按结果减少候选或改学习率。
+
+    - 新变换只拟合当前选定训练记录；继承 M1 原训练池拟合的填补与词表必须标注，不当作仅访问了小样本。
+
+    - 冻结共同坐标映射、输入与抽样规则、统计规则；评价带 CI，真实数据只在 Alice 内评估。
+
+    - 旧 test 不投递，历史轮次 VM 目录对训练账户隔离；新导出过滤预测/矩阵/权重/份额/协议 trace。
+
+    - 工程门禁、实验归档和验收通过后一步一提交推送；任一失败停，不降安全要求或阈值。
+
+
+    risk:
+
+
+    - 原 train/validation 已用于前期开发；预试验不是独立人群，统计只描述构造样本条件，不解除确认集欠账。
+
+    - 只改变 Alice 的单变量表示；本轮不足以判断 Bob 方特征工程、L1 新响应头或最优本地/联合路线。
+
+    - 五训练 seed 共享同一冻结切片；数据抽样与训练随机性分别记录，不能当作五个独立业务人群。
+
+    - 固定超参不保证新基底最优；本地树/LR是固定参数参照，不称全局最强模型。
+
+    - 半诚实非串通参与方、可信宿主管理员假设保留；权限改变只保护 VM 历史目录入口，不改冻结文件内容。
+
+    '
+  scope:
+    files_changed: 18
+    lines_added: 2319
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/非线性开发预试验实验记录.md:8；冻结四格五seed、两任务全部完成，各拟合独立目录。
+      D2: modules/m5_modeling/results/nonlinear_pilot_engineering.json:1；真实双VM工程验收，私有逐seed/配对CI及条件检验可追溯。
+      D3: modules/m5_modeling/configs/nonlinear_pilot.yaml:1；代码/配置指纹一致，真实Notebook私有、公开清空输出；未清洁环境独立重跑，2分。
+      D4: modules/m5_modeling/非线性开发预试验实验记录.md:8；首次C01单变量对照有实际正负结果，效应仅在私有分析，不等于独立确认。
+  revisions: 0
+  verdict: committed
+  next_step: 单独冻结收敛诊断/分组消融与独立确认；正式S5.5保持业务前置。
+  outputs:
+  - modules/m5_modeling/非线性开发预试验实验记录.md
+  - modules/m5_modeling/results/nonlinear_pilot_engineering.json
+  - modules/m5_modeling/notebooks/S5.E1_nonlinear_pilot.ipynb
+  - 本机8-9月/实验日志/S5E1_特征工程对照分析.md

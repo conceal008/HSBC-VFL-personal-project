@@ -1,0 +1,35 @@
+card_id: BC-M5-006
+title: C01单变量非线性四格开发预试验
+module: M5
+status: archived
+opened_at: '2026-10-05'
+opened_by: Codex
+related_steps:
+- S5.E1
+related_changes:
+- CL-20261005-M5-002
+decision_records:
+- DR-M5-001
+question: 在相同记录、初始化坐标和密态优化调度下，主动方非线性基底能否改善预测/增量排序，是否改变合作增量？
+selection_criteria: 冻结四格全部五seed，不按验证结果选超参或删除负结果；已知train/validation开发预试验，非独立确认。
+routes:
+- id: A0
+  role: 原表示主动方安全模型
+  status: evaluated_development_pilot
+- id: A1
+  role: 增强表示主动方安全模型
+  status: evaluated_development_pilot
+- id: B0
+  role: 原表示联合安全模型
+  status: evaluated_development_pilot
+- id: B1
+  role: 增强表示联合安全模型
+  status: evaluated_development_pilot
+- id: local_references
+  role: 固定参数主动方LR及树原/增强参照
+  status: evaluated_development_pilot
+falsifier: 任一权限/认证/输入/预测边界或Notebook失败停止；效果不提升仍完整归档，不改变协议以获得正结果。
+note: 开工步骤声明/认领/PR8存在；分支卡在UCI开工后补录，非追认训练前已经登记。原宿主退出未知，双来宾完成且授权恢复。
+closed_at: '2026-10-05T23:58:12+08:00'
+recorded_at: '2026-10-05T23:58:12+08:00'
+verdict: engineering passed; development-only results retained privately

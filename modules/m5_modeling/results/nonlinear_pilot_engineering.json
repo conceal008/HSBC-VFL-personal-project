@@ -1,0 +1,44 @@
+{
+  "step_id": "S5.E1",
+  "scope": "known train/validation development pilot; not independent confirmation",
+  "candidate": "C01 single-variable nonlinear basis",
+  "rounds": [
+    {
+      "verification": "passed",
+      "dataset": "uci_bank_marketing",
+      "config_sha256": "1548fb9bedd4d77e4edf3609693672d5a751778ddc189a4e111f131046b06735",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "independent_confirmation": false,
+      "original_host_exit_known": false
+    },
+    {
+      "verification": "passed",
+      "dataset": "hillstrom_email_marketing",
+      "config_sha256": "1548fb9bedd4d77e4edf3609693672d5a751778ddc189a4e111f131046b06735",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "independent_confirmation": false
+    }
+  ],
+  "checks": {
+    "separate_nonroot_vms": true,
+    "mtls_negative_checks": true,
+    "frozen_input_unchanged": true,
+    "test_not_staged": true,
+    "history_access_denied": true,
+    "notebooks_completed": true,
+    "predictions_matrices_shares_not_exported": true,
+    "source_matches_executed": true
+  },
+  "uci_recovery": {
+    "original_host_exit_known": false,
+    "guest_notebooks_completed": true,
+    "new_recovery_directory": true,
+    "retrained": false
+  },
+  "privacy_scope": "semi-honest noncolluding participants and trusted host administrator; not production or all-attack proof",
+  "actual_data_metrics_committed": false
+}

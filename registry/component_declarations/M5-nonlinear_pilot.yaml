@@ -1,0 +1,8 @@
+component: nonlinear_pilot
+module: M5
+path: modules/m5_modeling/components/nonlinear_pilot.py
+purpose: 持有方内构造单变量非线性，固定四格密态训练与Alice内配对评价
+cross_border_assets: []
+cross_border_note: 仅本机功能模拟，遵循DR-M5-001；不新增真实跨境资产。矩阵/份额/逐记录预测不导出，实际派生汇总不入Public。
+tests:
+- modules/m5_modeling/tests/test_nonlinear_pilot.py

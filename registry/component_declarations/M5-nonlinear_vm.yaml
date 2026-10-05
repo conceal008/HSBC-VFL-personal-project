@@ -1,0 +1,8 @@
+component: nonlinear_vm
+module: M5
+path: modules/m5_modeling/components/nonlinear_vm.py
+purpose: 隔离投递train/validation、禁止历史轮次访问与预测导出、双VM调度和工件验收
+cross_border_assets: []
+cross_border_note: 仅本机功能模拟，遵循DR-M5-001；不新增真实跨境资产。矩阵/份额/逐记录预测不导出，实际派生汇总不入Public。
+tests:
+- modules/m5_modeling/tests/test_nonlinear_pilot.py

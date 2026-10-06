@@ -1,0 +1,34 @@
+card_id: BC-M5-007
+title: C01完整训练分区四格对照
+module: M5
+status: archived
+opened_at: '2026-10-06T08:57:00+08:00'
+opened_by: Codex
+related_steps:
+- S5.E2
+related_changes:
+- CL-20261006-M5-001
+decision_records:
+- DR-M5-001
+question: 相同固定模型协议在全部冻结训练记录与全部验证记录上是否保留C01增益方向？
+routes:
+- id: A0
+  role: 原表示主动方
+  status: evaluated_full_partitions
+- id: A1
+  role: 增强表示主动方
+  status: evaluated_full_partitions
+- id: B0
+  role: 原表示联合
+  status: evaluated_full_partitions
+- id: B1
+  role: 增强表示联合
+  status: evaluated_full_partitions
+- id: local
+  role: 固定LR/树两表示参照
+  status: evaluated_full_partitions
+selection_criteria: 无样本上限，全部四格五seed；不根据已有验证表现调参；结果不代表独立确认。
+falsifier: 任何训练/验证记录被截断、读test、数据跨方明文暴露、认证/权限或Notebook验收失败即停止，不降低要求。
+note: 本卡与步骤声明先于本轮实现/训练创建；开工PR暂继承PR8，提交后base切到PR8。
+closed_at: '2026-10-07T00:15:49+08:00'
+verdict: complete frozen train/validation engineering passed; metrics private

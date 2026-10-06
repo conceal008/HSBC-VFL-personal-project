@@ -96,6 +96,15 @@ steps:
   - C1 未被翻转且更强：正规口径 L1 只捕获 2.1%，oracle 上界（测试集选参，作弊）也只 15.5%
   - 方法自检：验证减测试的乐观量随网格增大而增大（L3b 81 组差 0.0412）
   - 新增 8 个测试，含专门锁住「选参只看验证集」这一不变量的用例
+  independent_reassessment:
+    record: modules/m5_modeling/audit_log.yaml
+    score: 7
+    original_all_pass_valid: false
+    gates:
+      G1: pass
+      G2: pass
+      G3: pass
+      G4: fail
 - step_id: S5.P1
   step_name: 外部数据 Alice-only L0 冻结切片参照
   status: committed
@@ -146,6 +155,15 @@ steps:
     D3: 2
     D4: 3
   committed_at: '2026-10-02T21:58:31+08:00'
+  independent_reassessment:
+    record: modules/m5_modeling/audit_log.yaml
+    score: 8
+    original_all_pass_valid: false
+    gates:
+      G1: pass
+      G2: pass
+      G3: fail
+      G4: pass
 - step_id: S5.P3
   step_name: 同优化器主动方安全参照与本地数学诊断
   status: committed
@@ -239,22 +257,52 @@ steps:
   - modules/m5_modeling/notebooks/S5.E1_nonlinear_pilot.ipynb
   - 本机8-9月/实验日志/S5E1_特征工程对照分析.md
   note: 两任务固定pilot全部完成；真实派生结果私有。UCI宿主退出未知，授权恢复不重训；训练参数/核心源码无事后修正。分支卡补登记流程缺口留痕。
+- step_id: S5.E2
+  step_name: C01完整冻结训练验证分区对照
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  committed_at: '2026-10-07T00:43:20+08:00'
+  change_id: CL-20261006-M5-001
+  outputs:
+  - modules/m5_modeling/完整分区训练实验记录.md
+  - modules/m5_modeling/results/nonlinear_full_engineering.json
+  - modules/m5_modeling/notebooks/S5.E2_nonlinear_full.ipynb
+  - 本机8-9月/实验日志/S5E2_完整分区对照分析.md
+  note: 完整train/validation全行保留，四格五seed全部完成；未读test、未换超参。历史独立复评另留记录，不追认旧自评。
 current_step: null
 next_step: S5.5
 metrics:
-  avg_score: 11.4
+  avg_score: 10.636
   escalation_count: 0
-  revision_rate: 0.5
-  steps_used: 10
-  budget_usage: 0.833
+  revision_rate: 0.545
+  steps_used: 11
+  budget_usage: 0.917
   consecutive_low_d4: 0
-  pass_threshold: 10
+  pass_threshold: 11
+  original_self_average: 11.364
+  avg_score_basis: independent reassessment replaces invalidated self-scores; original
+    score fields retained as history
 audit:
-  last_spot_check_step: null
-  spot_checks_done: 0
+  last_spot_check_step: S5.E1
+  spot_checks_done: 2
+  record: modules/m5_modeling/audit_log.yaml
 quality_actions:
 - 修正率3/7超过0.4，依维护约束3.4重新拆分后续步骤：联合全字段纯合成数学核验、未查看人群确认、输出限制和攻击验证独立声明。
 - 每五步他人回溯抽查仍未完成；本步骤自评不能代替人工复评。
 - S5.D1 是文档步骤，不能将分母增加解释为解除 S5.P3 已触发的拆步/复评措施；方法对照仍未执行。
 - S5.V1 两次纯合成工程修正；修正率5/9仍超过0.4，C01单一特征族、确认人群与攻击验证继续分步。
 - S5.E1固定C01单一变换族，模型协议修正0轮；修正率5/10仍超门槛。每五步回溯复评未完成，继续分步且不得以自评解除。
+- S5.E2独立复评S5.4/P2原全部通过失效，分差5/3触发后续通过线11；历史结果冻结，不以新训练追认。旧自评均值不作为有效质量均值。
+- S5.E2固定完整分区单一步骤；修正率5/11仍超过0.4，继续分步。独立复評已登记历史缺口，不以自评分均值解除审计要求。
+- S5.E2发布门禁因F3文档计数语境失败一次，修正后重跑；仅文档口径，模型协议和实际工件未改。当前修正率6/11，继续分步。

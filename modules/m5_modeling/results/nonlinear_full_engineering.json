@@ -1,0 +1,43 @@
+{
+  "step_id": "S5.E2",
+  "scope": "all frozen train/validation; test excluded; not independent confirmation",
+  "config_sha256": "e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51",
+  "rounds": [
+    {
+      "verification": "passed",
+      "dataset": "uci_bank_marketing",
+      "config_sha256": "e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "full_train_validation": true,
+      "independent_confirmation": false
+    },
+    {
+      "verification": "passed",
+      "dataset": "hillstrom_email_marketing",
+      "config_sha256": "e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "full_train_validation": true,
+      "independent_confirmation": false
+    }
+  ],
+  "queue_status": "passed",
+  "checks": {
+    "full_rows_retained": true,
+    "all_notebooks_completed": true,
+    "frozen_source_unchanged": true,
+    "test_not_staged": true,
+    "history_access_denied": true,
+    "nonroot_vms_and_mtls": true,
+    "predictions_matrices_shares_not_exported": true,
+    "persistent_vm_storage": true,
+    "source_matches_executed": true,
+    "notebook_cells_match_executed": true
+  },
+  "original_host_exit_known": true,
+  "real_derived_metrics_published": false,
+  "security_assumptions": "semi-honest noncolluding participants; trusted host administrator"
+}

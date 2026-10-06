@@ -1,0 +1,8 @@
+component: nonlinear_full
+module: M5
+path: modules/m5_modeling/components/nonlinear_full.py
+purpose: 完整冻结train/validation的C01四格密态训练、全行保留断言与Alice内配对评价
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；无新增真实跨境资产，预测/矩阵/份额不导出，真实派生汇总不入Public。
+tests:
+- modules/m5_modeling/tests/test_nonlinear_full.py

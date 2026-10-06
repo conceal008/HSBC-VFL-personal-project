@@ -1,0 +1,130 @@
+change_id: CL-20261006-M5-001
+timestamp: '2026-10-07T00:43:20+08:00'
+agent: Codex
+module: M5
+type: exp
+title: C01完整冻结训练验证分区与独立回溯审计
+what: 无行数截断的完整冻结train/validation，原四格五seed密态训练、固定本地参照、私有CI和逐fit归档；持久队列与全行验收。补记历史独立复评。
+why: 预试验只覆盖受预算限制的子样本；使用全部原训练/验证记录检查相同局部非线性表示与合作字段增量，避免按旧效果换参数。
+links:
+  branch_card: BC-M5-007
+  decision_record:
+  - DR-M5-001
+  loop_step:
+  - S5.E2完整分区训练
+cross_border_impact: none
+cross_border_detail: 本机双VM功能模拟；原始/派生矩阵、逐记录预测、份额不导出，不新增真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Public仅代码/配置/工程验收与无指标的审计；实际分位点、行数、指标、CI、模型参数及执行Notebook输出私有。新增Notebook所有execution_count和outputs清空，无实际样本/凭证/份额。
+downstream_affected:
+- M4
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 新增独立完整轮次；源输入、预试验及历史冻结结果不变。历史自评失效范围单独登记。
+reproducibility:
+  config: modules/m5_modeling/configs/nonlinear_full.yaml
+  config_hash: sha256:e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 原切分、记录选择、初始化和顺序seed分别记录；现有源指纹匹配两轮执行副本。
+rollback: git revert本步骤，私有训练及历史审计事实保留。
+verification: 首次门禁因F3计数语境失败，修正1轮并保留失败日志；最终ci/run_all_gates.sh通过：282测试、核心覆盖5119/5444=94.0%且每组件≥70%，47项门禁回归全部通过，证据链17/17、10/10、10/10及3/3。双实际轮全行/权限/认证/源指纹/Notebook/CI验收通过。11个可复现性WARN来自Public清除派生输出，本轮真实副本私有且完整执行。未把本地通过视为远端CI。
+step:
+  step_id: S5.E2
+  step_name: C01完整冻结训练验证分区对照
+  declaration: '# S5.E2 完整训练分区特征工程对照
+
+
+    > 编写日期：2026-10-06 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S1.P2冻结的两方train/validation；继承S5.E1固定四格算法；不读取test
+
+    > 口径基准：用户要求完整数据训练、DR-M5-001、S5.D1/C01与仓库规范
+
+
+    will_produce:
+
+
+    - 两数据集使用完整冻结train拟合、完整validation评价，取消预试验行数上限；不将validation或test并入训练。
+
+    - 原/新表示×主动方/联合四格，五初始化seed及分开记录的顺序seed；保留固定LR/树参照和相同模型参数。只扩大样本范围，不按上一轮效果改超参。
+
+    - 新变换在完整train拟合，新版数据与逐fit代码/配置/环境/结果/logs分开保存；源文件、预试验及历史results不覆盖。
+
+    - 两VM独立非特权账户、只读输入、历史目录访问隔离、mTLS/CHEETAH；预测仅Alice，矩阵/预测/份额不导出。公开Notebook清空真实派生输出，私有留完整执行副本和配对CI。
+
+    - 完整行保留断言、固定配置/源码指纹、工程验收与发布门禁。补充仓库每五步独立回溯抽查记录，复评不改历史冻结资产。
+
+
+    will_not_produce:
+
+
+    - 不合并训练/验证/测试，不重分切片，不读取旧test，不把完整train/validation称为独立确认人群。
+
+    - 不运行其他方法族或超参搜索，不按指标好坏提前停止某seed，不改原C01预试验代码或产物。
+
+    - 不宣称真实PSI、银行收益、生产安全、恶意宿主保护或全部攻击无泄漏。
+
+
+    success_criteria:
+
+
+    - 两数据集全部预定模型与五seed完成，完整行保留由持有方核对；拟合仅使用本方train。
+
+    - 主指标、全部配对比较与500次CI按继承协议生成；差/负结果也保留，不临时更换指标或参数。
+
+    - 权限/认证/输入指纹/预测边界/Notebook/目录及代码门禁通过，所有产出可追溯；失败不覆盖，修正须留痕。
+
+    - 新步骤一步一提交与推送草稿PR，不绕过审查合入main。
+
+
+    risk:
+
+
+    - 训练样本扩大后同epoch会增加更新次数，训练分位点也重估；预试验与完整训练的差异不可直接解释为单一因果效应。
+
+    - 完整validation此前已有开发使用，不是新确认集；五seed不等于五个人群，训练seed条件检验的分辨率限制保持不变。
+
+    - 多infeed分块与末批填充必须保持既有数学约定；内存/运行时可能增加，不以缩小数据代替完整训练。
+
+    - 相同固定参数不保证最优或收敛；可信宿主管理员与半诚实不串通假设保留。
+
+    '
+  scope:
+    files_changed: 23
+    lines_added: 2514
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/完整分区训练实验记录.md:7；两任务完整train/validation，全部四格五seed完成。
+      D2: modules/m5_modeling/results/nonlinear_full_engineering.json:1；全行保留与权限/认证/输入/输出/Notebook验收，私有配对CI可追溯。
+      D3: modules/m5_modeling/configs/nonlinear_full.yaml:1；执行代码/配置指纹相符，Notebook真实输出私有；未另一环境独立重跑，2分。
+      D4: modules/m5_modeling/完整分区训练实验记录.md:15；补齐完整分区对照和独立历史复评，效果仅私有且不外推。
+  revisions: 1
+  verdict: committed
+  next_step: 单独冻结收敛/分组诊断或独立确认；正式S5.5前置不变。
+  outputs:
+  - modules/m5_modeling/完整分区训练实验记录.md
+  - modules/m5_modeling/results/nonlinear_full_engineering.json
+  - modules/m5_modeling/notebooks/S5.E2_nonlinear_full.ipynb
+  - 本机8-9月/实验日志/S5E2_完整分区对照分析.md

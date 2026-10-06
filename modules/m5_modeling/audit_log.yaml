@@ -1,0 +1,59 @@
+module: M5
+recorded_at: '2026-10-06T14:53:20+08:00'
+recorded_in_step: S5.E2
+reviewer: Codex independent agent /root/retrospective_audit
+sampling:
+  seed: 20261006
+  method: random.Random; choice once from each consecutive block of five step-ledger
+    records
+  selected_steps:
+  - S5.4
+  - S5.P2
+reviews:
+- step_id: S5.4
+  original_self_score: 12
+  reassessed_score: 7
+  difference: 5
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: fail
+  dimensions:
+    D1: 2
+    D2: 2
+    D3: 1
+    D4: 2
+  verdict: original_all_pass_invalidated
+  evidence:
+  - 实验结果与结论.md:117-144：主指标/增量/比例无CI
+  - registry/waivers.yaml:136-139：统计要求不豁免
+  - modules/m5_modeling/components/search.py:51-56：全样本分段统计；92：每候选计算test表现
+  - changelog/CL-20260903-M5-002.yaml:50：配置指纹为空
+  - modules/m5_modeling/notebooks/S5.1_baseline_ladder.ipynb:990-995及1098-1102：读取已有CSV，完整重建/重复证据缺失
+- step_id: S5.P2
+  original_self_score: 11
+  reassessed_score: 8
+  difference: 3
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 2
+    D3: 2
+    D4: 3
+  verdict: original_all_pass_invalidated
+  evidence:
+  - registry/decision_records/DR-M5-001.yaml:15：控制端不得接收预测
+  - modules/m5_modeling/components/functional_vm.py:280-288：导出未排除npy
+  - modules/m5_modeling/components/functional_acceptance.py:83-92：要求宿主预测存在
+  - modules/m5_modeling/本地功能训练工程验收.md:63：可信管理员说明不解除原DR边界
+threshold_after_review: 11
+scope: read-only evidence review; no training, record-level data access, full-history
+  sweep or independent rerun
+current_run_note: New E2 source restricts train/validation, historical access and
+  prediction export; actual runtime acceptance still required. Does not retroactively
+  validate P2.

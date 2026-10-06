@@ -10,6 +10,9 @@ step_id: S9.1
 
 claims:
   - id: C1
+    assessment_status: suspended_for_S5_4_quantitative_acceptance
+    assessment_record: modules/m5_modeling/历史步骤独立复评记录.md
+    assessment_note: 2026-10-06独立复评判定S5.4统计与复现验收失效；原陈述保留追溯，其调参口径不作为有效确认依据。其他口径未在本次重新审查。
     statement: L1（本地模型 + 对方 k-匿名聚合统计）只捕获纵向联邦价值的一小部分
     nature: 合成数据实测（三个独立口径：2.1% / 15.5% / 12.3%）
     evidence:

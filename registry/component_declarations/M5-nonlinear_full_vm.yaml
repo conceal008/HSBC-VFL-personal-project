@@ -1,0 +1,8 @@
+component: nonlinear_full_vm
+module: M5
+path: modules/m5_modeling/components/nonlinear_full_vm.py
+purpose: 只读完整分区投递、独立VM执行与授权导出、逐fit验收及串行持久队列
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；无新增真实跨境资产，预测/矩阵/份额不导出，真实派生汇总不入Public。
+tests:
+- modules/m5_modeling/tests/test_nonlinear_full.py

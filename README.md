@@ -90,8 +90,8 @@
 | 项 | 内容 |
 |---|---|
 | 已完成 | 仓库初始化（骨架 · 三份规范就位 · 登记表模板 · 十模块台账 · 数据合规门禁 · GitHub 接入） |
-| 当前步骤 | S5.P3：同优化器主动方诊断、两实际轮私有验收完成；正式业务 PSI 仍未放行 |
-| **下一步** | 分开声明联合数学核验、独立未查看人群确认与输出限制；正式 M0/S0.9、M3/P4 与 M4 前置另行推进 |
+| 当前步骤 | S5.E2：C01两任务完整冻结train/validation四格五seed与工程验收完成；[实验记录](modules/m5_modeling/完整分区训练实验记录.md)。正式业务PSI与独立确认未放行 |
+| **下一步** | 单独冻结收敛/分组诊断或独立确认；实际效果仅私有，历史S5.4/P2自评失效见[复评](modules/m5_modeling/历史步骤独立复评记录.md)。正式M0/S0.9、M3/P4与M4前置不变 |
 | 主要阻塞 | S0.1 的四要素需要业务输入：产品 P 的类别、Δ 长度、转化定义（点击/申请/开户/首笔交易）、业务最小可行规模。需求方尚未确认，若无输入则须以显式假设推进并在文档中标注 |
 | 合规基线 | 仓库为个人账户 Public 仓库，符合《维护约束 v2》1.1 修订后的个人仓库条款；代价是 **L-受限产物在本仓库一律按 L-禁止处理**（无个案放行通道）。判定、四项前提与推翻条件见 `registry/decision_records/DR-GOV-002.yaml` |
 
@@ -101,4 +101,4 @@
 
 一步一提交，提交前对照 [AGENTS.md](AGENTS.md) 第 3、4 节。`CHANGELOG.md` 由 CI 从 `changelog/*.yaml` 聚合生成，**禁止手工编辑**。
 
-尚未实现的门禁（按《维护约束 v2》附录 B 的优先顺序）：`check_cross_border_consistency.py` → `check_step_metadata.py` → `check_step_scope.py` → `check_changelog_schema.py` → `check_reproducibility.py`。在其上线前，相应门禁靠人工执行，见 `ci/README.md`。
+当前提交/推送检查统一通过 `bash ci/run_all_gates.sh` 执行数据、步骤、schema、合规一致性、代码质量、可复现性、冒烟、证据链与门禁回归；结果随每步骤changelog留痕。远端PR检查状态需另查，不能由本地通过代替。

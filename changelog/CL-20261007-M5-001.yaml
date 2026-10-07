@@ -1,0 +1,130 @@
+change_id: CL-20261007-M5-001
+timestamp: '2026-10-07T19:22:19+08:00'
+agent: Codex
+module: M5
+type: exp
+title: 阶段进度盘点与固定训练预算收敛诊断
+what: 两任务20条主动方数学参考轨迹，固定12/48端点和五seed配对CI；既有安全预测核对与联合预测描述；项目完成/待完成盘点。
+why: 完整训练未证明稳定合作收益；先单独判断训练预算对主动方泛化的作用，避免同时改特征/损失/正则而混淆原因。
+links:
+  branch_card: BC-M5-008
+  decision_record:
+  - DR-M5-001
+  loop_step:
+  - S5.E3训练预算诊断
+cross_border_impact: none
+cross_border_detail: 本机功能模拟，本轮训练仅Alice本方，无新增跨方网络；既有授权预测仍留Alice，Bob仅已公开双方的维度元数据。无新真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Public仅源码/配置/计划数量/工程状态；真实派生指标、曲线、梯度、样本量、模型参数和执行Notebook仅私有。新增Notebook全部outputs与execution_count清空，逐行矩阵/预测/权重不导出。
+downstream_affected:
+- M4
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 新实验目录与本方矩阵排他创建；冻结源及历史结果不变。
+reproducibility:
+  config: modules/m5_modeling/configs/convergence_audit.yaml
+  config_hash: sha256:e1f8632b593fc1038aa7dc21f08110042c4fcf194754f012c22c506e8aa977f0
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 继承冻结完整切分，初始化/顺序seed分开；原生源码/更新字节码及逐fit源码指纹记录，非新联合训练。
+rollback: git revert本步骤；私有实验事实和历史审计保留。
+verification: 最终ci/run_all_gates.sh全部通过：289测试，核心覆盖5400/5744=94.0%且各组件≥70%，47项门禁回归通过，证据链17/17、10/10、10/10及3/3。两实际轮20轨迹、容差/源SHA/权限/逐fit/Notebook验收通过。两轮工程修正已记录，首次完整门禁时间戳及总览F2/F3失败日志保留，训练协议/参数/工件不改。12项可复现性WARN为Public清除实际派生输出，实际Notebook私有完整执行；本地通过不代表远端CI。
+step:
+  step_id: S5.E3
+  step_name: 固定训练预算主动方收敛诊断与阶段进度
+  declaration: '# S5.E3 训练预算收敛诊断步骤声明
+
+
+    > 编写日期：2026-10-07 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S5.E2冻结Alice训练/验证矩阵及Alice已获授权的预测；不读取test
+
+    > 口径基准：用户本轮请求、DR-M5-001、仓库维护规范
+
+
+    will_produce:
+
+
+    - 项目进度盘点，区分原型完成、实际数据工程完成和正式业务验收。
+
+    - 两任务原/增强主动方表示，各五初始化seed及独立顺序seed，固定48轮轨迹，在1/3/6/12/24/48轮记录检查点；20次独立拟合，每fit单独代码、配置、输入引用、结果、日志目录。
+
+    - 唯一干预为训练预算12→48；其他参数、完整冻结train/validation及初始化坐标映射继承S5.E2。使用原生DF更新函数的NumPy本地数学桥接，全部在Alice独立VM内执行，不称为新增安全联合训练。
+
+    - 12轮参考与上轮A0/A1安全预测按最大绝对差0.001核验；失败即停止，不改容差。对既有B0/B1授权预测作训练/验证诊断，不取Bob矩阵或联合明文权重。
+
+    - 两项48减12配对主指标比较，500次分层配对Bootstrap CI、seed符号检验及Holm校正；保留负结果。训练目标和梯度仅用本方模型，DF目标区分真实交叉熵，L2遵循原生l2_norm/batch_size约定。
+
+    - 私有带输出Notebook及报告，公开清空实际派生输出；源码/输入指纹、权限和工程验收；日志、交接、一步一提交与推送草稿PR。
+
+
+    will_not_produce:
+
+
+    - 不改学习率、正则、sigmoid、特征族，不做搜索或依据验证择优，不改切分，不读test。
+
+    - 不新训练联合模型、不集中重建Bob特征/联合权重、不外传逐记录预测或本方权重。
+
+    - 不声称独立确认、真实PSI、全攻击安全、生产安全或银行收益，不追认历史失效评分。
+
+
+    success_criteria:
+
+
+    - 全部20轨迹、预定检查点及五seed区间完成；原生12轮预测容差核验通过；源工件不修改。
+
+    - 所有真实派生产物留私有，数据/份额/预测不导出，Notebook完整执行且公开输出清空，代码门禁通过。
+
+    - 无论增益方向如何都记录；只能据诊断排优先级，不能单凭48轮证明全局收敛或解释联合退化。
+
+
+    risk:
+
+
+    - 既有validation已经开发使用，不能作为独立确认；五seed不能代替人群不确定性。
+
+    - 主动方参考收敛不能直接推出联合模型收敛，已有联合预测诊断只有描述作用。
+
+    - 固定顺序小批量、尾批零填充与逐infeed投影使全样本梯度仅为诊断量；固定学习率可能进入震荡。
+
+    - 宿主/来宾管理员可信，半诚实不串通假设保留；本轮没有新的跨方网络计算。
+
+    '
+  scope:
+    files_changed: 17
+    lines_added: 1191
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/阶段进度与收敛诊断.md:7；进度按台账分层、两任务20轨迹与固定端点完成。
+      D2: modules/m5_modeling/results/convergence_engineering.json:1；源/权限/逐fit/Notebook验收，私有五seed分层配对CI及12轮容差核验。
+      D3: modules/m5_modeling/configs/convergence_audit.yaml:1；逐fit运行源码与发布指纹相符，未另一环境独立重跑，2分。
+      D4: modules/m5_modeling/阶段进度与收敛诊断.md:24；补齐预算因素诊断、DF目标/L2约定与解释边界，实际效果仅私有。
+  revisions: 2
+  verdict: committed
+  next_step: 先重规划预算，再单独冻结字段组/分布诊断；正式S5.5前置不变。
+  outputs:
+  - modules/m5_modeling/阶段进度与收敛诊断.md
+  - modules/m5_modeling/results/convergence_engineering.json
+  - modules/m5_modeling/notebooks/S5.E3_convergence_audit.ipynb
+  - 本机8-9月/实验日志/S5E3_收敛诊断与阶段进度.md

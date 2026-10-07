@@ -1,0 +1,40 @@
+{
+  "step_id": "S5.E3",
+  "queue_status": "passed",
+  "config_sha256": "e1f8632b593fc1038aa7dc21f08110042c4fcf194754f012c22c506e8aa977f0",
+  "rounds": [
+    {
+      "dataset": "uci_bank_marketing",
+      "status": "passed",
+      "trajectories": 10,
+      "reference_tolerance_passed": true,
+      "source_unchanged": true,
+      "source_code_matches": true,
+      "notebook_complete": true,
+      "owner_isolation_passed": true
+    },
+    {
+      "dataset": "hillstrom_email_marketing",
+      "status": "passed",
+      "trajectories": 10,
+      "reference_tolerance_passed": true,
+      "source_unchanged": true,
+      "source_code_matches": true,
+      "notebook_complete": true,
+      "owner_isolation_passed": true
+    }
+  ],
+  "checks": {
+    "test_not_staged": true,
+    "source_unchanged": true,
+    "source_code_matches": true,
+    "notebooks_completed": true,
+    "per_fit_directories": true,
+    "owner_matrices_weights_predictions_not_exported": true,
+    "old_owner_directories_denied": true
+  },
+  "new_joint_training": false,
+  "independent_confirmation": false,
+  "real_derived_metrics_published": false,
+  "security_assumptions": "trusted host/guest manager; semi-honest noncolluding parties; owner-only diagnostic"
+}

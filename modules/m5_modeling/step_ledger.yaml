@@ -280,17 +280,40 @@ steps:
   - modules/m5_modeling/notebooks/S5.E2_nonlinear_full.ipynb
   - 本机8-9月/实验日志/S5E2_完整分区对照分析.md
   note: 完整train/validation全行保留，四格五seed全部完成；未读test、未换超参。历史独立复评另留记录，不追认旧自评。
+- step_id: S5.E3
+  step_name: 固定训练预算主动方收敛诊断与阶段进度
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  committed_at: '2026-10-07T19:22:19+08:00'
+  change_id: CL-20261007-M5-001
+  outputs:
+  - modules/m5_modeling/阶段进度与收敛诊断.md
+  - modules/m5_modeling/results/convergence_engineering.json
+  - modules/m5_modeling/notebooks/S5.E3_convergence_audit.ipynb
+  - 本机8-9月/实验日志/S5E3_收敛诊断与阶段进度.md
+  note: 20轨迹与固定端点全部完成，既有安全预测容差通过；仅本方数学参考，不是新联合训练。训练协议未据结果修改。
 current_step: null
 next_step: S5.5
 metrics:
-  avg_score: 10.636
+  avg_score: 10.667
   escalation_count: 0
-  revision_rate: 0.545
-  steps_used: 11
-  budget_usage: 0.917
+  revision_rate: 0.583
+  steps_used: 12
+  budget_usage: 1.0
   consecutive_low_d4: 0
   pass_threshold: 11
-  original_self_average: 11.364
+  original_self_average: 11.333
   avg_score_basis: independent reassessment replaces invalidated self-scores; original
     score fields retained as history
 audit:
@@ -306,3 +329,5 @@ quality_actions:
 - S5.E2独立复评S5.4/P2原全部通过失效，分差5/3触发后续通过线11；历史结果冻结，不以新训练追认。旧自评均值不作为有效质量均值。
 - S5.E2固定完整分区单一步骤；修正率5/11仍超过0.4，继续分步。独立复評已登记历史缺口，不以自评分均值解除审计要求。
 - S5.E2发布门禁因F3文档计数语境失败一次，修正后重跑；仅文档口径，模型协议和实际工件未改。当前修正率6/11，继续分步。
+- S5.E3继续单因素拆步；前置lint/Notebook单元数常量一轮工程修正，不改训练协议，修正率7/12仍超门槛。预算已用12/12，后续先记录重规划，不扩大分母消除审计问题。
+- S5.E3首轮完整门禁CL时间戳小数秒不符schema；第二轮修正到秒并更新总览Notebook/组件声明计数。该步骤有修正的比例仍7/12，训练数学与实际工件不变。

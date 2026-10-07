@@ -1,0 +1,8 @@
+component: convergence_vm
+module: M5
+path: modules/m5_modeling/components/convergence_vm.py
+purpose: 本地可信管理端在Alice VM内复制冻结本方矩阵与授权预测，独立轮次运行与有限私有导出
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；新增训练无跨方网络，无新真实跨境资产。逐行预测、矩阵、权重留Alice；派生汇总及执行Notebook只在私有目录。
+tests:
+- modules/m5_modeling/tests/test_convergence_audit.py

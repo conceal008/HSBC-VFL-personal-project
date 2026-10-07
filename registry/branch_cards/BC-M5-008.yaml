@@ -1,0 +1,22 @@
+card_id: BC-M5-008
+title: 固定训练预算主动方收敛诊断
+module: M5
+status: archived
+opened_at: '2026-10-07T19:02:10.424981+08:00'
+opened_by: Codex
+related_steps:
+- S5.E3
+related_changes:
+- CL-20261007-M5-001
+decision_records:
+- DR-M5-001
+question: 固定其他条件时增加训练预算是否改变主动方开发表现，12轮是否复现既有安全预测？
+routes:
+- id: epochs
+  role: 主动方原/增强表示固定12与48检查点
+  status: evaluated
+selection_criteria: 固定全部检查点，未据验证择优；完整冻结分区，五seed配对区间。
+falsifier: 数值偏差超0.001、跨方明文/预测导出或读取test即停止。
+note: PR开工暂以PR8分支为base，仅为允许无新增提交时认领；最终切为PR9分支。
+closed_at: '2026-10-07T19:13:01.641213+08:00'
+verdict: fixed-budget owner trajectories completed; engineering passed, effects private

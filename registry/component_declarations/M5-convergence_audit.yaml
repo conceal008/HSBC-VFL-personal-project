@@ -1,0 +1,8 @@
+component: convergence_audit
+module: M5
+path: modules/m5_modeling/components/convergence_audit.py
+purpose: 仅Alice本方DF训练预算诊断、既有安全预测核对与配对区间；不读取Bob矩阵或test
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；新增训练无跨方网络，无新真实跨境资产。逐行预测、矩阵、权重留Alice；派生汇总及执行Notebook只在私有目录。
+tests:
+- modules/m5_modeling/tests/test_convergence_audit.py

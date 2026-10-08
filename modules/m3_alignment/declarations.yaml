@@ -1,0 +1,6 @@
+component: m3_bounded_psi_functional
+module: M3
+path: modules/m3_alignment
+purpose: S3.P2本机双VM有限公开域秘密分享求交
+cross_border_assets: []
+cross_border_note: DR-M3-001本地功能模拟交换成员秘密份额，不输出明文交集/计数；公开域和正确性布尔为允许输出，不声称真实跨境放行。

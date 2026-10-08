@@ -1,0 +1,22 @@
+card_id: BC-M3-002
+title: 有限公开域秘密分享求交
+module: M3
+status: archived
+opened_at: '2026-10-07T19:49:48+08:00'
+opened_by: Codex
+related_steps:
+- S3.P2
+related_changes:
+- CL-20261009-M3-001
+decision_records:
+- DR-M3-001
+question: 是否可在不披露交集的条件下完成两VM密码学求交？
+routes:
+- id: bounded_mpc
+  role: 公开有限域二进制成员求交，秘密份额输出
+  status: evaluated
+selection_criteria: 五次每组；无明文交集/规模；已知答案与布尔不变式
+falsifier: 任何交集、成员向量或规模明文外传即失败。
+closed_at: '2026-10-09T00:10:00+08:00'
+verdict: bounded MPC PSI engineering passed; native RR22 and business identity matching
+  remain unvalidated

@@ -1,0 +1,13 @@
+step_id: S3.P2
+protocol: CHEETAH
+field: FM64
+link_timeout_ms: 180000
+keep_probability: 0.8
+trials:
+- 1
+- 2
+- 3
+- 4
+- 5
+output: secret_shares
+seed_policy: owner-private entropy saved only inside the owner VM

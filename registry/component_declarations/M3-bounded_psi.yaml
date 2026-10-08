@@ -1,0 +1,8 @@
+component: bounded_psi
+module: M3
+path: modules/m3_alignment/components/bounded_psi.py
+purpose: 有限公开键域秘密分享求交；本方输入与输出份额留各VM，不披露交集与计数
+cross_border_assets: []
+cross_border_note: DR-M3-001本机双VM功能模拟无真实跨境；公开键域/维度、正确性布尔值允许，双方成员向量与交集份额不导出。
+tests:
+- modules/m3_alignment/tests/test_bounded_psi.py

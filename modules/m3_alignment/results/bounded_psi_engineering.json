@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "datasets": [
+    "uci_bank_marketing",
+    "hillstrom_email_marketing"
+  ],
+  "planned_trials_per_dataset": 5,
+  "all_owner_notebooks_completed": true,
+  "secret_invariants_passed": true,
+  "known_answer_passed": true,
+  "owner_share_separation_passed": true,
+  "federation_anonymous_denied": true,
+  "spu_anonymous_denied": true,
+  "intersection_reconstructed": false,
+  "existing_training_consumes_this_psi": false,
+  "native_rr22": false,
+  "business_customer_matching_validated": false
+}

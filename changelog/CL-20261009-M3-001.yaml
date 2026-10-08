@@ -1,0 +1,112 @@
+change_id: CL-20261009-M3-001
+timestamp: '2026-10-09T00:10:00+08:00'
+agent: Codex
+module: M3
+type: exp
+title: 两任务有限公开域秘密分享求交与输出边界验收
+what: 成熟CHEETAH协议计算本方成员向量AND及秘密计数，两任务各五轮；不披露交集，留存失败、代码、配置、Notebook和日志。
+why: 默认D-6禁止明文交集，常规RR22输出接口不适配；以有限公开域路径验证实际密码学求交。
+links:
+  branch_card: BC-M3-002
+  decision_record:
+  - DR-M3-001
+  - DR-M5-001
+  loop_step:
+  - S3.P2
+cross_border_impact: none
+cross_border_detail: 本机功能模拟，无新增真实跨境资产；双方成员向量及交集/计数份额不导出，只披露公开域与正确性布尔值。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Public仅源码、配置、计划试验数和工程布尔验收；成员、交集、计数、份额、实际耗时与执行Notebook仅私有，公开Notebook清空输出。
+downstream_affected:
+- M5
+- M7
+- M9
+breaking_change: false
+migration: 新目录排他创建，既有输入与失败目录不覆盖。
+reproducibility:
+  config: modules/m3_alignment/configs/bounded_psi.yaml
+  config_hash: sha256:3519574d35d542dcfaa5e212e9f03821d7f9a799d0a3d2db0a021f257e1a1eb3
+  seeds:
+  - owner-private:alice,bob/trainings/psi_trial1/data/construction.json#private_entropy
+  - owner-private:alice,bob/trainings/psi_trial2/data/construction.json#private_entropy
+  - owner-private:alice,bob/trainings/psi_trial3/data/construction.json#private_entropy
+  - owner-private:alice,bob/trainings/psi_trial4/data/construction.json#private_entropy
+  - owner-private:alice,bob/trainings/psi_trial5/data/construction.json#private_entropy
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 五轮双方秘密种子各自保存在引用位置；列表为可定位引用而非秘密值，公开值会暴露构造成员集。
+rollback: git revert本步骤；私有实验事实和历史审计保留。
+verification: 最终ci/run_all_gates.sh全部通过：294测试，核心覆盖5609/5970=94.0%且各组件≥70%，47项门禁回归通过，证据链与规模一致性通过；13项WARN为Public清除实际输出。实际执行失败两次保留，首次自评门禁种子引用/模块通信声明/魔数注释缺项一轮修正；已执行源码与发布仅两处尾注释不同，四份AST相同。两实际任务五轮、双方Notebook和分隔份额验收通过；未接入训练或解除业务门禁。
+step:
+  step_id: S3.P2
+  step_name: 有限公开域秘密分享密码学求交
+  declaration: '# S3.P2 有限公开域秘密分享求交声明
+
+
+    > 编写日期：2026-10-07 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：双方冻结train/validation记录键，各自VM内提取；原始公开文件只用于公开键域构造
+
+    > 口径基准：用户功能模拟授权、DR-M5-001、DR-MX-001 D-6
+
+
+    will_produce:
+
+    - 两公开数据集、每组五次独立本方秘密种子抽取成员集，在真实CHEETAH/mTLS计算公开有限键域二进制成员向量的交集。
+
+    - 集合和交集规模仅秘密份额，公开驱动只获正确性布尔值。双方份额分别留各VM；每次求交独立目录、代码配置指纹、输入清单、私有执行Notebook和日志。
+
+    - 已知答案的纯合成校验、真实输入全集/重复键/域外键校验、权限和匿名通信拒绝校验；失败关闭。
+
+    will_not_produce:
+
+    - 不调用输出明文交集的RR22接口，不称为RR22、通用任意字符串域PSI、真实跨企业身份验证或PSI接入既有训练。
+
+    - 不重建交集、导出成员位、规模或份额；不读test或双方特征/标签。
+
+    - 不声称恶意安全、抵抗可信宿主管理员或生产安全，不解除业务前置。
+
+    success_criteria:
+
+    - 两组各五次密码学求交完成，已知答案与秘密态代数不变式通过，输出份额分开保留，Notebook完整运行。
+
+    - 代码测试/权限/指纹/匿名认证拒绝通过，Public无实际派生输出，日志交接和提交推送完成。
+
+    risk:
+
+    - 公开可枚举键域不隐藏字典，构造记录键不能用于评价实体匹配质量；O(键域大小)成本不适合巨大任意身份空间。
+
+    - 本轮在已预对齐记录上分别构造成员子集，只验证协议，不产生新的独立业务人群。
+
+    - 五次本方秘密抽样仅覆盖协议输入变化，不能替代恶意参与方或形式化安全审计。
+
+    '
+  scope:
+    files_changed: 19
+    lines_added: null
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m3_alignment/秘密分享求交实验记录.md:7，两个任务五轮秘密交集，范围有界。
+      D2: modules/m3_alignment/results/bounded_psi_engineering.json:1，实际运行工程回执与秘密不变式。
+      D3: modules/m3_alignment/configs/bounded_psi.yaml:1，配置/源码指纹和私有秘密种子留存，未另一环境重跑。
+      D4: modules/m3_alignment/秘密分享求交实验记录.md:9，辨明冻结记录键规则与非明文求交路径。
+  revisions: 1
+  verdict: committed
+  next_step: 先完成main同步；后续实际输出攻击另声明。
+  outputs:
+  - modules/m3_alignment/秘密分享求交实验记录.md
+  - modules/m3_alignment/notebooks/S3.P2_bounded_psi.ipynb
+  engineering_failed_attempts: 2

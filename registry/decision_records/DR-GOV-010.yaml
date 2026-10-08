@@ -1,0 +1,20 @@
+dr_id: DR-GOV-010
+title: 按所有者明确要求先完成main同步，保留逐步历史
+date: '2026-10-09'
+agent: Codex
+module: GOV
+status: active
+requested_by: 仓库所有者本轮会话明确指令
+authorization: 先将每次实验的核心方法，以及核心代码写入github的主文件（不是分支），并修改相关日志，每次结果也写入相关日志中，然后再进行后续的实验
+related_step: S-GOV.14
+related_change_id: CL-20261009-GOV-001
+context: main停留在早期快照，后续逐步骤提交只在堆叠draft PR；用户现在明确指定main交付。 首次同步发现main与实验分支自9月公共基点分叉，main额外三条治理/CI提交，Git拒绝非快进；未使用force。
+  main已存在S-GOV.12/13，本次最终编号S-GOV.14，旧日志不改。
+decision: 本次依最新所有者指令，在完整门禁通过后对main仅作fast-forward同步，以保留既有一步一提交历史；不force push、不压缩多实验为一个步骤，不把该发布授权伪称为GitHub
+  approve。最新用户指令对本次main交付优先于仓库默认仅经审查PR发布的约束。 先在集成分支合并保留main与实验分支两侧历史（含main既有CI修复），集成合并提交仅承载S-GOV.14同步步骤；main随后可快进至该提交。未推送的索引准备提交保留在本地归档分支，不重复发布同一步。
+consequences:
+- 公开内容限方法、全部核心源码/配置、Notebook入口和工程布尔结果；实际派生数值结果仍写私有日志并在公开日志标明位置。
+- 本次例外仅解决当前堆叠提交同步；没有取得GitHub approve或远端CI的事实不得虚报，业务及安全放行不变。
+- 以后每个实验独立日志、逐步骤提交，main尚未包含对应代码与公开记录时不进入下一轮；正常审查PR流程仍保留，用户明确指示优先。
+- 不删除历史文档、失败分支、冻结结果或草稿审计链；主分支发布状态需用远端SHA核实。
+falsifier: main不再是发布HEAD祖先、门禁失败或发现真实派生内容公开时停止同步，不绕过或覆盖历史。

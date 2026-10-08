@@ -1,0 +1,76 @@
+change_id: CL-20260929-GOV-001
+timestamp: '2026-09-29T19:09:30+08:00'
+agent: Codex
+module: GOV
+type: doc
+title: 在 main 同步 M1 草稿 PR 的工程进度与 CI 状态
+what: |
+  在仓库首页、项目框架总览和治理状态中补记 M1 前置步骤 S1.P1–S1.P4 的分支进度，
+  记录 PR #1 为未合并草稿以及 GitHub Actions 第三轮八项作业全部通过。
+  新增独立步骤声明和交接记录，保留 main 原有模块台账与历史快照。
+why: |
+  用户在默认分支未看到此前同步的测试结果。此前四次 M1 提交均位于 PR 分支；
+  main 需要直接可见的进度入口，并须明确区分分支已完成的工程前置与 main 已合入内容。
+links:
+  branch_card: null
+  decision_record: []
+  loop_step:
+  - S-GOV.12 main 进度同步
+cross_border_impact: none
+cross_border_detail: 仅记录公开工程状态和 CI，不改数据流或跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 仅引用公开 PR、提交及工程门禁状态；未复制数据集、数据派生统计、私有日志或真实客户信息。
+downstream_affected:
+- M1
+breaking_change: false
+migration: 后续合并 PR #1 后，按实际合入提交更新 main 的 M1 状态；本条记录保留供追溯。
+reproducibility:
+  config: 不适用（治理进度记录）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 远端核对 PR head SHA、draft 状态和 GitHub Actions run 36535579716；main 本地完整门禁通过。
+rollback: git revert 本步骤提交，并核对 README、总览与治理状态中的同步提示均已回退。
+verification: |
+  gh pr view 核实 PR #1 open/draft、目标 main、head 3102876；gh run view 核实
+  36535579716 completed/success，八项作业成功。main 文档门禁执行结果见交接记录。
+step:
+  step_id: S-GOV.12
+  step_name: main 中的 M1 分支进度同步
+  declaration: |
+    will_produce: main 入口、治理状态、changelog 和交接中记录 PR 分支的工程进度与 CI。
+    will_not_produce: 合并草稿 PR、复制数据或实现、把工程测试当成生产验收。
+    success_criteria: main 可定位 PR 与 CI，分支和已合入状态清晰，门禁通过后推送。
+    risk: 未来合并 PR 后须按真实合入状态更新 main。
+  scope:
+    files_changed: 6
+    lines_added: 135
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: README.md 与 项目框架与推进总览.md 标明草稿 PR、CI 与未合并边界。
+      D2: docs/03-handoff/HO-20260929-Codex-GOV.md 指向 PR #1、精确提交和运行编号。
+      D3: 公开 GitHub PR/Actions 可独立复核；本步只写进度，不产生新实验，故为 2 分。
+      D4: 将默认分支看不到更新的原因与当前 M1 前置状态写成可查记录。
+  revisions: 0
+  verdict: committed
+  next_step: PR #1 合入时按实际提交更新 main 的 M1 状态；M1 正式步骤仍为 S1.1。
+  outputs:
+  - README.md
+  - 项目框架与推进总览.md
+  - registry/module_status.yaml
+  - docs/02-governance/M1分支进度同步_步骤声明.md
+  - docs/03-handoff/HO-20260929-Codex-GOV.md

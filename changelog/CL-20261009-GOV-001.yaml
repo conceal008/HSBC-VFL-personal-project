@@ -1,0 +1,117 @@
+change_id: CL-20261009-GOV-001
+timestamp: '2026-10-09T00:20:05+08:00'
+agent: Codex
+module: GOV
+type: doc
+title: 同步逐轮核心方法、代码和实验日志至main
+what: 新增统一实验索引和逐轮结果留痕规则；README当前入口，既有逐步骤提交快进同步main；不启动新实验。
+why: 此前代码与记录长期停留于堆叠草稿PR，默认main不可见；用户明确要求先完成main同步再继续实验。
+key_finding: 区分设计、合成核验、实际训练、诊断与未执行安全/独立确认，不把main发布当作实验增益或安全证明。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-010
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅整理既有公开仓库材料，未改变跨境资产、数据流或合规定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: Public无实际派生数值、逐行输出或份额；本轮索引只方法/代码链接/工程状态与私有位置，完整指标及CI继续留私有日志。
+downstream_affected:
+- M1
+- M3
+- M5
+- M7
+- M9
+breaking_change: false
+migration: README统一入口改为逐轮方法/代码/运行日志；完整实际结果留原私有日志。
+reproducibility:
+  config: 不适用（治理文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 进度数字从十份 step_ledger 的条目与 steps_used 交叉核对；结果与实现状态核对对应产物。
+rollback: 以新revert步骤回退索引状态，历史日志/实验结果/失败记录保留，不重写历史。
+verification: 合并后的最终ci/run_all_gates.sh全部通过：294测试、核心5609/5970=94.0%且每组件≥70%、47门禁回归、证据链17/17、10/10、10/10及规模3/3。13项WARN为Public清除实际输出。main独立三条治理/CI提交全部保留，既有实现/配置/依赖/CI与前通过树相同。首次发布非快进被Git拒绝、合并后暂编编号冲突均已记录；最终S-GOV.14，修正两轮。公开链接与私有完整日志指纹已核对；发布回执另存私有，不声称GitHub
+  approve或远端CI通过。
+step:
+  step_id: S-GOV.14
+  step_name: 逐轮实验方法代码日志主分支同步
+  revisions: 2
+  next_step: main远端核验后，按独立步骤执行实际输出攻击/候选方法；新确认人群待输入。
+  declaration: '# S-GOV.14 主分支实验同步声明
+
+
+    > 编写日期：2026-10-09 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：既有实验源码、配置、模块台账、公开工程验收及私有日志路径
+
+    > 口径基准：用户最新要求先同步main再开展后续实验；Public数据纪律
+
+
+    will_produce:
+
+    - 一份逐轮实验方法/核心代码/Notebook/工程结果与私有指标位置索引；README当前入口和进度状态更新。
+
+    - 每轮结果留痕规范、当前实验结果位置清单、主分支发布判决和发布回执；保留失败及负结果。
+
+    - 完整仓库门禁通过后，同步既有逐步骤提交与本步骤到远端main，核对远端SHA、文件及祖先关系。
+
+    will_not_produce:
+
+    - 不启动新的模型或攻击实验，不改变训练数学、切分、配置及冻结结果。
+
+    - 不向Public提交真实数据及其派生数值、交集规模、预测、权重、份额或私有执行输出。
+
+    - 不把未执行的其他候选或独立人群确认写成完成，不把main同步当作业务/安全验收。
+
+    success_criteria:
+
+    - 每个当前实际实验可从README直接进入方法、核心函数、Notebook与结果日志；设计/合成/实际执行/阻断明确区分。
+
+    - 一步一提交、完整门禁、数据审查、系统日志和交接完成；远端main包含全部本轮发布提交。
+
+    risk:
+
+    - 草稿PR曾长期堆叠，main落后；仅Git快进同步可保留原有逐步骤提交，禁止force push。
+
+    - 公开指标与本仓库数据纪律冲突时以私有完整结果日志+公开索引留痕，不为填日志而披露受限内容。
+
+
+    编号补记：原暂编S-GOV.12；集成main后发现该号已用于9月治理步骤，现更正为S-GOV.14。工作范围、先行声明与数据边界不变，不覆盖旧编号或旧日志。
+
+    '
+  scope:
+    files_changed: 17
+    lines_added: 604
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: 实验方法与运行日志.md:7，仅公开流程/状态/私有结果位置。
+      G2: 本步骤不修改协议或跨境资产清单。
+      G3: docs/02-governance/主分支实验同步_步骤声明.md:7，不启动新实验。
+      G4: 实验方法与运行日志.md:34，未执行攻击和独立确认明确列为待办。
+      D1: 实验方法与运行日志.md:9，逐轮方法/核心代码/Notebook/结果日志完整映射。
+      D2: 全部本地链接目标和私有日志存在性、指纹核对；main远端发布回执。
+      D3: 文档与现有源码可核对，本步骤不重跑历史实验，故2分。
+      D4: README当前入口指向逐轮索引，解决默认分支不可见与设计/执行混淆。
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - 实验方法与运行日志.md
+  - docs/02-governance/主分支实验同步_步骤声明.md
+  - registry/decision_records/DR-GOV-010.yaml
+  - docs/03-handoff/HO-20261009-Codex-GOV-main.md

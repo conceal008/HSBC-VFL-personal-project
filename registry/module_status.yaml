@@ -277,3 +277,59 @@ gate_portability_20260917:
   completed_at: '2026-09-17T09:50:00+08:00'
   change_id: CL-20260917-GOV-001
   verification: 门禁回归 47/47
+main_progress_sync_20260929:
+  step_id: S-GOV.12
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-29T19:09:30+08:00'
+  expires_at: '2026-09-30T19:09:30+08:00'
+  scope: 在 main 登记 M1 草稿 PR 的工程进度与远端检查结果
+  change_id: CL-20260929-GOV-001
+  completed_at: '2026-09-29T19:13:16+08:00'
+  pr: https://github.com/conceal008/HSBC-VFL-personal-project/pull/1
+  branch: m1/notebook-data-preparation-v1
+  head_sha: 31028763c3363c1600adea11560f1fd9bb0c2d59
+  merge_state: draft_unmerged
+  branch_latest_completed_step: S1.P4
+  main_m1_next_step: S1.1
+  ci_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36535579716
+  ci_conclusion: success
+  local_verification: main 全部门禁通过，147 项测试、97.3% 核心覆盖率、47/47 项门禁回归
+  next_step: M1 正式 S1.1；PR
+main_ci_repair_20260929:
+  step_id: S-INIT.10
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-29T19:18:00+08:00'
+  expires_at: '2026-09-30T19:18:00+08:00'
+  scope: 修复 main 远端代码质量门禁的依赖漂移与回归兼容问题
+  change_id: CL-20260929-GOV-002
+  failed_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36560490051
+  completed_at: '2026-09-29T19:21:03+08:00'
+  local_verification: main 全部门禁通过，147 项测试、97.3% 核心覆盖率、47/47 项回归
+  remote_verification: GitHub Actions run 36561258977 completed/success，八项作业全部通过
+  successful_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36561258977
+  next_step: M1 正式 S1.1；草稿 PR
+main_ci_verification_20260929:
+  step_id: S-GOV.13
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-09-29T20:08:34+08:00'
+  expires_at: '2026-09-30T20:08:34+08:00'
+  scope: 在 main 入口与日志补录前次修复提交的远端成功结果
+  change_id: CL-20260929-GOV-003
+  completed_at: '2026-09-29T20:10:33+08:00'
+  verified_commit: 6e5d7493ad8dc5b5523470532e49f8a6e2669994
+  verified_run: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/36561258977
+  conclusion: 八项远端作业 completed/success；本步本地完整门禁 147 项测试、47/47 项回归通过
+  next_step: M1 正式 S1.1；草稿 PR
+main_sync_20261009:
+  step_id: S-GOV.14
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-10-09T00:20:05+08:00'
+  expires_at: null
+  scope: 先同步每轮方法、核心代码和结果日志至main，不启动新实验
+  completed_at: '2026-10-09T00:28:27+08:00'
+  change_id: CL-20261009-GOV-001
+  verification: 合并main历史后全部本地门禁通过，发布以私有回执和远端SHA核验。

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "actual_output_stress": true,
+  "both_dataset_queues_complete": true,
+  "synthetic_numerical_control_passed": true,
+  "bob_scores_disclosed": false,
+  "bob_truth_or_reconstructions_exported": false,
+  "test_read": false,
+  "production_security": false,
+  "independent_confirmation": false
+}

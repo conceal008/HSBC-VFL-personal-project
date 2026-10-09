@@ -1,0 +1,29 @@
+step_id: S7.P1
+protocol: CHEETAH
+field: FM64
+link_timeout_ms: 300000
+model_seeds: [11, 22, 33, 44, 55]
+attack_seeds: [701, 702, 703, 704, 705]
+bootstrap_seed: 20261009
+bootstrap_repeats: 2000
+ci_percentiles: [2.5, 97.5]
+maximum_rows: 4000
+round_decimals: 2
+decision_threshold: 0.5
+maximum_fpr: 0.01
+threshold_quantiles: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+epsilon: 0.000001
+ridge: 0.1
+inverse_steps: 16
+feature_c: 1.0
+max_iter: 1000
+top_fraction: 0.1
+attribute_targets:
+  uci_bank_marketing: numeric__previous
+  hillstrom_email_marketing: numeric__newbie
+inverse_tolerance: 0.01
+synthetic_tolerance: 0.001
+synthetic_probe:
+  x: [[1, 0, 1], [0, 1, 1], [1, 1, 1], [-1, 0, 1]]
+  y: [[1], [0], [1], [-1]]
+alignment_chunk_rows: 4096

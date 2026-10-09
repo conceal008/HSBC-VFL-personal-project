@@ -1,0 +1,32 @@
+module: M7
+recorded_at: '2026-10-09'
+reviewer: Codex independent agent /root/m7_required_audit
+sampling:
+  seed: 20261007
+  method: random.Random.choice of first five committed steps
+  selected_step: S7.2
+original_score_preserved: 12
+reassessed_score: 7
+difference: 5
+gates:
+  G1: pass
+  G2: pass
+  G3: pass
+  G4: fail
+dimensions:
+  D1: 2
+  D2: 1
+  D3: 1
+  D4: 3
+verdict: original_all_pass_invalidated
+evidence:
+- registry/component_declarations/M7-attacks.yaml:16：合成旧协议、非当前MPC部署
+- modules/m7_security/notebooks/S7.1_privacy_attacks.ipynb:327：读取冻结表，未给CI；364固定基线，无完整跨轮重建
+- changelog/CL-20260903-M7-001.yaml:65：称95%CI但产物不含；55配置hash缺失
+- registry/waivers.yaml:138：统计要求不可豁免
+- modules/m5_modeling/components/models.py:114：旧明文残差/部分logit不能代替当前CHEETAH攻防
+consequence:
+  future_pass_threshold: 11
+  effective_prior_average: 10.8
+  frozen_original_results_untouched: true
+  synthetic_mechanism_evidence_remains: 跨轮平均可消去独立噪声的机制证据保留，不追认无CI数值结论或生产安全

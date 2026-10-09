@@ -1,0 +1,8 @@
+component: output_audit
+module: M7
+path: modules/m7_security/components/output_audit.py
+purpose: 实际授权输出压力评估及密态属性探针；原始矩阵/属性/逐行预测/权重仅各方VM
+cross_border_assets: []
+cross_border_note: DR-M5-001本机半诚实模拟，不引入真实跨境资产；辅助学习oracle不是现有攻击者获得Bob辅助真值。
+tests:
+- modules/m7_security/tests/test_output_audit.py

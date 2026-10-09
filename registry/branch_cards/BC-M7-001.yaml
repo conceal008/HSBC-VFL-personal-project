@@ -1,0 +1,6 @@
+card_id: BC-M7-001
+status: active
+routes:
+- id: actual_output_stress
+  purpose: 授权Alice视图与假设分数外泄分开；密态辅助属性探针；五seed及CI
+falsifier: 若标签/矩阵/预测被送Bob、探针辅助评价样本重叠、控制无效、未提供CI，则该轮作废；攻击失败不证明安全。

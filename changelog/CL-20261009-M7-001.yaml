@@ -1,0 +1,122 @@
+change_id: CL-20261009-M7-001
+timestamp: '2026-10-09T15:54:15+08:00'
+agent: Codex
+module: M7
+type: exp
+title: 实际授权分数的成员与属性信号压力测试
+what: 冻结五模型seed和独立攻击划分、成员校准/评估分离及字段攻击基线；密态辅助属性探针；精确/舍入/二值输出；登记独立复评。
+why: 旧合成明文残差攻击无法判断当前秘密计算模型的输出风险，必须对实际获授权分数及辅助条件分别测量。
+key_finding: 当前Bob无分数权限；辅助属性学习oracle与假设分数外泄分别建模，不把攻击区分能力或失败当作生产安全证明。
+links:
+  branch_card: BC-M7-001
+  decision_record:
+  - DR-M5-001
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅整理既有公开仓库材料，未改变跨境资产、数据流或合规定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 实际数据派生指标/CI/授权执行Notebook仅私有；Public入口清空输出和execution_count，源文件无标识、矩阵、预测、权重或份额。
+downstream_affected:
+- M0
+- M5
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 历史冻结结果保留；M7独立复评将后续通过线提高11，当前实际运行不追认旧全部通过。
+reproducibility:
+  config: modules/m7_security/configs/output_audit.yaml
+  config_hash: 3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 各方锁定SecretFlow1.14；独立攻击种子701–705，旧test不投递；输入/代码逐文件hash；完整执行Notebook仅私有。
+rollback: 新revert步骤回退当前实现；全部私有失败和冻结结果保留。
+verification: S7P1_20261009_v4两任务全部完成；全量门禁通过，300单元测试、49门禁回归；核心行覆盖93.9%。前v1/v2权限与v3OT超时冻结保留。
+step:
+  step_id: S7.P1
+  step_name: 实际输出及辅助属性探针压力评估
+  revisions: 2
+  next_step: M5固定多组候选组合；独立确认待新数据，不释放新接收方分数
+  declaration: '# S7.P1 实际模型输出压力评估
+
+
+    > 编写日期：2026-10-09 ｜ 版本：v1.0 ｜ 状态：运行前冻结
+
+    > 数据来源：S5.E2两个完整分区轮的授权Alice预测、本方矩阵；Bob本方属性始终留Bob
+
+    > 口径基准：DR-M5-001；Public数据纪律；M7独立复评提高通过线11
+
+
+    will_produce:
+
+    - 登记独立抽查S7.2（原分保留、复评7、G4失败），不得据旧明文残差攻击推断CHEETAH安全。
+
+    - 五模型seed及独立攻击划分seed；实际输出的校准/评估分离成员压力测试、特征基线、分数拟合、输出限制；正负攻击控制及95%CI。
+
+    - MPC内拟合Bob属性推断探针，Alice字段基线/加联合分数/加受限分数；辅助样本与评价样本互斥，仅向Alice释放聚合误差。Bob属性、单行重建、探针权重不向另一方明文释放。
+
+    - 每探针独立目录、执行Notebook与完整私有结果、逐轮工程日志及main同步。
+
+    will_not_produce:
+
+    - 不将本评估辅助学习oracle当作现有攻击者实际获得Bob标签；不向Bob新增预测权限、不访问原test、不外传矩阵。
+
+    - 不把成员可分性当作纯训练记忆；UCI源顺序漂移可能混杂，独立匹配敏感性与特征基线分别记录。
+
+    - 不完整复现LiRA、不证明恶意安全/无泄漏、不替代未提供的独立人群确认。
+
+    success_criteria:
+
+    - 所有预设组和五seed完成，CI不事后选择；控制有效、原输入指纹与隔离/输出权限验收通过。
+
+    - 对当前授权边界、假设外泄及辅助学习压力条件分别说明；保留负结果和失败。
+
+    risk:
+
+    - 输出限制不是差分隐私。Alice原本知道本方训练成员和标签，因此成员压力测试研究误披露后果；Bob当前没有分数访问，不能伪造其AUC=0.5。
+
+    - 属性探针由安全评估oracle提供辅助拟合，评估分数携带的属性信号；不等于真实攻击者已获辅助真值。
+
+    '
+  scope:
+    files_changed: 14
+    lines_added: 1200
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: modules/m7_security/components/output_audit_vm.py:160：聚合导出、NPY/NPZ/份额禁止、Bob无授权分数。
+      G2: registry/component_declarations/M7-output_audit.yaml:6，本机功能模拟；无新增真实跨境资产。
+      G3: modules/m7_security/S7.P1_实际输出评估_步骤声明.md:7：假设分数外泄和辅助oracle边界。
+      G4: modules/m7_security/components/output_audit.py:49：五seed条件区间；原test不读取，攻击失败不证明安全。
+      D1: modules/m7_security/components/output_audit.py:418：仅汇总属性误差送Alice，Bob真值/逐行重建不送。
+      D2: modules/m7_security/tests/test_output_audit.py:21：数值、控制、隔离路由、失败生命周期；实际队列工程验收。
+      D4: modules/m7_security/实际输出压力评估记录.md:12：实际输出压力与旧明文协议适用范围明确分开。
+      D3: modules/m7_security/configs/output_audit.yaml:1：来源及五seed冻结、私有Notebook完成；CI条件于同一来源，未有独立人群。
+    D3: 2
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - modules/m7_security/notebooks/S7.P1_output_audit.ipynb
+  - modules/m7_security/实际输出压力评估记录.md
+  - modules/m7_security/audit_log.yaml
+  - modules/m7_security/results/output_audit_engineering.json
+  - docs/03-handoff/HO-20261009-Codex-M7-output.md

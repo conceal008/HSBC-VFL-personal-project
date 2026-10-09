@@ -49,6 +49,8 @@ steps:
   - 推翻 S7.1 的乐观读数：σ=1.0 时跨轮平均攻击泄露 AUC 回到 1.0000
   - σ=30 才能压到 0.67，此时可用性 0.6352 < L0 基线 0.7089——防护到有效时不如不做联邦
   - 自查发现并修复两处实现缺陷：残差记录了加噪前的值；泄露强度未取 max(auc,1−auc)
+  assessment_status: original_all_pass_invalidated_by_independent_review
+  independent_reassessment_ref: modules/m7_security/audit_log.yaml
 - step_id: S7.3
   step_name: 补齐特征推断（A4）与成员推断（A5）攻击
   status: committed
@@ -127,16 +129,43 @@ steps:
   - C13：累积攻击不构成实际威胁，配对照实验证明「安全」来自防护而非攻击太弱
   - M8 基线新增 model_asset_protection（下行 σ≥1.0），护栏 8→9 条规则
   - 过程修正：A9 初版用固定阈值 0 切分，把排序完美的信号切坏，误得「噪声挡住窃取」
+- step_id: S7.P1
+  step_name: 实际授权输出及密态辅助属性探针压力评估
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  committed_at: '2026-10-09T15:58:11+08:00'
+  change_id: CL-20261009-M7-001
+  outputs:
+  - modules/m7_security/notebooks/S7.P1_output_audit.ipynb
+  - modules/m7_security/实际输出压力评估记录.md
+  - modules/m7_security/audit_log.yaml
+  - modules/m7_security/results/output_audit_engineering.json
+  - docs/03-handoff/HO-20261009-Codex-M7-output.md
+  note: 两任务固定组完成；旧复评失效单列；CI仅条件于同源五seed；不将小量数值/退化输出称安全。
 current_step: null
-next_step: S7.6
+next_step: S7.P2
 metrics:
-  avg_score: 11.8
+  avg_score: 10.833
   escalation_count: 0
   revision_rate: null
-  steps_used: 5
-  budget_usage: 0.333
+  steps_used: 6
+  budget_usage: 0.4
   consecutive_low_d4: 0
-  pass_threshold: 10
+  pass_threshold: 11
+  original_self_average: 11.8
+  avg_score_basis: S7.2 replaced by independent score 7; original score field preserved
 audit:
-  last_spot_check_step: null
-  spot_checks_done: 0
+  last_spot_check_step: S7.2
+  spot_checks_done: 1
+  record: modules/m7_security/audit_log.yaml

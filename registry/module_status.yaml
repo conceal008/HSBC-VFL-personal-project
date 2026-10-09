@@ -231,13 +231,20 @@ modules:
   M7:
     name: 安全攻防与隐私评测
     path: modules/m7_security
-    status: not_started
+    status: in_progress
     claimed_by: null
-    next_step: S7.1
+    next_step: S7.P2
     blocking_on:
     - M5 可攻击的模型产物
     - M6 评估口径
-    open_questions: []
+    open_questions:
+    - 实际分数压力完成，CI条件于同源；辅助属性探针不是现有攻击者已获辅助真值。
+    - 未来通过线11；S7.2原全部通过独立复评失效，原资产保留。
+    - 仍缺更强攻击、全属性、恶意/合谋与独立新确认；不证明生产安全。
+    claimed_at: null
+    expires_at: null
+    current_step: null
+    latest_completed_step: S7.P1
   M8:
     name: 工业化鲁棒性与部署形态
     path: modules/m8_industrialization

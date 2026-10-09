@@ -333,3 +333,12 @@ main_sync_20261009:
   completed_at: '2026-10-09T00:28:27+08:00'
   change_id: CL-20261009-GOV-001
   verification: 合并main历史后全部本地门禁通过，发布以私有回执和远端SHA核验。
+merge_ci_repair_20261009:
+  step_id: S-INIT.11
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-10-09T15:26:00+08:00'
+  expires_at: null
+  scope: 修复合并提交HEAD回归断言，不放宽门禁规则
+  change_id: CL-20261009-GOV-002
+  completed_at: '2026-10-09T15:29:38+08:00'

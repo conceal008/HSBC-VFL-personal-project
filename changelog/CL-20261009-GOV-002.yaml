@@ -1,0 +1,89 @@
+change_id: CL-20261009-GOV-002
+timestamp: '2026-10-09T15:29:38+08:00'
+agent: Codex
+module: GOV
+type: fix
+title: 修复合并HEAD回归断言并验证普通违规提交拦截
+what: 回归按实际父提交数分别核验合并跳过/普通通过；新增合并夹具及合并后普通坏提交拦截两项。
+why: 远端main合并提交被原检查器合法跳过，回归误要求普通通过字符串，导致46通过1误报。
+key_finding: 不修改元数据检查器或普通提交门槛；不能把合并跳过称普通提交全部字段已审查。
+links:
+  branch_card: null
+  decision_record:
+  - DR-GOV-010
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅整理既有公开仓库材料，未改变跨境资产、数据流或合规定性。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 仅工程回归及公开失败出处，没有实际数据派生产物。
+downstream_affected:
+- GOV
+breaking_change: false
+migration: 无协议或数据变更
+reproducibility:
+  config: 不适用（治理文档）
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: 进度数字从十份 step_ledger 的条目与 steps_used 交叉核对；结果与实现状态核对对应产物。
+rollback: 新revert步骤恢复回归逻辑，保留失败日志。
+verification: 完整门禁通过：294测试、49/49回归、证据链全部通过；日志8-9月/实验日志/合并提交回归核验_20261009_v2.log。首轮更新用例后入口F1失配已修正，未改变普通提交门槛。
+step:
+  step_id: S-INIT.11
+  step_name: 合并提交回归兼容修复
+  revisions: 1
+  next_step: M7实际输出压力评估与M5多组对照
+  declaration: '# S-INIT.11 合并提交回归核验
+
+
+    > 编写日期：2026-10-09 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：GitHub Actions 37809175170 失败输出、ci/check_step_metadata.py
+
+    > 口径基准：用户要求main同步；原门禁2合并跳过语义
+
+
+    will_produce: 修复回归测试的HEAD断言，独立验证合并跳过及普通坏提交仍被阻断；完整门禁与失败回执。
+
+    will_not_produce: 不降低普通提交元数据门槛、不修改实验结果、不启动训练。
+
+    success_criteria: 合并与普通提交两类分支均正确；全量门禁通过，正常非强制main推送。
+
+    risk: 合并跳过不是实验审查；具体changelog仍由全量schema校验。
+
+    '
+  scope:
+    files_changed: 8
+    lines_added: 160
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      G2: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      G3: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      G4: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      D1: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      D2: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      D3: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+      D4: ci/tests/run_gate_tests.sh:208，合并/普通HEAD分别断言及独立夹具。
+    D3: 2
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - ci/tests/run_gate_tests.sh
+  - docs/02-governance/合并提交回归核验_步骤声明.md
+  - docs/03-handoff/HO-20261009-Codex-GOV-merge-ci.md

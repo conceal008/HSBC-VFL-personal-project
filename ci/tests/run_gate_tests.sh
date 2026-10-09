@@ -206,7 +206,27 @@ run python3 "$C2B/ci/check_step_metadata.py" "$C2B"
 assert "门禁2-H 分支卡齐备则放行" 0 "$TMP/out.txt" "门禁 2 通过"
 
 run python3 "$ROOT/ci/check_step_metadata.py" "$ROOT"
-assert "门禁2-D 本仓库 HEAD 自检通过" 0 "$TMP/out.txt" "门禁 2 通过"
+HEAD_PARENTS=$(git -C "$ROOT" log -1 --format=%P | wc -w)
+if [ "$HEAD_PARENTS" -gt 1 ]; then
+  HEAD_EXPECTED="合并提交，跳过。"
+else
+  HEAD_EXPECTED="门禁 2 通过"
+fi
+assert "门禁2-D 本仓库 HEAD 按提交类型自检" 0 "$TMP/out.txt" "$HEAD_EXPECTED"
+
+# 夹具覆盖合并分支；普通坏提交的拦截不能因兼容合并而消失。
+(
+  cd "$C2"
+  git checkout -q -b merge-fixture "$(cat "$TMP/sha_a")"
+  echo fixture > merge.txt
+  git add merge.txt && git commit -q -m "merge fixture"
+  git checkout -q main
+  git merge -q --no-ff merge-fixture -m "fixture merge"
+) > /dev/null
+run python3 "$C2/ci/check_step_metadata.py" "$C2"
+assert "门禁2-I 合并夹具按原规则跳过" 0 "$TMP/out.txt" "合并提交，跳过。"
+run python3 "$C2/ci/check_step_metadata.py" --rev "$(cat "$TMP/sha_a")" "$C2"
+assert "门禁2-J 合并后普通坏提交仍拦截" 1 "$TMP/out.txt" "[Change-Id] 缺失"
 
 echo
 echo "================ changelog schema 校验 ================"

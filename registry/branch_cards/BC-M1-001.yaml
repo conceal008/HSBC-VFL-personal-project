@@ -1,0 +1,12 @@
+card_id: BC-M1-001
+status: archived
+routes:
+- id: external_preparation_p5
+  purpose: three new proxy datasets with owner prep accounts and sealed confirmation
+outcome: first-run engineering passed; complete rerun contract failed
+reason: two revisions already used; direct prepare can overwrite CSV before failing;
+  escalated and repaired independently in P6
+source_step: S1.P5
+repair_step: S1.P6
+falsifier: Any preexisting derived asset modification or confirmation read invalidates
+  preparation lifecycle acceptance.

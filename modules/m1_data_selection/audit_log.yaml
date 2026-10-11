@@ -1,0 +1,85 @@
+module: M1
+recorded_in_step: S1.P6
+reviewer: Codex independent agent /root/m1_fifth_step_audit
+sampling:
+  at: '2026-10-11T07:52:21.480305Z'
+  method: one OS CSPRNG draw, integer modulo 5
+  draw_hex: 6c8e3e8abbc8eea24ca5393e64c9c27b180c2010ca43870752fb362545e518b0
+  population:
+  - S1.P1
+  - S1.P2
+  - S1.P3
+  - S1.P4
+  - S1.P5
+  selected_index: 2
+  selected_step: S1.P3
+  effective_after_fifth_stage_settlement: true
+reviews:
+- step_id: S1.P3
+  original_self_score: 11
+  reassessed_score: 10
+  difference: 1
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 2
+    D2: 3
+    D3: 3
+    D4: 2
+  evidence:
+  - 'notebooks/S1.P3_engineering_verification.ipynb:29: first cell lacks run time'
+  - 'report/S1.P3_工程测试报告.md:33: engineering summary and Ruff lock'
+  - private original gates log and independent in-memory two-cell rerun matched; no
+    training/data read
+  initial_score: 11
+  correction: Initial check overlooked first-cell run-time omission; final score10;
+    initial statement retained.
+- step_id: S1.P5
+  reassessed_score: 7
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 3
+    D3: 1
+    D4: 2
+  verdict: escalated_after_two_revisions
+  evidence:
+  - 'P5 frozen v3 external_party.py:156: to_csv overwrites before save(x) rejects'
+  - 'S1.P5_新增代理与封存_步骤声明.md:15: old artifacts must not change'
+  - P5 six private engineering receipts passed only first-run preparation; not full
+    lifecycle
+- step_id: S1.P6
+  reassessed_score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  verdict: engineering_pass_pending_full_commit_tree_gates
+  evidence:
+  - 'components/external_party.py:118: data guard; :186: Notebook output guard before
+    executor'
+  - 'components/external_vm.py:141: independent guarded entry; :174 export whitelist'
+  - 'tests/test_external_lifecycle.py:345: repeated full Notebook unchanged and logs-only
+    refusal'
+  - 'private verification_code.py:12: same own matrices; :14 all data/results/logs
+    unchanged; :24 access positive/negative controls'
+  - six executed Notebooks/code snapshots/runtime/environment and frozen manifest
+    independently checked
+  scope: preparation only; no model training, production security, physical isolation
+    or business effect confirmed
+scope: read-only engineering/code evidence; no cleaned data or sealed outcomes consumed
+threshold_after_review: 10
+next_repair: S1.P6 before-write guard and fresh-directory reproduction

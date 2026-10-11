@@ -1,0 +1,124 @@
+change_id: CL-20261011-M1-001
+timestamp: '2026-10-11T08:03:26+00:00'
+agent: Codex
+module: M1
+type: fix
+title: 准备入口写前拒覆盖与三代理隔离复现
+what: P6消费未发布的P5失败前置并修复完整Notebook/data/results/logs重复写入；原P5两修正后升级，不追认通过；本步第一次修正扩展到Notebook封装，第二次修正更新当前规模状态字段，保留首次完整门禁失败记录。三代理双方新目录同配置准备，原件不变，封存与训练账户拒读，逐方派生文件字节复现。
+why: 独立审计发现已用目录会先覆盖CSV再失败，必须先拒绝写入并保持冻结产物；给后续同配置模型测试建立可复现的本方开发输入，不提前消费确认集。
+key_finding: 新增代理准备工程通过，只准备未训练；P5失败及P3独立10/12明确留痕，私有输出不迁入Public。
+links:
+  branch_card: BC-M1-001
+  decision_record: none
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 本机功能模拟沿用管理员可信边界，无新的真实跨境资产；准备UID全禁网络、只读本方开发输入。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex + independent engineering auditor
+  conclusion: 所有清洗矩阵、源数据/散列标识、学习预处理参数、规模分布及完整执行Notebook仅私有；Public入口execution_count/outputs清空。公开仅代码/构造配置/工程布尔状态与审计缺陷，不公开真实派生统计。
+downstream_affected:
+- M1
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 合法重跑必须新目录/new runtime；旧P5-v1/v2/v3及P6首轮精确源码/结果/失败冻结保留。
+reproducibility:
+  config: modules/m1_data_selection/configs/external_freeze.yaml
+  config_hash: 9034f98df2cc798d4abb28f2fd8756a5e7b9a08c0e48eeea75ef6d896ae96950
+  seeds:
+  - 20261011
+  - 20261012
+  env_lock: environments/python.lock
+  note: 冻结数据配置step_id仍为P5来源协议，实际执行P6单独声明；sampling与split分别使用；各方VM派生字节与P5-v3一致。
+rollback: 独立revert步骤回退当前入口，不删除任何冻结私有产物/失败卡/审计记录。
+verification: 三任务双方最终Notebook/拒读/不变/重现工程验收通过；21项新增隐私与生命周期测试通过；完整门禁与main SHA/远端CI以私有S1P6发布回执登记，不宣称尚未完成的远端状态。
+step:
+  step_id: S1.P6
+  step_name: 写前拒覆盖与新目录准备复现
+  declaration: '# S1.P6 准备产物写前冻结与新目录重跑核验
+
+
+    > 编写日期：2026-10-11 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S1.P5冻结配置、私有v1/v2/v3工程回执、独立复核意见
+
+    > 口径基准：维护约束v2 §3.1/3.5及用户原件/逐轮目录要求
+
+
+    will_produce:
+
+    - S1.P5已两次修正后的剩余缺陷如实升级，不做本步第三次修正、不追认全部通过。保留所有原准备结果和精确执行代码。
+
+    - 单一修复：准备入口在读取/写入之前拒绝任何已有data/results/logs准备产物，重复目录无写入；合法重跑以新实验目录和新runtime启动。
+
+    - 沿用原三组数据的完全相同抽样/划分/字段/预处理配置，新增P6入口、双VM全新准备目录、来源指纹与原v3按方派生文件逐字节一致布尔回执（不导出矩阵/预处理状态）。
+
+    - 对准备账户和当前训练账户检查封存路径拒读/拒写与跨工作目录拒读，正常可读路径做正对照，环境版本单独私有回执。
+
+    - 第五步随机历史抽查与当前准备复评保留独立记录；工程测试/源码/计划公开，真实派生输出清空，main单步提交。
+
+    will_not_produce:
+
+    - 不覆盖旧产物、不消费封存确认标签/指标、不在新增数据上训练模型；不得用新文件名声称独立银行人群。
+
+    - 不修改抽样种子、字段或训练预算，不更改当前运行中的M5代码。
+
+    success_criteria:
+
+    - 同一目录重跑在任何写入前失败，原文件散列不变；新目录两方准备成功，v3派生清洗CSV与状态文件一致。
+
+    - 三任务双方拒读/权限/来源/Notebook/版本回执通过，代码通过完整门禁；不声称管理员隔离、物理隔离或零统计泄漏。
+
+    risk:
+
+    - 可信公开原件分发管理员在训练威胁模型外；同一宿主管理员仍控制两VM。
+
+    - 重跑一致性是预处理复现，不是模型增益或独立确认。
+
+    '
+  scope:
+    files_changed: 25
+    lines_added: 2397
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 'modules/m1_data_selection/components/external_vm.py:181: explicit export
+        whitelist; cleared Notebook outputs; private freeze receipts.'
+      G2: 'registry/component_declarations/M1-external_vm.yaml:6: no crossborder assets,
+        local trusted provisioning.'
+      G3: 'modules/m1_data_selection/components/external_party.py:117: data guard
+        and :186 full Notebook guard; P5 failure not called completion.'
+      G4: 'modules/m1_data_selection/configs/external_freeze.yaml:2: label-independent
+        hash sampling/split; no model/test selection.'
+      D1: 'modules/m1_data_selection/components/external_party.py:186: before executor
+        guard protects logs, results and data; new runtime only.'
+      D2: 'modules/m1_data_selection/tests/test_external_lifecycle.py:345: whole Notebook
+        repeat unchanged; actual six-party receipts private.'
+      D3: 'modules/m1_data_selection/notebooks/S1.P6_external_preparation.ipynb:39:
+        config/hash/seeds/git/time; same-config bytes verified within each owner VM.'
+      D4: 'modules/m1_data_selection/report/S1.P6_新代理封存与重跑验收.md:13: three proxy tasks
+        and semantic limits; preparation only, no gain claims.'
+  revisions: 2
+  verdict: committed
+  next_step: 联合优化诊断和新增输出重评后，单独冻结新增数据开发模型实验；正式S1.1仍待
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P5_external_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P6_external_preparation.ipynb
+  - modules/m1_data_selection/report/S1.P6_新代理封存与重跑验收.md
+  - modules/m1_data_selection/results/external_preparation_engineering.json
+  - modules/m1_data_selection/audit_log.yaml
+  - docs/03-handoff/HO-20261011-Codex-M1-freeze.md
+  - 实验方法与运行日志_v4.md

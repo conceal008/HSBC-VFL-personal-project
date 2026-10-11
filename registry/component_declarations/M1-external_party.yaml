@@ -1,0 +1,9 @@
+component: external_party
+module: M1
+path: modules/m1_data_selection/components/external_party.py
+purpose: 新增代理公开原件可信分发/单方VM准备/未查看确认封存，阶段不训练
+cross_border_assets: []
+cross_border_note: 仅本机功能模拟；初始公开原件分配角色可信，不是企业联邦数据汇总；确认权限默认拒绝。
+tests:
+- modules/m1_data_selection/tests/test_external_freeze.py
+- modules/m1_data_selection/tests/test_external_lifecycle.py

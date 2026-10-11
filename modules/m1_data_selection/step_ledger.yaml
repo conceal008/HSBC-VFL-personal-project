@@ -75,6 +75,12 @@ steps:
   - report/S1.P3_工程测试报告.md
   - requirements.txt
   note: 本机工程测试结果归档并记录首次 Linux CI lint 失败；Ruff 锁定修复已纳入，等待此提交触发的远端完整门禁。
+  independent_reassessment:
+    record: modules/m1_data_selection/audit_log.yaml
+    score: 10
+    original_self_score_preserved: true
+    original_all_pass_valid: true
+    defect: first Notebook cell run time absent; no model/isolated-preparation revalidation
 - step_id: S1.P4
   step_name: 新增前置：GitHub CI 回归缺陷修复
   status: committed
@@ -100,16 +106,68 @@ steps:
   - notebooks/S1.P4_ci_regression_followup.ipynb
   - report/S1.P4_GitHub_CI回归整改.md
   note: 本机全门禁通过；修复后 GitHub 第三轮工作流由本次提交触发。
+- step_id: S1.P5
+  step_name: 新增三代理单方准备与封存
+  status: escalated
+  score: 7
+  revisions: 2
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 3
+    D3: 1
+    D4: 2
+  blocker: 同目录重跑可覆盖清洗CSV，两修正后独立审计发现；原首次工程passed保留，不承认完整契约。
+  repair_step: S1.P6
+  audit_record: modules/m1_data_selection/audit_log.yaml
+  failure_card: BC-M1-001
+- step_id: S1.P6
+  step_name: 准备产物写前拒覆盖与新目录复现
+  status: committed
+  score: 11
+  revisions: 2
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  committed_at: '2026-10-11T08:01:48+00:00'
+  change_id: CL-20261011-M1-001
+  outputs:
+  - components/external_freeze.py
+  - components/external_party.py
+  - components/external_vm.py
+  - configs/external_freeze.yaml
+  - notebooks/S1.P6_external_preparation.ipynb
+  - report/S1.P6_新代理封存与重跑验收.md
+  - results/external_preparation_engineering.json
+  note: 只准备，不训练/不确认；P5失败前置被本步消费/修复，历史声明和冻结代码保留；第一次修正扩展保护至完整Notebook入口，第二次修正更正总览规模状态，首次全门禁失败记录保留。
 current_step: null
 next_step: S1.1
 metrics:
-  avg_score: 11.0
-  escalation_count: 0
-  revision_rate: 1.25
-  steps_used: 4
-  budget_usage: 0.4444444444444444
+  avg_score: 10.167
+  escalation_count: 1
+  revision_rate: 1.0
+  steps_used: 6
+  budget_usage: 0.667
   consecutive_low_d4: 0
   pass_threshold: 10
+  prior_reported_revision_rate: 1.25
+  revision_rate_basis: fraction of attempted steps with one or more revisions; old
+    sum-of-revisions field1.25 retained
 audit:
-  last_spot_check_step: null
-  spot_checks_done: 0
+  last_spot_check_step: S1.P3
+  spot_checks_done: 1
+  record: modules/m1_data_selection/audit_log.yaml
+quality_actions:
+- 修正率继续超过0.4；P5超过修正上限升级，不伪造通过，独立P6修复，不并入模型训练。
+- P3首cell时间缺项由独立抽查确认；历史score11保留，有效score10，不触发分差≥3上调。

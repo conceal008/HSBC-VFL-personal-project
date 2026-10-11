@@ -1,0 +1,19 @@
+{
+  "step": "S1.P6",
+  "status": "prepared",
+  "datasets": [
+    "coil2000",
+    "criteo_uplift",
+    "santander_transaction"
+  ],
+  "two_vm_owner_preparation": true,
+  "train_only_fit": true,
+  "confirmation_consumed": false,
+  "model_training_performed": false,
+  "original_sources_unchanged": true,
+  "same_config_reproduction": true,
+  "notebook_and_data_rerun_write_denied": true,
+  "physical_isolation": false,
+  "production_security": false,
+  "previous_step_all_pass": false
+}

@@ -1,4 +1,4 @@
-updated_at: '2026-10-07T19:15:00+08:00'
+updated_at: '2026-10-11T08:03:26+00:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
   last_action: M8 护栏与故障注入 7/7、M9 证据链三项 100%、M4 规格——全部模块走完一轮
@@ -136,13 +136,13 @@ modules:
     path: modules/m1_data_selection
     status: in_progress
     claimed_by: null
-    claimed_at: null
+    claimed_at: '2026-10-11T01:42:47.469295+00:00'
     expires_at: null
     current_step: null
     next_step: S1.1
     blocking_on: []
-    latest_completed_step: S1.P4
-    preparation_status: engineering_test_summary_published_remote_full_check_pending
+    latest_completed_step: S1.P6
+    preparation_status: three_proxy_owner_preparation_and_rerun_guard_verified_no_model_training
     open_questions:
     - S1.P1 完成 UCI/Hillstrom 数据准备；原 S1.1–S1.9 验收尚未完成。
     - 两组口径已定（DR-MX-001 · D-2）：主口径 = 跨境理财通南向通；第二组 = 汇丰卓越理财跨境升级，互为对照（前者转化稀疏、后者样本充足）
@@ -153,6 +153,8 @@ modules:
     - S1.P3 测试结果已归档；因首次 Linux CI 暴露 Ruff 版本漂移，已固定到环境锁版本，等待远端完整门禁复核。
     - S1.P4 修复 PR synthetic merge checkout 与可选 MyPy 目录问题。本机全部门禁通过；修复后 GitHub 第三轮全门禁状态以
       PR checks 为准。
+    - S1.P5首次三组准备通过，但两次修正后发现同目录重跑先覆盖清洗文件；本步升级，P6独立修复，不追认P5全范围通过。
+    - P3独立随机复评10/12、P5 G3fail升级7/12，P6独立修复；正式模型/独立确认另步，修正率不解除。
   M2:
     name: 合成数据生成与仿真台
     path: modules/m2_synthetic

@@ -1,0 +1,8 @@
+component: candidate_recovery
+module: M5
+path: modules/m5_modeling/components/candidate_recovery.py
+purpose: 仅恢复已完成的授权Notebook/聚合工件；保留宿主退出未知，不重训、不修改原队列
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能研究；沿用candidate_vm有限导出和验收，原矩阵/预测/份额不离VM。
+tests:
+- modules/m5_modeling/tests/test_candidate_recovery.py

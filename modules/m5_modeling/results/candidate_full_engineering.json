@@ -1,0 +1,39 @@
+{
+  "step_id": "S5.E4",
+  "scope": "complete fixed development train/validation, not independent population confirmation",
+  "config_sha256": "b90fb817b901517fd1aa7481323cae00ffc0bcad8317e37c5a3163e89a4bffc1",
+  "rounds": [
+    {
+      "dataset": "uci_bank_marketing",
+      "verification": "passed",
+      "native_cross_control": true,
+      "readonly_reference_equivalence": true,
+      "all_registered_groups_seeds_and_intervals_completed": true
+    },
+    {
+      "dataset": "hillstrom_email_marketing",
+      "verification": "passed",
+      "native_cross_control": true,
+      "readonly_reference_equivalence": true,
+      "all_registered_groups_seeds_and_intervals_completed": true
+    }
+  ],
+  "planned_new_secure_fits": 80,
+  "planned_fixed_fusion_derivations": 100,
+  "new_receiver_authorized": false,
+  "original_uci_host_exit_known": false,
+  "uci_retrained_during_recovery": false,
+  "checks": {
+    "source_matches_executed_core": true,
+    "raw_inputs_unchanged": true,
+    "no_test_staged": true,
+    "all_notebooks_completed": true,
+    "nonroot_owner_vms_mtls": true,
+    "no_record_predictions_matrices_or_shares_exported": true,
+    "bob_received_no_scores_or_evaluation": true
+  },
+  "real_derived_metrics_published": false,
+  "outputs_attack_reassessment_for_each_new_model_completed": false,
+  "independent_confirmation": false,
+  "assumptions": "semi-honest noncolluding participants, trusted administrator; M7 output risks remain"
+}

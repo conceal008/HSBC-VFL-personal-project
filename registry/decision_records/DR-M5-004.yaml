@@ -1,0 +1,25 @@
+dr_id: DR-M5-004
+title: 在原预算耗尽后冻结多组组合对照成本
+date: '2026-10-09'
+agent: Codex
+module: M5
+status: active
+requested_by: 仓库所有者
+related_step: S5.E4
+context: 原12/12步已用，原修正率7/12超过0.4，独立复评仍有效；用户要求多组方法及组合比较。
+decision: 新增一个原完整切片研究步骤S5.E4和一个后续确认预留步骤；总计划14，原12步预算/7项修正事实单列不改。80新增密态拟合+100固定融合，参数预算固定，不做自动扩搜。
+limits:
+  new_secure_fits: 80
+  derived_fusions: 100
+  epochs: 12
+  models_per_seed_per_dataset: 8
+  seeds: 5
+  maximum_hours_per_dataset: 6
+  maximum_hours_total: 12
+consequences:
+- 代码/数学预检、执行过程和结果属于同一预注册因子设计，可独立回滚；安全攻防和新确认继续分步。
+- 本轮仅C01/C02/C03/C08明确定义适配；不挪动原test、不删负对照或不利结果。
+- 原修正率7/12和超过0.4的整改继续展示，通过线11不下降；预算增加不说明质量问题解决。
+- 无新确认数据时确认预留步骤保持待输入，不将复用或重切分当确认。
+- 按所有者每轮核心代码与日志入main的明确授权正常提交推送，未force、不声称外部approve。
+falsifier: 任何输出/账户/数值门禁失败立即停；80新拟合后不得根据验证结果追加参数搜索；超预算须另行声明；需求人群/字段时点变更须重新冻结，不伪造独立确认。

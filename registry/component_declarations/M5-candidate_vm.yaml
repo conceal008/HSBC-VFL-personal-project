@@ -1,0 +1,8 @@
+component: candidate_vm
+module: M5
+path: modules/m5_modeling/components/candidate_vm.py
+purpose: 双VM所有者独立只读来源、无test、分数和矩阵不导出，逐拟合目录及工程验收
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；M7风险限制仍有效，不新增预测接收方，不声明生产安全。
+tests:
+- modules/m5_modeling/tests/test_candidate_full.py

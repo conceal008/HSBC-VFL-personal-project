@@ -1,0 +1,130 @@
+change_id: CL-20261009-M5-001
+timestamp: '2026-10-11T01:04:19+00:00'
+agent: Codex
+module: M5
+type: exp
+title: 固定文献适配多组因子与组合对照
+what: 八新密态组、相同列数置乱负对照、固定输出融合和只读原参照，完整原train/validation五seed。
+why: 测试交互、筛组和组合增益并排除容量和本地拟合混杂，按用户要求执行多组。
+key_finding: 固定预注册因子/组合/置乱容量对照全部完成；实际效果只在私有日志，不能用相对弱联合改善替代合作价值或独立确认。
+links:
+  branch_card: BC-M5-009
+  decision_record:
+  - DR-M5-001
+  - DR-M5-004
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: DR-M5-001本机功能模拟，沿用既有双VM权限和秘密设备；仅原授权Alice接收预测，无新增真实跨境数据流。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 实际数据派生指标/CI/授权执行Notebook仅私有；Public入口清空输出和execution_count，源文件无标识、矩阵、预测、权重或份额。
+downstream_affected:
+- M0
+- M5
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 原冻结结果不覆盖；新增独立实验和授权恢复目录，原12/12预算及7/12修正事实保留。
+reproducibility:
+  config: modules/m5_modeling/configs/candidate_full.yaml
+  config_hash: b90fb817b901517fd1aa7481323cae00ffc0bcad8317e37c5a3163e89a4bffc1
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 原S5.E2八参照只读复用，逐方矩阵/源码/参数一致断言；五初始化与分离order seed；未投递test。
+rollback: 新revert步骤回退当前实现；全部私有失败和冻结结果保留。
+verification: 两任务全部组/五seed/54比较及区间、源码/配置/输入/输出工程验收通过；2026-10-11全量门禁exit=0，311单元测试、49门禁回归通过，核心行覆盖6433/6846=94.0%。私有日志：8-9月/实验日志/S5E4_全量门禁_20261011.log。文档末次更新后数据扫描、schema和证据链复核通过；实际训练核心未更改。
+step:
+  step_id: S5.E4
+  step_name: 原完整分区多组候选及组合开发比较
+  revisions: 2
+  next_step: 独立人群确认待输入；不可按本轮验证结果追加搜索
+  declaration: '# S5.E4 多组单项与组合对照
+
+
+    > 编写日期：2026-10-09 ｜ 版本：v1.0 ｜ 状态：运行前冻结
+
+    > 数据来源：S5.E2原训练/验证切片、原模型授权预测；本机三份文献
+
+    > 口径基准：用户本轮多组及组合实验指令、DR-M5-001、M5复评通过线11
+
+
+    will_produce:
+
+    - 原12/12步预算的显式重规划；保持原修正率7/12和历史复评，不靠扩大分母消除问题。
+
+    - 完整原train/validation、固定五初始化seed及分离order seed，C01非线性×C02密态跨方交互×C03字段组保留的单项/组合。
+
+    - 新联合组M0/M1（仅C03、C01+C03）、X0/X1（仅C02、C01+C02）、XM0/XM1（C02+C03、C01+C02+C03）；N0/N1为相同新增列数的跨方交互置乱负对照，其他原字段保留。
+
+    - 原A0/A1/B0/B1与固定本地LR/树预测只读复用，严格核对源代码/配置/输入；不得将复用写成重训。
+
+    - 以上八新组与两个原联合组分别同匹配本地LR做固定0.5凸融合（C08适配），不验证选权、不OOF蒸馏、不声称复现FedDF。
+
+    - 两任务共80新增密态拟合、100融合衍生方案；每seed每组独立目录，五seed配对CI、多重比较、负结果、过程/最终日志及main同步。
+
+    will_not_produce:
+
+    - 不移动Bob真值/跨方交互/残差/权重至Alice或宿主；交互仅MPC计算、输出仍只有原授权Alice。
+
+    - 不调整原test、不用验证选最优权重或删除不利组；不重复新确认人群，不新增神经网络或自研密码协议。
+
+    - 不完整复现MI-VFDNN/LESS-VFL/OPUS-VFL/FedDF；只检验明确定义的交互、分组和输出空间融合适配。
+
+    success_criteria:
+
+    - 全部预注册组、种子完成，数学/范围/隔离/输入/输出工程门禁通过，CI与指定主动方和强本地基线成对比较。
+
+    - UCI看响应预测，Hillstrom两臂Qini与固定10%策略价值，全部组/组合均保留，未支持增益如实记录。
+
+    - Public只代码/计划/工程状态，完整指标和执行Notebook私有；每轮同步main之后再后续实验。
+
+    risk:
+
+    - 新增交互可能过拟合、筛组可能丢失有效信息、融合不保证胜过本地；固定分组为构造条件，不外推银行。
+
+    - UCI宏观信息的可得性仍有公平对照缺口，本轮C03仅历史字段联合可帮助辨别，不能擅自将Bob宏观文件复制Alice。
+
+    - 实际输出存在属性信号风险；仅私人功能研究，不增设分数接收方，不声称零泄漏或生产准入。
+
+    '
+  scope:
+    files_changed: 23
+    lines_added: 2662
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: modules/m5_modeling/components/candidate_vm.py:218：聚合导出与NPY/NPZ/份额排除；Public输出清除，实际回执通过。
+      G2: registry/component_declarations/M5-candidate_full.yaml:6：本机功能模拟，无新真实跨境资产或接收方。
+      G3: modules/m5_modeling/S5.E4_多组组合对照_步骤声明.md:7：八组、五seed、100融合固定；无验证扩搜。
+      G4: modules/m5_modeling/components/candidate_full.py:32：原矩阵逐项一致与test禁止；独立确认false。
+      D1: modules/m5_modeling/configs/candidate_full.yaml:1：完整因子/组合/容量负对照和固定融合全部执行。
+      D2: modules/m5_modeling/tests/test_candidate_full.py:1：数值/路由/来源/失败测试；实际MPC控制和逐轮验收；所有54比较CI。
+      D3: modules/m5_modeling/components/candidate_recovery.py:1：原退出未知保留、不能伪造；精确私有源码和指纹留存，缺独立确认因此2分。
+      D4: modules/m5_modeling/多组组合对照实验记录.md:10：比较原联合/主动方/本地参照与容量对照，组合适配边界和全部负结果明确。
+    D3: 2
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - modules/m5_modeling/notebooks/S5.E4_candidate_full.ipynb
+  - modules/m5_modeling/多组组合对照实验记录.md
+  - modules/m5_modeling/results/candidate_full_engineering.json
+  - docs/03-handoff/HO-20261009-Codex-M5-candidates.md

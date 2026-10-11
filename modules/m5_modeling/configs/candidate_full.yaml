@@ -1,0 +1,414 @@
+step_id: S5.E4
+mode: two_vm_functional_simulation
+alignment: frozen_pre_alignment_secure_equality_only
+protocol: CHEETAH
+field: FM64
+smoke:
+  data_seed: 20261001
+  split_rows:
+  - 512
+  - 128
+  - 128
+  features_per_party: 2
+  treatment_effect: 0.3
+  precision_logits:
+  - -4096.0
+  - -1024.0
+  - -256.0
+  - -128.0
+  - -64.0
+  - -32.0
+  - -16.0
+  - -8.0
+  - -1.0
+  - 0.0
+  - 1.0
+  - 8.0
+  - 16.0
+  - 32.0
+  - 64.0
+  - 128.0
+  - 256.0
+  - 1024.0
+  - 4096.0
+  shared_overrides:
+    model_seeds:
+    - 11
+    learning_rates:
+    - 0.1
+    epochs: 2
+    bootstrap_repeats: 30
+    l0_c_grid:
+    - 1.0
+    tree_iterations: 20
+shared:
+  model_seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  initialization_std: 0.01
+  split_seed: 20260927
+  bootstrap_seed: 20261001
+  bootstrap_repeats: 500
+  top_k_fraction: 0.1
+  clip_features: 4.0
+  segments: 10
+  minimum_group: 10
+  prediction_batch_size: 2048
+  infeed_rows: 4096
+  precision_tolerance: 0.001
+  membership_max_rows: 4000
+  learning_rates:
+  - 0.1
+  epochs: 12
+  batch_size: 512
+  l2_norm: 0.1
+  sigmoid: df
+  weight_bound: 10.0
+  training_boundary_limit: 0.01
+  l0_c_grid:
+  - 0.1
+  - 1.0
+  l0_max_iter: 1000
+  tree_iterations: 100
+  tree_leaves: 15
+  tree_l2: 1.0
+  score_epsilon: 1.0e-06
+  ci_percentiles:
+  - 2.5
+  - 97.5
+  link_timeout_ms: 300000
+datasets:
+  uci_bank_marketing:
+    treatment: false
+    prohibited_features:
+    - duration
+    - campaign
+    - contact
+    - month
+    - day_of_week
+  hillstrom_email_marketing:
+    treatment: true
+    treatment_arms:
+    - 1
+    - 2
+    prohibited_features:
+    - history_segment
+    - segment
+    - visit
+    - spend
+disclosure:
+  controller:
+  - status
+  - artifact_path
+  both_parties:
+  - dimensions
+  - alignment_boolean
+  - fixed_training_schedule
+  - numerical_validity_boolean
+  alice_only:
+  - prediction
+  - evaluation
+  - model_selection
+  prohibited:
+  - cross_party_raw_values
+  - plaintext_joint_weights
+  - bob_labels
+  - bob_residuals
+  - bob_scores
+experiment:
+  candidate: C01/C02/C03/C08 fixed factor and negative-control adaptation
+  selection_seed: 20261005
+  max_rows:
+    train: null
+    validation: null
+  quantiles:
+  - 0.25
+  - 0.5
+  - 0.75
+  variance_floor: 1.0e-12
+  features:
+    uci_bank_marketing:
+    - numeric__age
+    hillstrom_email_marketing:
+    - numeric__history
+    - numeric__recency
+  order_seeds:
+    '11': 101
+    '22': 102
+    '33': 103
+    '44': 104
+    '55': 105
+  conditions:
+    M0:
+      enhanced: false
+      include_bob: true
+      mask: true
+      cross: false
+      negative: false
+    M1:
+      enhanced: true
+      include_bob: true
+      mask: true
+      cross: false
+      negative: false
+    X0:
+      enhanced: false
+      include_bob: true
+      mask: false
+      cross: true
+      negative: false
+    X1:
+      enhanced: true
+      include_bob: true
+      mask: false
+      cross: true
+      negative: false
+    XM0:
+      enhanced: false
+      include_bob: true
+      mask: true
+      cross: true
+      negative: false
+    XM1:
+      enhanced: true
+      include_bob: true
+      mask: true
+      cross: true
+      negative: false
+    N0:
+      enhanced: false
+      include_bob: true
+      mask: false
+      cross: true
+      negative: true
+    N1:
+      enhanced: true
+      include_bob: true
+      mask: false
+      cross: true
+      negative: true
+  local_lr_c: 1.0
+  bootstrap_seed: 20261005
+  alpha: 0.05
+  scope: fixed full train/validation development partitions; no independent cohort
+    or test access; fixed mask is a constructed condition
+  comparisons:
+    M0_minus_B0:
+      M0: 1
+      B0: -1
+    M0_minus_A0:
+      M0: 1
+      A0: -1
+    M0_minus_L0_LR_0:
+      M0: 1
+      L0_LR_0: -1
+    M1_minus_B1:
+      M1: 1
+      B1: -1
+    M1_minus_A1:
+      M1: 1
+      A1: -1
+    M1_minus_L0_LR_1:
+      M1: 1
+      L0_LR_1: -1
+    X0_minus_B0:
+      X0: 1
+      B0: -1
+    X0_minus_A0:
+      X0: 1
+      A0: -1
+    X0_minus_L0_LR_0:
+      X0: 1
+      L0_LR_0: -1
+    X1_minus_B1:
+      X1: 1
+      B1: -1
+    X1_minus_A1:
+      X1: 1
+      A1: -1
+    X1_minus_L0_LR_1:
+      X1: 1
+      L0_LR_1: -1
+    XM0_minus_B0:
+      XM0: 1
+      B0: -1
+    XM0_minus_A0:
+      XM0: 1
+      A0: -1
+    XM0_minus_L0_LR_0:
+      XM0: 1
+      L0_LR_0: -1
+    XM1_minus_B1:
+      XM1: 1
+      B1: -1
+    XM1_minus_A1:
+      XM1: 1
+      A1: -1
+    XM1_minus_L0_LR_1:
+      XM1: 1
+      L0_LR_1: -1
+    N0_minus_B0:
+      N0: 1
+      B0: -1
+    N0_minus_A0:
+      N0: 1
+      A0: -1
+    N0_minus_L0_LR_0:
+      N0: 1
+      L0_LR_0: -1
+    N1_minus_B1:
+      N1: 1
+      B1: -1
+    N1_minus_A1:
+      N1: 1
+      A1: -1
+    N1_minus_L0_LR_1:
+      N1: 1
+      L0_LR_1: -1
+    XM0_minus_M0:
+      XM0: 1
+      M0: -1
+    XM0_minus_X0:
+      XM0: 1
+      X0: -1
+    X0_minus_N0:
+      X0: 1
+      N0: -1
+    XM1_minus_M1:
+      XM1: 1
+      M1: -1
+    XM1_minus_X1:
+      XM1: 1
+      X1: -1
+    X1_minus_N1:
+      X1: 1
+      N1: -1
+    M1_minus_M0:
+      M1: 1
+      M0: -1
+    X1_minus_X0:
+      X1: 1
+      X0: -1
+    XM1_minus_XM0:
+      XM1: 1
+      XM0: -1
+    N1_minus_N0:
+      N1: 1
+      N0: -1
+    FB0_minus_B0:
+      FB0: 1
+      B0: -1
+    FB0_minus_L0_LR_0:
+      FB0: 1
+      L0_LR_0: -1
+    FB1_minus_B1:
+      FB1: 1
+      B1: -1
+    FB1_minus_L0_LR_1:
+      FB1: 1
+      L0_LR_1: -1
+    FM0_minus_M0:
+      FM0: 1
+      M0: -1
+    FM0_minus_L0_LR_0:
+      FM0: 1
+      L0_LR_0: -1
+    FM1_minus_M1:
+      FM1: 1
+      M1: -1
+    FM1_minus_L0_LR_1:
+      FM1: 1
+      L0_LR_1: -1
+    FX0_minus_X0:
+      FX0: 1
+      X0: -1
+    FX0_minus_L0_LR_0:
+      FX0: 1
+      L0_LR_0: -1
+    FX1_minus_X1:
+      FX1: 1
+      X1: -1
+    FX1_minus_L0_LR_1:
+      FX1: 1
+      L0_LR_1: -1
+    FXM0_minus_XM0:
+      FXM0: 1
+      XM0: -1
+    FXM0_minus_L0_LR_0:
+      FXM0: 1
+      L0_LR_0: -1
+    FXM1_minus_XM1:
+      FXM1: 1
+      XM1: -1
+    FXM1_minus_L0_LR_1:
+      FXM1: 1
+      L0_LR_1: -1
+    FN0_minus_N0:
+      FN0: 1
+      N0: -1
+    FN0_minus_L0_LR_0:
+      FN0: 1
+      L0_LR_0: -1
+    FN1_minus_N1:
+      FN1: 1
+      N1: -1
+    FN1_minus_L0_LR_1:
+      FN1: 1
+      L0_LR_1: -1
+  groups:
+    uci_bank_marketing:
+      bob_keep:
+      - numeric__pdays
+      - numeric__previous
+      - categorical__poutcome_failure
+      - categorical__poutcome_nonexistent
+      - categorical__poutcome_success
+      alice_cross:
+      - numeric__age
+      - numeric__age
+      bob_cross:
+      - numeric__previous
+      - categorical__poutcome_success
+    hillstrom_email_marketing:
+      bob_keep:
+      - numeric__newbie
+      - categorical__channel_Multichannel
+      - categorical__channel_Phone
+      - categorical__channel_Web
+      alice_cross:
+      - numeric__history
+      - numeric__recency
+      bob_cross:
+      - numeric__newbie
+      - categorical__channel_Web
+  negative_seeds:
+    train: 202610091
+    validation: 202610092
+  cross_bound: 4.0
+  fusion_weight: 0.5
+  alignment_chunk_rows: 4096
+  source_step: S5.E2
+  source_commit: 8ed9df6
+  reference_cells:
+  - A0
+  - A1
+  - B0
+  - B1
+  - L0_LR_0
+  - L0_LR_1
+  - L0_tree_0
+  - L0_tree_1
+  fusion_cells:
+  - B0
+  - B1
+  - M0
+  - M1
+  - X0
+  - X1
+  - XM0
+  - XM1
+  - N0
+  - N1

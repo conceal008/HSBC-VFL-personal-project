@@ -1,0 +1,8 @@
+component: candidate_full
+module: M5
+path: modules/m5_modeling/components/candidate_full.py
+purpose: 固定分组/密态交互/容量负对照/固定融合；完整原切片五seed成对分析
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；M7风险限制仍有效，不新增预测接收方，不声明生产安全。
+tests:
+- modules/m5_modeling/tests/test_candidate_full.py

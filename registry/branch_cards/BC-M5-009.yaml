@@ -1,0 +1,6 @@
+card_id: BC-M5-009
+status: active
+routes:
+- id: fixed_factor_combination
+  purpose: 原参照只读，新增字段组/密态交互/容量负对照及固定融合；五seed完整原切片
+falsifier: 源矩阵/代码/参数不一致、测试可访问、向Bob或宿主泄露分数/真值/权重、组缺失或容差失败则停止；未发现增益保留，不按验证追加搜索。

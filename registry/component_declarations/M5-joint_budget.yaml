@@ -1,0 +1,9 @@
+component: joint_budget
+module: M5
+path: modules/m5_modeling/components/joint_budget.py
+purpose: 冻结预算实际MPC四格轨迹、同输入12轮核验、仅预注册诊断布尔及Alice授权评估
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；不新增真实跨境流，梯度/范数/权重保持密态，预测仅Alice。
+tests:
+- modules/m5_modeling/tests/test_joint_budget.py
+- modules/m5_modeling/tests/test_joint_routing.py

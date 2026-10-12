@@ -1,0 +1,9 @@
+card_id: BC-M5-010
+status: escalated
+routes:
+- id: joint_fixed_budget_diagnostic
+  purpose: 实际四格48轮、12/24/48全检查点，不改变其他参数；先容差与输出边界后效果诊断
+falsifier: 源输入/12轮原参照/隔离/TLS/概率范围失败即停；未支持增益或未过梯度阈值如实保留，不扩搜、不称生产安全。
+failure_phase: publication_contract_after_two_recovery_revisions
+superseding_repair_step: S5.R1
+note: 实际训练通过但完整发布门禁失败；未发布原11/12自评失效，不改任何数学或原指标。

@@ -57,3 +57,50 @@ scope: read-only evidence review; no training, record-level data access, full-hi
 current_run_note: New E2 source restricts train/validation, historical access and
   prediction export; actual runtime acceptance still required. Does not retroactively
   validate P2.
+subsequent_reviews:
+- recorded_at: '2026-10-12T07:09:56+00:00'
+  recorded_in_step: S5.R1
+  reviewer: independent /root/retrospective_audit
+  sampling:
+    seed: 20261012
+    window:
+    - S5.E2
+    - S5.E3
+    - S5.E4
+    - S5.E5
+    - S5.R1
+    eligible_published:
+    - S5.E2
+    - S5.E3
+    - S5.E4
+    method: random.Random(20261012).choice on previously published eligible steps
+    selected: S5.E3
+  review:
+    step_id: S5.E3
+    original_self_score: 11
+    reassessed_score: 11
+    difference: 0
+    gates:
+      G1: pass
+      G2: pass
+      G3: pass
+      G4: pass
+    dimensions:
+      D1: 3
+      D2: 3
+      D3: 2
+      D4: 3
+    evidence:
+    - 'modules/m5_modeling/阶段进度与收敛诊断.md:24: fixed endpoint and split contract'
+    - 'modules/m5_modeling/components/convergence_audit.py:124: paired intervals'
+    - 'modules/m5_modeling/components/convergence_audit.py:168: reference tolerance'
+    - two private engineering/NOTEBOOK_COMPLETED receipts passed; no raw data or rerun
+  current_repair_review:
+    frozen_code_config_result_bytes_match: f37d90c
+    notebook_cells_unchanged: true
+    original_E5_G3_failure_preserved: true
+    finding: E5/R1 reused CL ID ambiguity; repaired as distinct R1 CL002 and E5 JSON
+      archive
+  limitation: substantive independent scoring and findings returned in messages; final
+    agent output interrupted by usage quota; no independent full rerun or full R1
+    publication pass claimed

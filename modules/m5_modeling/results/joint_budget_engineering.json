@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "planned_secure_trajectories": 40,
+  "completed_both_datasets": true,
+  "full_train_validation": true,
+  "independent_confirmation": false,
+  "test_staged": false,
+  "new_output_attack_complete": false,
+  "production_security": false,
+  "training_protocol_changed_after_results": false,
+  "original_vm_interruptions_preserved": true,
+  "partial_epoch_not_resumed": true
+}

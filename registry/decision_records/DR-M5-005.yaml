@@ -1,0 +1,27 @@
+dr_id: DR-M5-005
+title: 按授权顺序分离联合优化、安全重评与后续方法验证
+date: '2026-10-11'
+agent: Codex
+module: M5
+status: active
+requested_by: 仓库所有者
+related_step: S5.E5
+context: 原预算12、原修正率7/12及复评失效保留；DR-M5-004计划14已用13；本轮新增实际联合优化、分组正则、安全树和独立确认。
+decision: 总计划18：既有13、S5.E5联合预算诊断、后续分组正则、安全树、额外数据外部效度及一次封存确认各一步；M7输出重评与M1准备分别登记，不能混合提交。
+limits:
+  diagnostic_secure_trajectories: 40
+  checkpoints:
+  - 12
+  - 24
+  - 48
+  epochs: 48
+  seeds: 5
+  learning_rates:
+  - 0.1
+  maximum_hours_per_dataset: 6
+consequences:
+- 不删除原12/12预算、7/12修正事实和通过线11，不以新预算消除质量问题。
+- 顺序：实际联合诊断→新增输出重评→分组正则/安全树→一次未查看确认；其他数据先封存确认集再处理开发集。
+- 新数据源确认仅是代理场景外部效度或封存样本确认，缺真实业务人群时不称银行验证。
+- 每步代码/协议/工程结果正常同步main，再下一步实验，不force。
+falsifier: 输入、隔离、数值或12轮原参照失败即停并留存；不按验证结果扩大参数预算；新方法各自先声明，达预算上限仍无增益则如实报告。

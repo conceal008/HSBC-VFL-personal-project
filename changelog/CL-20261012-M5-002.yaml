@@ -1,0 +1,120 @@
+change_id: CL-20261012-M5-002
+timestamp: '2026-10-12T07:09:56+00:00'
+agent: Codex
+module: M5
+type: fix
+title: 联合诊断发布记录修复并保留E5升级事实
+what: E5两次恢复工程修正后首次发布失败，G3升级7/12；R1独立修复公开Notebook审查引用和配置散列表达，消费未发布原代码与完整真实汇总，数学/配置/结果不变。
+  R1使用独立Change-Id，原E5未发布自评在模块report/归档，不让两步共用发布CL。
+why: 必须先修复可审查发布契约，不能以第三次E5修正追认全部通过。
+key_finding: UCI联合48轮仍低于主动方；Hillstrom主指标/合作差值区间跨零，未建立稳定增益。
+links:
+  branch_card: BC-M5-011
+  decision_record:
+  - DR-M5-005
+  - DR-GOV-012
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 沿用可信管理员、本方独立UID/VM、mTLS和CHEETAH；无新增真实跨境资产。诊断阈值布尔为既定受控披露。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex under owner explicit public-summary authorization
+  conclusion: 逐文件审查公开研究数据集完整开发分区模型/seed汇总指标、CI和条件检验，未含个体值/行级预测/身份/交集规模/细小人群统计/机构内部信息/学习预处理状态/权重或份额。固定诊断布尔按原授权；原报告records与行数据排除。
+downstream_affected:
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 新增实验目录保留原失败；合法恢复只复用双方完整轨迹，部分从初始化重跑。
+reproducibility:
+  config: modules/m5_modeling/configs/joint_budget.yaml
+  config_hash: git-blob-sha1:54b74694bcb8694b51967fba9fba21b937585b36
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: split20260927、order101..105分别固定，40原轨迹的实际源码和传递来源在私有run快照；不把发布HEAD称全部运行时源码。
+rollback: 独立revert本步，不删除任何私有或公开冻结结果及失败记录。
+verification: E5实际40轨迹已完成；首次发布扫描配置SHA字串误报及Notebook旧CL缺失，日志保留；R1完整门禁/main及独立复评回执另登记。
+step:
+  step_id: S5.R1
+  step_name: 联合诊断发布记录修复
+  declaration: '# S5.R1 联合诊断发布记录修复
+
+
+    > 编写日期：2026-10-12 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S5.E5完整训练及首次发布门禁失败；未发布的E5自评与源码快照
+
+    > 口径基准：维护约束两轮修正上限、所有者公开结果与main同步要求
+
+
+    will_produce:
+
+    - S5.E5实际训练和双VM验收已经完成，但两次恢复工程修正后发布门禁仍失败；本步将其G3失败升级，保留原未发布11/12自评、冻结结果和失败日志，不进行E5第三次修正。
+
+    - 独立修复公开Notebook审查change-id引用及配置散列表达；配置Git文件对象散列注明算法，完整SHA-256仍保留在结果JSON来源，不更改数值、不放宽扫描。
+
+    - 消费原E5未发布的完整源码/协议/汇总结果并正常main发布，新增独立回溯抽查；逐fit实际快照和版本链仍为运行事实。
+
+    will_not_produce:
+
+    - 不重训、不改核心数学/配置/阈值、CI或原result文件，不把E5全部契约追认为通过。
+
+    - 不公开行数据/预测/身份/份额，不启动其他数据模型，阶段完整结果归档仍下一步。
+
+    success_criteria:
+
+    - 两个发布记录缺陷消除；完整门禁通过，源代码/配置及结果文件与原失败提交相同，旧失效台账、修正率与独立审计保留。
+
+    risk:
+
+    - 发布修复不等于独立复现实验或新增安全证明；新输出攻击仍未执行。配置散列的字串误报不构成真实凭证或客户标识暴露。
+
+    '
+  scope:
+    files_changed: 29
+    lines_added: 10034
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: 'modules/m5_modeling/results/joint_budget_metrics/uci_bank_marketing.json:1:
+        aggregate and per-seed scalars only; DR-GOV-012 review'
+      G2: 'registry/component_declarations/M5-joint_budget.yaml:6: no new cross-border
+        asset; only Alice scores'
+      G3: 'modules/m5_modeling/联合优化诊断实验记录.md:7: fixed four cells and every endpoint;
+        no best-checkpoint choice'
+      G4: 'modules/m5_modeling/configs/joint_budget.yaml:2: original prealignment/full
+        development split; no confirmation input'
+      D1: 'modules/m5_modeling/notebooks/S5.E5_joint_budget.ipynb:1: existing review
+        CL reference fixed; old execution snapshot retained'
+      D2: 'modules/m5_modeling/联合优化诊断实验记录.md:13: all groups/comparisons, paired CI
+        and conditional p'
+      D3: 'modules/m5_modeling/components/joint_budget_vm.py:36: bilateral complete-fit
+        and transitive provenance; final private receipt'
+      D4: 'modules/m5_modeling/results/joint_budget_metrics/hillstrom_email_marketing.json:1:
+        more epochs do not establish stable cooperation gain'
+  revisions: 1
+  verdict: committed
+  next_step: S9.R1全部阶段结果同步后其他代理开发训练；S7.P2真实新输出重评待执行
+  outputs:
+  - modules/m5_modeling/notebooks/S5.E5_joint_budget.ipynb
+  - modules/m5_modeling/联合优化诊断实验记录.md
+  - modules/m5_modeling/results/joint_budget_metrics/
+  - modules/m5_modeling/results/joint_budget_engineering.json
+  - docs/03-handoff/HO-20261012-Codex-M5-joint-complete.md
+  - 实验方法与运行日志_v5.md

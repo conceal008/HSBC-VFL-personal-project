@@ -1,0 +1,105 @@
+{
+  "status": "unpublished_assessment_invalidated",
+  "old_change_id": "CL-20261012-M5-001",
+  "source_commit": "f37d90cee6fef30e566fe30a229bb0768938c41e",
+  "failure_log": "8-9月/实验日志/S5E5_发布全量门禁_20261012.log",
+  "score_after_failure": 7,
+  "gate_after_failure": {
+    "G3": "fail"
+  },
+  "original_unpublished_entry": {
+    "change_id": "CL-20261012-M5-001",
+    "timestamp": "2026-10-12T02:22:48+00:00",
+    "agent": "Codex",
+    "module": "M5",
+    "type": "exp",
+    "title": "两任务实际联合48轮诊断完成并公开全部汇总指标",
+    "what": "40条实际CHEETAH四格五seed轨迹及12/24/48固定端点、原12轮参考容差通过；全部汇总指标/每seed/CI/条件p公开，环境失败和传递来源恢复保留。",
+    "why": "区分训练预算不足与合作收益，不能以更长训练或自身改善代替同预算主动方比较。",
+    "key_finding": "UCI联合48轮仍低于主动方；Hillstrom主指标/合作差值区间跨零，未建立稳定增益。",
+    "links": {
+      "branch_card": "BC-M5-010",
+      "decision_record": [
+        "DR-M5-005",
+        "DR-GOV-012"
+      ],
+      "loop_step": []
+    },
+    "cross_border_impact": "none",
+    "cross_border_detail": "沿用可信管理员、本方独立UID/VM、mTLS和CHEETAH；无新增真实跨境资产。诊断阈值布尔为既定受控披露。",
+    "sensitive_review": {
+      "triggered": true,
+      "checklist_passed": true,
+      "reviewer": "Codex under owner explicit public-summary authorization",
+      "conclusion": "逐文件审查公开研究数据集完整开发分区模型/seed汇总指标、CI和条件检验，未含个体值/行级预测/身份/交集规模/细小人群统计/机构内部信息/学习预处理状态/权重或份额。固定诊断布尔按原授权；原报告records与行数据排除。"
+    },
+    "downstream_affected": [
+      "M6",
+      "M7",
+      "M9"
+    ],
+    "breaking_change": false,
+    "migration": "新增实验目录保留原失败；合法恢复只复用双方完整轨迹，部分从初始化重跑。",
+    "reproducibility": {
+      "config": "modules/m5_modeling/configs/joint_budget.yaml",
+      "config_hash": "0176cae8e222c92c0f960999892462768256c747a979f85d65b5d8b7760afb4a",
+      "seeds": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "env_lock": "environments/python.lock",
+      "note": "split20260927、order101..105分别固定，40原轨迹的实际源码和传递来源在私有run快照；不把发布HEAD称全部运行时源码。"
+    },
+    "rollback": "独立revert本步，不删除任何私有或公开冻结结果及失败记录。",
+    "verification": "实际两任务双方exit0、工程verification passed；12个完成后回归通过；全部发布门禁和远端main/CI回执另存日志。",
+    "step": {
+      "step_id": "S5.E5",
+      "step_name": "实际联合固定预算诊断",
+      "declaration": "# S5.E5 实际联合优化预算诊断\n\n> 编写日期：2026-10-11 ｜ 版本：v1.0 ｜ 状态：运行前冻结\n> 数据来源：S5.E2冻结train/validation及只读原模型；当前双VM环境\n> 口径基准：用户2026-10-11实验顺序授权、DR-M5-001、通过线11\n\nwill_produce:\n- 两任务A0/A1/B0/B1各五seed，实际CHEETAH秘密计算连续48轮；12/24/48检查点，四格同预算，40条实际安全轨迹。\n- 不变lr=0.1、L2=0.1、DF、512批量、4096投递、零尾填充和逐投递投影；初始化seed与order seed分离。12轮预测与原S5.E2同输入同配置容差核验。\n- 原八参照只读复用、检查点成对CI、训练/验证损失与业务排序；梯度及权重仅秘密状态，诊断只输出预注册数值条件布尔值，不输出梯度范数/权重/残差。\n- 每条轨迹一个独立训练目录，检查点为该轨迹的只读结果子目录；结果和运行Notebook仅私有，公开入口清输出；逐轮过程与main同步。\nwill_not_produce:\n- 不用旧test，不选择最好检查点、不增添lr或L2搜索；不把损失下降或低梯度布尔值称已证明全局收敛。\n- 不将秘密梯度、联合明文矩阵/权重/标签/预测交给Bob或宿主，不给模型分数新增接收方。\n- 不实施分组正则/安全树/新确认；这些另开步骤并在新增输出重评之后运行。\nsuccess_criteria:\n- 全40条实际安全轨迹、全部预注册检查点完成，12轮原参照容差、隔离/认证/输入输出/概率范围门禁通过。\n- 所有组和差值有五seed配对CI与多重比较；UCI ROC/PR及捕获率，Hillstrom两臂Qini与策略价值；如未支持改善如实保留。\n- 执行代码/配置/运行指纹可追溯，冻结原结果不覆盖，main同步与系统日志完整。\nrisk:\n- 48轮并非收敛保证；零填充和投影意味着全量未填充梯度仅作诊断。固定点误差可能累积，12轮对照失败立即停，不以改容差追认。\n- 输出风险不能靠MPC消除；本轮授权分数仍只Alice，下一步新增输出压力评估。构造分区结论不能外推银行。\n",
+      "scope": {
+        "files_changed": 25,
+        "lines_added": 9830,
+        "routes_covered": 1
+      },
+      "gates": {
+        "G1_data_compliance": "pass",
+        "G2_cross_border": "pass",
+        "G3_scope": "pass",
+        "G4_redline": "pass"
+      },
+      "assessment": {
+        "D1_contract": 3,
+        "D2_verifiability": 3,
+        "D3_reproducibility": 2,
+        "D4_information_gain": 3,
+        "total": 11,
+        "evidence": {
+          "G1": "modules/m5_modeling/results/joint_budget_metrics/uci_bank_marketing.json:1: aggregate and per-seed scalars only; DR-GOV-012 review",
+          "G2": "registry/component_declarations/M5-joint_budget.yaml:6: no new cross-border asset; only Alice scores",
+          "G3": "modules/m5_modeling/联合优化诊断实验记录.md:7: fixed four cells and every endpoint; no best-checkpoint choice",
+          "G4": "modules/m5_modeling/configs/joint_budget.yaml:2: original prealignment/full development split; no confirmation input",
+          "D1": "modules/m5_modeling/components/joint_budget.py:181: both tasks four-cell native secure training",
+          "D2": "modules/m5_modeling/联合优化诊断实验记录.md:13: all groups/comparisons, paired CI and conditional p",
+          "D3": "modules/m5_modeling/components/joint_budget_vm.py:36: bilateral complete-fit and transitive provenance; final private receipt",
+          "D4": "modules/m5_modeling/results/joint_budget_metrics/hillstrom_email_marketing.json:1: more epochs do not establish stable cooperation gain"
+        }
+      },
+      "revisions": 2,
+      "verdict": "committed",
+      "next_step": "S9.R1全部阶段结果同步后其他代理开发训练；S7.P2真实新输出重评待执行",
+      "outputs": [
+        "modules/m5_modeling/notebooks/S5.E5_joint_budget.ipynb",
+        "modules/m5_modeling/联合优化诊断实验记录.md",
+        "modules/m5_modeling/results/joint_budget_metrics/",
+        "modules/m5_modeling/results/joint_budget_engineering.json",
+        "docs/03-handoff/HO-20261012-Codex-M5-joint-complete.md",
+        "实验方法与运行日志_v5.md"
+      ]
+    }
+  },
+  "superseding_step": "S5.R1",
+  "superseding_change_id": "CL-20261012-M5-002"
+}

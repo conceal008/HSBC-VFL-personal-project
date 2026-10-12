@@ -1,0 +1,6 @@
+card_id: BC-M5-011
+status: active
+routes:
+- id: joint_release_record_repair
+  purpose: 消费E5完成的实际训练，仅修复未发布审查引用/配置散列表达和发布记录；不改数学或结果。
+falsifier: 任何核心、配置、CI或原结果数值改变即失败；没有全量门禁或正常main同步不得宣布发布完成。

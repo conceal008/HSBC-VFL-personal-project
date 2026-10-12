@@ -11,7 +11,7 @@
 | **GitHub 远端** | **https://github.com/conceal008/HSBC-VFL-personal-project** |
 | clone（HTTPS） | `git clone https://github.com/conceal008/HSBC-VFL-personal-project.git` |
 | 默认分支 | `main` |
-| 可见性 | **Public**（个人账户仓库，符合《维护约束 v2》1.1 修订后的个人仓库条款；判定与四项前提见 `registry/decision_records/DR-GOV-002.yaml`） |
+| 当前可见性 | **Public**（2026-10-12按所有者明确要求保持公开，允许经审查的公开研究数据集汇总指标；见 `registry/decision_records/DR-GOV-012.yaml`） |
 | 本地路径（当前维护者机器） | `/Applications/总文件夹/汇丰/HSBC-VFL-personal-project` |
 
 **任何 Agent 完成工作后，必须把改动提交并推送到上述远端。** 未推送的产出按《维护约束 v2》原则一视为不存在。
@@ -21,6 +21,10 @@
 > 这一条比原规范更严，是 Public 换来的代价。四项前提任一不成立（出现真实数据或其派生统计量、仓库转交机构主体等），立即转 Private 并写 DR。
 
 ---
+
+> **2026-10-12存放操作历史**：曾在指标上传前暂转Private（DR-GOV-011），用户随后明确要求保持公开、修改规则并继续上传；现已恢复Public，期间没有上传受限指标。
+>
+> **2026-10-12现行规则**：所有者最新指示取代上述「Public一律禁止全部受限汇总指标」的旧限制，适用维护约束新增§2.7。经审查的公开研究数据集模型/攻击汇总指标、每seed指标、CI和结果日志可以公开；原始/清洗行数据、逐行预测/标签、身份/交集规模、学习预处理状态、模型份额、凭证及机构内部信息仍禁止。不得自行改成Private。
 
 ## 1. 本项目是什么
 

@@ -1,0 +1,19 @@
+dr_id: DR-GOV-012
+title: 按所有者最新指示保持Public并公开研究汇总结果
+date: '2026-10-12'
+agent: Codex
+module: GOV
+status: active
+requested_by: 仓库所有者
+authorization: 不要改为private，直接修改那条规则，仓库一直保持公开，然后继续上传
+related_step: S-GOV.15
+related_change_id: CL-20261012-GOV-001
+supersedes: DR-GOV-011
+context: Agent按原规范短暂改Private，尚未上传新指标；所有者明确纠正要求公开，用户指令优先，现已恢复并核验Public。
+decision: 保持Public；按维护约束2.7允许审查后的公开研究数据集模型/攻击汇总指标、每seed结果、CI和日志。原始/派生行记录、逐行输出、身份/交集规模、学习参数、份额、凭证及机构内部信息仍禁止。
+verification: 可见性API实际返回PUBLIC；尚未上传实际指标，结果整理/审查/正常main同步接续执行。
+consequences:
+- 本次规则仅适用于公开研究数据集汇总结果，不授权真实业务客户资料，也不宣称零泄漏或生产准入。
+- 既有Private尝试、Public旧限制及失败实验保留来源和取代说明；不追认未执行的S7.P2。
+- 每轮数值须能追到文件、配置与seed，当前阶段全部实验先整理同步，再进行其他数据集训练。
+falsifier: 未审查汇总中出现禁止内容则停止该字段上传；不以改可见性代替所有者公开要求。

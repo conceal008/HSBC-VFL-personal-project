@@ -1,0 +1,19 @@
+dr_id: DR-GOV-011
+title: 具体汇总结果入库前转Private并保留禁止数据边界
+date: '2026-10-12'
+agent: Codex
+module: GOV
+status: superseded
+requested_by: 仓库所有者本轮明确要求同步所有阶段实验的具体指标
+related_step: S-GOV.15
+related_change_id: CL-20261012-GOV-001
+context: 原个人Public仓库按DR-GOV-002禁止全部L-受限。维护约束1.1规定首次需要存放受限产物即转Private并登记DR；本轮需要同步具体真实数据派生评估指标。
+decision: 仓库已通过GitHub API核验为Private；仅按维护约束2.6审查的公开研究数据集汇总指标可提交，原始/派生行数据、逐行输出、交集和业务绝对规模、学习参数、份额及凭证继续禁止。原Public规则与失败历史保留。
+verification: gh repo view conceal008/HSBC-VFL-personal-project返回visibility PRIVATE、viewerPermission ADMIN；远端推送前再次核验，完整门禁回执另登记。
+consequences:
+- 不声称Private等于零泄漏或生产准入，不改变各方训练数据和输出接收权限。
+- 后续汇总必须有逐文件来源与审查，禁止把未运行的S7.P2登记为实际攻击完成。
+- 不得自行转回Public，历史中新增受限指标须另行处理。
+falsifier: 推送前可见性非Private或发现禁止内容，立即停止结果推送。
+superseded_by: DR-GOV-012
+supersession_reason: 所有者随后明确要求不要Private、修改旧规则且继续公开上传；已经恢复Public，短暂Private期间无新指标上传。

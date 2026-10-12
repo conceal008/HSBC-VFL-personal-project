@@ -1,0 +1,22 @@
+dr_id: DR-GOV-013
+title: 统一结构化文本扫描与声明指纹的有限规范化
+date: '2026-10-12'
+agent: Codex
+module: GOV
+status: active
+related_step: S-INIT.12
+related_change_id: CL-20261012-GOV-002
+context: R1本机完整门禁通过，Linux远端38217183847将同一配置SHA的连续数字误判为银行卡；macOS file输出JSON data，Linux输出JSON text data，原脚本在Mac跳过JSON。新增同一行凭证对照另发现JSON属性名引号导致原通用凭证正则词法遗漏。
+decision: 结构化文本扩展名始终扫描；凭证检查仅去属性名引号、不改变属性值或既有正则；标识检查只规范化已列举字段的完整64位SHA256值，不豁免整行/文件/任意hash，customer/input/identity字段不豁免。冻结汇总和原SHA值不改。
+normalizable_fields:
+- config_hash
+- config_sha256
+- source_config_sha256
+- code_sha256
+- source_result_sha256
+- source_summary_sha256
+cost_and_limits:
+- 已声明字段中的64位值被当作指纹；恶意将身份哈希伪写在配置字段仍需人工审查，不能称全面防泄漏。
+- 凭证扫描在指纹处理前，值保留原文；同一行真实标识/凭证和未注册客户哈希仍阻断。
+- 所有新/历史指标数字、配置和源文件指纹不修改；仅发布扫描器与独立回归。
+falsifier: 同一行真实标识/凭证或未注册客户哈希不阻断、两种MIME结果不一致、或结果数值/原散列变化，立即失败且不推送。

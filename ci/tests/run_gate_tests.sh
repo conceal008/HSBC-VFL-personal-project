@@ -44,7 +44,7 @@ run() { "$@" > "$TMP/out.txt" 2>&1; RC=$?; }
 
 echo "================ 门禁 1 · 数据合规扫描 ================"
 C1="$TMP/gate1"; mkdir -p "$C1/ci" "$C1/modules/m5_modeling/results"
-cp "$ROOT/ci/check_secrets.sh" "$C1/ci/"
+cp "$ROOT/ci/check_secrets.sh" "$ROOT/ci/mask_declared_fingerprints.py" "$C1/ci/"
 # 干净目录 → 期望通过
 printf 'ok,auc\nl1,0.671\n' > "$C1/modules/m5_modeling/results/ladder.csv"
 run bash "$C1/ci/check_secrets.sh" "$C1"
@@ -65,7 +65,7 @@ assert "门禁1-B 拦截数据/凭证/标识" 1 "$TMP/out.txt" \
 
 # 误报回归：URL 里的长数字串（如政府网站文章 ID）不得被当成卡号
 C1B="$TMP/gate1b"; mkdir -p "$C1B/ci"
-cp "$ROOT/ci/check_secrets.sh" "$C1B/ci/"
+cp "$ROOT/ci/check_secrets.sh" "$ROOT/ci/mask_declared_fingerprints.py" "$C1B/ci/"
 printf '来源：<https://www.example.gov.cn/2024-03/22/c_%s.htm>\n' "1712776611775634" > "$C1B/refs.md"
 run bash "$C1B/ci/check_secrets.sh" "$C1B"
 assert "门禁1-C URL 里的长数字不误报为卡号" 0 "$TMP/out.txt" "门禁 1 通过" -- "疑似银行卡号"
@@ -78,7 +78,7 @@ assert "门禁1-D 非 URL 上下文的卡号仍被拦截" 1 "$TMP/out.txt" "疑�
 
 # 误报回归：浮点数小数部分的长数字串不得被当成卡号（实验结果 CSV 的常态）
 C1D="$TMP/gate1d"; mkdir -p "$C1D/ci"
-cp "$ROOT/ci/check_secrets.sh" "$C1D/ci/"
+cp "$ROOT/ci/check_secrets.sh" "$ROOT/ci/mask_declared_fingerprints.py" "$C1D/ci/"
 # 18 位小数样本同样运行时拼装——写成字面量会被门禁 1 扫到本脚本自身
 FRAC1="0280822629$(printf '%08d' 67478067)"
 FRAC2="0306962634$(printf '%08d' 82280717)"
@@ -107,7 +107,7 @@ assert "门禁1-J 手机号后跟句点仍被拦截" 1 "$TMP/out.txt" "疑似内
 
 # 误报回归：URL 路径里的 11 位 ID（如知乎文章号）不得被当成手机号
 C1C="$TMP/gate1c"; mkdir -p "$C1C/ci"
-cp "$ROOT/ci/check_secrets.sh" "$C1C/ci/"
+cp "$ROOT/ci/check_secrets.sh" "$ROOT/ci/mask_declared_fingerprints.py" "$C1C/ci/"
 ZHIHU_ID="19$(printf '%09d' 535338799)"
 printf '来源：<https://zhuanlan.zhihu.com/p/%s>\n' "$ZHIHU_ID" > "$C1C/refs.md"
 run bash "$C1C/ci/check_secrets.sh" "$C1C"
@@ -119,6 +119,24 @@ run bash "$C1C/ci/check_secrets.sh" "$C1C"
 assert "门禁1-F 非 URL 上下文的手机号仍被拦截" 1 "$TMP/out.txt" "疑似内地手机号"
 
 echo
+# Registered protocol digests are metadata, not personal identifiers. Only their
+# full value is normalized; adjacent IDs/credentials and customer hashes stay on.
+C1H="$TMP/gate1hash"; mkdir -p "$C1H/ci"
+cp "$ROOT/ci/check_secrets.sh" "$ROOT/ci/mask_declared_fingerprints.py" "$C1H/ci/"
+HASH_CFG=$(python3 -c 'import hashlib,sys;from pathlib import Path;print(hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest())' "$ROOT/modules/m5_modeling/configs/joint_budget.yaml")
+printf '{"source_config_sha256":"%s"}\n' "$HASH_CFG" > "$C1H/summary.json"
+run bash "$C1H/ci/check_secrets.sh" "$C1H"
+assert "门禁1-M 声明完整配置指纹不误报" 0 "$TMP/out.txt" "门禁 1 通过"
+printf '{"source_config_sha256":"%s","card":"%s"}\n' "$HASH_CFG" "$CARD2" > "$C1H/summary.json"
+run bash "$C1H/ci/check_secrets.sh" "$C1H"
+assert "门禁1-N 指纹同一行标识仍拦截" 1 "$TMP/out.txt" "疑似银行卡号"
+printf '{"source_config_sha256":"%s","api_key":"%s"}\n' "$HASH_CFG" "$KEY" > "$C1H/summary.json"
+run bash "$C1H/ci/check_secrets.sh" "$C1H"
+assert "门禁1-O 指纹同一行凭证仍拦截" 1 "$TMP/out.txt" "疑似凭证"
+printf '{"customer_sha256":"%s"}\n' "$HASH_CFG" > "$C1H/summary.json"
+run bash "$C1H/ci/check_secrets.sh" "$C1H"
+assert "门禁1-P 未注册客户哈希不豁免" 1 "$TMP/out.txt" "疑似银行卡号"
+
 echo "================ 门禁 4 · 合规一致性核验 ================"
 C4="$TMP/gate4"
 mkdir -p "$C4/registry" "$C4/platform/governance" "$C4/modules/m5_modeling/components/splitnn"

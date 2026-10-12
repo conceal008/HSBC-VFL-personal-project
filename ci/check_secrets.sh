@@ -13,6 +13,16 @@ cd "$ROOT"
 BLOCK=0
 WARN=0
 SELF="ci/check_secrets.sh"
+FINGERPRINT_HELPER="$ROOT/ci/mask_declared_fingerprints.py"
+
+# file(1) labels identical JSON as "JSON data" on macOS and "JSON text data"
+# on Linux. Declared text formats must be scanned on both platforms.
+is_text() {
+  case "$1" in
+    *.json|*.ipynb|*.yaml|*.yml|*.csv|*.py|*.md|*.sh|*.toml|*.txt) return 0 ;;
+    *) file "$1" | grep -qi "text" ;;
+  esac
+}
 
 say_block() { echo "❌ BLOCK  $*"; BLOCK=$((BLOCK+1)); }
 say_warn()  { echo "⚠️  WARN   $*"; WARN=$((WARN+1)); }
@@ -76,9 +86,20 @@ SECRET_PATTERNS=(
 for f in "${FILES[@]}"; do
   [ -f "$f" ] || continue
   [ "$f" = "$SELF" ] && continue
-  file "$f" | grep -qi "text" || continue
+  is_text "$f" || continue
+  # A quoted JSON key has an extra quote between api_key and ':'; remove only
+  # key-format quotes so the unchanged credential regex sees the same value.
+  if [ ! -f "$FINGERPRINT_HELPER" ]; then
+    say_block "缺少结构化文本工具：$FINGERPRINT_HELPER"
+    continue
+  fi
+  CREDENTIAL_TEXT=$(python3 "$FINGERPRINT_HELPER" "$f" --credential-keys)
+  if [ $? -ne 0 ]; then
+    say_block "凭证文本读取失败：$f"
+    continue
+  fi
   for p in "${SECRET_PATTERNS[@]}"; do
-    if grep -nEi "$p" "$f" >/dev/null 2>&1; then
+    if printf '%s\n' "$CREDENTIAL_TEXT" | grep -nEi "$p" >/dev/null 2>&1; then
       say_block "疑似凭证：${f}（模式 /${p}/）→ 命中即按 2.4 应急流程：先轮换凭证，再清历史"
     fi
   done
@@ -125,13 +146,24 @@ ID_PATTERNS=(
 for f in "${FILES[@]}"; do
   [ -f "$f" ] || continue
   [ "$f" = "$SELF" ] && continue
-  file "$f" | grep -qi "text" || continue
+  is_text "$f" || continue
+  # Normalize the value of explicitly registered full SHA-256 fingerprints,
+  # never the rest of a line. Actual identifiers and credential checks stay on.
+  if [ ! -f "$FINGERPRINT_HELPER" ]; then
+    say_block "缺少指纹规范化工具：$FINGERPRINT_HELPER"
+    continue
+  fi
+  SCAN_TEXT=$(python3 "$FINGERPRINT_HELPER" "$f")
+  if [ $? -ne 0 ]; then
+    say_block "结构化文本读取/指纹规范化失败：$f"
+    continue
+  fi
   for entry in "${ID_PATTERNS[@]}"; do
     p="${entry%%@@*}"
     rest="${entry#*@@}"
     label="${rest%%@@*}"
     skipre="${rest#*@@}"
-    hit=$(grep -nE "$p" "$f" 2>/dev/null)
+    hit=$(printf '%s\n' "$SCAN_TEXT" | grep -nE "$p" 2>/dev/null)
     if [ -n "$skipre" ] && [ -n "$hit" ]; then
       hit=$(printf '%s\n' "$hit" | grep -vE "$skipre" || true)
     fi

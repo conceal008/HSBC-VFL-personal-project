@@ -1,0 +1,94 @@
+change_id: CL-20261012-GOV-002
+timestamp: '2026-10-12T07:40:45+00:00'
+agent: Codex
+module: GOV
+type: fix
+title: 统一结构化扫描并避免声明配置指纹误报
+what: 显式文本格式跨平台始终扫描；凭证扫描只去字段名引号，既有正则与值不改；个人标识扫描只规范化明确注册字段完整SHA值。新增7项工具测试、4项门禁回归，不修改冻结结果。
+why: R1 Mac本机通过但Linux因配置指纹误报失败，且JSON属性名引号让通用凭证检查漏报，必须修复实现后发布。
+links:
+  branch_card: null
+  decision_record: DR-GOV-013
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 仅CI静态扫描，无新的数据接收方、模型训练或跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 只涉及公开配置/摘要指纹与合成负对照生成器；真实原SHA和所有实验数字不修改，真实标识/行数据/份额/凭证未提交。
+downstream_affected:
+- GOV
+- M9
+breaking_change: false
+migration: gate1部署必须同时包含mask_declared_fingerprints.py；测试夹具同步拷贝，缺helper fail closed。
+reproducibility:
+  config: registry/decision_records/DR-GOV-013.yaml
+  config_hash: null
+  seeds: []
+  env_lock: environments/python.lock
+  note: MIME双模拟与实际Linux远端结果分开；模拟不称实际Linux全量通过。
+rollback: 新revert步骤回退扫描器，保留原失败/未识别JSON记录和DR，不删冻结指标。
+verification: 首轮5pass/2fail保留，一轮凭证属性名格式修正后7pass/Ruff通过；全量53回归及远端main/CI回执接续核验。
+step:
+  step_id: S-INIT.12
+  step_name: 跨平台指纹扫描
+  declaration: '# S-INIT.12 跨平台指纹扫描
+
+
+    > 编写日期：2026-10-12 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：GitHub Actions 38217183847，原check_secrets.sh及真实配置文件指纹
+
+    > 口径基准：不改变冻结结果、不放宽客户标识或凭证拦截，Public汇总按DR-GOV-012
+
+
+    will_produce: 对JSON/Notebook等结构化文本统一扫描；只对明确列举的配置/代码/摘要SHA-256字段的完整64位十六进制值做标识扫描规范化，保留同一行其他内容和全部凭证扫描；新增跨MIME、真实标识和同一行凭证回归；修复远端误报并正常main发布。
+
+    will_not_produce: 不跳过整个JSON/结果文件，不改变标识/凭证正则，不豁免customer/input/identity哈希，不修改任何冻结指标、原散列或实验输入，不训练模型。
+
+    success_criteria: 原误报的配置指纹通过，真实标识/凭证同一行及JSON中仍阻断；Mac式JSON data与Linux式JSON text结果一致；完整门禁及远端CI复核。
+
+    risk: 这是已声明指纹字段的有限规范化，不能证明没有全部数据泄漏；贡献者将身份哈希冒写到配置字段仍需人工审查，禁止扩展为任意hash字段豁免。
+
+    '
+  scope:
+    files_changed: 11
+    lines_added: 299
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: 'ci/check_secrets.sh:23: explicit text formats scanned, identifiers and
+        secrets remain checked'
+      G2: 'registry/decision_records/DR-GOV-013.yaml:10: no training or cross-border
+        changes'
+      G3: 'ci/mask_declared_fingerprints.py:11: narrow fingerprint registry; values
+        unchanged for credential checks'
+      G4: 'tools/tests/test_fingerprint_mask.py:29: adjacent identifiers/secrets are
+        not exempt'
+      D1: 'ci/check_secrets.sh:107: identical JSON coverage on both MIME variants'
+      D2: 'tools/tests/test_fingerprint_mask.py:36: two platform MIME types and genuine
+        synthetic leaks'
+      D3: 'ci/tests/run_gate_tests.sh:123: 4 added regression cases; actual Linux
+        outcome still independently checked'
+      D4: 'registry/decision_records/DR-GOV-013.yaml:9: found actual cross-platform
+        gap and quoted credential-key omission'
+  revisions: 1
+  verdict: committed
+  next_step: main完整阶段指标/扫描修复远端验证后，其他数据集开发训练
+  outputs:
+  - ci/check_secrets.sh
+  - ci/mask_declared_fingerprints.py
+  - tools/tests/test_fingerprint_mask.py
+  - ci/tests/run_gate_tests.sh
+  - docs/03-handoff/HO-20261012-Codex-GOV-fingerprint-scan.md

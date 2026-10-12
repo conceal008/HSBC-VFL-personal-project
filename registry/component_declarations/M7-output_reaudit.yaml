@@ -1,0 +1,8 @@
+component: output_reaudit
+module: M7
+path: modules/m7_security/components/output_reaudit.py
+purpose: 全22新增授权输出重评、视图可用性、常量退化和密态辅助属性探针
+cross_border_assets: []
+cross_border_note: DR-M5-001本机功能模拟；Bob不获预测或属性汇总，真值仅Bob，非真实跨境或生产安全证明。
+tests:
+- modules/m7_security/tests/test_output_reaudit.py

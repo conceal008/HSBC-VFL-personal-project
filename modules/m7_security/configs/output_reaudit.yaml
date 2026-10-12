@@ -1,0 +1,173 @@
+step_id: S7.P2
+protocol: CHEETAH
+field: FM64
+link_timeout_ms: 300000
+model_seeds:
+- 11
+- 22
+- 33
+- 44
+- 55
+attack_seeds:
+- 701
+- 702
+- 703
+- 704
+- 705
+bootstrap_seed: 20261009
+bootstrap_repeats: 2000
+ci_percentiles:
+- 2.5
+- 97.5
+maximum_rows: 4000
+round_decimals: 2
+decision_threshold: 0.5
+maximum_fpr: 0.01
+threshold_quantiles:
+- 0
+- 0.1
+- 0.2
+- 0.3
+- 0.4
+- 0.5
+- 0.6
+- 0.7
+- 0.8
+- 0.9
+- 1
+epsilon: 1.0e-06
+ridge: 0.1
+inverse_steps: 16
+feature_c: 1.0
+max_iter: 1000
+top_fraction: 0.1
+attribute_targets:
+  uci_bank_marketing: numeric__previous
+  hillstrom_email_marketing: numeric__newbie
+inverse_tolerance: 0.01
+synthetic_tolerance: 0.001
+synthetic_probe:
+  x:
+  - - 1
+    - 0
+    - 1
+  - - 0
+    - 1
+    - 1
+  - - 1
+    - 1
+    - 1
+  - - -1
+    - 0
+    - 1
+  y:
+  - - 1
+  - - 0
+  - - 1
+  - - -1
+alignment_chunk_rows: 4096
+output_cells:
+- M0
+- M1
+- X0
+- X1
+- XM0
+- XM1
+- N0
+- N1
+- FB0
+- FB1
+- FM0
+- FM1
+- FX0
+- FX1
+- FXM0
+- FXM1
+- FN0
+- FN1
+- D_A0_e48
+- D_A1_e48
+- D_B0_e48
+- D_B1_e48
+attribute_cells:
+- M0
+- M1
+- X0
+- X1
+- XM0
+- XM1
+- N0
+- N1
+- FB0
+- FB1
+- FM0
+- FM1
+- FX0
+- FX1
+- FXM0
+- FXM1
+- FN0
+- FN1
+- D_B0_e48
+- D_B1_e48
+degeneracy_tolerance: 0.0
+datasets:
+  uci_bank_marketing:
+    treatment: false
+    prohibited_features:
+    - duration
+    - campaign
+    - contact
+    - month
+    - day_of_week
+  hillstrom_email_marketing:
+    treatment: true
+    treatment_arms:
+    - 1
+    - 2
+    prohibited_features:
+    - history_segment
+    - segment
+    - visit
+    - spend
+utility_shared:
+  model_seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  initialization_std: 0.01
+  split_seed: 20260927
+  bootstrap_seed: 20261001
+  bootstrap_repeats: 500
+  top_k_fraction: 0.1
+  clip_features: 4.0
+  segments: 10
+  minimum_group: 10
+  prediction_batch_size: 2048
+  infeed_rows: 4096
+  precision_tolerance: 0.001
+  membership_max_rows: 4000
+  learning_rates:
+  - 0.1
+  epochs: 12
+  batch_size: 512
+  l2_norm: 0.1
+  sigmoid: df
+  weight_bound: 10.0
+  training_boundary_limit: 0.01
+  l0_c_grid:
+  - 0.1
+  - 1.0
+  l0_max_iter: 1000
+  tree_iterations: 100
+  tree_leaves: 15
+  tree_l2: 1.0
+  score_epsilon: 1.0e-06
+  ci_percentiles:
+  - 2.5
+  - 97.5
+  link_timeout_ms: 300000
+source_policy: E4 all eight fits and ten fixed fusions; E5 all four 48-epoch fits;
+  no best-group selection; matrix equality required

@@ -1,0 +1,125 @@
+change_id: CL-20261012-M7-001
+timestamp: '2026-10-12T13:04:02+00:00'
+agent: Codex
+module: M7
+type: exp
+title: 新增22组输出全视图实际重评与完整指标公开
+what: 两任务660输出场景与800密态属性拟合实际完成，逐项工程验收；保留全组每seed/CI/控制/效用/退化，公开审查汇总及Notebook。
+why: 新增模型和48轮输出的风险不能由旧模型评估代替；输出限制必须同时评估效用损失与常量退化。
+key_finding: 舍入后的UCI部分输出仍携带辅助属性信号；成员增量条件于同源，不能称训练记忆/零泄漏或生产准入。
+links:
+  branch_card: BC-M7-002
+  decision_record:
+  - DR-M5-001
+  - DR-GOV-012
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 沿用DR-M5-001双VM可信管理员与各方非特权账户，实际执行成员输出压力及密态属性辅助探针；Bob真值不披露，Alice只获原授权汇总。无新增真实跨境资产或Bob分数/标签权限。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 逐项审查四份公开研究数据集汇总：全部模型/攻击seed指标与CI、三视图效用和控制，仅标量指标。无行数据/身份/交集规模/小群体统计/分数数组/学习状态/权重份额/凭证或机构内部信息。实际入口清空输出，另公开只读汇总Notebook带输出。
+downstream_affected:
+- M0
+- M5
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 历史冻结结果保留；M7独立复评将后续通过线提高11，当前实际运行不追认旧全部通过。
+reproducibility:
+  config: modules/m7_security/configs/output_reaudit.yaml
+  config_hash: 52f7db376104a8c2047ee0759ca64fa5a5cb40d2fc4d8839e476c9ae1a9aaf90
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: model11..55与attack701..705分离；源E4/E5双方矩阵逐项一致，原test不投递；660/800全库存验收，CI仅条件于固定开发划分。
+rollback: 新revert步骤回退当前实现；全部私有失败和冻结结果保留。
+verification: S7P2_queue_20261012T102442410765Z两任务passed，双方exit0；660输出/800探针验收重新通过，12项工程测试，汇总Notebook两cell执行无错。全量门禁和main发布回执接续核验，不以本行代替实际检查。
+  首次完整门禁1失败/366通过：实际Notebook未列CL outputs；第二轮补引用，不改代码/指标，旧失败日志保留。
+step:
+  step_id: S7.P2
+  step_name: 新增模型输出全视图重评
+  revisions: 2
+  next_step: M5额外代理固定四格训练；新模型再单独输出重评
+  declaration: '# S7.P2 新增实际输出重评
+
+
+    > 编写日期：2026-10-11 ｜ 版本：v1.0 ｜ 状态：联合诊断完成且同步main后执行
+
+    > 数据来源：S5.E4全八新联合/十固定融合及S5.E5四格48轮授权预测；原完整开发分区
+
+    > 口径基准：用户本轮先诊断再输出重评授权；通过线11及既有M7复评
+
+
+    will_produce:
+
+    - 两任务22新增输出组全部五seed，三固定视图exact/rounded/binary；660输出压力场景。复用原攻击种子、量化位数、阈值、辅助/评估分离和标签/处理匹配。
+
+    - 20包含Bob信息的输出组密态辅助属性oracle探针（每组每seed基线及三视图，共800拟合）；被动真值不离开Bob，Alice只获原授权汇总误差。四主动方48轮输出只作本地输出压力参照。
+
+    - 输出代理窃取的误差及排序重合、成员攻击与feature-only基线/增量、三视图可用性（预测/增量指标）、常量退化识别和五seed配对区间。
+
+    - 两来源每方矩阵逐项相等、源码/配置/源预测hash核验；test不投递，Bob无新分数能力。逐攻击独立目录、私有执行Notebook和结果，main与系统日志同步。
+
+    will_not_produce:
+
+    - 不训练/选择新的业务模型，不删除不利输出视图，不声称辅助oracle是现有Bob攻击能力。
+
+    - 不把成员攻击绝对AUC直接解释为训练记忆；只把匹配feature-only增量作为同源条件证据。
+
+    - 不将binary常量造成的低误差/高重合称安全或窃取成功，不将本轮攻击未命中称零泄漏/生产准入。
+
+    - 不使用封存确认集，不新增Bob预测、梯度、权重、属性真值的接收权限。
+
+    success_criteria:
+
+    - 全组/视图/五seed及正负控制、MPC数值控制、两源矩阵/行对齐、隔离/认证/输出限制全部通过，所有风险和退化保留。
+
+    - CI只解释条件于同源数据与攻击/模型seed；新模型效能和攻击风险分别呈现，不混作增益证明。
+
+    risk:
+
+    - 辅助oracle范围只覆盖一项预先指定属性，不是全属性攻击下界的完备证明；恶意/合谋与长期查询累积仍不放行。
+
+    - 训练增加可能改变记忆/属性信号，概率量化不等于差分隐私；固定梯度阈值布尔也属于受控披露，需要在日志中列出。
+
+    '
+  scope:
+    files_changed: 26
+    lines_added: 94807
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: modules/m7_security/results/output_reaudit_v1/README.md:1：仅逐文件审查汇总，原始与行级产物不迁入。
+      G2: registry/component_declarations/M7-output_reaudit.yaml:1：本机功能模拟，无新增真实跨境资产。
+      G3: modules/m7_security/S7.P2_新增输出重评_步骤声明.md:7：22全组，未按结果筛选。
+      G4: modules/m7_security/新增输出重评实验记录.md:7：同源条件压力、常量退化和辅助oracle边界。
+      D1: modules/m7_security/components/output_reaudit_vm.py:247：实际库存/来源/输出权限验收，两任务全部通过。
+      D2: modules/m7_security/results/output_reaudit_v1/engineering.json:1：660场景/800密态拟合；四JSON保留全部每seed及CI。
+      D3: modules/m7_security/configs/output_reaudit.yaml:1：冻结源码/配置/各方执行Notebook；尚无独立人群复现，2分。
+      D4: modules/m7_security/新增输出重评实验记录.md:7：全组效用与泄漏联合记录，舍入不作为安全保证。
+    D3: 2
+  verdict: committed
+  waiver_ref: null
+  outputs:
+  - modules/m7_security/results/output_reaudit_v1/
+  - modules/m7_security/新增输出重评实验记录.md
+  - modules/m7_security/notebooks/S7.P2_output_reaudit_summary.ipynb
+  - modules/m7_security/notebooks/S7.P2_output_reaudit.ipynb

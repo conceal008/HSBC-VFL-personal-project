@@ -106,3 +106,5 @@
 一步一提交，提交前对照 [AGENTS.md](AGENTS.md) 第 3、4 节。`CHANGELOG.md` 由 CI 从 `changelog/*.yaml` 聚合生成，**禁止手工编辑**。
 
 当前提交/推送检查统一通过 `bash ci/run_all_gates.sh` 执行数据、步骤、schema、合规一致性、代码质量、可复现性、冒烟、证据链与门禁回归；结果随每步骤changelog留痕。远端PR检查状态需另查，不能由本地通过代替。
+
+当前实验状态（2026-10-12）：[S7.P2新增输出重评完整指标与分析](modules/m7_security/新增输出重评实验记录.md)及[带输出汇总Notebook](modules/m7_security/notebooks/S7.P2_output_reaudit_summary.ipynb)追加交付；旧阶段索引保持冻结。

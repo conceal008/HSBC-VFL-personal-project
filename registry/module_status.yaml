@@ -238,7 +238,7 @@ modules:
     path: modules/m7_security
     status: in_progress
     claimed_by: null
-    next_step: S7.P2
+    next_step: 新代理模型完成后声明输出风险评估/实际标签推断
     blocking_on:
     - M5 可攻击的模型产物
     - M6 评估口径
@@ -246,10 +246,11 @@ modules:
     - 实际分数压力完成，CI条件于同源；辅助属性探针不是现有攻击者已获辅助真值。
     - 未来通过线11；S7.2原全部通过独立复评失效，原资产保留。
     - 仍缺更强攻击、全属性、恶意/合谋与独立新确认；不证明生产安全。
-    claimed_at: null
+    - S7.P2实际660输出/800属性拟合完成，公开条件CI和退化/效用全部保留；不代表生产准入。
+    claimed_at: '2026-10-12T10:24:42.410765+00:00'
     expires_at: null
     current_step: null
-    latest_completed_step: S7.P1
+    latest_completed_step: S7.P2
   M8:
     name: 工业化鲁棒性与部署形态
     path: modules/m8_industrialization

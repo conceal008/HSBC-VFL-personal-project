@@ -1,0 +1,27 @@
+{
+  "step": "S7.P2",
+  "status": "passed",
+  "datasets": [
+    "uci_bank_marketing",
+    "hillstrom_email_marketing"
+  ],
+  "output_cases": 660,
+  "attribute_fits": 800,
+  "participant_exit_codes": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "all_inventory_verified": true,
+  "bob_scores_disclosed": false,
+  "truth_exported": false,
+  "test_read": false,
+  "production_security": false,
+  "source_queue": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P2_queue_20261012T102442410765Z",
+  "source_config_sha256": "52f7db376104a8c2047ee0759ca64fa5a5cb40d2fc4d8839e476c9ae1a9aaf90"
+}

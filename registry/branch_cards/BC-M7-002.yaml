@@ -1,0 +1,6 @@
+card_id: BC-M7-002
+status: active
+routes:
+- id: all_new_outputs_reaudit
+  purpose: 预先声明22组全部三视图五seed；20包含Bob信息组baseline及三视图密态辅助属性探针。
+falsifier: 任何冻结来源/身份/数值/控制/完整覆盖/输出权限失败即停；不得删除负结果，不以常量输出或攻击未命中称零泄漏。

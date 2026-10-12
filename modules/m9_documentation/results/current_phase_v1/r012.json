@@ -1,0 +1,334 @@
+{
+  "id": "r012",
+  "step": "S5.P2",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "exploratory_or_smoke",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/alice/results/private_evaluation.json",
+  "source_summary_sha256": "7d22bba679d6f9345e5b882b67179bf18b41e19a0b56f08feaa29ca581fac1d6",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/code/local_functional.yaml",
+    "config_sha256": "5551edb9b49906c3c589ac07892add3dd5d10c9d2ca01254009a50d4b330e8e7",
+    "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 30
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "status": "completed",
+    "selection": "validation only; strongest L0 selected within family grid",
+    "round": "smoke_hillstrom_email_marketing_functional_20261001T135606482068Z",
+    "metrics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed11_candidate1",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.03554431885782273,
+            "ci_low": -0.04534875074360499,
+            "ci_high": 0.10886005353955977,
+            "valid_replicates": 30
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.25,
+            "ci_low": -0.5792856961488724,
+            "ci_high": 0.8964285776019094,
+            "valid_replicates": 30
+          },
+          "arm1_policy_value": {
+            "estimate": 0.6585365853658537,
+            "ci_low": 0.4634146341463415,
+            "ci_high": 0.8182926829268292,
+            "valid_replicates": 30
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.024390243902439046,
+            "ci_low": -0.0731707317073171,
+            "ci_high": 0.12865853658536583,
+            "valid_replicates": 30
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.09741470728050608,
+            "ci_low": 0.006423769822405885,
+            "ci_high": 0.1743891773625382,
+            "valid_replicates": 30
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.2666666805744171,
+            "ci_low": -1.0,
+            "ci_high": 0.5,
+            "valid_replicates": 27
+          },
+          "arm2_policy_value": {
+            "estimate": 0.6288441145281018,
+            "ci_low": 0.47246818663838813,
+            "ci_high": 0.748873276776246,
+            "valid_replicates": 30
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.005302226935313015,
+            "ci_low": -0.08060710498409333,
+            "ci_high": 0.06521739130434781,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.04803688280785247,
+            "ci_low": -0.15535767400356934,
+            "ci_high": 0.036767549077929805,
+            "valid_replicates": 30
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.2321428433060646,
+            "valid_replicates": 26
+          },
+          "arm1_policy_value": {
+            "estimate": 0.5365853658536586,
+            "ci_low": 0.4146341463414634,
+            "ci_high": 0.7274390243902438,
+            "valid_replicates": 30
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": -0.09756097560975607,
+            "ci_low": -0.19512195121951223,
+            "ci_high": 0.01341463414634139,
+            "valid_replicates": 30
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.049182725710315574,
+            "ci_low": -0.1446087931643934,
+            "ci_high": 0.03616347314147801,
+            "valid_replicates": 30
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.3333333134651184,
+            "ci_low": -1.0,
+            "ci_high": 0.3791666522622106,
+            "valid_replicates": 30
+          },
+          "arm2_policy_value": {
+            "estimate": 0.5339342523860022,
+            "ci_low": 0.4296659597030753,
+            "ci_high": 0.7225609756097561,
+            "valid_replicates": 30
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.10021208907741264,
+            "ci_low": -0.14707051961823964,
+            "ci_high": 0.038905090137857916,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.056365258774538976,
+            "ci_low": -0.10711258179654967,
+            "ci_high": 0.031134741225460984,
+            "valid_replicates": 30
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "valid_replicates": 26
+          },
+          "arm1_policy_value": {
+            "estimate": 0.5365853658536586,
+            "ci_low": 0.4012195121951219,
+            "ci_high": 0.7097560975609755,
+            "valid_replicates": 30
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": -0.09756097560975607,
+            "ci_low": -0.19512195121951226,
+            "ci_high": 0.0,
+            "valid_replicates": 30
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.028101802757158012,
+            "ci_low": -0.09622307748564742,
+            "ci_high": 0.053026535512731385,
+            "valid_replicates": 30
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "valid_replicates": 30
+          },
+          "arm2_policy_value": {
+            "estimate": 0.5774125132555675,
+            "ci_low": 0.4693001060445388,
+            "ci_high": 0.7304612937433723,
+            "valid_replicates": 30
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.05673382820784734,
+            "ci_low": -0.14899257688229062,
+            "ci_high": 0.03552492046659596,
+            "valid_replicates": 30
+          }
+        }
+      }
+    ],
+    "paired_differences": [
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.09190957763236171,
+            "ci_low": -0.1753569303985723,
+            "ci_high": 0.034986615110053486,
+            "valid_replicates": 30
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": -0.25,
+            "ci_low": -0.910714291036129,
+            "ci_high": 0.5821428447961807,
+            "valid_replicates": 26
+          },
+          "arm1_policy_value": {
+            "estimate": -0.12195121951219512,
+            "ci_low": -0.22621951219512193,
+            "ci_high": 0.006707317073170687,
+            "valid_replicates": 30
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": -0.12195121951219512,
+            "ci_low": -0.22621951219512193,
+            "ci_high": 0.006707317073170687,
+            "valid_replicates": 30
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.1255165100376641,
+            "ci_low": -0.2567380943674504,
+            "ci_high": -0.0036486330005729125,
+            "valid_replicates": 30
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.2666666805744171,
+            "ci_low": -0.5,
+            "ci_high": 1.0,
+            "valid_replicates": 27
+          },
+          "arm2_policy_value": {
+            "estimate": -0.05143160127253432,
+            "ci_low": -0.15039766702014853,
+            "ci_high": 0.06927359490986211,
+            "valid_replicates": 30
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.05143160127253432,
+            "ci_low": -0.15039766702014853,
+            "ci_high": 0.06927359490986211,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.008328375966686508,
+            "ci_low": -0.11964604402141583,
+            "ci_high": 0.10029000594884001,
+            "valid_replicates": 30
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": -0.2385714143514633,
+            "ci_high": 0.0,
+            "valid_replicates": 23
+          },
+          "arm1_policy_value": {
+            "estimate": 0.0,
+            "ci_low": -0.10426829268292685,
+            "ci_high": 0.12439024390243897,
+            "valid_replicates": 30
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0,
+            "ci_low": -0.10426829268292685,
+            "ci_high": 0.12439024390243897,
+            "valid_replicates": 30
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.021080922953157562,
+            "ci_low": -0.06551282285686424,
+            "ci_high": 0.11077784278592397,
+            "valid_replicates": 30
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.3333333134651184,
+            "ci_low": -0.3791666522622108,
+            "ci_high": 1.0,
+            "valid_replicates": 30
+          },
+          "arm2_policy_value": {
+            "estimate": 0.0434782608695653,
+            "ci_low": -0.07795599151643695,
+            "ci_high": 0.12668345705196188,
+            "valid_replicates": 30
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0434782608695653,
+            "ci_low": -0.07795599151643695,
+            "ci_high": 0.12668345705196188,
+            "valid_replicates": 30
+          }
+        }
+      }
+    ],
+    "output_attack_diagnostics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "loss_attack_auc": 0.6082763671875,
+        "ci_low": 0.5462982177734375,
+        "ci_high": 0.6897514343261719,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.588104248046875,
+        "ci_low": 0.5356414794921875,
+        "ci_high": 0.6669189453125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.55816650390625,
+        "ci_low": 0.49673004150390626,
+        "ci_high": 0.6271697998046875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      }
+    ]
+  }
+}

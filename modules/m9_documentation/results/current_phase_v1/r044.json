@@ -1,0 +1,2957 @@
+{
+  "id": "r044",
+  "step": "S7.P1",
+  "dataset": "uci_bank_marketing",
+  "classification": "counterfactual_output_pressure",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074405461966Z/alice/results/private_output_audit.json",
+  "source_summary_sha256": "02403e5fcec241e2e438674fa543c034a658163fa0acba1d723709e4c94cf7a4",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/uci_bank_marketing_output_audit_20261009T074405461966Z/code/output_audit.yaml",
+    "config_sha256": "297150e0d6d59f602b67f00eaa314f2438dbbd1bf150deaacc3457e7c37b2f5e",
+    "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {},
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "status": "completed",
+    "details": [
+      {
+        "cell": "A0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "exact",
+        "membership": {
+          "auc": 0.541699,
+          "balanced_accuracy": 0.544,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.62144125,
+          "balanced_accuracy": 0.5905,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 1.7698933163501351e-07,
+        "top_overlap": 0.991494532199271
+      },
+      {
+        "cell": "A0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.5294338749999999,
+          "balanced_accuracy": 0.5295000000000001,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6213571250000001,
+          "balanced_accuracy": 0.5902499999999999,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.51572565099923e-06,
+        "top_overlap": 0.6330498177399757
+      },
+      {
+        "cell": "A0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621404125,
+          "balanced_accuracy": 0.591,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "exact",
+        "membership": {
+          "auc": 0.5410067500000001,
+          "balanced_accuracy": 0.5335,
+          "tpr_at_fixed_fpr": 0.0385,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6213967499999999,
+          "balanced_accuracy": 0.59075,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 2.1421458029635687e-07,
+        "top_overlap": 0.9805589307411907
+      },
+      {
+        "cell": "A1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.5324154999999999,
+          "balanced_accuracy": 0.53,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621393875,
+          "balanced_accuracy": 0.59075,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.220835636369884e-06,
+        "top_overlap": 0.6792223572296476
+      },
+      {
+        "cell": "A1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621404125,
+          "balanced_accuracy": 0.591,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "exact",
+        "membership": {
+          "auc": 0.803403125,
+          "balanced_accuracy": 0.77875,
+          "tpr_at_fixed_fpr": 0.3905,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.62215475,
+          "balanced_accuracy": 0.58925,
+          "tpr_at_fixed_fpr": 0.037,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008051870972849429,
+        "top_overlap": 0.21628189550425272
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7813264999999998,
+          "balanced_accuracy": 0.7315,
+          "tpr_at_fixed_fpr": 0.1055,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6224765,
+          "balanced_accuracy": 0.58875,
+          "tpr_at_fixed_fpr": 0.037,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008041983819566667,
+        "top_overlap": 0.2187120291616039
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621404125,
+          "balanced_accuracy": 0.591,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "exact",
+        "membership": {
+          "auc": 0.802155625,
+          "balanced_accuracy": 0.77,
+          "tpr_at_fixed_fpr": 0.389,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.622403375,
+          "balanced_accuracy": 0.589,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008138730772770941,
+        "top_overlap": 0.21142162818955043
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7799253749999999,
+          "balanced_accuracy": 0.72925,
+          "tpr_at_fixed_fpr": 0.109,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.622681625,
+          "balanced_accuracy": 0.58925,
+          "tpr_at_fixed_fpr": 0.037,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008159592980518937,
+        "top_overlap": 0.21142162818955043
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "attack_seed": 701,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.621387375,
+          "balanced_accuracy": 0.59175,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621404125,
+          "balanced_accuracy": 0.591,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.514893,
+            "balanced_accuracy": 0.5065,
+            "tpr_at_fixed_fpr": 0.013,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "exact",
+        "membership": {
+          "auc": 0.54311775,
+          "balanced_accuracy": 0.5367500000000001,
+          "tpr_at_fixed_fpr": 0.031,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.613846625,
+          "balanced_accuracy": 0.57375,
+          "tpr_at_fixed_fpr": 0.0345,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 1.7480560643434728e-07,
+        "top_overlap": 0.9866342648845686
+      },
+      {
+        "cell": "A0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.5336918749999999,
+          "balanced_accuracy": 0.5305,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.613610875,
+          "balanced_accuracy": 0.573,
+          "tpr_at_fixed_fpr": 0.035,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.597803909855429e-06,
+        "top_overlap": 0.6403402187120292
+      },
+      {
+        "cell": "A0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6138088749999999,
+          "balanced_accuracy": 0.5727500000000001,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "exact",
+        "membership": {
+          "auc": 0.5424463749999999,
+          "balanced_accuracy": 0.53125,
+          "tpr_at_fixed_fpr": 0.035,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.613819125,
+          "balanced_accuracy": 0.5735,
+          "tpr_at_fixed_fpr": 0.0335,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 2.0895163288514595e-07,
+        "top_overlap": 0.9793438639125152
+      },
+      {
+        "cell": "A1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.5318225000000001,
+          "balanced_accuracy": 0.5275,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.613632375,
+          "balanced_accuracy": 0.5735,
+          "tpr_at_fixed_fpr": 0.035,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.271539056499023e-06,
+        "top_overlap": 0.6707168894289186
+      },
+      {
+        "cell": "A1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6138088749999999,
+          "balanced_accuracy": 0.5727500000000001,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "exact",
+        "membership": {
+          "auc": 0.8043116250000001,
+          "balanced_accuracy": 0.777,
+          "tpr_at_fixed_fpr": 0.374,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61459925,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.03,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008225084748119116,
+        "top_overlap": 0.2235722964763062
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7790288750000001,
+          "balanced_accuracy": 0.7375,
+          "tpr_at_fixed_fpr": 0.102,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61460875,
+          "balanced_accuracy": 0.5742499999999999,
+          "tpr_at_fixed_fpr": 0.03,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008262670016847551,
+        "top_overlap": 0.22235722964763063
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6138088749999999,
+          "balanced_accuracy": 0.5727500000000001,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "exact",
+        "membership": {
+          "auc": 0.801865625,
+          "balanced_accuracy": 0.777,
+          "tpr_at_fixed_fpr": 0.384,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6148415,
+          "balanced_accuracy": 0.57675,
+          "tpr_at_fixed_fpr": 0.03,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008342305081896484,
+        "top_overlap": 0.2187120291616039
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7774845,
+          "balanced_accuracy": 0.7337499999999999,
+          "tpr_at_fixed_fpr": 0.1045,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6145875,
+          "balanced_accuracy": 0.575,
+          "tpr_at_fixed_fpr": 0.0305,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008363525848835707,
+        "top_overlap": 0.21628189550425272
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "attack_seed": 702,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.613819375,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.032,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6138088749999999,
+          "balanced_accuracy": 0.5727500000000001,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.516208,
+            "balanced_accuracy": 0.51,
+            "tpr_at_fixed_fpr": 0.009,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "exact",
+        "membership": {
+          "auc": 0.5268146250000001,
+          "balanced_accuracy": 0.52875,
+          "tpr_at_fixed_fpr": 0.025,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6187075,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 1.5869491676312464e-07,
+        "top_overlap": 0.9878493317132442
+      },
+      {
+        "cell": "A0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.51824275,
+          "balanced_accuracy": 0.51625,
+          "tpr_at_fixed_fpr": 0.0205,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6191835,
+          "balanced_accuracy": 0.57925,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.654439054429531e-06,
+        "top_overlap": 0.6342648845686513
+      },
+      {
+        "cell": "A0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61853125,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "exact",
+        "membership": {
+          "auc": 0.5270876250000001,
+          "balanced_accuracy": 0.52875,
+          "tpr_at_fixed_fpr": 0.029,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6186287500000001,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 2.001406045337717e-07,
+        "top_overlap": 0.9805589307411907
+      },
+      {
+        "cell": "A1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.52237975,
+          "balanced_accuracy": 0.51925,
+          "tpr_at_fixed_fpr": 0.0245,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.618746,
+          "balanced_accuracy": 0.5780000000000001,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.375596164318267e-06,
+        "top_overlap": 0.6719319562575942
+      },
+      {
+        "cell": "A1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61853125,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "exact",
+        "membership": {
+          "auc": 0.79965875,
+          "balanced_accuracy": 0.769,
+          "tpr_at_fixed_fpr": 0.3575,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.618390625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008067928720265627,
+        "top_overlap": 0.2174969623329283
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7741787499999999,
+          "balanced_accuracy": 0.7224999999999999,
+          "tpr_at_fixed_fpr": 0.104,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61848825,
+          "balanced_accuracy": 0.5765,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008093154174275696,
+        "top_overlap": 0.2187120291616039
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61853125,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "exact",
+        "membership": {
+          "auc": 0.797740625,
+          "balanced_accuracy": 0.7642500000000001,
+          "tpr_at_fixed_fpr": 0.3525,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.618525625,
+          "balanced_accuracy": 0.578,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.000815886480268091,
+        "top_overlap": 0.21385176184690158
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.773491625,
+          "balanced_accuracy": 0.7175,
+          "tpr_at_fixed_fpr": 0.102,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6183350000000001,
+          "balanced_accuracy": 0.5785,
+          "tpr_at_fixed_fpr": 0.0375,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0008214911795221269,
+        "top_overlap": 0.212636695018226
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "attack_seed": 703,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.61853625,
+          "balanced_accuracy": 0.5775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61853125,
+          "balanced_accuracy": 0.57775,
+          "tpr_at_fixed_fpr": 0.0365,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.49871875,
+            "balanced_accuracy": 0.4975,
+            "tpr_at_fixed_fpr": 0.012,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "exact",
+        "membership": {
+          "auc": 0.54190575,
+          "balanced_accuracy": 0.5385,
+          "tpr_at_fixed_fpr": 0.024,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.60875075,
+          "balanced_accuracy": 0.57175,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 1.6375751954456064e-07,
+        "top_overlap": 0.9878493317132442
+      },
+      {
+        "cell": "A0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.53298675,
+          "balanced_accuracy": 0.5315000000000001,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.60871425,
+          "balanced_accuracy": 0.57225,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.587275599187706e-06,
+        "top_overlap": 0.6111786148238153
+      },
+      {
+        "cell": "A0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6086594999999999,
+          "balanced_accuracy": 0.57275,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "exact",
+        "membership": {
+          "auc": 0.539873375,
+          "balanced_accuracy": 0.53425,
+          "tpr_at_fixed_fpr": 0.0245,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6087331250000001,
+          "balanced_accuracy": 0.5715,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 2.13441055052499e-07,
+        "top_overlap": 0.9842041312272175
+      },
+      {
+        "cell": "A1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.532513,
+          "balanced_accuracy": 0.5309999999999999,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.608681,
+          "balanced_accuracy": 0.5720000000000001,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.309763299825136e-06,
+        "top_overlap": 0.6549210206561361
+      },
+      {
+        "cell": "A1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6086594999999999,
+          "balanced_accuracy": 0.57275,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "exact",
+        "membership": {
+          "auc": 0.803137875,
+          "balanced_accuracy": 0.7705,
+          "tpr_at_fixed_fpr": 0.38,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.60919025,
+          "balanced_accuracy": 0.5720000000000001,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.000779487716499716,
+        "top_overlap": 0.21992709599027946
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7791077500000001,
+          "balanced_accuracy": 0.73075,
+          "tpr_at_fixed_fpr": 0.101,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.609230375,
+          "balanced_accuracy": 0.57175,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007799799786880612,
+        "top_overlap": 0.22114216281895505
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6086594999999999,
+          "balanced_accuracy": 0.57275,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "exact",
+        "membership": {
+          "auc": 0.800558125,
+          "balanced_accuracy": 0.7637499999999999,
+          "tpr_at_fixed_fpr": 0.373,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.609286125,
+          "balanced_accuracy": 0.5722499999999999,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007886085077188909,
+        "top_overlap": 0.2187120291616039
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.776035,
+          "balanced_accuracy": 0.7265,
+          "tpr_at_fixed_fpr": 0.101,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.609252625,
+          "balanced_accuracy": 0.57175,
+          "tpr_at_fixed_fpr": 0.0495,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007905743550509214,
+        "top_overlap": 0.21506682867557717
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "attack_seed": 704,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.60866975,
+          "balanced_accuracy": 0.5725,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6086594999999999,
+          "balanced_accuracy": 0.57275,
+          "tpr_at_fixed_fpr": 0.049,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.50216725,
+            "balanced_accuracy": 0.49325,
+            "tpr_at_fixed_fpr": 0.0175,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "exact",
+        "membership": {
+          "auc": 0.554898625,
+          "balanced_accuracy": 0.5515,
+          "tpr_at_fixed_fpr": 0.024,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6196436249999999,
+          "balanced_accuracy": 0.5825,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 1.5871131608946598e-07,
+        "top_overlap": 0.9878493317132442
+      },
+      {
+        "cell": "A0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.540971375,
+          "balanced_accuracy": 0.5389999999999999,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6196143749999999,
+          "balanced_accuracy": 0.581,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.57924476097105e-06,
+        "top_overlap": 0.6026731470230863
+      },
+      {
+        "cell": "A0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61958025,
+          "balanced_accuracy": 0.5800000000000001,
+          "tpr_at_fixed_fpr": 0.0275,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "A1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "exact",
+        "membership": {
+          "auc": 0.554599125,
+          "balanced_accuracy": 0.54025,
+          "tpr_at_fixed_fpr": 0.026,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.619601875,
+          "balanced_accuracy": 0.5814999999999999,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 2.0473108008900454e-07,
+        "top_overlap": 0.9793438639125152
+      },
+      {
+        "cell": "A1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.545862125,
+          "balanced_accuracy": 0.5429999999999999,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61961475,
+          "balanced_accuracy": 0.581,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 9.320388926425949e-06,
+        "top_overlap": 0.6488456865127582
+      },
+      {
+        "cell": "A1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61958025,
+          "balanced_accuracy": 0.5800000000000001,
+          "tpr_at_fixed_fpr": 0.0275,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "exact",
+        "membership": {
+          "auc": 0.8235748749999999,
+          "balanced_accuracy": 0.78775,
+          "tpr_at_fixed_fpr": 0.4185,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621371,
+          "balanced_accuracy": 0.5740000000000001,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007453616126440465,
+        "top_overlap": 0.21506682867557717
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.8001148750000001,
+          "balanced_accuracy": 0.74975,
+          "tpr_at_fixed_fpr": 0.1105,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621881125,
+          "balanced_accuracy": 0.58375,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007466091774404049,
+        "top_overlap": 0.2187120291616039
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61958025,
+          "balanced_accuracy": 0.5800000000000001,
+          "tpr_at_fixed_fpr": 0.0275,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "exact",
+        "membership": {
+          "auc": 0.8219355,
+          "balanced_accuracy": 0.7809999999999999,
+          "tpr_at_fixed_fpr": 0.4035,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.6217969999999999,
+          "balanced_accuracy": 0.57425,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0007553311879746616,
+        "top_overlap": 0.21142162818955043
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "rounded",
+        "membership": {
+          "auc": 0.7973474999999999,
+          "balanced_accuracy": 0.746,
+          "tpr_at_fixed_fpr": 0.1115,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.621678625,
+          "balanced_accuracy": 0.5735,
+          "tpr_at_fixed_fpr": 0.0315,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.000759845192078501,
+        "top_overlap": 0.21020656136087484
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "attack_seed": 705,
+        "view": "binary",
+        "membership": {
+          "auc": 0.5,
+          "balanced_accuracy": 0.5,
+          "tpr_at_fixed_fpr": 0.0,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_membership": {
+          "auc": 0.6195947500000001,
+          "balanced_accuracy": 0.5805,
+          "tpr_at_fixed_fpr": 0.0265,
+          "direction_fit_only_on_calibration": true
+        },
+        "feature_score_membership": {
+          "auc": 0.61958025,
+          "balanced_accuracy": 0.5800000000000001,
+          "tpr_at_fixed_fpr": 0.0275,
+          "direction_fit_only_on_calibration": true
+        },
+        "controls": {
+          "positive": {
+            "auc": 1.0,
+            "balanced_accuracy": 1.0,
+            "tpr_at_fixed_fpr": 1.0,
+            "direction_fit_only_on_calibration": true
+          },
+          "negative": {
+            "auc": 0.51418675,
+            "balanced_accuracy": 0.511,
+            "tpr_at_fixed_fpr": 0.0085,
+            "direction_fit_only_on_calibration": true
+          }
+        },
+        "surrogate_mse": 0.0,
+        "top_overlap": 1.0
+      }
+    ],
+    "aggregate": {
+      "A0_exact": {
+        "auc": {
+          "estimate": 0.5416871499999999,
+          "ci_low": 0.533052125,
+          "ci_high": 0.5496601249999999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5399,
+          "ci_low": 0.5334000000000001,
+          "ci_high": 0.5469999999999999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.027099999999999996,
+          "ci_low": 0.0242,
+          "ci_high": 0.03,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.07471435,
+          "ci_low": -0.08392021437499995,
+          "ci_high": -0.06672437500000006,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 7.644999999996127e-05,
+          "ci_low": 4.2224999999973535e-05,
+          "ci_high": 0.0001243999999999801,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 1.6659173809330242e-07,
+          "ci_low": 1.5971399704994838e-07,
+          "ci_high": 1.7333044866063574e-07,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.9883353584447144,
+          "ci_low": 0.9871202916160389,
+          "ci_high": 0.9900364520048603,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "A0_rounded": {
+        "auc": {
+          "estimate": 0.5310653249999999,
+          "ci_low": 0.52414035,
+          "ci_high": 0.53706695,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.52935,
+          "ci_low": 0.52195,
+          "ci_high": 0.5353999999999999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0041,
+          "ci_low": 0.0,
+          "ci_high": 0.0123,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.08533617500000004,
+          "ci_low": -0.09370340000000003,
+          "ci_high": -0.07774805000000004,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 9.452500000000086e-05,
+          "ci_low": -0.00011227499999999502,
+          "ci_high": 0.0003862249999999845,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 9.586897795088589e-06,
+          "ci_low": 9.544845124764833e-06,
+          "ci_high": 9.62598572641582e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.6243013365735115,
+          "ci_low": 0.6106925880923451,
+          "ci_high": 0.6362089914945322,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "A0_binary": {
+        "auc": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.1164015,
+          "ci_low": -0.12010010000000002,
+          "ci_high": -0.11188467500000002,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": -4.700000000035231e-06,
+          "ci_low": -1.2050000000041194e-05,
+          "ci_high": 6.14999999999366e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "A1_exact": {
+        "auc": {
+          "estimate": 0.54100265,
+          "ci_low": 0.5329432000000001,
+          "ci_high": 0.549096825,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5336000000000001,
+          "ci_low": 0.5306500000000001,
+          "ci_high": 0.53725,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0306,
+          "ci_low": 0.026000000000000002,
+          "ci_high": 0.0352,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.07539884999999999,
+          "ci_low": -0.08396342874999996,
+          "ci_high": -0.06779140000000006,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 3.442500000001569e-05,
+          "ci_low": 5.074999999998831e-06,
+          "ci_high": 6.812500000006328e-05,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 2.082957905713556e-07,
+          "ci_low": 2.0371878974856373e-07,
+          "ci_high": 2.1269787566779997e-07,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.9808019441069259,
+          "ci_low": 0.9795868772782501,
+          "ci_high": 0.9825030376670718,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "A1_rounded": {
+        "auc": {
+          "estimate": 0.532998575,
+          "ci_low": 0.5263940500000001,
+          "ci_high": 0.540384375,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5301500000000001,
+          "ci_low": 0.52355,
+          "ci_high": 0.5375,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.012199999999999999,
+          "ci_low": 0.0,
+          "ci_high": 0.0268,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.08340292499999999,
+          "ci_low": -0.09049832437499992,
+          "ci_high": -0.07635512500000001,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 1.2100000000003774e-05,
+          "ci_low": -0.00010689999999997646,
+          "ci_high": 0.00012940000000001285,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 9.299624616687652e-06,
+          "ci_low": 9.258531827072148e-06,
+          "ci_high": 9.342503608422703e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.6651275820170109,
+          "ci_low": 0.654678007290401,
+          "ci_high": 0.6743681652490887,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "A1_binary": {
+        "auc": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.1164015,
+          "ci_low": -0.12010010000000002,
+          "ci_high": -0.11188467500000002,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": -4.700000000035231e-06,
+          "ci_low": -1.2050000000041194e-05,
+          "ci_high": 6.14999999999366e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B0_exact": {
+        "auc": {
+          "estimate": 0.8068172499999999,
+          "ci_low": 0.8013382,
+          "ci_high": 0.8155061749999998,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.7766,
+          "ci_low": 0.77125,
+          "ci_high": 0.7825,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.38409999999999994,
+          "ci_low": 0.36740000000000006,
+          "ci_high": 0.40312249999999983,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": 0.19041575,
+          "ci_low": 0.18335375000000004,
+          "ci_high": 0.1976848499999999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 0.0007396750000000063,
+          "ci_low": 0.00022207499999999937,
+          "ci_high": 0.0013258249999999806,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0007918675546534359,
+          "ci_low": 0.0007658372749574482,
+          "ci_high": 0.0008127579581923783,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.21846901579586878,
+          "ci_low": 0.2160388821385176,
+          "ci_high": 0.22138517618469017,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B0_rounded": {
+        "auc": {
+          "estimate": 0.7827513500000001,
+          "ci_low": 0.7765937056249999,
+          "ci_high": 0.7917227243750001,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.7344,
+          "ci_low": 0.7273,
+          "ci_high": 0.74245,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.1046,
+          "ci_low": 0.10200000000000001,
+          "ci_high": 0.1079,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": 0.16634985,
+          "ci_low": 0.15927454999999993,
+          "ci_high": 0.1743875,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 0.0009355000000000002,
+          "ci_low": 0.00034689999999999445,
+          "ci_high": 0.001687930000000005,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0007932739914394915,
+          "ci_low": 0.0007666316581889987,
+          "ci_high": 0.0008150726440362632,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.2199270959902795,
+          "ci_low": 0.2187120291616039,
+          "ci_high": 0.22138517618469017,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B0_binary": {
+        "auc": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.1164015,
+          "ci_low": -0.12010010000000002,
+          "ci_high": -0.11188467500000002,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": -4.700000000035231e-06,
+          "ci_low": -1.2050000000041194e-05,
+          "ci_high": 6.14999999999366e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B1_exact": {
+        "auc": {
+          "estimate": 0.8048511000000002,
+          "ci_low": 0.7994486249999999,
+          "ci_high": 0.8137040499999999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.7712,
+          "ci_low": 0.7652,
+          "ci_high": 0.7772,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.38039999999999996,
+          "ci_low": 0.3661,
+          "ci_high": 0.3945,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": 0.18844960000000002,
+          "ci_low": 0.18159830000000005,
+          "ci_high": 0.19593577499999998,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 0.0009692249999999847,
+          "ci_low": 0.0004012499999999974,
+          "ci_high": 0.0016490499999999297,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0008015859522856772,
+          "ci_low": 0.0007752975798211992,
+          "ci_high": 0.0008228214108385145,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.21482381530984201,
+          "ci_low": 0.21190765492102068,
+          "ci_high": 0.21773997569866346,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B1_rounded": {
+        "auc": {
+          "estimate": 0.7808567999999999,
+          "ci_low": 0.77530755,
+          "ci_high": 0.7894072568749999,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.7306,
+          "ci_low": 0.7231,
+          "ci_high": 0.7393,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.1056,
+          "ci_low": 0.10229999999999999,
+          "ci_high": 0.10940000000000001,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": 0.16445529999999997,
+          "ci_low": 0.158130375,
+          "ci_high": 0.17183229999999988,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": 0.000905575000000014,
+          "ci_low": 0.0002917250000000537,
+          "ci_high": 0.0016104912500000113,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0008048445219174027,
+          "ci_low": 0.0007783202221617102,
+          "ci_high": 0.0008263293653726578,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 0.2131227217496962,
+          "ci_low": 0.21117861482381528,
+          "ci_high": 0.21506682867557717,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      },
+      "B1_binary": {
+        "auc": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5,
+          "ci_low": 0.5,
+          "ci_high": 0.5,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "tpr_at_fixed_fpr": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "membership_minus_feature_auc": {
+          "estimate": -0.1164015,
+          "ci_low": -0.12010010000000002,
+          "ci_high": -0.11188467500000002,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "feature_score_minus_feature_auc": {
+          "estimate": -4.700000000035231e-06,
+          "ci_low": -1.2050000000041194e-05,
+          "ci_high": 6.14999999999366e-06,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "surrogate_mse": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        },
+        "top_overlap": {
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "scope": "attack/model seed conditional interval; five seeds share one data source"
+        }
+      }
+    },
+    "bob_score_access": false,
+    "threat_scope": "counterfactual score disclosure; Alice already knows own labels/membership; label/treatment-matched pools; feature/time drift can still confound attacks",
+    "ci_scope": "conditional seed bootstrap; not independent population confirmation"
+  }
+}

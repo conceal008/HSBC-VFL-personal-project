@@ -1,0 +1,1605 @@
+{
+  "id": "r038",
+  "step": "S5.E3",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "active_only_math_diagnostic",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/收敛诊断实验/S5E3_20261007_v1/hillstrom_email_marketing/hillstrom_email_marketing_convergence_20261007T110729111324Z/results/private_convergence.json",
+  "source_summary_sha256": "1b690995bf8f6c2bd9f2796700b48344a386682575a7c9731cb2ded6e65f7aed",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/hillstrom_email_marketing_convergence_20261007T110729111324Z/code/convergence_audit.yaml",
+    "config_sha256": "e1f8632b593fc1038aa7dc21f08110042c4fcf194754f012c22c506e8aa977f0",
+    "runtime_git_sha": "8ed9df6ca3c69d5725cffbcfa56aa12b39e894de",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11,
+          22,
+          33,
+          44,
+          55
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 500
+      },
+      "experiment": {
+        "selection_seed": 20261005,
+        "order_seeds": {
+          "11": 101,
+          "22": 102,
+          "33": 103,
+          "44": 104,
+          "55": 105
+        },
+        "bootstrap_seed": 20261005
+      }
+    }
+  },
+  "omitted_fields": [
+    "/curves/A0_seed11_epochs48/full_unpadded_gradient_norm",
+    "/curves/A0_seed22_epochs48/full_unpadded_gradient_norm",
+    "/curves/A0_seed33_epochs48/full_unpadded_gradient_norm",
+    "/curves/A0_seed44_epochs48/full_unpadded_gradient_norm",
+    "/curves/A0_seed55_epochs48/full_unpadded_gradient_norm",
+    "/curves/A1_seed11_epochs48/full_unpadded_gradient_norm",
+    "/curves/A1_seed22_epochs48/full_unpadded_gradient_norm",
+    "/curves/A1_seed33_epochs48/full_unpadded_gradient_norm",
+    "/curves/A1_seed44_epochs48/full_unpadded_gradient_norm",
+    "/curves/A1_seed55_epochs48/full_unpadded_gradient_norm",
+    "/native_reference"
+  ],
+  "results": {
+    "status": "passed",
+    "curves": {
+      "A0_seed11_epochs48": [
+        {
+          "df_surrogate_objective": -0.5500937798119173,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.19008337701724667,
+          "brier": 0.032037702267542566,
+          "roc_auc": 0.4911649009519363,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.001007977575984894,
+            "arm1_uplift_at_top_k": 0.0019872640259563923,
+            "arm1_policy_value": 0.0053661368186570845,
+            "arm1_policy_gain_vs_no_contact": 0.0002391267976829519,
+            "arm2_centered_qini": -0.0009035373601252146,
+            "arm2_uplift_at_top_k": 0.009411764331161976,
+            "arm2_policy_value": 0.006043180428669963,
+            "arm2_policy_gain_vs_no_contact": 0.0009161704076958302,
+            "log_loss": 0.19167521736809714,
+            "brier": 0.03268760600706278,
+            "mean_centered_qini": -0.0009557574680550544
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7811319518941647,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12261724203752128,
+          "brier": 0.016729628270262968,
+          "roc_auc": 0.5029453730166359,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": -0.00014601742221010148,
+            "arm1_uplift_at_top_k": 0.006808767095208168,
+            "arm1_policy_value": 0.005834255601291865,
+            "arm1_policy_gain_vs_no_contact": 0.0007072455803177327,
+            "arm2_centered_qini": -0.0006918390786862849,
+            "arm2_uplift_at_top_k": 0.004651162773370743,
+            "arm2_policy_value": 0.005585095224822048,
+            "arm2_policy_gain_vs_no_contact": 0.00045808520384791555,
+            "log_loss": 0.12478114836010241,
+            "brier": 0.017503684515219633,
+            "mean_centered_qini": -0.00041892825044819316
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9248961818708662,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09622000566776072,
+          "brier": 0.01260070052933709,
+          "roc_auc": 0.5057971412486784,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0005186687980930666,
+            "arm1_uplift_at_top_k": 0.011220904998481274,
+            "arm1_policy_value": 0.0063044013464728715,
+            "arm1_policy_gain_vs_no_contact": 0.001177391325498739,
+            "arm2_centered_qini": -0.00039702856299549485,
+            "arm2_uplift_at_top_k": 0.0021766568534076214,
+            "arm2_policy_value": 0.005352049314777769,
+            "arm2_policy_gain_vs_no_contact": 0.0002250392938036366,
+            "log_loss": 0.09873022178035229,
+            "brier": 0.013425736444356547,
+            "mean_centered_qini": 6.082011754878587e-05
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0614647124735215,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.0784257541319088,
+          "brier": 0.010524026782566729,
+          "roc_auc": 0.5072655515954202,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0009952991308939973,
+            "arm1_uplift_at_top_k": 0.010929803363978863,
+            "arm1_policy_value": 0.0063044013464728715,
+            "arm1_policy_gain_vs_no_contact": 0.001177391325498739,
+            "arm2_centered_qini": -0.0001553940826331359,
+            "arm2_uplift_at_top_k": 0.004069611895829439,
+            "arm2_policy_value": 0.005577088608581406,
+            "arm2_policy_gain_vs_no_contact": 0.0004500785876072732,
+            "log_loss": 0.08126639597924727,
+            "brier": 0.011384783858882265,
+            "mean_centered_qini": 0.0004199525241304307
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1719514971871772,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06790482026642077,
+          "brier": 0.009599752955960106,
+          "roc_auc": 0.5082943411474627,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0010885232648934957,
+            "arm1_uplift_at_top_k": 0.01569506712257862,
+            "arm1_policy_value": 0.006772520129107653,
+            "arm1_policy_gain_vs_no_contact": 0.0016455101081335206,
+            "arm2_centered_qini": -8.528477689730063e-05,
+            "arm2_uplift_at_top_k": 0.006880366709083319,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07102004827598017,
+            "brier": 0.01048266414789859,
+            "mean_centered_qini": 0.0005016192439980976
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1912927214751179,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06645152571466685,
+          "brier": 0.00950744667562635,
+          "roc_auc": 0.5105943668436632,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.00012633587970265208,
+            "arm1_uplift_at_top_k": 0.011520737782120705,
+            "arm1_policy_value": 0.006302374383926648,
+            "arm1_policy_gain_vs_no_contact": 0.0011753643629525152,
+            "arm2_centered_qini": -0.00011770636564297098,
+            "arm2_uplift_at_top_k": 0.00680588511750102,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.06963375672363024,
+            "brier": 0.010394485599619351,
+            "mean_centered_qini": 4.314757029840548e-06
+          }
+        }
+      ],
+      "A1_seed11_epochs48": [
+        {
+          "df_surrogate_objective": -0.5502496894940644,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.1900603278205788,
+          "brier": 0.03203836085512263,
+          "roc_auc": 0.4909761221491439,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.00040338243351200487,
+            "arm1_uplift_at_top_k": 0.004553109407424927,
+            "arm1_policy_value": 0.005599182728701363,
+            "arm1_policy_gain_vs_no_contact": 0.00047217270772723086,
+            "arm2_centered_qini": -0.0009254163584796057,
+            "arm2_uplift_at_top_k": 0.009523809887468815,
+            "arm2_policy_value": 0.006043180428669963,
+            "arm2_policy_gain_vs_no_contact": 0.0009161704076958302,
+            "log_loss": 0.1916319101975618,
+            "brier": 0.03268207297439631,
+            "mean_centered_qini": -0.0006643993959958052
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7813501325541787,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12260202287622347,
+          "brier": 0.016731699524991202,
+          "roc_auc": 0.5045398712836136,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": 0.0008309892828805153,
+            "arm1_uplift_at_top_k": 0.01071585901081562,
+            "arm1_policy_value": 0.0063044013464728715,
+            "arm1_policy_gain_vs_no_contact": 0.001177391325498739,
+            "arm2_centered_qini": -0.000624715333508852,
+            "arm2_uplift_at_top_k": 0.007075471803545952,
+            "arm2_policy_value": 0.005814137826746006,
+            "arm2_policy_gain_vs_no_contact": 0.0006871278057718738,
+            "log_loss": 0.12474884192528585,
+            "brier": 0.017502342890707772,
+            "mean_centered_qini": 0.00010313697468583165
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9251941294351568,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09620651682198587,
+          "brier": 0.012602758370187784,
+          "roc_auc": 0.5069038432492551,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.001036304397603036,
+            "arm1_uplift_at_top_k": 0.016832448542118073,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.0003905470173958059,
+            "arm2_uplift_at_top_k": 0.0024331549648195505,
+            "arm2_policy_value": 0.005352049314777769,
+            "arm2_policy_gain_vs_no_contact": 0.0002250392938036366,
+            "log_loss": 0.09870089003167994,
+            "brier": 0.013425407766869098,
+            "mean_centered_qini": 0.00032287869010361506
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0618973118572652,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.0784118412436336,
+          "brier": 0.010525796349540326,
+          "roc_auc": 0.5102887585989098,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.001047161759508946,
+            "arm1_uplift_at_top_k": 0.01712540164589882,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00021804430863859233,
+            "arm2_uplift_at_top_k": -0.00039632804691791534,
+            "arm2_policy_value": 0.005119003404733491,
+            "arm2_policy_gain_vs_no_contact": -8.006616240641487e-06,
+            "log_loss": 0.08123735308082224,
+            "brier": 0.011384792381143621,
+            "mean_centered_qini": 0.0004145587254351768
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1723916204773233,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06790814776166945,
+          "brier": 0.00960304803443426,
+          "roc_auc": 0.5149005007816745,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.00105843939406602,
+            "arm1_uplift_at_top_k": 0.01717476174235344,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00019690369719875888,
+            "arm2_uplift_at_top_k": 0.006147035397589207,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07100715563114791,
+            "brier": 0.010484347944252303,
+            "mean_centered_qini": 0.00043076784843363057
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1916558721080264,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06645825564155447,
+          "brier": 0.00951056776508165,
+          "roc_auc": 0.5171001739887761,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.001115543634413306,
+            "arm1_uplift_at_top_k": 0.012838314287364483,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -0.00022024746454469828,
+            "arm2_uplift_at_top_k": 0.008762920275330544,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.0696370523496313,
+            "brier": 0.010396822855807245,
+            "mean_centered_qini": 0.0004476480849343039
+          }
+        }
+      ],
+      "A0_seed22_epochs48": [
+        {
+          "df_surrogate_objective": -0.549617876899,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.19022327472117273,
+          "brier": 0.032067399504667034,
+          "roc_auc": 0.4994051035399949,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.0010253778984931406,
+            "arm1_uplift_at_top_k": -0.002424309030175209,
+            "arm1_policy_value": 0.004898018036022303,
+            "arm1_policy_gain_vs_no_contact": -0.00022899198495182974,
+            "arm2_centered_qini": -0.0005441135346109197,
+            "arm2_uplift_at_top_k": -0.005798141472041607,
+            "arm2_policy_value": 0.004407855750239692,
+            "arm2_policy_gain_vs_no_contact": -0.0007191542707344406,
+            "log_loss": 0.19180307895883458,
+            "brier": 0.032714528314640064,
+            "mean_centered_qini": -0.0007847457165520302
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7809736768693359,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.1226379562901877,
+          "brier": 0.01673112633057941,
+          "roc_auc": 0.5050595229922146,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": -0.0009886592217754654,
+            "arm1_uplift_at_top_k": -0.0003074677661061287,
+            "arm1_policy_value": 0.005131063946066581,
+            "arm1_policy_gain_vs_no_contact": 4.0539250924483475e-06,
+            "arm2_centered_qini": -0.00026258222517710366,
+            "arm2_uplift_at_top_k": 0.009572193026542664,
+            "arm2_policy_value": 0.006035173812429321,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551887,
+            "log_loss": 0.12479731607622306,
+            "brier": 0.01750451967683146,
+            "mean_centered_qini": -0.0006256207234762845
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9248246802019262,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09622478774857815,
+          "brier": 0.012600480873662424,
+          "roc_auc": 0.5065023548311799,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": -4.9150884630274065e-06,
+            "arm1_uplift_at_top_k": 0.009702078066766262,
+            "arm1_policy_value": 0.006069328473882369,
+            "arm1_policy_gain_vs_no_contact": 0.0009423184529082362,
+            "arm2_centered_qini": -8.041893322124217e-05,
+            "arm2_uplift_at_top_k": 0.00422685919329524,
+            "arm2_policy_value": 0.005577088608581406,
+            "arm2_policy_gain_vs_no_contact": 0.0004500785876072732,
+            "log_loss": 0.09873251399799007,
+            "brier": 0.013425251432297164,
+            "mean_centered_qini": -4.266701084213479e-05
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0614400309460448,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07842595809611108,
+          "brier": 0.010523726111749211,
+          "roc_auc": 0.5073345194124005,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0009141601211693565,
+            "arm1_uplift_at_top_k": 0.013761468231678009,
+            "arm1_policy_value": 0.00653744725651715,
+            "arm1_policy_gain_vs_no_contact": 0.001410437235543017,
+            "arm2_centered_qini": -2.672451334557236e-05,
+            "arm2_uplift_at_top_k": 0.004321641754359007,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.08126521244160717,
+            "brier": 0.011384376705866048,
+            "mean_centered_qini": 0.0004437178039118921
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1718007594811106,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06791643579118956,
+          "brier": 0.00960052198997466,
+          "roc_auc": 0.5082990488482806,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0010625307535180846,
+            "arm1_uplift_at_top_k": 0.01576576568186283,
+            "arm1_policy_value": 0.006772520129107653,
+            "arm1_policy_gain_vs_no_contact": 0.0016455101081335206,
+            "arm2_centered_qini": -4.77010401745741e-05,
+            "arm2_uplift_at_top_k": 0.006880366709083319,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07103047372562164,
+            "brier": 0.010483360870750396,
+            "mean_centered_qini": 0.0005074148566717553
+          }
+        },
+        {
+          "df_surrogate_objective": -1.191187111722279,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.0664591554704353,
+          "brier": 0.009507895263749653,
+          "roc_auc": 0.5105481529139688,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 8.841338604044682e-05,
+            "arm1_uplift_at_top_k": 0.011520737782120705,
+            "arm1_policy_value": 0.006302374383926648,
+            "arm1_policy_gain_vs_no_contact": 0.0011753643629525152,
+            "arm2_centered_qini": -9.893614545042738e-05,
+            "arm2_uplift_at_top_k": 0.006880366709083319,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.06964059873028965,
+            "brier": 0.010394896884310653,
+            "mean_centered_qini": -5.261379704990278e-06
+          }
+        }
+      ],
+      "A1_seed22_epochs48": [
+        {
+          "df_surrogate_objective": -0.5497899859810707,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.19019745431894483,
+          "brier": 0.03206799553297235,
+          "roc_auc": 0.49979035039024877,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.00043674108314690455,
+            "arm1_uplift_at_top_k": 0.001716171856969595,
+            "arm1_policy_value": 0.0053661368186570845,
+            "arm1_policy_gain_vs_no_contact": 0.0002391267976829519,
+            "arm2_centered_qini": -0.0005502923326352118,
+            "arm2_uplift_at_top_k": 0.0012535089626908302,
+            "arm2_policy_value": 0.005102990172252206,
+            "arm2_policy_gain_vs_no_contact": -2.4019848721926196e-05,
+            "log_loss": 0.1917535373180262,
+            "brier": 0.032708100201628246,
+            "mean_centered_qini": -0.0004935167078910581
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7811976111878545,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12262312616095623,
+          "brier": 0.01673352709674115,
+          "roc_auc": 0.5045412051321786,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": 0.00019904744636232118,
+            "arm1_uplift_at_top_k": 0.006543776020407677,
+            "arm1_policy_value": 0.005834255601291866,
+            "arm1_policy_gain_vs_no_contact": 0.0007072455803177335,
+            "arm2_centered_qini": -0.00021944970085266137,
+            "arm2_uplift_at_top_k": 0.0021654744632542133,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.12476389195597516,
+            "brier": 0.017503296372787577,
+            "mean_centered_qini": -1.0201127245170095e-05
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9251247459281655,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09621176683764039,
+          "brier": 0.012602705021341764,
+          "roc_auc": 0.5066844643911472,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0007970959674999844,
+            "arm1_uplift_at_top_k": 0.019396550953388214,
+            "arm1_policy_value": 0.007242665874288659,
+            "arm1_policy_gain_vs_no_contact": 0.002115655853314527,
+            "arm2_centered_qini": -0.0001401173688251244,
+            "arm2_uplift_at_top_k": -0.0003318772651255131,
+            "arm2_policy_value": 0.005119003404733491,
+            "arm2_policy_gain_vs_no_contact": -8.006616240641487e-06,
+            "log_loss": 0.09870266840220533,
+            "brier": 0.013424992640175232,
+            "mean_centered_qini": 0.00032848929933743
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0618723781892225,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07841242321652411,
+          "brier": 0.010525570776150147,
+          "roc_auc": 0.5100666335819914,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0010052173705643,
+            "arm1_uplift_at_top_k": 0.01930880732834339,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00014286948554425495,
+            "arm2_uplift_at_top_k": 0.004132408648729324,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.08123585516243442,
+            "brier": 0.011384411403441591,
+            "mean_centered_qini": 0.00043117394251002253
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1722403333348672,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06791998245856433,
+          "brier": 0.009603851812665811,
+          "roc_auc": 0.5148265898788356,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0010271239206261662,
+            "arm1_uplift_at_top_k": 0.021316641941666603,
+            "arm1_policy_value": 0.0074797657094253876,
+            "arm1_policy_gain_vs_no_contact": 0.002352755688451255,
+            "arm2_centered_qini": -0.00017290543498752544,
+            "arm2_uplift_at_top_k": 0.008721241727471352,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.07101728608259963,
+            "brier": 0.01048505159166128,
+            "mean_centered_qini": 0.0004271092428193204
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1915489520926474,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06646601746441061,
+          "brier": 0.009511032028165958,
+          "roc_auc": 0.5169311675294183,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.0011164365967946213,
+            "arm1_uplift_at_top_k": 0.012878349982202053,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -0.00020724418457734327,
+            "arm2_uplift_at_top_k": 0.008762920275330544,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.06964360646675408,
+            "brier": 0.010397232768784433,
+            "mean_centered_qini": 0.000454596206108639
+          }
+        }
+      ],
+      "A0_seed33_epochs48": [
+        {
+          "df_surrogate_objective": -0.550048473815725,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.1901040354496829,
+          "brier": 0.03204392817874759,
+          "roc_auc": 0.48778500714982065,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": 0.0013020964865377328,
+            "arm1_uplift_at_top_k": 0.017271727323532104,
+            "arm1_policy_value": 0.007011646926790606,
+            "arm1_policy_gain_vs_no_contact": 0.0018846369058164733,
+            "arm2_centered_qini": 3.6027084788497416e-05,
+            "arm2_uplift_at_top_k": 0.013226918876171112,
+            "arm2_policy_value": 0.0064972623243975585,
+            "arm2_policy_gain_vs_no_contact": 0.001370252303423426,
+            "log_loss": 0.19168592894002992,
+            "brier": 0.032691306290050896,
+            "mean_centered_qini": 0.0006690617856631152
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7810724718442601,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12263139367132918,
+          "brier": 0.01673234322655474,
+          "roc_auc": 0.5017121123257415,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": 0.0012659345361293868,
+            "arm1_uplift_at_top_k": 0.017333444207906723,
+            "arm1_policy_value": 0.007011646926790606,
+            "arm1_policy_gain_vs_no_contact": 0.0018846369058164733,
+            "arm2_centered_qini": -0.00018193875771611666,
+            "arm2_uplift_at_top_k": 0.008928571827709675,
+            "arm2_policy_value": 0.006043180428669964,
+            "arm2_policy_gain_vs_no_contact": 0.0009161704076958311,
+            "log_loss": 0.12478897257765544,
+            "brier": 0.017505323970944377,
+            "mean_centered_qini": 0.0005419978892066351
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9248439895406375,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09622839661586068,
+          "brier": 0.01260188219172423,
+          "roc_auc": 0.5053769004890124,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0012469031359363947,
+            "arm1_uplift_at_top_k": 0.015076152980327606,
+            "arm1_policy_value": 0.006774547091653879,
+            "arm1_policy_gain_vs_no_contact": 0.001647537070679746,
+            "arm2_centered_qini": -0.00044895032401632374,
+            "arm2_uplift_at_top_k": 0.004683840554207563,
+            "arm2_policy_value": 0.005585095224822048,
+            "arm2_policy_gain_vs_no_contact": 0.00045808520384791555,
+            "log_loss": 0.09873418085691478,
+            "brier": 0.013426349229831814,
+            "mean_centered_qini": 0.00039897640596003544
+          }
+        },
+        {
+          "df_surrogate_objective": -1.061422975166185,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07843027399407938,
+          "brier": 0.010524486624416447,
+          "roc_auc": 0.5070205157678555,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0012530877293810473,
+            "arm1_uplift_at_top_k": 0.014986579306423664,
+            "arm1_policy_value": 0.006774547091653879,
+            "arm1_policy_gain_vs_no_contact": 0.001647537070679746,
+            "arm2_centered_qini": -0.0001999953960590873,
+            "arm2_uplift_at_top_k": 0.00205919798463583,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.08126788511530579,
+            "brier": 0.011384952139164345,
+            "mean_centered_qini": 0.00052654616666098
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1719868429781553,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06790160067752345,
+          "brier": 0.009599494259674947,
+          "roc_auc": 0.5082458518290398,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0011982260437439006,
+            "arm1_uplift_at_top_k": 0.008853591978549957,
+            "arm1_policy_value": 0.006069328473882369,
+            "arm1_policy_gain_vs_no_contact": 0.0009423184529082362,
+            "arm2_centered_qini": -8.337514451060949e-05,
+            "arm2_uplift_at_top_k": 0.006917714141309261,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07101488077018363,
+            "brier": 0.010482258901349012,
+            "mean_centered_qini": 0.0005574254496166455
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1913184930899088,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06644905230289234,
+          "brier": 0.009507239874101394,
+          "roc_auc": 0.5105206128641848,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.00018572805887237688,
+            "arm1_uplift_at_top_k": 0.011520737782120705,
+            "arm1_policy_value": 0.006302374383926648,
+            "arm1_policy_gain_vs_no_contact": 0.0011753643629525152,
+            "arm2_centered_qini": -0.00011661596014275245,
+            "arm2_uplift_at_top_k": 0.00680588511750102,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.0696297066508894,
+            "brier": 0.01039416438154682,
+            "mean_centered_qini": 3.455604936481222e-05
+          }
+        }
+      ],
+      "A1_seed33_epochs48": [
+        {
+          "df_surrogate_objective": -0.5502190231285895,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.19009226706055485,
+          "brier": 0.032050772606805875,
+          "roc_auc": 0.487009805748495,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": 0.0011253940960308888,
+            "arm1_uplift_at_top_k": 0.01678355596959591,
+            "arm1_policy_value": 0.007011646926790606,
+            "arm1_policy_gain_vs_no_contact": 0.0018846369058164733,
+            "arm2_centered_qini": -0.0005062068017834868,
+            "arm2_uplift_at_top_k": 0.009049774147570133,
+            "arm2_policy_value": 0.006043180428669963,
+            "arm2_policy_gain_vs_no_contact": 0.0009161704076958302,
+            "log_loss": 0.19164282472237115,
+            "brier": 0.032688747206648876,
+            "mean_centered_qini": 0.000309593647123701
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7812978964715096,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12261937059986121,
+          "brier": 0.016735684090915415,
+          "roc_auc": 0.5018046186468107,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": 0.0011681594636285127,
+            "arm1_uplift_at_top_k": 0.0196944959461689,
+            "arm1_policy_value": 0.0072467197993811095,
+            "arm1_policy_gain_vs_no_contact": 0.002119709778406977,
+            "arm2_centered_qini": -0.0004612949225314783,
+            "arm2_uplift_at_top_k": 0.004587155766785145,
+            "arm2_policy_value": 0.005585095224822048,
+            "arm2_policy_gain_vs_no_contact": 0.00045808520384791555,
+            "log_loss": 0.12475642478568433,
+            "brier": 0.017504608135558486,
+            "mean_centered_qini": 0.0003534322705485172
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9251455437290829,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09621665567624146,
+          "brier": 0.012604449855415922,
+          "roc_auc": 0.5056944349091708,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.001153427706407902,
+            "arm1_uplift_at_top_k": 0.01721016876399517,
+            "arm1_policy_value": 0.007011646926790606,
+            "arm1_policy_gain_vs_no_contact": 0.0018846369058164733,
+            "arm2_centered_qini": -0.0005559801963109506,
+            "arm2_uplift_at_top_k": 0.004597701132297516,
+            "arm2_policy_value": 0.005585095224822048,
+            "arm2_policy_gain_vs_no_contact": 0.00045808520384791555,
+            "log_loss": 0.09870483738612014,
+            "brier": 0.013426285857253945,
+            "mean_centered_qini": 0.0002987237550484757
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0618565128451947,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07841743742271433,
+          "brier": 0.010526477600427912,
+          "roc_auc": 0.5098135946630364,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0011170736412504214,
+            "arm1_uplift_at_top_k": 0.019691558554768562,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00029380067270090847,
+            "arm2_uplift_at_top_k": -0.0003318772651255131,
+            "arm2_policy_value": 0.005119003404733491,
+            "arm2_policy_gain_vs_no_contact": -8.006616240641487e-06,
+            "log_loss": 0.08123895296205118,
+            "brier": 0.011385082057972479,
+            "mean_centered_qini": 0.0004116364842747564
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1724275328840292,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06790561619111966,
+          "brier": 0.00960290112013968,
+          "roc_auc": 0.514746715888294,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.001088170943394507,
+            "arm1_uplift_at_top_k": 0.01936294510960579,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00022033975443102544,
+            "arm2_uplift_at_top_k": 0.006183158606290817,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07100207414613428,
+            "brier": 0.01048400504792291,
+            "mean_centered_qini": 0.00043391559448174074
+          }
+        },
+        {
+          "df_surrogate_objective": -1.191679617002601,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06645684177102275,
+          "brier": 0.009510518281453778,
+          "roc_auc": 0.5168985274704151,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.0011254458976451506,
+            "arm1_uplift_at_top_k": 0.012878349982202053,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -0.00023936745280122318,
+            "arm2_uplift_at_top_k": 0.008721241727471352,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.06963356861424948,
+            "brier": 0.010396622274254357,
+            "mean_centered_qini": 0.0004430392224219637
+          }
+        }
+      ],
+      "A0_seed44_epochs48": [
+        {
+          "df_surrogate_objective": -0.5503104918938267,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.18997367238704999,
+          "brier": 0.03200263296881561,
+          "roc_auc": 0.49600684970468983,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.0005841716892962116,
+            "arm1_uplift_at_top_k": 0.012073969468474388,
+            "arm1_policy_value": 0.006308455271565321,
+            "arm1_policy_gain_vs_no_contact": 0.0011814452505911881,
+            "arm2_centered_qini": 2.3033318670328493e-06,
+            "arm2_uplift_at_top_k": 0.007056936621665955,
+            "arm2_policy_value": 0.005802127902385043,
+            "arm2_policy_gain_vs_no_contact": 0.0006751178814109107,
+            "log_loss": 0.19155332052897212,
+            "brier": 0.03264938184412661,
+            "mean_centered_qini": -0.00029093417871458937
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7811843412546624,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12259803676986336,
+          "brier": 0.0167248680617783,
+          "roc_auc": 0.5035814618587964,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": -0.00022742736463508663,
+            "arm1_uplift_at_top_k": 0.02048521488904953,
+            "arm1_policy_value": 0.007244692836834883,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607506,
+            "arm2_centered_qini": -4.031609201175809e-06,
+            "arm2_uplift_at_top_k": 0.01123595517128706,
+            "arm2_policy_value": 0.006272223030593921,
+            "arm2_policy_gain_vs_no_contact": 0.0011452130096197884,
+            "log_loss": 0.12475589790441985,
+            "brier": 0.01749788604519052,
+            "mean_centered_qini": -0.00011572948691813121
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9249153762753417,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09621394030577697,
+          "brier": 0.012599400135493748,
+          "roc_auc": 0.5058148735884253,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0010312073623810016,
+            "arm1_uplift_at_top_k": 0.017831245437264442,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -5.5373561847429434e-05,
+            "arm2_uplift_at_top_k": 0.004640321712940931,
+            "arm2_policy_value": 0.005577088608581406,
+            "arm2_policy_gain_vs_no_contact": 0.0004500785876072732,
+            "log_loss": 0.09872022047229928,
+            "brier": 0.013423922973012243,
+            "mean_centered_qini": 0.0004879169002667861
+          }
+        },
+        {
+          "df_surrogate_objective": -1.061474849611139,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07842370633993673,
+          "brier": 0.010523656999955219,
+          "roc_auc": 0.5070385619543235,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.001275271950199764,
+            "arm1_uplift_at_top_k": 0.01732378825545311,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -8.025927566400308e-06,
+            "arm2_uplift_at_top_k": 0.002112299669533968,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.081261734052397,
+            "brier": 0.01138415597567974,
+            "mean_centered_qini": 0.0006336230113166819
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1718521456014719,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06791303319659033,
+          "brier": 0.009600331871317778,
+          "roc_auc": 0.5081843378716877,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0012098431391516702,
+            "arm1_uplift_at_top_k": 0.008635863661766052,
+            "arm1_policy_value": 0.006069328473882369,
+            "arm1_policy_gain_vs_no_contact": 0.0009423184529082362,
+            "arm2_centered_qini": -3.949465776429661e-05,
+            "arm2_uplift_at_top_k": 0.004544239491224289,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.07102613330411232,
+            "brier": 0.010483078286726295,
+            "mean_centered_qini": 0.0005851742406936868
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1912216877370274,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06645733932172385,
+          "brier": 0.009507833563515948,
+          "roc_auc": 0.5105970345407932,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.00013299136136092044,
+            "arm1_uplift_at_top_k": 0.011520737782120705,
+            "arm1_policy_value": 0.006302374383926648,
+            "arm1_policy_gain_vs_no_contact": 0.0011753643629525152,
+            "arm2_centered_qini": -0.00010309690993279611,
+            "arm2_uplift_at_top_k": 0.006880366709083319,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.06963772599947407,
+            "brier": 0.010394730413346391,
+            "mean_centered_qini": 1.4947225714062164e-05
+          }
+        }
+      ],
+      "A1_seed44_epochs48": [
+        {
+          "df_surrogate_objective": -0.5504789396875518,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.18997921572320997,
+          "brier": 0.03201733298930603,
+          "roc_auc": 0.49817592285647594,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.0003740580333316629,
+            "arm1_uplift_at_top_k": 0.015916384756565094,
+            "arm1_policy_value": 0.0067765740542001015,
+            "arm1_policy_gain_vs_no_contact": 0.001649564033225969,
+            "arm2_centered_qini": -0.0003179973631003967,
+            "arm2_uplift_at_top_k": 0.007056936621665955,
+            "arm2_policy_value": 0.005802127902385043,
+            "arm2_policy_gain_vs_no_contact": 0.0006751178814109107,
+            "log_loss": 0.1915221425409814,
+            "brier": 0.03265316590649454,
+            "mean_centered_qini": -0.0003460276982160298
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7814121752691875,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12259128114459798,
+          "brier": 0.01673002850252428,
+          "roc_auc": 0.5030734224788791,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": -0.00019705062235429786,
+            "arm1_uplift_at_top_k": 0.022397609427571297,
+            "arm1_policy_value": 0.0074797657094253876,
+            "arm1_policy_gain_vs_no_contact": 0.002352755688451255,
+            "arm2_centered_qini": -0.0001614192964258331,
+            "arm2_uplift_at_top_k": 0.004486295394599438,
+            "arm2_policy_value": 0.005581091916701727,
+            "arm2_policy_gain_vs_no_contact": 0.0004540818957275948,
+            "log_loss": 0.12472635588138221,
+            "brier": 0.017498576076329007,
+            "mean_centered_qini": -0.00017923495939006548
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9252193253323174,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09620496142757909,
+          "brier": 0.01260272250598627,
+          "roc_auc": 0.5062230312493258,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0007322209464815996,
+            "arm1_uplift_at_top_k": 0.017728392034769058,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00017704778835280578,
+            "arm2_uplift_at_top_k": -0.0002675228752195835,
+            "arm2_policy_value": 0.005119003404733491,
+            "arm2_policy_gain_vs_no_contact": -8.006616240641487e-06,
+            "log_loss": 0.09869233011614224,
+            "brier": 0.013424434298865017,
+            "mean_centered_qini": 0.00027758657906439693
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0619101597447502,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07841244334309803,
+          "brier": 0.0105259771513414,
+          "roc_auc": 0.5100911920879242,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0010000312724678412,
+            "arm1_uplift_at_top_k": 0.01930880732834339,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00017149986396488515,
+            "arm2_uplift_at_top_k": 0.003944392316043377,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.08123357873606059,
+            "brier": 0.011384531416096284,
+            "mean_centered_qini": 0.000414265704251478
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1722913248641516,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06791839943609572,
+          "brier": 0.00960394442916388,
+          "roc_auc": 0.5148975976995035,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0010293173407358472,
+            "arm1_uplift_at_top_k": 0.01925484649837017,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.0001719591368645941,
+            "arm2_uplift_at_top_k": 0.006510667037218809,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07101411309033531,
+            "brier": 0.010484979864196789,
+            "mean_centered_qini": 0.00042867910193562656
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1915803571815646,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06646656419443256,
+          "brier": 0.00951132279347036,
+          "roc_auc": 0.5169985661127925,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.0011167720827689738,
+            "arm1_uplift_at_top_k": 0.012838314287364483,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -0.00021929559252697556,
+            "arm2_uplift_at_top_k": 0.008679645135998726,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.06964251526286883,
+            "brier": 0.010397353858483435,
+            "mean_centered_qini": 0.0004487382451209991
+          }
+        }
+      ],
+      "A0_seed55_epochs48": [
+        {
+          "df_surrogate_objective": -0.5508060265710636,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.18978221373850215,
+          "brier": 0.0319505664382436,
+          "roc_auc": 0.5041978568192027,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.00015227777551561446,
+            "arm1_uplift_at_top_k": 0.01651446521282196,
+            "arm1_policy_value": 0.0067765740542001015,
+            "arm1_policy_gain_vs_no_contact": 0.001649564033225969,
+            "arm2_centered_qini": -0.0001338014986159763,
+            "arm2_uplift_at_top_k": 0.004416781943291426,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.19136175058414967,
+            "brier": 0.03259761436939843,
+            "mean_centered_qini": -0.00014303963706579538
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7814075763404262,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12254841419010476,
+          "brier": 0.016715913010870852,
+          "roc_auc": 0.5062230312493257,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": 0.0001137610186070114,
+            "arm1_uplift_at_top_k": 0.018249858170747757,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00010583898870865141,
+            "arm2_uplift_at_top_k": 0.0018473896197974682,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.12470668940068795,
+            "brier": 0.017489083383141642,
+            "mean_centered_qini": 3.961014949179994e-06
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9250496046855043,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09619255059246147,
+          "brier": 0.012596480760376476,
+          "roc_auc": 0.5069550787264885,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0007675651109602213,
+            "arm1_uplift_at_top_k": 0.012983087450265884,
+            "arm1_policy_value": 0.0065415011816096005,
+            "arm1_policy_gain_vs_no_contact": 0.001414491160635468,
+            "arm2_centered_qini": -0.00011467787252988538,
+            "arm2_uplift_at_top_k": 0.0018209670670330524,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.09869928879414185,
+            "brier": 0.013421095245878527,
+            "mean_centered_qini": 0.00032644361921516796
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0615553871813914,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07841428171079198,
+          "brier": 0.010522685538474852,
+          "roc_auc": 0.5076582523053023,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.0011906521797290025,
+            "arm1_uplift_at_top_k": 0.008257501758635044,
+            "arm1_policy_value": 0.006071355436428593,
+            "arm1_policy_gain_vs_no_contact": 0.0009443454154544608,
+            "arm2_centered_qini": -6.866271972629892e-05,
+            "arm2_uplift_at_top_k": 0.004544239491224289,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.08125274030846986,
+            "brier": 0.01138324020623038,
+            "mean_centered_qini": 0.0005609947300013518
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1718818765374868,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06791006660509502,
+          "brier": 0.009600082537098839,
+          "roc_auc": 0.5085123861570057,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0011931604036338763,
+            "arm1_uplift_at_top_k": 0.013121064752340317,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -5.749100678948969e-05,
+            "arm2_uplift_at_top_k": 0.006880366709083319,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07102351846848204,
+            "brier": 0.01048286356661403,
+            "mean_centered_qini": 0.0005678346984221933
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1912450236912002,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06645485183240363,
+          "brier": 0.00950762124359191,
+          "roc_auc": 0.5106619223503981,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.00011730349892497593,
+            "arm1_uplift_at_top_k": 0.01149425283074379,
+            "arm1_policy_value": 0.006302374383926648,
+            "arm1_policy_gain_vs_no_contact": 0.0011753643629525152,
+            "arm2_centered_qini": -0.00011151723371638839,
+            "arm2_uplift_at_top_k": 0.00680588511750102,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.0696357143811868,
+            "brier": 0.010394562464965826,
+            "mean_centered_qini": 2.893132604293771e-06
+          }
+        }
+      ],
+      "A1_seed55_epochs48": [
+        {
+          "df_surrogate_objective": -0.5509796140647781,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.1897489267421136,
+          "brier": 0.031947744372889345,
+          "roc_auc": 0.5023858627744443,
+          "epoch": 1,
+          "validation": {
+            "arm1_centered_qini": -0.000196283144254663,
+            "arm1_uplift_at_top_k": 0.018735362216830254,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -8.315807090437347e-06,
+            "arm2_uplift_at_top_k": 0.007030205801129341,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.1913071858786589,
+            "brier": 0.0325883621215358,
+            "mean_centered_qini": -0.00010229947567255017
+          }
+        },
+        {
+          "df_surrogate_objective": -0.7816352115553138,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.12253278615836244,
+          "brier": 0.016718146376186557,
+          "roc_auc": 0.5065046302199084,
+          "epoch": 3,
+          "validation": {
+            "arm1_centered_qini": -7.89927880659791e-05,
+            "arm1_uplift_at_top_k": 0.01851760596036911,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00010313407128667733,
+            "arm2_uplift_at_top_k": 0.002006162889301777,
+            "arm2_policy_value": 0.005348046006657448,
+            "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+            "log_loss": 0.12467199441326904,
+            "brier": 0.017487577905508034,
+            "mean_centered_qini": -9.106342967632821e-05
+          }
+        },
+        {
+          "df_surrogate_objective": -0.9253525523966777,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.09617996402414959,
+          "brier": 0.012598860900516156,
+          "roc_auc": 0.5073673948564446,
+          "epoch": 6,
+          "validation": {
+            "arm1_centered_qini": 0.0005676484360750008,
+            "arm1_uplift_at_top_k": 0.019970543682575226,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00016542258604871515,
+            "arm2_uplift_at_top_k": 0.003850774373859167,
+            "arm2_policy_value": 0.005577088608581407,
+            "arm2_policy_gain_vs_no_contact": 0.00045007858760727406,
+            "log_loss": 0.09866934546320105,
+            "brier": 0.0134209052813955,
+            "mean_centered_qini": 0.00020111292501314283
+          }
+        },
+        {
+          "df_surrogate_objective": -1.0619895538330721,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.07840149108496212,
+          "brier": 0.010524693591144732,
+          "roc_auc": 0.5104401896418812,
+          "epoch": 12,
+          "validation": {
+            "arm1_centered_qini": 0.000959400586565307,
+            "arm1_uplift_at_top_k": 0.01742394268512726,
+            "arm1_policy_value": 0.007009619964244381,
+            "arm1_policy_gain_vs_no_contact": 0.0018826099432702487,
+            "arm2_centered_qini": -0.00017347272059625818,
+            "arm2_uplift_at_top_k": 0.006400993559509516,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.08122372885778943,
+            "brier": 0.011383388963946323,
+            "mean_centered_qini": 0.0003929639329845244
+          }
+        },
+        {
+          "df_surrogate_objective": -1.172322275769274,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.0679144163818,
+          "brier": 0.009603543876086721,
+          "roc_auc": 0.515046361045345,
+          "epoch": 24,
+          "validation": {
+            "arm1_centered_qini": 0.0010182215311270544,
+            "arm1_uplift_at_top_k": 0.01952643133699894,
+            "arm1_policy_value": 0.007244692836834885,
+            "arm1_policy_gain_vs_no_contact": 0.0021176828158607523,
+            "arm2_centered_qini": -0.00017182962396625776,
+            "arm2_uplift_at_top_k": 0.006474050227552652,
+            "arm2_policy_value": 0.005806131210505365,
+            "arm2_policy_gain_vs_no_contact": 0.0006791211895312323,
+            "log_loss": 0.07101083920915455,
+            "brier": 0.010484654846400817,
+            "mean_centered_qini": 0.0004231959535803983
+          }
+        },
+        {
+          "df_surrogate_objective": -1.1916056332694909,
+          "effective_l2": 0.0001953125,
+          "log_loss": 0.06646288367529633,
+          "brier": 0.009510935894433647,
+          "roc_auc": 0.5170421908070372,
+          "epoch": 48,
+          "validation": {
+            "arm1_centered_qini": 0.0011111488700856242,
+            "arm1_uplift_at_top_k": 0.012758590281009674,
+            "arm1_policy_value": 0.006539474219063375,
+            "arm1_policy_gain_vs_no_contact": 0.0014124641980892425,
+            "arm2_centered_qini": -0.00021407094787115064,
+            "arm2_uplift_at_top_k": 0.008721241727471352,
+            "arm2_policy_value": 0.006035173812429322,
+            "arm2_policy_gain_vs_no_contact": 0.0009081637914551896,
+            "log_loss": 0.069639653038908,
+            "brier": 0.010397051734687543,
+            "mean_centered_qini": 0.00044853896110723677
+          }
+        }
+      ]
+    },
+    "maximum_reference_error": 0.0005774822791085321,
+    "paired": {
+      "A0": {
+        "metric": "mean_centered_qini",
+        "per_seed_difference": [
+          -0.00041563776710059014,
+          -0.00044897918361688234,
+          -0.0004919901172961678,
+          -0.0006186757856026197,
+          -0.000558101597397058
+        ],
+        "difference": -0.0005066768902026637,
+        "difference_ci": [
+          -0.0010178511397790275,
+          1.8829059908914146e-05
+        ],
+        "seed_sign_flip_p": 0.0625,
+        "holm_p": 0.125,
+        "12": {
+          "mean": 0.0005169668472042672,
+          "ci": [
+            -0.00022968043798929073,
+            0.00129044796283364
+          ]
+        },
+        "48": {
+          "mean": 1.0289957001603685e-05,
+          "ci": [
+            -0.0007520543054935066,
+            0.0008990253000557736
+          ]
+        }
+      },
+      "A1": {
+        "metric": "mean_centered_qini",
+        "per_seed_difference": [
+          3.308935949912706e-05,
+          2.3422263598616452e-05,
+          3.140273814720729e-05,
+          3.4472540869521064e-05,
+          5.5575028122712366e-05
+        ],
+        "difference": 3.559238604743685e-05,
+        "difference_ci": [
+          -0.00036110660057891373,
+          0.00047784849518800037
+        ],
+        "seed_sign_flip_p": 0.0625,
+        "holm_p": 0.125,
+        "12": {
+          "mean": 0.0004129197578911916,
+          "ci": [
+            -0.0003069669210727093,
+            0.0011636202631961827
+          ]
+        },
+        "48": {
+          "mean": 0.0004485121439386285,
+          "ci": [
+            -0.00032959394176459923,
+            0.0012392340565690926
+          ]
+        }
+      }
+    },
+    "existing_joint_descriptive": {
+      "B0_seed11": {
+        "train": {
+          "roc_auc": 0.5179168816189783,
+          "log_loss": 0.07849489413622936,
+          "brier": 0.010531624106663383
+        },
+        "validation": {
+          "arm1_centered_qini": 5.221177021286163e-05,
+          "arm1_uplift_at_top_k": 0.006389986723661423,
+          "arm1_policy_value": 0.0058383095263843145,
+          "arm1_policy_gain_vs_no_contact": 0.0007112995054101819,
+          "arm2_centered_qini": -0.00010672972052642687,
+          "arm2_uplift_at_top_k": 0.006816359236836433,
+          "arm2_policy_value": 0.005802127902385043,
+          "arm2_policy_gain_vs_no_contact": 0.0006751178814109107,
+          "log_loss": 0.08134765389424704,
+          "brier": 0.011393248253202207,
+          "mean_centered_qini": -2.725897515678262e-05
+        }
+      },
+      "B1_seed11": {
+        "train": {
+          "roc_auc": 0.5210852427310158,
+          "log_loss": 0.07847619018891479,
+          "brier": 0.010532792479745975
+        },
+        "validation": {
+          "arm1_centered_qini": 0.000496296931055553,
+          "arm1_uplift_at_top_k": 0.015166278928518295,
+          "arm1_policy_value": 0.006774547091653879,
+          "arm1_policy_gain_vs_no_contact": 0.001647537070679746,
+          "arm2_centered_qini": -0.00025077413253307235,
+          "arm2_uplift_at_top_k": 0.006607811897993088,
+          "arm2_policy_value": 0.005810134518625685,
+          "arm2_policy_gain_vs_no_contact": 0.0006831244976515521,
+          "log_loss": 0.08131187483484885,
+          "brier": 0.011392567246163254,
+          "mean_centered_qini": 0.00012276139926124032
+        }
+      },
+      "B0_seed22": {
+        "train": {
+          "roc_auc": 0.5178686276855962,
+          "log_loss": 0.07849323692008356,
+          "brier": 0.010531132174707209
+        },
+        "validation": {
+          "arm1_centered_qini": -0.00019993440155148813,
+          "arm1_uplift_at_top_k": 0.005963626317679882,
+          "arm1_policy_value": 0.005842363451476763,
+          "arm1_policy_gain_vs_no_contact": 0.0007153534305026302,
+          "arm2_centered_qini": -0.0002566224676533305,
+          "arm2_uplift_at_top_k": 0.0043048132210969925,
+          "arm2_policy_value": 0.005573085300461086,
+          "arm2_policy_gain_vs_no_contact": 0.0004460752794869533,
+          "log_loss": 0.08134630452745278,
+          "brier": 0.011392817568854838,
+          "mean_centered_qini": -0.00022827843460240934
+        }
+      },
+      "B1_seed22": {
+        "train": {
+          "roc_auc": 0.5210311826332917,
+          "log_loss": 0.07847539878799015,
+          "brier": 0.010532422624570647
+        },
+        "validation": {
+          "arm1_centered_qini": 0.0003408966914295044,
+          "arm1_uplift_at_top_k": 0.012395171448588371,
+          "arm1_policy_value": 0.006545555106702048,
+          "arm1_policy_gain_vs_no_contact": 0.0014185450857279154,
+          "arm2_centered_qini": -0.00037623430992515187,
+          "arm2_uplift_at_top_k": 0.0018209670670330524,
+          "arm2_policy_value": 0.005348046006657448,
+          "arm2_policy_gain_vs_no_contact": 0.00022103598568331585,
+          "log_loss": 0.08131049109714712,
+          "brier": 0.01139219838064203,
+          "mean_centered_qini": -1.7668809247823735e-05
+        }
+      },
+      "B0_seed33": {
+        "train": {
+          "roc_auc": 0.5181138988982018,
+          "log_loss": 0.07849765100322086,
+          "brier": 0.010531908151091895
+        },
+        "validation": {
+          "arm1_centered_qini": 0.00025014376369617437,
+          "arm1_uplift_at_top_k": 0.006175043061375618,
+          "arm1_policy_value": 0.005842363451476763,
+          "arm1_policy_gain_vs_no_contact": 0.0007153534305026302,
+          "arm2_centered_qini": -0.0002077695796537603,
+          "arm2_uplift_at_top_k": 0.0090421037748456,
+          "arm2_policy_value": 0.006039177120549643,
+          "arm2_policy_gain_vs_no_contact": 0.0009121670995755103,
+          "log_loss": 0.08135009535418823,
+          "brier": 0.011393523859866224,
+          "mean_centered_qini": 2.1187092021207032e-05
+        }
+      },
+      "B1_seed33": {
+        "train": {
+          "roc_auc": 0.5209675894414116,
+          "log_loss": 0.07848026106698458,
+          "brier": 0.010533316009971639
+        },
+        "validation": {
+          "arm1_centered_qini": 0.0004788907231658848,
+          "arm1_uplift_at_top_k": 0.015480896458029747,
+          "arm1_policy_value": 0.006778601016746327,
+          "arm1_policy_gain_vs_no_contact": 0.0016515909957721944,
+          "arm2_centered_qini": -0.00041736072538966953,
+          "arm2_uplift_at_top_k": 0.004381460137665272,
+          "arm2_policy_value": 0.005581091916701727,
+          "arm2_policy_gain_vs_no_contact": 0.0004540818957275948,
+          "log_loss": 0.0813151109854355,
+          "brier": 0.011393039717575569,
+          "mean_centered_qini": 3.076499888810764e-05
+        }
+      },
+      "B0_seed44": {
+        "train": {
+          "roc_auc": 0.5179443039762418,
+          "log_loss": 0.07849152600906499,
+          "brier": 0.010531152960580265
+        },
+        "validation": {
+          "arm1_centered_qini": -8.082231465765894e-06,
+          "arm1_uplift_at_top_k": 0.006905251182615757,
+          "arm1_policy_value": 0.005840336488930539,
+          "arm1_policy_gain_vs_no_contact": 0.0007133264679564065,
+          "arm2_centered_qini": -1.9354985880627137e-05,
+          "arm2_uplift_at_top_k": 0.006364551372826099,
+          "arm2_policy_value": 0.005806131210505364,
+          "arm2_policy_gain_vs_no_contact": 0.0006791211895312314,
+          "log_loss": 0.08134488784596176,
+          "brier": 0.011392834545791342,
+          "mean_centered_qini": -1.3718608673196516e-05
+        }
+      },
+      "B1_seed44": {
+        "train": {
+          "roc_auc": 0.5211819467519807,
+          "log_loss": 0.0784760119419117,
+          "brier": 0.010532938296806826
+        },
+        "validation": {
+          "arm1_centered_qini": 0.0002847888564147876,
+          "arm1_uplift_at_top_k": 0.013192511163651943,
+          "arm1_policy_value": 0.0065415011816096,
+          "arm1_policy_gain_vs_no_contact": 0.001414491160635467,
+          "arm2_centered_qini": -0.00023324188423902762,
+          "arm2_uplift_at_top_k": 0.0016599735245108604,
+          "arm2_policy_value": 0.0053440426985371286,
+          "arm2_policy_gain_vs_no_contact": 0.00021703267756299598,
+          "log_loss": 0.08131062198503274,
+          "brier": 0.011392597781323519,
+          "mean_centered_qini": 2.5773486087880002e-05
+        }
+      },
+      "B0_seed55": {
+        "train": {
+          "roc_auc": 0.518451009507594,
+          "log_loss": 0.07848283887758223,
+          "brier": 0.010530236196444595
+        },
+        "validation": {
+          "arm1_centered_qini": 5.703338497094477e-05,
+          "arm1_uplift_at_top_k": 0.008779245428740978,
+          "arm1_policy_value": 0.006075409361521043,
+          "arm1_policy_gain_vs_no_contact": 0.0009483993405469101,
+          "arm2_centered_qini": 5.4729968139207485e-05,
+          "arm2_uplift_at_top_k": 0.005822931416332722,
+          "arm2_policy_value": 0.005802127902385043,
+          "arm2_policy_gain_vs_no_contact": 0.0006751178814109107,
+          "log_loss": 0.08133535463476965,
+          "brier": 0.011391842084072434,
+          "mean_centered_qini": 5.5881676555076125e-05
+        }
+      },
+      "B1_seed55": {
+        "train": {
+          "roc_auc": 0.5215370250861607,
+          "log_loss": 0.07846535028381804,
+          "brier": 0.01053164850555822
+        },
+        "validation": {
+          "arm1_centered_qini": 0.0003390817885361243,
+          "arm1_uplift_at_top_k": 0.015719281509518623,
+          "arm1_policy_value": 0.006774547091653879,
+          "arm1_policy_gain_vs_no_contact": 0.001647537070679746,
+          "arm2_centered_qini": -0.00011789776480460692,
+          "arm2_uplift_at_top_k": 0.0016599735245108604,
+          "arm2_policy_value": 0.0053440426985371286,
+          "arm2_policy_gain_vs_no_contact": 0.00021703267756299598,
+          "log_loss": 0.08129968560952633,
+          "brier": 0.01139131028901011,
+          "mean_centered_qini": 0.00011059201186575869
+        }
+      }
+    },
+    "scope": "owner diagnostic; no new joint training; no independent confirmation"
+  }
+}

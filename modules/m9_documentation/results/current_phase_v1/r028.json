@@ -1,0 +1,87 @@
+{
+  "id": "r028",
+  "step": "S5.P3",
+  "dataset": "uci_bank_marketing",
+  "classification": "development_diagnostic_multiple_versions",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/alice/results/private_diagnostic.json",
+  "source_summary_sha256": "e9a28fc04e7b05f08d54b7be28d091d71a0c5293cbe8007113b1fd41e6faed52",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/code/active_diagnostic.yaml",
+    "config_sha256": "f3939eb7516a7dff9d8c45140bdbc4fa42dad1fc6dd4341ec8d8b8ccb9fa2f4b",
+    "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261003,
+        "bootstrap_repeats": 30
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [
+    "/origin",
+    "/seeds/origin_hashes"
+  ],
+  "results": {
+    "status": "completed",
+    "round": "uci_bank_marketing_active_diagnostic_20261003T022726646281Z",
+    "seeds": [
+      {
+        "seed": 11,
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.7963923894242648,
+            "ci_low": 0.7125251885624226,
+            "ci_high": 0.877250744047619,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.8368691308738048,
+            "ci_low": 0.7777785359060184,
+            "ci_high": 0.9013064049229279,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.1690140813589096,
+            "ci_low": 0.14421992599964142,
+            "ci_high": 0.19821731373667714,
+            "valid_replicates": 30
+          }
+        },
+        "comparisons": [],
+        "native_test_equivalence": {
+          "max_abs_error": 0.00019239007041937928,
+          "mean_abs_error": 6.441465402312607e-05,
+          "tolerance": 0.001,
+          "passed": true
+        },
+        "selected_training": "active_secure_seed11_candidate0",
+        "scope": "known cohort diagnostic; not independent confirmation"
+      }
+    ],
+    "numerical_diagnostics": [
+      {
+        "tolerance": 0.001,
+        "criterion": "fixed before real run",
+        "split_errors": {
+          "train": {
+            "max_abs_error": 0.00022891352724452307,
+            "mean_abs_error": 6.913124179613449e-05
+          },
+          "validation": {
+            "max_abs_error": 0.00018036854070224706,
+            "mean_abs_error": 7.009963055070378e-05
+          }
+        },
+        "passed": true
+      }
+    ],
+    "reference_tolerance": 0.001,
+    "active_reference_equivalent": true,
+    "limitations": "Known previously viewed cohort, mapped initializer, frozen parameters; not business confirmation. Local equivalence covers active-only, not the unseen joint plaintext design."
+  }
+}

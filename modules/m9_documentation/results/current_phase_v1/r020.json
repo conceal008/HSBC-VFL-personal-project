@@ -1,0 +1,184 @@
+{
+  "id": "r020",
+  "step": "S5.P2",
+  "dataset": "uci_bank_marketing",
+  "classification": "exploratory_or_smoke",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135340165991Z/alice/results/private_evaluation.json",
+  "source_summary_sha256": "eef7d310f0efdac1e767d52fa26d425a118c634bd377d3f1d97e3206407cd5db",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T135340165991Z/code/local_functional.yaml",
+    "config_sha256": "166e4214719a9c19b57a87003af3015db2aa5ddac00e6f450804b6c9439b30b0",
+    "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 30
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "status": "completed",
+    "selection": "validation only; strongest L0 selected within family grid",
+    "round": "smoke_uci_bank_marketing_functional_20261001T135340165991Z",
+    "metrics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "selected_training": "L0_LR_all_arms_seed11_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.7934272300469484,
+            "ci_low": 0.705165561287153,
+            "ci_high": 0.8577156710537971,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.8405117192494541,
+            "ci_low": 0.7799905002331591,
+            "ci_high": 0.8973377685458906,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.1690140813589096,
+            "ci_low": 0.15129750035703182,
+            "ci_high": 0.19532257728278635,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.7961452928094885,
+            "ci_low": 0.7127980887326872,
+            "ci_high": 0.8582035936239749,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.8369444817228446,
+            "ci_low": 0.7772485415546624,
+            "ci_high": 0.8928364850492239,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.1690140813589096,
+            "ci_low": 0.14483149498701095,
+            "ci_high": 0.19532257728278635,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.9859154929577465,
+            "ci_low": 0.9732824605008793,
+            "ci_high": 0.9949962935507783,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.9896333553750755,
+            "ci_low": 0.9804145179603156,
+            "ci_high": 0.9963985429999314,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.1690140813589096,
+            "ci_low": 0.15129750035703182,
+            "ci_high": 0.19532257728278635,
+            "valid_replicates": 30
+          }
+        }
+      }
+    ],
+    "paired_differences": [
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.19248826291079812,
+            "ci_low": 0.12591098461007683,
+            "ci_high": 0.2816197990914447,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.14912163612562135,
+            "ci_low": 0.08774020770778272,
+            "ci_high": 0.21266326497766216,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "valid_replicates": 30
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.18977020014825796,
+            "ci_low": 0.12260294371325606,
+            "ci_high": 0.27065678438486085,
+            "valid_replicates": 30
+          },
+          "pr_auc": {
+            "estimate": 0.15268887365223083,
+            "ci_low": 0.09224149120444958,
+            "ci_high": 0.21029424461674667,
+            "valid_replicates": 30
+          },
+          "recall_at_top_k": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.02960824854671955,
+            "valid_replicates": 30
+          }
+        }
+      }
+    ],
+    "output_attack_diagnostics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "loss_attack_auc": 0.58514404296875,
+        "ci_low": 0.5212814331054687,
+        "ci_high": 0.6585708618164062,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.58355712890625,
+        "ci_low": 0.5180007934570312,
+        "ci_high": 0.6646820068359375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.57574462890625,
+        "ci_low": 0.5149459838867188,
+        "ci_high": 0.6400054931640624,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      }
+    ]
+  }
+}

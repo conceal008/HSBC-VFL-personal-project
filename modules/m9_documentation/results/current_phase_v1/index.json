@@ -1,0 +1,2564 @@
+{
+  "step": "S9.R1",
+  "disclosure_rule": "DR-GOV-012 / governance 2.7",
+  "reports": [
+    {
+      "id": "r000",
+      "step": "S5.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T013332637389Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "fa1b23b81c3bf57af930f43a43952e53070c38ea5d89858533518ee9e64fc68b",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks"
+      ]
+    },
+    {
+      "id": "r001",
+      "step": "S5.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T013517178243Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "744b8095f2c0033ba8fcfa38f421ad9359d2c47f5ce483c20806f29c182b8f20",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r002",
+      "step": "S5.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T013540406554Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "744b8095f2c0033ba8fcfa38f421ad9359d2c47f5ce483c20806f29c182b8f20",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r003",
+      "step": "S5.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T070000778078Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "c59bee6c372a7c46200fb5f61a8a4c6b387fbc3e5b87a6ca765b67925122cbc2",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r004",
+      "step": "S5.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T070014465014Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "c59bee6c372a7c46200fb5f61a8a4c6b387fbc3e5b87a6ca765b67925122cbc2",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r005",
+      "step": "S5.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T013319530790Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "c05e467554164e4029799535b55059c5ac9f1cc179ae6235e5f49d77c53081b7",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks"
+      ]
+    },
+    {
+      "id": "r006",
+      "step": "S5.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T013505359652Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "a8777826eeb586c33d199fbd82a4f85e32d8323487c3080f196bd5d94c745af5",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r007",
+      "step": "S5.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T013528363505Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "a8777826eeb586c33d199fbd82a4f85e32d8323487c3080f196bd5d94c745af5",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r008",
+      "step": "S5.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T065931084716Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "925a6de66f32e11d947d56d1edc0545f91e81392dc54a7bb5846346e41e066c9",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r009",
+      "step": "S5.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_l0_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T065947359609Z/alice/l0_private_metrics.json",
+      "source_summary_sha256": "925a6de66f32e11d947d56d1edc0545f91e81392dc54a7bb5846346e41e066c9",
+      "config_provenance": {
+        "config_path": null,
+        "config_sha256": null,
+        "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+        "source_owner": "alice"
+      },
+      "omitted_fields": [
+        "/input_sha256",
+        "/isolation_checks",
+        "/prepared_experiment"
+      ]
+    },
+    {
+      "id": "r010",
+      "step": "S5.P2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_acceptance_invalidated_S5P2",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261001T072140393621Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "ca5f3b1bf000734482cb532bb25d03317a1d8fde31445e257f1425287565709d",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_functional_20261001T072140393621Z/code/local_functional.yaml",
+        "config_sha256": "a3fbee369ca3ff2fbc48c93acd8abb257b189cdf7ea73d5f6af21b41a763738c",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r011",
+      "step": "S5.P2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "historical_acceptance_invalidated_S5P2",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261002T123132938467Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "de6ef1722e5c62bb9560660ad0d9cfea0daf6eed76a261d6474aa5e8e9ce565f",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_functional_20261002T123132938467Z/code/local_functional.yaml",
+        "config_sha256": "dfb23264ed6b0a98cc6f7879ad6591227c9eaa4614de40d435782d2c2c34668a",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r012",
+      "step": "S5.P2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "7d22bba679d6f9345e5b882b67179bf18b41e19a0b56f08feaa29ca581fac1d6",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/code/local_functional.yaml",
+        "config_sha256": "5551edb9b49906c3c589ac07892add3dd5d10c9d2ca01254009a50d4b330e8e7",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r013",
+      "step": "S5.P2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T145007964500Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "469bae7418e57d0905c11e595ef430f9792c5888fde43d68e31062c543df4b11",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_hillstrom_email_marketing_functional_20261001T145007964500Z/code/local_functional.yaml",
+        "config_sha256": "f29e2e3206924ca1007b75c51c80b635d2d85aa54927df4a0fc7010445a4e44f",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r014",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_acceptance_invalidated_S5P2",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/recovery_uci_bank_marketing_functional_20261001T072111977338Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "9b2433c3ad706389e477b70bd422047cbe7dc7b9005c2285bcc367cbf356f341",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/recovery_uci_bank_marketing_functional_20261001T072111977338Z/code/local_functional.yaml",
+        "config_sha256": "a3fbee369ca3ff2fbc48c93acd8abb257b189cdf7ea73d5f6af21b41a763738c",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r015",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023206030348Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "8109af8c43a4d0200d4489a42434f908c6235be294825d5e90c05807c1e7858f",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T023206030348Z/code/local_functional.yaml",
+        "config_sha256": "27452990c95aab342b4145a0be5fb49eae023a22fc7c85707b35b200b0547694",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r016",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023602280273Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "b9675eb8f12c1c255205f3db46342ea1d5f39543f1f06980d786885aab5f9b32",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T023602280273Z/code/local_functional.yaml",
+        "config_sha256": "495e3cba948a88473dbd74931ee7f2e4da8e2462a81745cb204fe142dcb06fba",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r017",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T063433626515Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "582969a9d794f46d23eaa738aa1c1c33abd2430e93234d15517ec6e43f8f5b25",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T063433626515Z/code/local_functional.yaml",
+        "config_sha256": "495e3cba948a88473dbd74931ee7f2e4da8e2462a81745cb204fe142dcb06fba",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r018",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T064316930486Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "624c0b3552732b1f6504267e643b8a21f8d1d3e4ac3630951f94c238685875d0",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T064316930486Z/code/local_functional.yaml",
+        "config_sha256": "3e9d0156f4b678f95ece8692b876dfa24231b3c0a3b3b1f212be4034542d3e58",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r019",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135257547509Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "62a07a6ede65c53b421141ed68d0e5ae0618d49f05af558e5f94cc7983fd633c",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T135257547509Z/code/local_functional.yaml",
+        "config_sha256": "b6a0c04f3d867cfd100ec60e17a874a02a87fb39b775afa86980c3d417498c0e",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r020",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135340165991Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "eef7d310f0efdac1e767d52fa26d425a118c634bd377d3f1d97e3206407cd5db",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T135340165991Z/code/local_functional.yaml",
+        "config_sha256": "166e4214719a9c19b57a87003af3015db2aa5ddac00e6f450804b6c9439b30b0",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r021",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144704847655Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "cd37a2985600dbf5cd9b9c65ba6355502c28fa3ba6babf78c85c6efece77c8c3",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T144704847655Z/code/local_functional.yaml",
+        "config_sha256": "a9d9a9ed4752aaf57d66253b7979ba7fe7c11e562351ffb8343eacbbed56ae81",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r022",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144857706948Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "a1391440b3d2e3e41a1d2e2a8952ec8c0851773374978c8ed8771bff7bd13029",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T144857706948Z/code/local_functional.yaml",
+        "config_sha256": "f484f06e0fc32c96dac1edfb468f48db9c7c767eec7a54e09bb333d9726e7d6f",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r023",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "exploratory_or_smoke",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144950988931Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "95c5ee152ec1658d22744a9d964519a08cc06c5d794837750fa84e237c4f6d19",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/smoke_uci_bank_marketing_functional_20261001T144950988931Z/code/local_functional.yaml",
+        "config_sha256": "96801ab848ef4dd9caf7c2c1665d5ab8a9435e1afc228915222d324636f315d0",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r024",
+      "step": "S5.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "historical_acceptance_invalidated_S5P2",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T145158736366Z/alice/results/private_evaluation.json",
+      "source_summary_sha256": "c9ed6d067f6c8258697c953568bce8b91cce56e72133fc58f5ed93001d81947c",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_functional_20261001T145158736366Z/code/local_functional.yaml",
+        "config_sha256": "dfb23264ed6b0a98cc6f7879ad6591227c9eaa4614de40d435782d2c2c34668a",
+        "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r025",
+      "step": "S5.P3",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T022903100858Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "e69688e4428ca1d114b6e3d7953d289e9983666d059c2e61d8bedf53114b96e5",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_active_diagnostic_20261003T022903100858Z/code/active_diagnostic.yaml",
+        "config_sha256": "27e27744479689f6453ea539f399ea3284f2e37f3915bc550bb77455481fc0b3",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r026",
+      "step": "S5.P3",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T023304196451Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "d565016876d9323fff4ab445c08faf2021351c51b594b84a5e7774f48230c7a7",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_active_diagnostic_20261003T023304196451Z/code/active_diagnostic.yaml",
+        "config_sha256": "376427e16146abd6db3901c807ab82b00fc2dcba590f43a92993b9383358e1b5",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r027",
+      "step": "S5.P3",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T025612118180Z_recovered_20261004T011916824630Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "6732ffbfdf0e77d5a402fcf6a5c95e704eb598b5e92c613be975a34873c95127",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_active_diagnostic_20261003T025612118180Z/code/active_diagnostic.yaml",
+        "config_sha256": "52eb465ef601df2ab59303ecfd9676baf1bbbd47bc97871d7280c73ffbce7490",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r028",
+      "step": "S5.P3",
+      "dataset": "uci_bank_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "e9a28fc04e7b05f08d54b7be28d091d71a0c5293cbe8007113b1fd41e6faed52",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/code/active_diagnostic.yaml",
+        "config_sha256": "f3939eb7516a7dff9d8c45140bdbc4fa42dad1fc6dd4341ec8d8b8ccb9fa2f4b",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r029",
+      "step": "S5.P3",
+      "dataset": "uci_bank_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023046216637Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "66057094a43d6a55170c3b7a5d82a94c4974f3fc0100ca61c9ea03702a43329f",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_active_diagnostic_20261003T023046216637Z/code/active_diagnostic.yaml",
+        "config_sha256": "f3939eb7516a7dff9d8c45140bdbc4fa42dad1fc6dd4341ec8d8b8ccb9fa2f4b",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 30
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r030",
+      "step": "S5.P3",
+      "dataset": "uci_bank_marketing",
+      "classification": "development_diagnostic_multiple_versions",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023511839223Z/alice/results/private_diagnostic.json",
+      "source_summary_sha256": "d3af1d25ccb9434019efc80f2cc5cee44ac75c2aa83ae7852af16f96965e1cae",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_active_diagnostic_20261003T023511839223Z/code/active_diagnostic.yaml",
+        "config_sha256": "52eb465ef601df2ab59303ecfd9676baf1bbbd47bc97871d7280c73ffbce7490",
+        "runtime_git_sha": "a09e8672b9cfe4ab47ec33ab27151328b7e97964",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261003,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/origin",
+        "/seeds/origin_hashes"
+      ]
+    },
+    {
+      "id": "r031",
+      "step": "S5.V1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "synthetic_numerical_verification",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/hillstrom_email_marketing/hillstrom_email_marketing_joint_math_20261005T010733268567Z/alice/results/joint_math_report.json",
+      "source_summary_sha256": "8e290498f9f0dd37a975a10f315ac2754d5208174f25fc7a685c1572f8a95868",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_joint_math_20261005T010733268567Z/code/joint_numerical.yaml",
+        "config_sha256": "ad51a5e8ee2f28a9c3f9ef4fcbecb7a869c205761566c9cdb7f7b4989a6b4834",
+        "runtime_git_sha": "85b3a75a91ad43d05edb8a61c7cb7f7387b512a8",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/rows"
+      ]
+    },
+    {
+      "id": "r032",
+      "step": "S5.V1",
+      "dataset": "uci_bank_marketing",
+      "classification": "synthetic_numerical_verification",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010446884016Z/alice/results/joint_math_report.json",
+      "source_summary_sha256": "5bb32b9fea7a2ff7c9bc607a97b94c938a4593c83eef3d9787eb7dcbc4dddbc1",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_joint_math_20261005T010446884016Z/code/joint_numerical.yaml",
+        "config_sha256": "ad51a5e8ee2f28a9c3f9ef4fcbecb7a869c205761566c9cdb7f7b4989a6b4834",
+        "runtime_git_sha": "85b3a75a91ad43d05edb8a61c7cb7f7387b512a8",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/rows"
+      ]
+    },
+    {
+      "id": "r033",
+      "step": "S5.V1",
+      "dataset": "uci_bank_marketing",
+      "classification": "synthetic_numerical_verification",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010625839262Z/alice/results/joint_math_report.json",
+      "source_summary_sha256": "abac560b5eb00a4c820094e5675f878257ad5521706c99a9250ad8fb9278f72f",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_joint_math_20261005T010625839262Z/code/joint_numerical.yaml",
+        "config_sha256": "ad51a5e8ee2f28a9c3f9ef4fcbecb7a869c205761566c9cdb7f7b4989a6b4834",
+        "runtime_git_sha": "85b3a75a91ad43d05edb8a61c7cb7f7387b512a8",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 300
+          },
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/rows"
+      ]
+    },
+    {
+      "id": "r034",
+      "step": "S5.E1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "pilot_development",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/特征工程预试验/hillstrom_email_marketing/hillstrom_email_marketing_nonlinear_pilot_20261005T060704462845Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "c0e589b01ba50adf65f77b2f47094bfb96d8f4d637bc7f800940579bcfcd5248",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_nonlinear_pilot_20261005T060704462845Z/code/nonlinear_pilot.yaml",
+        "config_sha256": "1548fb9bedd4d77e4edf3609693672d5a751778ddc189a4e111f131046b06735",
+        "runtime_git_sha": "5ae42e2bdc9f33e6a8f2ea3c664b6a0ed9dfeb4b",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r035",
+      "step": "S5.E1",
+      "dataset": "uci_bank_marketing",
+      "classification": "pilot_development",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/特征工程预试验/uci_bank_marketing/uci_bank_marketing_nonlinear_pilot_20261005T013322902402Z_recovered/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "a6ee5868024688fa878bae1f3db1ef17e48ae59c1dc443deb228c1cad7975323",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_nonlinear_pilot_20261005T013322902402Z/code/nonlinear_pilot.yaml",
+        "config_sha256": "1548fb9bedd4d77e4edf3609693672d5a751778ddc189a4e111f131046b06735",
+        "runtime_git_sha": "5ae42e2bdc9f33e6a8f2ea3c664b6a0ed9dfeb4b",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r036",
+      "step": "S5.E2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "complete_frozen_development",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/完整特征工程训练/hillstrom_email_marketing/hillstrom_email_marketing_nonlinear_full_20261006T073014442434Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "1b071a040ffc16164e5296186ec2fe5c11333484db3664822399e9766a3109c1",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_nonlinear_full_20261006T073014442434Z/code/nonlinear_full.yaml",
+        "config_sha256": "e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51",
+        "runtime_git_sha": "149b9df9123840fe769a82d0cfa3ed776d6071d3",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r037",
+      "step": "S5.E2",
+      "dataset": "uci_bank_marketing",
+      "classification": "complete_frozen_development",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/完整特征工程训练/uci_bank_marketing/uci_bank_marketing_nonlinear_full_20261006T064813414917Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "37b50deac9cb5170ca0a03693965d812bca83360bd7539afcc3b3ca46a597a6a",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_nonlinear_full_20261006T064813414917Z/code/nonlinear_full.yaml",
+        "config_sha256": "e317e4dd708ed60cef2dbfe8652b99c164364e829e3d3d406499735a1e832a51",
+        "runtime_git_sha": "149b9df9123840fe769a82d0cfa3ed776d6071d3",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r038",
+      "step": "S5.E3",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "active_only_math_diagnostic",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/收敛诊断实验/S5E3_20261007_v1/hillstrom_email_marketing/hillstrom_email_marketing_convergence_20261007T110729111324Z/results/private_convergence.json",
+      "source_summary_sha256": "1b690995bf8f6c2bd9f2796700b48344a386682575a7c9731cb2ded6e65f7aed",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_convergence_20261007T110729111324Z/code/convergence_audit.yaml",
+        "config_sha256": "e1f8632b593fc1038aa7dc21f08110042c4fcf194754f012c22c506e8aa977f0",
+        "runtime_git_sha": "8ed9df6ca3c69d5725cffbcfa56aa12b39e894de",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/curves/A0_seed11_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed22_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed33_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed44_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed55_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed11_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed22_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed33_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed44_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed55_epochs48/full_unpadded_gradient_norm",
+        "/native_reference"
+      ]
+    },
+    {
+      "id": "r039",
+      "step": "S5.E3",
+      "dataset": "uci_bank_marketing",
+      "classification": "active_only_math_diagnostic",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/收敛诊断实验/S5E3_20261007_v1/uci_bank_marketing/uci_bank_marketing_convergence_20261007T110653654108Z/results/private_convergence.json",
+      "source_summary_sha256": "52711e364c077fd98e09fc0033761c8fd55fe82023845907b36254840f5cd749",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_convergence_20261007T110653654108Z/code/convergence_audit.yaml",
+        "config_sha256": "e1f8632b593fc1038aa7dc21f08110042c4fcf194754f012c22c506e8aa977f0",
+        "runtime_git_sha": "8ed9df6ca3c69d5725cffbcfa56aa12b39e894de",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005
+          }
+        }
+      },
+      "omitted_fields": [
+        "/curves/A0_seed11_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed22_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed33_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed44_epochs48/full_unpadded_gradient_norm",
+        "/curves/A0_seed55_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed11_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed22_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed33_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed44_epochs48/full_unpadded_gradient_norm",
+        "/curves/A1_seed55_epochs48/full_unpadded_gradient_norm",
+        "/native_reference"
+      ]
+    },
+    {
+      "id": "r040",
+      "step": "S5.E4",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "fixed_combinations_and_controls",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/hillstrom_email_marketing/hillstrom_email_marketing_candidate_full_20261009T140037593343Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "bd5a37a9b71443495c6e7667ccdda15ae06fe4b431a50d51fad08846d33a89ed",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_candidate_full_20261009T140037593343Z/code/candidate_full.yaml",
+        "config_sha256": "b90fb817b901517fd1aa7481323cae00ffc0bcad8317e37c5a3163e89a4bffc1",
+        "runtime_git_sha": "d2eaa284d2711bdeed78c52a5b25ccac57f90953",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005,
+            "negative_seeds": {
+              "train": 202610091,
+              "validation": 202610092
+            }
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r041",
+      "step": "S5.E4",
+      "dataset": "uci_bank_marketing",
+      "classification": "fixed_combinations_and_controls",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/recovery_queue_20261009T1403Z/uci_bank_marketing/uci_bank_marketing_candidate_full_20261009T080927166863Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "f33433bfcddb1f74ce777dd8342a67dbe3e60948ee9e19577c17869dd389ccfd",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_candidate_full_20261009T080927166863Z/code/candidate_full.yaml",
+        "config_sha256": "b90fb817b901517fd1aa7481323cae00ffc0bcad8317e37c5a3163e89a4bffc1",
+        "runtime_git_sha": "d2eaa284d2711bdeed78c52a5b25ccac57f90953",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005,
+            "negative_seeds": {
+              "train": 202610091,
+              "validation": 202610092
+            }
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r042",
+      "step": "S5.E5",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "joint_fixed_budget_diagnostic",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/hillstrom_email_marketing/hillstrom_email_marketing_joint_budget_20261011T143039534134Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "766635fd9a3f024ab080f76e968bfd3b56a23b4966a5b11df77ccf540ea4e7b0",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_joint_budget_20261011T143039534134Z/code/joint_budget.yaml",
+        "config_sha256": "0176cae8e222c92c0f960999892462768256c747a979f85d65b5d8b7760afb4a",
+        "runtime_git_sha": "4aa8955ae5708e10be6eeada6f146572ef684ba3",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005,
+            "negative_seeds": {
+              "train": 202610091,
+              "validation": 202610092
+            }
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r043",
+      "step": "S5.E5",
+      "dataset": "uci_bank_marketing",
+      "classification": "joint_fixed_budget_diagnostic",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/uci_bank_marketing/uci_bank_marketing_joint_budget_20261011T125349400673Z/alice/results/private_feature_evaluation.json",
+      "source_summary_sha256": "c99be90f6793eff7f381ff9c5ae5e67e4c69f5f61e100bbd15a81bb06faa931c",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_joint_budget_20261011T125349400673Z/code/joint_budget.yaml",
+        "config_sha256": "0176cae8e222c92c0f960999892462768256c747a979f85d65b5d8b7760afb4a",
+        "runtime_git_sha": "a051f688a157cf6eaa3fe997d33b046129bedd6f",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {
+            "model_seeds": [
+              11,
+              22,
+              33,
+              44,
+              55
+            ],
+            "split_seed": 20260927,
+            "bootstrap_seed": 20261001,
+            "bootstrap_repeats": 500
+          },
+          "experiment": {
+            "selection_seed": 20261005,
+            "order_seeds": {
+              "11": 101,
+              "22": 102,
+              "33": 103,
+              "44": 104,
+              "55": 105
+            },
+            "bootstrap_seed": 20261005,
+            "negative_seeds": {
+              "train": 202610091,
+              "validation": 202610092
+            }
+          }
+        }
+      },
+      "omitted_fields": [
+        "/records"
+      ]
+    },
+    {
+      "id": "r044",
+      "step": "S7.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "counterfactual_output_pressure",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074405461966Z/alice/results/private_output_audit.json",
+      "source_summary_sha256": "02403e5fcec241e2e438674fa543c034a658163fa0acba1d723709e4c94cf7a4",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_output_audit_20261009T074405461966Z/code/output_audit.yaml",
+        "config_sha256": "297150e0d6d59f602b67f00eaa314f2438dbbd1bf150deaacc3457e7c37b2f5e",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r045",
+      "step": "S7.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "counterfactual_output_pressure",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/hillstrom_email_marketing/hillstrom_email_marketing_output_audit_20261009T075420386115Z/alice/results/private_output_audit.json",
+      "source_summary_sha256": "29be97b98c2503874cb347268fa46d00731dd5dea17a444288b65bbdff2a07e2",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_output_audit_20261009T075420386115Z/code/output_audit.yaml",
+        "config_sha256": "3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r046",
+      "step": "S7.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "counterfactual_output_pressure",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T075250586824Z/alice/results/private_output_audit.json",
+      "source_summary_sha256": "02403e5fcec241e2e438674fa543c034a658163fa0acba1d723709e4c94cf7a4",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_output_audit_20261009T075250586824Z/code/output_audit.yaml",
+        "config_sha256": "3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r047",
+      "step": "S7.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "encrypted_auxiliary_oracle",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074405461966Z/alice/results/private_attribute_audit.json",
+      "source_summary_sha256": "fc80fa97e6a11bed368b7b836594aed4b5ebfc77a97a180c395671ee9804a1e9",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_output_audit_20261009T074405461966Z/code/output_audit.yaml",
+        "config_sha256": "297150e0d6d59f602b67f00eaa314f2438dbbd1bf150deaacc3457e7c37b2f5e",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r048",
+      "step": "S7.P1",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "encrypted_auxiliary_oracle",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/hillstrom_email_marketing/hillstrom_email_marketing_output_audit_20261009T075420386115Z/alice/results/private_attribute_audit.json",
+      "source_summary_sha256": "93ff9904ebfc6bcf53797583608ae812a68ce3f4fd5079b137da34eebd708833",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_output_audit_20261009T075420386115Z/code/output_audit.yaml",
+        "config_sha256": "3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r049",
+      "step": "S7.P1",
+      "dataset": "uci_bank_marketing",
+      "classification": "encrypted_auxiliary_oracle",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T075250586824Z/alice/results/private_attribute_audit.json",
+      "source_summary_sha256": "4133a9887ddc44b7270b19a7ad89cc5deb0b6564e7adfbf580f2a0801dc973ba",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_output_audit_20261009T075250586824Z/code/output_audit.yaml",
+        "config_sha256": "3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae",
+        "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": []
+    },
+    {
+      "id": "r050",
+      "step": "S3.P2",
+      "dataset": "hillstrom_email_marketing",
+      "classification": "bounded_domain_mpc_psi_timing_only",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v3/hillstrom_email_marketing/hillstrom_email_marketing_bounded_psi_20261007T115500427521Z/alice/results/private_timing.json",
+      "source_summary_sha256": "bb39dac62b49ab04993f09957fe0df0c2734717cd63eb277e9aa0b01131b3b47",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/hillstrom_email_marketing_bounded_psi_20261007T115500427521Z/code/bounded_psi.yaml",
+        "config_sha256": "3519574d35d542dcfaa5e212e9f03821d7f9a799d0a3d2db0a021f257e1a1eb3",
+        "runtime_git_sha": "1ae68c5e8242af8250b36a618eddd00bf1fc4d5c",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/universe_rows"
+      ]
+    },
+    {
+      "id": "r051",
+      "step": "S3.P2",
+      "dataset": "uci_bank_marketing",
+      "classification": "bounded_domain_mpc_psi_timing_only",
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v3/uci_bank_marketing/uci_bank_marketing_bounded_psi_20261007T115421038837Z/alice/results/private_timing.json",
+      "source_summary_sha256": "d0254322e9c6568b129e6c0b4413e38ef6676095686cbdc84a9d2be5d2e3ae31",
+      "config_provenance": {
+        "config_path": "/srv/vfl/alice/uci_bank_marketing_bounded_psi_20261007T115421038837Z/code/bounded_psi.yaml",
+        "config_sha256": "3519574d35d542dcfaa5e212e9f03821d7f9a799d0a3d2db0a021f257e1a1eb3",
+        "runtime_git_sha": "1ae68c5e8242af8250b36a618eddd00bf1fc4d5c",
+        "source_owner": "alice",
+        "seed_protocol": {
+          "shared": {},
+          "experiment": {}
+        }
+      },
+      "omitted_fields": [
+        "/universe_rows"
+      ]
+    }
+  ],
+  "execution_inventory": [
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261001T072140393621Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261001T072140393621Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261001T072140393621Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261002T123132938467Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261002T123132938467Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261002T123132938467Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135424185596Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T135606482068Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T145007964500Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T145007964500Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/smoke_hillstrom_email_marketing_functional_20261001T145007964500Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/recovery_uci_bank_marketing_functional_20261001T072111977338Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/recovery_uci_bank_marketing_functional_20261001T072111977338Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/recovery_uci_bank_marketing_functional_20261001T072111977338Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T022701264451Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T022804045348Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T022858364493Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T022947708947Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023028224428Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        -15,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023111888940Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        255,
+        255
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023206030348Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023206030348Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023206030348Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023602280273Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023602280273Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T023602280273Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T063433626515Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T063433626515Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T063433626515Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T064316930486Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T064316930486Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T064316930486Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T134739165836Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        -15,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T134903768321Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        255,
+        255
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135257547509Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135257547509Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135257547509Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135340165991Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135340165991Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T135340165991Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144704847655Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144704847655Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144704847655Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144857706948Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144857706948Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144857706948Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144950988931Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144950988931Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/smoke_uci_bank_marketing_functional_20261001T144950988931Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T023710476850Z/status.json",
+      "original_status": "interrupted",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T063542228519Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        255,
+        -15
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T064404236466Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T135648232655Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T145158736366Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T145158736366Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T145158736366Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        null,
+        null
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T022903100858Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T022903100858Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T022903100858Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T023304196451Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T023304196451Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T023304196451Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T025612118180Z_recovered_20261004T011916824630Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T025612118180Z_recovered_20261004T011916824630Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/hillstrom_email_marketing/hillstrom_email_marketing_active_diagnostic_20261003T025612118180Z_recovered_20261004T011916824630Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        null,
+        null
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T021659728574Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T021759373304Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        255,
+        -15
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022039286809Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        255,
+        -15
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T022726646281Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023046216637Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023046216637Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023046216637Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023511839223Z/alice/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023511839223Z/bob/results/status.json",
+      "original_status": "completed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/同优化器诊断/uci_bank_marketing/uci_bank_marketing_active_diagnostic_20261003T023511839223Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/hillstrom_email_marketing/hillstrom_email_marketing_joint_math_20261005T010733268567Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010331526411Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010446884016Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010625839262Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/特征工程预试验/hillstrom_email_marketing/hillstrom_email_marketing_nonlinear_pilot_20261005T060704462845Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/特征工程预试验/uci_bank_marketing/uci_bank_marketing_nonlinear_pilot_20261005T013322902402Z_recovered/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/完整特征工程训练/hillstrom_email_marketing/hillstrom_email_marketing_nonlinear_full_20261006T073014442434Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/完整特征工程训练/queue_20261006T064813414066Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/完整特征工程训练/uci_bank_marketing/uci_bank_marketing_nonlinear_full_20261006T064813414917Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/收敛诊断实验/S5E3_20261007_v1/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/hillstrom_email_marketing/hillstrom_email_marketing_candidate_full_20261009T140037593343Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/queue_20261009T080927166401Z/status.json",
+      "original_status": "running",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/recovery_queue_20261009T1403Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/多组组合训练/recovery_queue_20261009T1403Z/uci_bank_marketing/uci_bank_marketing_candidate_full_20261009T080927166863Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/driver_20261011T014129460135Z/status.json",
+      "original_status": "running",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/hillstrom_email_marketing/hillstrom_email_marketing_joint_budget_20261011T143039534134Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/queue_20261011T014129505807Z/status.json",
+      "original_status": "running",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/queue_20261011T075103191144Z/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "CalledProcessError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/queue_20261011T125349400323Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/recovery_driver_20261011T075103147508Z/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "CalledProcessError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/recovery_v2_driver_20261011T125338289671Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/联合优化诊断/uci_bank_marketing/uci_bank_marketing_joint_budget_20261011T125349400673Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v1/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "RuntimeError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v1/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074047399177Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        -15
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v2/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "RuntimeError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v2/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074258871119Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/hillstrom_email_marketing/hillstrom_email_marketing_output_audit_20261009T074542216834Z/status.json",
+      "original_status": "failed",
+      "exit_codes": [
+        1,
+        1
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "RuntimeError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v3/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T074405461966Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/hillstrom_email_marketing/hillstrom_email_marketing_output_audit_20261009T075420386115Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/uci_bank_marketing/uci_bank_marketing_output_audit_20261009T075250586824Z/status.json",
+      "original_status": "passed",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v1/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "CalledProcessError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v2/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "RuntimeError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v3/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/S1P5_20261011T014900905059Z/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "CalledProcessError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/S1P5_20261011T015006438892Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/S1P5_20261011T075127676396Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/S1P6_20261011T075459249566Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/S1P6_20261011T075923397262Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/driver_20261011T014900830302Z/status.json",
+      "original_status": "failed",
+      "exit_codes": null,
+      "error_type": "CalledProcessError",
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/driver_p6_20261011T075459196471Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/driver_p6_v2_20261011T075923340307Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/driver_v2_20261011T015006371552Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    },
+    {
+      "source_file": "/Applications/总文件夹/汇丰/8-9月/新增代理准备/driver_v3_20261011T075127614748Z/status.json",
+      "original_status": "passed",
+      "exit_codes": null,
+      "error_type": null,
+      "note": "frozen historical status; old running is not proof of a live process"
+    }
+  ],
+  "existing_repository_result_tables": [
+    "modules/m0_compliance/results/export_mechanism_matrix.csv",
+    "modules/m0_compliance/results/mde_sample_size.csv",
+    "modules/m0_compliance/results/route_A_funnel.csv",
+    "modules/m0_compliance/results/route_B_funnel.csv",
+    "modules/m0_compliance/results/route_C_mechanism_matrix.csv",
+    "modules/m2_synthetic/results/correctness_validation.csv",
+    "modules/m3_alignment/results/misattribution_impact.csv",
+    "modules/m3_alignment/results/psi_cost.csv",
+    "modules/m3_alignment/results/psi_quality.csv",
+    "modules/m5_modeling/results/hyperparam_search.csv",
+    "modules/m5_modeling/results/l1_fairness_test.csv",
+    "modules/m5_modeling/results/l1_placebo_test.csv",
+    "modules/m5_modeling/results/l1_vs_l3_critical.csv",
+    "modules/m5_modeling/results/ladder_results_raw.csv",
+    "modules/m5_modeling/results/ladder_summary.csv",
+    "modules/m5_modeling/results/nonlinear_ladder.csv",
+    "modules/m5_modeling/results/oracle_upper_bound.csv",
+    "modules/m5_modeling/results/sweep_results.csv",
+    "modules/m7_security/results/attack_results.csv",
+    "modules/m7_security/results/feature_inference.csv",
+    "modules/m7_security/results/feature_inference_stronger.csv",
+    "modules/m7_security/results/malicious_boost.csv",
+    "modules/m7_security/results/malicious_probe.csv",
+    "modules/m7_security/results/membership_capacity.csv",
+    "modules/m7_security/results/membership_inference.csv",
+    "modules/m7_security/results/membership_lira.csv",
+    "modules/m7_security/results/model_stealing.csv",
+    "modules/m7_security/results/model_stealing_tail.csv",
+    "modules/m7_security/results/multi_run_accumulation.csv",
+    "modules/m7_security/results/multiround_attack.csv",
+    "modules/m7_security/results/uplink_defense_utility.csv",
+    "modules/m9_documentation/results/consistency_check.csv",
+    "modules/m9_documentation/results/cross_border_flow_registry.csv",
+    "modules/m9_documentation/results/deliverables_check.csv",
+    "modules/m9_documentation/results/risk_traceability.csv"
+  ],
+  "pending_experiments": [
+    "S7.P2: actual new output reevaluation not run; synthetic engineering precheck only",
+    "COIL2000/Criteo/Santander: prepared and sealed, no model training",
+    "group regularization / secure tree / independent unopened confirmation: not run"
+  ],
+  "limitations": [
+    "历史S5.4/S5.P2自评全部通过已被独立复评撤销，旧指标仅作历史记录；全部版本/冒烟不得与最终预注册组混作正式实验。",
+    "共享冻结人群的CI只覆盖已有采样/seed条件，不等于独立人群或银行收益；旧test已查看，不可再作新确认。",
+    "字段切分/重叠率等构造条件需明确标注，特征组AUC差非可加。",
+    "S3.P2只有有限公开域MPC秘密求交，时间是该构造协议的计时，不是原生RR22/千万客户PSI，也尚未接入实际训练。",
+    "S7.P1属性探针为有利辅助条件下的MPC oracle；Bob仍无实际分数权限，常量binary不能以低误差/高重合解释安全或成功窃取。",
+    "只上传公开研究数据集的汇总指标，原始/清洗行数据、逐行分数、身份/交集规模、学习参数、梯度范数、权重和份额均排除。",
+    "S1.P5准备原状态passed但生命周期审计G3失败、升级7/12；S1.P6修复后工程准备完成。准备回执不代表模型训练完成。"
+  ]
+}

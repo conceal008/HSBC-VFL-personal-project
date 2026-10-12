@@ -267,7 +267,12 @@ modules:
     next_step: S9.1
     blocking_on:
     - M0–M8 全部产出
-    open_questions: []
+    open_questions:
+    - S9.R1完整阶段汇总/每seed/CI/失败状态整理完成；main发布回执接续。没有新增攻击或代理模型，公开范围按DR-GOV-012。
+    claimed_at: '2026-10-12T02:26:06.170856+00:00'
+    expires_at: null
+    current_step: null
+    latest_completed_step: S9.R1
 framework_refresh_20260916:
   step_id: S-GOV.11
   status: committed

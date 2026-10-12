@@ -1,0 +1,114 @@
+change_id: CL-20261012-M9-001
+timestamp: '2026-10-12T07:16:39+00:00'
+agent: Codex
+module: M9
+type: feat
+title: 公开当前阶段全部实验汇总指标和失败状态索引
+what: 52评价摘要、124执行状态、35既有结果表索引；逐报告JSON、全部数值长表、完整主指标与索引Notebook、来源/配置/seed/排除字段、失败和失效状态齐备。
+why: 用户要求具体结果可直接在GitHub main查看，原本只公开方法/位置不能满足；仅公开研究汇总，不迁入行级或模型数据。
+links:
+  branch_card: null
+  decision_record: DR-GOV-012
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 只读取本机现有评价摘要；不改变训练数据/分数权限或跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex under explicit owner public-summary authorization
+  conclusion: 按2.7逐文件审查公开研究/合成汇总和每seed指标、原CI/p/验证误差/计时；没有个体反推/小群体统计、身份/交集规模、业务绝对量、机构内部信息、原始行数据、逐行分数/标签、学习状态、梯度范数、权重/份额或凭证。实际训练入口仍清禁止输出；新汇总Notebook只展示这些审核后字段。
+downstream_affected:
+- M5
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 原结果文件不修改，每次新归档版本，已有目录写前拒绝；旧Public日志只保留历史。
+reproducibility:
+  config: modules/m9_documentation/configs/result_archive.yaml
+  config_hash: sha256:410dd71fe26648f7438e2956899e9ee6ca4b77e84ff3eab3c3108c2e344c77d8
+  seeds:
+  - 20261012
+  env_lock: environments/python.lock
+  note: 不生成新随机实验；原模型/划分/攻击seed按源报告/配置保留。55归档文件在新目录同配置重现相同字节。
+rollback: 独立revert当前索引和展示，不删除原私有或冻结公开结果及失效记录。
+verification: 4项投影/禁止字段/CI不变/旧目录拒覆盖测试与Ruff通过；三cell Notebook从目录执行通过且归档哈希不变；新目录55文件字节一致。全量门禁和正常main/远端回执另登记。
+step:
+  step_id: S9.R1
+  step_name: 当前阶段全部结果整理
+  declaration: '# S9.R1 当前阶段全部结果整理
+
+
+    > 编写日期：2026-10-12 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：8–9月当前阶段实际评价JSON、实验状态、已发布合成结果与模块台账
+
+    > 口径基准：所有者保持公开并同步具体结果要求；DR-GOV-012/维护约束§2.7
+
+
+    will_produce:
+
+    - 整理当前阶段全部已有训练/诊断/攻击结果，含正式、探索、冒烟、被取代、失败与未执行状态；提供模型/seed具体指标、CI、配对差值与检验值，不只保留最佳模型。
+
+    - 逐结果来源路径/散列、配置、种子、适用边界及字段排除说明；已发布合成结果建立索引，不覆盖冻结原件；原始指标缺失CI/多seed时如实标注，不补造或重定义。
+
+    - 汇总结果JSON/CSV/Markdown及独立带输出Notebook；只从现有评价摘要读取，不打开原始数据、行级预测或模型文件；正常main同步及系统日志。
+
+    will_not_produce:
+
+    - 不上传原始/清洗行记录、逐行分数/标签、身份/交集规模、学习预处理参数、权重/份额和凭证。
+
+    - 不训练模型，不把S7.P2预检当实际攻击，不把S5.P2旧自评全部通过或旧已见test改称独立确认。
+
+    success_criteria:
+
+    - 所有可用摘要及所有执行状态都有索引，指标与源摘要对应且未更改；导出字段满足审查边界，重复归档写前拒绝覆盖；全部禁用字段不出现在导出中。
+
+    - 全部结果可从仓库查阅、Notebook能从头重建展示，完整门禁及main同步后才开始其他数据集训练。
+
+    risk:
+
+    - 汇总允许公开依据所有者最新指令，不构成生产安全或真实业务收益验证；探索/单seed/已见人群不能冒充确认。
+
+    '
+  scope:
+    files_changed: 70
+    lines_added: 91517
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      G1: 'modules/m9_documentation/S9.R1_公开汇总审查.md:7: reviewed scalars only; raw
+        rows and model material excluded'
+      G2: 'registry/component_declarations/M9-result_archive.yaml:5: no new cross-border
+        assets or prediction recipients'
+      G3: 'modules/m9_documentation/components/result_archive.py:108: declared summary-only
+        sources, validated before output write'
+      G4: 'modules/m9_documentation/configs/result_archive.yaml:1: no model training/CI
+        recomputation or selection'
+      D1: 'modules/m9_documentation/results/current_phase_v1/index.json:1: every report,
+        source, exclusion and historical status indexed'
+      D2: 'modules/m9_documentation/tests/test_result_archive.py:13: CI preservation,
+        raw-field exclusions and frozen repeat refusal'
+      D3: 'modules/m9_documentation/notebooks/S9.R1_result_archive.ipynb:1: executed
+        readonly summary; private 55-file byte-identical reproduction receipt'
+      D4: '实验方法与运行日志_v6.md:7: full actual metrics accessible in main without pretending
+        new science'
+  revisions: 1
+  verdict: committed
+  next_step: 完整main同步后，单独声明其他公开代理数据的双VM开发训练
+  outputs:
+  - modules/m9_documentation/notebooks/S9.R1_result_archive.ipynb
+  - modules/m9_documentation/results/current_phase_v1/
+  - modules/m9_documentation/S9.R1_公开汇总审查.md
+  - docs/03-handoff/HO-20261012-Codex-M9-all-results.md
+  - 实验方法与运行日志_v6.md

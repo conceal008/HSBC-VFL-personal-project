@@ -28,14 +28,36 @@ steps:
   - DPIA.md · model_card.md · cross_border_flow_registry.csv · audit_log_spec.md
   - consent_management_spec.md · data_cards/ · residual_risk_signoff.yaml（未签署且无人可签）
   - 核验过程中抓到一处真实错误：证据映射引用了不存在的 funnel_scenarios.csv
+- step_id: S9.R1
+  step_name: 当前阶段全部具体结果整理
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 1
+  change_id: CL-20261012-M9-001
+  committed_at: '2026-10-12T07:16:39+00:00'
+  outputs:
+  - modules/m9_documentation/results/current_phase_v1/
+  - modules/m9_documentation/notebooks/S9.R1_result_archive.ipynb
+  - 实验方法与运行日志_v6.md
+  note: 52摘要及所有留存状态按原值归档，55文件独立重建一致；无新训练或CI，Public仅审查后汇总。初始nbconvert入口缺失改nbclient；Notebook完整显示与短别名禁止字段防护一轮完成，原失败/快照保留。
 current_step: null
-next_step: S9.2
+next_step: 其他数据集开发训练结果持续归档；正式S9.2仍按前置
 metrics:
-  avg_score: 12.0
+  avg_score: 11.5
   escalation_count: 0
-  revision_rate: null
-  steps_used: 1
-  budget_usage: 0.1
+  revision_rate: 0.5
+  steps_used: 2
+  budget_usage: 0.2
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

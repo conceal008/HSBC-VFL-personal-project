@@ -1,0 +1,85 @@
+{
+  "id": "r033",
+  "step": "S5.V1",
+  "dataset": "uci_bank_marketing",
+  "classification": "synthetic_numerical_verification",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/联合数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261005T010625839262Z/alice/results/joint_math_report.json",
+  "source_summary_sha256": "abac560b5eb00a4c820094e5675f878257ad5521706c99a9250ad8fb9278f72f",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/uci_bank_marketing_joint_math_20261005T010625839262Z/code/joint_numerical.yaml",
+    "config_sha256": "ad51a5e8ee2f28a9c3f9ef4fcbecb7a869c205761566c9cdb7f7b4989a6b4834",
+    "runtime_git_sha": "85b3a75a91ad43d05edb8a61c7cb7f7387b512a8",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11,
+          22,
+          33,
+          44,
+          55
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 300
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [
+    "/rows"
+  ],
+  "results": {
+    "status": "passed",
+    "synthetic_only": true,
+    "dataset": "uci_bank_marketing",
+    "summary": [
+      {
+        "learning_rate": 0.1,
+        "split": "train",
+        "maximum": 0.0003903210163116455,
+        "mean": 0.00037871599197387696,
+        "seed_mean_ci_95": [
+          0.00037131309509277346,
+          0.0003855645656585693
+        ],
+        "seed_count": 5
+      },
+      {
+        "learning_rate": 0.1,
+        "split": "validation",
+        "maximum": 0.0003815293312072754,
+        "mean": 0.0003706991672515869,
+        "seed_mean_ci_95": [
+          0.0003620743751525879,
+          0.0003787636756896973
+        ],
+        "seed_count": 5
+      },
+      {
+        "learning_rate": 0.3,
+        "split": "train",
+        "maximum": 0.0003110170364379883,
+        "mean": 0.00030667781829833983,
+        "seed_mean_ci_95": [
+          0.0003034353256225586,
+          0.0003099203109741211
+        ],
+        "seed_count": 5
+      },
+      {
+        "learning_rate": 0.3,
+        "split": "validation",
+        "maximum": 0.00032979249954223633,
+        "mean": 0.0003123223781585693,
+        "seed_mean_ci_95": [
+          0.0003064621984958649,
+          0.00032147765159606934
+        ],
+        "seed_count": 5
+      }
+    ],
+    "scope": "pure synthetic complete joint numerical verification; no method gain claim",
+    "business_gain_evaluated": false
+  }
+}

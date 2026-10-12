@@ -1,0 +1,384 @@
+{
+  "id": "r048",
+  "step": "S7.P1",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "encrypted_auxiliary_oracle",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/实际输出评估/S7P1_20261009_v4/hillstrom_email_marketing/hillstrom_email_marketing_output_audit_20261009T075420386115Z/alice/results/private_attribute_audit.json",
+  "source_summary_sha256": "93ff9904ebfc6bcf53797583608ae812a68ce3f4fd5079b137da34eebd708833",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/hillstrom_email_marketing_output_audit_20261009T075420386115Z/code/output_audit.yaml",
+    "config_sha256": "3c97f9a498c1920c54f6621535549fa4468a506d09e0e1b0ece58c363c181eae",
+    "runtime_git_sha": "63a2b5ff762b7566b7ac5761e27e8dac3cdb69f5",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {},
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "details": [
+      {
+        "cell": "B1",
+        "seed": 22,
+        "view": "binary",
+        "mse": 0.95098876953125,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.050140380859375
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "view": "rounded",
+        "mse": 0.9560775756835938,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.045642852783203125
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "view": "rounded",
+        "mse": 0.9507369995117188,
+        "reference_mse": 0.9993133544921875,
+        "relative_improvement": 0.04866790771484375
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "view": "baseline",
+        "mse": 0.9560813903808594,
+        "reference_mse": 1.0017929077148438,
+        "relative_improvement": 0.045635223388671875
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "view": "rounded",
+        "mse": 0.9509658813476562,
+        "reference_mse": 1.0011978149414062,
+        "relative_improvement": 0.050182342529296875
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "view": "binary",
+        "mse": 0.9560813903808594,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.045619964599609375
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "view": "baseline",
+        "mse": 0.9480781555175781,
+        "reference_mse": 0.9991378784179688,
+        "relative_improvement": 0.051166534423828125
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "view": "binary",
+        "mse": 0.95098876953125,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.0501556396484375
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "view": "rounded",
+        "mse": 0.9480743408203125,
+        "reference_mse": 0.9991378784179688,
+        "relative_improvement": 0.0511627197265625
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "view": "binary",
+        "mse": 0.9480819702148438,
+        "reference_mse": 0.9991416931152344,
+        "relative_improvement": 0.0511627197265625
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "view": "binary",
+        "mse": 0.95074462890625,
+        "reference_mse": 0.9993133544921875,
+        "relative_improvement": 0.048664093017578125
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "view": "exact",
+        "mse": 0.9560775756835938,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.04564666748046875
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "view": "rounded",
+        "mse": 0.950714111328125,
+        "reference_mse": 0.9993133544921875,
+        "relative_improvement": 0.048694610595703125
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "view": "baseline",
+        "mse": 0.9536819458007812,
+        "reference_mse": 0.9994087219238281,
+        "relative_improvement": 0.045806884765625
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "view": "rounded",
+        "mse": 0.953643798828125,
+        "reference_mse": 0.9994049072265625,
+        "relative_improvement": 0.0458526611328125
+      },
+      {
+        "cell": "B0",
+        "seed": 44,
+        "view": "exact",
+        "mse": 0.9560699462890625,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.0456390380859375
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "view": "exact",
+        "mse": 0.9509849548339844,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.050159454345703125
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "view": "binary",
+        "mse": 0.95074462890625,
+        "reference_mse": 0.9993133544921875,
+        "relative_improvement": 0.048656463623046875
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "view": "binary",
+        "mse": 0.9536857604980469,
+        "reference_mse": 0.9994087219238281,
+        "relative_improvement": 0.045810699462890625
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "view": "baseline",
+        "mse": 0.9507408142089844,
+        "reference_mse": 0.9993133544921875,
+        "relative_improvement": 0.04866790771484375
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "view": "binary",
+        "mse": 0.9480819702148438,
+        "reference_mse": 0.9991340637207031,
+        "relative_improvement": 0.05115509033203125
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "view": "exact",
+        "mse": 0.9480705261230469,
+        "reference_mse": 0.9991378784179688,
+        "relative_improvement": 0.051166534423828125
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "view": "baseline",
+        "mse": 0.95367431640625,
+        "reference_mse": 0.9994049072265625,
+        "relative_improvement": 0.0458221435546875
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "view": "exact",
+        "mse": 0.9480705261230469,
+        "reference_mse": 0.9991340637207031,
+        "relative_improvement": 0.05117034912109375
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "view": "binary",
+        "mse": 0.9560813903808594,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.045627593994140625
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "view": "rounded",
+        "mse": 0.95367431640625,
+        "reference_mse": 0.9994087219238281,
+        "relative_improvement": 0.045806884765625
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "view": "baseline",
+        "mse": 0.95098876953125,
+        "reference_mse": 1.0011978149414062,
+        "relative_improvement": 0.050159454345703125
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "view": "exact",
+        "mse": 0.9536628723144531,
+        "reference_mse": 0.9994087219238281,
+        "relative_improvement": 0.045825958251953125
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "view": "exact",
+        "mse": 0.9509811401367188,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.05014801025390625
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "view": "baseline",
+        "mse": 0.95074462890625,
+        "reference_mse": 0.9993171691894531,
+        "relative_improvement": 0.048656463623046875
+      },
+      {
+        "cell": "B1",
+        "seed": 22,
+        "view": "baseline",
+        "mse": 0.95098876953125,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.050151824951171875
+      },
+      {
+        "cell": "B1",
+        "seed": 11,
+        "view": "rounded",
+        "mse": 0.9480476379394531,
+        "reference_mse": 0.9991378784179688,
+        "relative_improvement": 0.051189422607421875
+      },
+      {
+        "cell": "B0",
+        "seed": 22,
+        "view": "rounded",
+        "mse": 0.95098876953125,
+        "reference_mse": 1.0011940002441406,
+        "relative_improvement": 0.050151824951171875
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "view": "rounded",
+        "mse": 0.9560546875,
+        "reference_mse": 1.0017890930175781,
+        "relative_improvement": 0.045650482177734375
+      },
+      {
+        "cell": "B1",
+        "seed": 44,
+        "view": "baseline",
+        "mse": 0.956085205078125,
+        "reference_mse": 1.0017929077148438,
+        "relative_improvement": 0.04563140869140625
+      },
+      {
+        "cell": "B0",
+        "seed": 11,
+        "view": "baseline",
+        "mse": 0.9480819702148438,
+        "reference_mse": 0.9991340637207031,
+        "relative_improvement": 0.051158905029296875
+      },
+      {
+        "cell": "B1",
+        "seed": 55,
+        "view": "exact",
+        "mse": 0.9536666870117188,
+        "reference_mse": 0.9994049072265625,
+        "relative_improvement": 0.04582977294921875
+      },
+      {
+        "cell": "B0",
+        "seed": 33,
+        "view": "exact",
+        "mse": 0.9507369995117188,
+        "reference_mse": 0.9993171691894531,
+        "relative_improvement": 0.04866790771484375
+      },
+      {
+        "cell": "B1",
+        "seed": 33,
+        "view": "exact",
+        "mse": 0.9507331848144531,
+        "reference_mse": 0.9993171691894531,
+        "relative_improvement": 0.04868316650390625
+      },
+      {
+        "cell": "B0",
+        "seed": 55,
+        "view": "binary",
+        "mse": 0.9536819458007812,
+        "reference_mse": 0.9994049072265625,
+        "relative_improvement": 0.04579925537109375
+      }
+    ],
+    "paired": {
+      "B0_exact_mse_reduction": {
+        "estimate": 1.068115234375e-05,
+        "ci_low": 6.866455078125e-06,
+        "ci_high": 1.52587890625e-05,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      },
+      "B0_rounded_mse_reduction": {
+        "estimate": 5.340576171875e-06,
+        "ci_low": 2.288818359375e-06,
+        "ci_high": 7.62939453125e-06,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      },
+      "B0_binary_mse_reduction": {
+        "estimate": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      },
+      "B1_exact_mse_reduction": {
+        "estimate": 7.62939453125e-06,
+        "ci_low": 7.62939453125e-06,
+        "ci_high": 7.62939453125e-06,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      },
+      "B1_rounded_mse_reduction": {
+        "estimate": 2.8228759765625e-05,
+        "ci_low": 2.5177001953125e-05,
+        "ci_high": 3.0517578125e-05,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      },
+      "B1_binary_mse_reduction": {
+        "estimate": -3.0517578125e-06,
+        "ci_low": -8.392333984375e-06,
+        "ci_high": 1.52587890625e-06,
+        "scope": "attack/model seed conditional interval; five seeds share one data source"
+      }
+    },
+    "auxiliary_fit_and_eval_disjoint": true,
+    "plaintext_truth_or_weights_disclosed": false,
+    "threat_scope": "generous auxiliary-learning oracle in MPC; not current party Bob access or proof of no leakage"
+  }
+}

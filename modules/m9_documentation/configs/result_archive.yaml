@@ -1,0 +1,86 @@
+step_id: S9.R1
+seeds:
+  archive: 20261012
+datasets:
+- uci_bank_marketing
+- hillstrom_email_marketing
+sources:
+- step: S5.P1
+  kind: l0
+  pattern: 联邦训练结果/*/alice/l0_private_metrics.json
+  classification: historical_l0_multiple_versions
+- step: S5.P2
+  kind: functional
+  pattern: 功能模拟训练/*/*/alice/results/private_evaluation.json
+  classification: historical_acceptance_invalidated_S5P2
+- step: S5.P3
+  kind: diagnostic
+  pattern: 同优化器诊断/*/*/alice/results/private_diagnostic.json
+  classification: development_diagnostic_multiple_versions
+- step: S5.V1
+  kind: math
+  pattern: 联合数学核验/*/*/alice/results/joint_math_report.json
+  classification: synthetic_numerical_verification
+- step: S5.E1
+  kind: feature
+  pattern: 特征工程预试验/*/*/alice/results/private_feature_evaluation.json
+  classification: pilot_development
+- step: S5.E2
+  kind: feature
+  pattern: 完整特征工程训练/*/*/alice/results/private_feature_evaluation.json
+  classification: complete_frozen_development
+- step: S5.E3
+  kind: convergence
+  pattern: 收敛诊断实验/S5E3_20261007_v1/*/*/results/private_convergence.json
+  classification: active_only_math_diagnostic
+- step: S5.E4
+  kind: feature
+  pattern: 多组组合训练/**/alice/results/private_feature_evaluation.json
+  classification: fixed_combinations_and_controls
+- step: S5.E5
+  kind: feature
+  pattern: 联合优化诊断/*/*/alice/results/private_feature_evaluation.json
+  classification: joint_fixed_budget_diagnostic
+- step: S7.P1
+  kind: output
+  pattern: 实际输出评估/S7P1_*/*/*/alice/results/private_output_audit.json
+  classification: counterfactual_output_pressure
+- step: S7.P1
+  kind: attribute
+  pattern: 实际输出评估/S7P1_*/*/*/alice/results/private_attribute_audit.json
+  classification: encrypted_auxiliary_oracle
+- step: S3.P2
+  kind: timing
+  pattern: 秘密求交实验/S3P2_*/*/*/alice/results/private_timing.json
+  classification: bounded_domain_mpc_psi_timing_only
+status_folders:
+- 联邦训练结果
+- 功能模拟训练
+- 同优化器诊断
+- 联合数学核验
+- 特征工程预试验
+- 完整特征工程训练
+- 收敛诊断实验
+- 多组组合训练
+- 联合优化诊断
+- 实际输出评估
+- 秘密求交实验
+- 新增代理准备
+pending:
+- 'S7.P2: actual new output reevaluation not run; synthetic engineering precheck only'
+- 'COIL2000/Criteo/Santander: prepared and sealed, no model training'
+- 'group regularization / secure tree / independent unopened confirmation: not run'
+limitations:
+- 历史S5.4/S5.P2自评全部通过已被独立复评撤销，旧指标仅作历史记录；全部版本/冒烟不得与最终预注册组混作正式实验。
+- 共享冻结人群的CI只覆盖已有采样/seed条件，不等于独立人群或银行收益；旧test已查看，不可再作新确认。
+- 字段切分/重叠率等构造条件需明确标注，特征组AUC差非可加。
+- S3.P2只有有限公开域MPC秘密求交，时间是该构造协议的计时，不是原生RR22/千万客户PSI，也尚未接入实际训练。
+- S7.P1属性探针为有利辅助条件下的MPC oracle；Bob仍无实际分数权限，常量binary不能以低误差/高重合解释安全或成功窃取。
+- 只上传公开研究数据集的汇总指标，原始/清洗行数据、逐行分数、身份/交集规模、学习参数、梯度范数、权重和份额均排除。
+- S1.P5准备原状态passed但生命周期审计G3失败、升级7/12；S1.P6修复后工程准备完成。准备回执不代表模型训练完成。
+display_metrics:
+- roc_auc
+- centered_qini
+- mean_centered_qini
+- auc
+- mse_reduction

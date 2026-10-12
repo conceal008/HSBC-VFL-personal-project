@@ -1,0 +1,198 @@
+{
+  "id": "r001",
+  "step": "S5.P1",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "historical_l0_multiple_versions",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/hillstrom_email_marketing_l0_20260930T013517178243Z/alice/l0_private_metrics.json",
+  "source_summary_sha256": "744b8095f2c0033ba8fcfa38f421ad9359d2c47f5ce483c20806f29c182b8f20",
+  "config_provenance": {
+    "config_path": null,
+    "config_sha256": null,
+    "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+    "source_owner": "alice"
+  },
+  "omitted_fields": [
+    "/input_sha256",
+    "/isolation_checks",
+    "/prepared_experiment"
+  ],
+  "results": {
+    "dataset": "hillstrom_email_marketing",
+    "status": "l0_only",
+    "selected_alpha": 0.001,
+    "model_seeds": [
+      11,
+      22,
+      33,
+      44,
+      55
+    ],
+    "split_seed": 20260927,
+    "bootstrap_seed": 20260930,
+    "config_sha256": "5913b6da969d3ec0664e03fab490d64e9897d60257c561169b19b4b1c7b13b51",
+    "code_sha256": "a140f27b22eeff8afe48553e139dd80379aa5ea0c129b0d249c7f4be1ea717e9",
+    "git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+    "metrics": [
+      {
+        "seed": 11,
+        "treatment_arm": 1,
+        "centered_qini": {
+          "estimate": 0.00025337354719437574,
+          "ci_low": -0.001138409337344578,
+          "ci_high": 0.001408704152660805,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.008117027919008117,
+          "ci_low": -0.007413796912766173,
+          "ci_high": 0.020834687083664448,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 11,
+        "treatment_arm": 2,
+        "centered_qini": {
+          "estimate": 0.0002126025507472805,
+          "ci_low": -0.0009574777491545228,
+          "ci_high": 0.0012517425195604057,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": -0.0001534439645373949,
+          "ci_low": -0.011716729306442334,
+          "ci_high": 0.010721936525301914,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 22,
+        "treatment_arm": 1,
+        "centered_qini": {
+          "estimate": 0.00017722991376426612,
+          "ci_low": -0.001324181570484834,
+          "ci_high": 0.001711400136821172,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.010019480773202496,
+          "ci_low": -0.005462323405261341,
+          "ci_high": 0.02696584925526987,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 22,
+        "treatment_arm": 2,
+        "centered_qini": {
+          "estimate": 0.0003616368814881428,
+          "ci_low": -0.0007469161205572881,
+          "ci_high": 0.0014799606837259435,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.0017970065056184883,
+          "ci_low": -0.012706381732769865,
+          "ci_high": 0.013538905440721895,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 33,
+        "treatment_arm": 1,
+        "centered_qini": {
+          "estimate": 0.0001079174244610982,
+          "ci_low": -0.0012712350311923151,
+          "ci_high": 0.0013042164630754443,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.010089285714285716,
+          "ci_low": -0.005646028147991378,
+          "ci_high": 0.026472801417401885,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 33,
+        "treatment_arm": 2,
+        "centered_qini": {
+          "estimate": 0.00037708388010672606,
+          "ci_low": -0.0006766354125355339,
+          "ci_high": 0.0016741065014294044,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.0024093647005341504,
+          "ci_low": -0.010861785941528685,
+          "ci_high": 0.01571616268410807,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 44,
+        "treatment_arm": 1,
+        "centered_qini": {
+          "estimate": 0.0001063056422208045,
+          "ci_low": -0.0011534347880047455,
+          "ci_high": 0.001421655965503354,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.010019480773202496,
+          "ci_low": -0.00432659358152731,
+          "ci_high": 0.02579564489112228,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 44,
+        "treatment_arm": 2,
+        "centered_qini": {
+          "estimate": 0.0004360832785693951,
+          "ci_low": -0.0006474122272964293,
+          "ci_high": 0.0015516563802961951,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.0032326359642133543,
+          "ci_low": -0.013128264314272818,
+          "ci_high": 0.015677391799544412,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 55,
+        "treatment_arm": 1,
+        "centered_qini": {
+          "estimate": 0.00019955431656038907,
+          "ci_low": -0.0009120784148777912,
+          "ci_high": 0.0012705443611714458,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.010019480773202496,
+          "ci_low": -0.005878451230868135,
+          "ci_high": 0.026625944918627846,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 55,
+        "treatment_arm": 2,
+        "centered_qini": {
+          "estimate": 0.0005141761531926596,
+          "ci_low": -0.0007804789915427719,
+          "ci_high": 0.001752098323972273,
+          "bootstrap_valid": 300
+        },
+        "uplift_at_top_k": {
+          "estimate": 0.006922027733575813,
+          "ci_low": -0.006052227929188973,
+          "ci_high": 0.02175756907424711,
+          "bootstrap_valid": 300
+        }
+      }
+    ]
+  }
+}

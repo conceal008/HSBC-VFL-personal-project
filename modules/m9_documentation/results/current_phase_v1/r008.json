@@ -1,0 +1,143 @@
+{
+  "id": "r008",
+  "step": "S5.P1",
+  "dataset": "uci_bank_marketing",
+  "classification": "historical_l0_multiple_versions",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/联邦训练结果/uci_bank_marketing_l0_20260930T065931084716Z/alice/l0_private_metrics.json",
+  "source_summary_sha256": "925a6de66f32e11d947d56d1edc0545f91e81392dc54a7bb5846346e41e066c9",
+  "config_provenance": {
+    "config_path": null,
+    "config_sha256": null,
+    "runtime_git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+    "source_owner": "alice"
+  },
+  "omitted_fields": [
+    "/input_sha256",
+    "/isolation_checks",
+    "/prepared_experiment"
+  ],
+  "results": {
+    "dataset": "uci_bank_marketing",
+    "status": "l0_only",
+    "selected_alpha": 0.001,
+    "model_seeds": [
+      11,
+      22,
+      33,
+      44,
+      55
+    ],
+    "split_seed": 20260927,
+    "bootstrap_seed": 20260930,
+    "config_sha256": "5913b6da969d3ec0664e03fab490d64e9897d60257c561169b19b4b1c7b13b51",
+    "code_sha256": "4f948defb39d7ccc4974028d2865d00157979f4f126021e0364af4a968b46c10",
+    "git_sha": "31028763c3363c1600adea11560f1fd9bb0c2d59",
+    "metrics": [
+      {
+        "seed": 11,
+        "roc_auc": {
+          "estimate": 0.47254387928997027,
+          "ci_low": 0.460398422085642,
+          "ci_high": 0.48587833273262454,
+          "bootstrap_valid": 300
+        },
+        "pr_auc": {
+          "estimate": 0.3003135562113656,
+          "ci_low": 0.287516222089707,
+          "ci_high": 0.31630465463823626,
+          "bootstrap_valid": 300
+        },
+        "recall_at_top_k": {
+          "estimate": 0.0984251968503937,
+          "ci_low": 0.08872719952260096,
+          "ci_high": 0.10906699428828205,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 22,
+        "roc_auc": {
+          "estimate": 0.47323967995311805,
+          "ci_low": 0.4592523333584573,
+          "ci_high": 0.48624534558537363,
+          "bootstrap_valid": 300
+        },
+        "pr_auc": {
+          "estimate": 0.2998379174988849,
+          "ci_low": 0.28575853488307845,
+          "ci_high": 0.3150905735035264,
+          "bootstrap_valid": 300
+        },
+        "recall_at_top_k": {
+          "estimate": 0.09724409448818898,
+          "ci_low": 0.08761564596053278,
+          "ci_high": 0.10668902104830866,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 33,
+        "roc_auc": {
+          "estimate": 0.46277236672430166,
+          "ci_low": 0.4488379979533813,
+          "ci_high": 0.4751269551832055,
+          "bootstrap_valid": 300
+        },
+        "pr_auc": {
+          "estimate": 0.2905790333638868,
+          "ci_low": 0.2782622782006656,
+          "ci_high": 0.3030941441407877,
+          "bootstrap_valid": 300
+        },
+        "recall_at_top_k": {
+          "estimate": 0.08740157480314961,
+          "ci_low": 0.07792414495960748,
+          "ci_high": 0.09744181068282884,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 44,
+        "roc_auc": {
+          "estimate": 0.47692983874646,
+          "ci_low": 0.4634778715356615,
+          "ci_high": 0.4894067013802671,
+          "bootstrap_valid": 300
+        },
+        "pr_auc": {
+          "estimate": 0.29916242398552795,
+          "ci_low": 0.2875228528582158,
+          "ci_high": 0.31323707615359325,
+          "bootstrap_valid": 300
+        },
+        "recall_at_top_k": {
+          "estimate": 0.09566929133858268,
+          "ci_low": 0.08719098455939758,
+          "ci_high": 0.1039980290711998,
+          "bootstrap_valid": 300
+        }
+      },
+      {
+        "seed": 55,
+        "roc_auc": {
+          "estimate": 0.4765222129619264,
+          "ci_low": 0.46174455426651784,
+          "ci_high": 0.48941988597466923,
+          "bootstrap_valid": 300
+        },
+        "pr_auc": {
+          "estimate": 0.3032573449625134,
+          "ci_low": 0.28941919807061345,
+          "ci_high": 0.31766451232510334,
+          "bootstrap_valid": 300
+        },
+        "recall_at_top_k": {
+          "estimate": 0.09251968503937008,
+          "ci_low": 0.08374551971326165,
+          "ci_high": 0.10313495363178868,
+          "bootstrap_valid": 300
+        }
+      }
+    ]
+  }
+}

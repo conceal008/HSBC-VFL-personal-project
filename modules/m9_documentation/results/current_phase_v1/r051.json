@@ -1,0 +1,30 @@
+{
+  "id": "r051",
+  "step": "S3.P2",
+  "dataset": "uci_bank_marketing",
+  "classification": "bounded_domain_mpc_psi_timing_only",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v3/uci_bank_marketing/uci_bank_marketing_bounded_psi_20261007T115421038837Z/alice/results/private_timing.json",
+  "source_summary_sha256": "d0254322e9c6568b129e6c0b4413e38ef6676095686cbdc84a9d2be5d2e3ae31",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/uci_bank_marketing_bounded_psi_20261007T115421038837Z/code/bounded_psi.yaml",
+    "config_sha256": "3519574d35d542dcfaa5e212e9f03821d7f9a799d0a3d2db0a021f257e1a1eb3",
+    "runtime_git_sha": "1ae68c5e8242af8250b36a618eddd00bf1fc4d5c",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {},
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [
+    "/universe_rows"
+  ],
+  "results": {
+    "seconds": [
+      14.013316382013727,
+      4.404725399974268,
+      3.2372495989548042,
+      3.8085618420154788,
+      3.8733133380301297
+    ]
+  }
+}

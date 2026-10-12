@@ -1,0 +1,8 @@
+component: result_archive
+module: M9
+path: modules/m9_documentation/components/result_archive.py
+purpose: 仅整理已审查评价摘要的汇总指标/seed/CI和失败状态，不读取原始或行级模型数据
+cross_border_assets: []
+cross_border_note: 按DR-GOV-012由所有者明确授权公开研究汇总，不改训练协议或各方数据/分数权限。
+tests:
+- modules/m9_documentation/tests/test_result_archive.py

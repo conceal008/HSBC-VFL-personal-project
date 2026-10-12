@@ -1,0 +1,776 @@
+{
+  "id": "r024",
+  "step": "S5.P2",
+  "dataset": "uci_bank_marketing",
+  "classification": "historical_acceptance_invalidated_S5P2",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/uci_bank_marketing/uci_bank_marketing_functional_20261001T145158736366Z/alice/results/private_evaluation.json",
+  "source_summary_sha256": "c9ed6d067f6c8258697c953568bce8b91cce56e72133fc58f5ed93001d81947c",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/uci_bank_marketing_functional_20261001T145158736366Z/code/local_functional.yaml",
+    "config_sha256": "dfb23264ed6b0a98cc6f7879ad6591227c9eaa4614de40d435782d2c2c34668a",
+    "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11,
+          22,
+          33,
+          44,
+          55
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 300
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "status": "completed",
+    "selection": "validation only; strongest L0 selected within family grid",
+    "round": "uci_bank_marketing_functional_20261001T145158736366Z",
+    "metrics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed11_candidate2",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5352248869760158,
+            "ci_low": 0.5214734467502842,
+            "ci_high": 0.5478809447580899,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33472525277192966,
+            "ci_low": 0.3216124767774931,
+            "ci_high": 0.3515266378759609,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11968503892421722,
+            "ci_low": 0.11028496008366347,
+            "ci_high": 0.13142242543399332,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5266361007796616,
+            "ci_low": 0.5146832269803844,
+            "ci_high": 0.5403647582137897,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33760315287973086,
+            "ci_low": 0.32265055129743064,
+            "ci_high": 0.353521945642763,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11968503892421722,
+            "ci_low": 0.11104409378021955,
+            "ci_high": 0.13032595105469227,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed11_candidate1",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.34491077635832645,
+            "ci_low": 0.332961295773538,
+            "ci_high": 0.35690644439959995,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.23012029301055995,
+            "ci_low": 0.22158380549422946,
+            "ci_high": 0.23911500915867412,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.03937007859349251,
+            "ci_low": 0.03239626782014966,
+            "ci_high": 0.045750169176608325,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed22_candidate2",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.501214688211367,
+            "ci_low": 0.48891982112502763,
+            "ci_high": 0.5130546462083567,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.3101384589916494,
+            "ci_low": 0.2982545258135491,
+            "ci_high": 0.32396258435195985,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.08464566618204117,
+            "ci_low": 0.0893945936113596,
+            "ci_high": 0.10945056825876234,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed22_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5246847007473197,
+            "ci_low": 0.5120684649757865,
+            "ci_high": 0.5368779142794169,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33676267843478364,
+            "ci_low": 0.3223753665356399,
+            "ci_high": 0.35262965001151714,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11889763921499252,
+            "ci_low": 0.10732091255486012,
+            "ci_high": 0.12929430641233922,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed22_candidate1",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.34939486730825314,
+            "ci_low": 0.33910643754938913,
+            "ci_high": 0.36164283122583624,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.2315153047389556,
+            "ci_low": 0.22461483793329834,
+            "ci_high": 0.24135718440682527,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.03976377844810486,
+            "ci_low": 0.033352846000343564,
+            "ci_high": 0.045552417449653146,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed33_candidate2",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5194802417075433,
+            "ci_low": 0.5073523081668975,
+            "ci_high": 0.5346795014752526,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33185094838165446,
+            "ci_low": 0.3170877934117432,
+            "ci_high": 0.3480710099058515,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.12086614221334457,
+            "ci_low": 0.11185680665075778,
+            "ci_high": 0.13304941579699514,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed33_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5254453234814842,
+            "ci_low": 0.5114890888476413,
+            "ci_high": 0.5384030877916691,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.3371930035212063,
+            "ci_low": 0.3225894785910777,
+            "ci_high": 0.35201082990716215,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11968503892421722,
+            "ci_low": 0.11017829272896051,
+            "ci_high": 0.1291656073182821,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed33_candidate1",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.3491003346145713,
+            "ci_low": 0.3362077681966831,
+            "ci_high": 0.36025493565133565,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.23133360963506272,
+            "ci_low": 0.22289310374183877,
+            "ci_high": 0.2401336698042698,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.03897637873888016,
+            "ci_low": 0.032545740250498056,
+            "ci_high": 0.04654565975069999,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed44_candidate2",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5251254977409024,
+            "ci_low": 0.5120799883934359,
+            "ci_high": 0.5383895824217897,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.32532120998295744,
+            "ci_low": 0.31135954100142343,
+            "ci_high": 0.33986099176670387,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.12047243863344193,
+            "ci_low": 0.1099859993904829,
+            "ci_high": 0.13065231665968893,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed44_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5232504260427162,
+            "ci_low": 0.5091642994166526,
+            "ci_high": 0.5360624644163321,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33579449778049547,
+            "ci_low": 0.31791841165615786,
+            "ci_high": 0.3529319950724788,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11771653592586517,
+            "ci_low": 0.10703471526503563,
+            "ci_high": 0.12790914662182332,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed44_candidate1",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.3506661884484029,
+            "ci_low": 0.33835411438771734,
+            "ci_high": 0.3619623523980566,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.2319248325507636,
+            "ci_low": 0.22305786439134376,
+            "ci_high": 0.2429101829250066,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.03937007859349251,
+            "ci_low": 0.03339331271126866,
+            "ci_high": 0.04571752361953258,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed55_candidate2",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5350934806135015,
+            "ci_low": 0.5213449233222698,
+            "ci_high": 0.5491852728692419,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.32695315603729663,
+            "ci_low": 0.3119328765306596,
+            "ci_high": 0.3410298087748633,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.09527558833360672,
+            "ci_low": 0.08900037482380867,
+            "ci_high": 0.10774797666817904,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed55_candidate0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.5251316136825709,
+            "ci_low": 0.5115199461120349,
+            "ci_high": 0.538063872293258,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.33681665868421906,
+            "ci_low": 0.32139610548071695,
+            "ci_high": 0.3518173949485625,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.11929133534431458,
+            "ci_low": 0.11010215133428573,
+            "ci_high": 0.1305954523384571,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed55_candidate1",
+        "metrics": {
+          "roc_auc": {
+            "estimate": 0.35144156545992566,
+            "ci_low": 0.3400908869526758,
+            "ci_high": 0.364545143164506,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": 0.23235728109903486,
+            "ci_low": 0.22318519265623715,
+            "ci_high": 0.24177915567633293,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": 0.04094488173723221,
+            "ci_low": 0.033891547471284866,
+            "ci_high": 0.04879342727363109,
+            "valid_replicates": 300
+          }
+        }
+      }
+    ],
+    "paired_differences": [
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.19031411061768932,
+            "ci_low": -0.20759597037389738,
+            "ci_high": -0.17502652298640803,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10460495976136971,
+            "ci_low": -0.11659474697231786,
+            "ci_high": -0.09338189942528301,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.08031496033072472,
+            "ci_low": -0.09419030034914613,
+            "ci_high": -0.07012442098930478,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.18172532442133515,
+            "ci_low": -0.19600707283234003,
+            "ci_high": -0.16759544498412904,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10748285986917092,
+            "ci_low": -0.11947266267543431,
+            "ci_high": -0.09767106065581273,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.08031496033072472,
+            "ci_low": -0.09130641240626573,
+            "ci_high": -0.07084930548444392,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.1518198209031139,
+            "ci_low": -0.16612483848353904,
+            "ci_high": -0.13551065980398527,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.07862315425269378,
+            "ci_low": -0.08828052063041181,
+            "ci_high": -0.06863193196899864,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.04488188773393631,
+            "ci_low": -0.07300516767427326,
+            "ci_high": -0.0482302694581449,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.1752898334390665,
+            "ci_low": -0.1891472395515324,
+            "ci_high": -0.15948029963851282,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10524737369582804,
+            "ci_low": -0.11668213276158919,
+            "ci_high": -0.09343323422172328,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.07913386076688766,
+            "ci_low": -0.08996959254145623,
+            "ci_high": -0.06714495178312063,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.17037990709297196,
+            "ci_low": -0.18795763243277813,
+            "ci_high": -0.15341004325289337,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10051733874659174,
+            "ci_low": -0.11520744430460615,
+            "ci_high": -0.08933156005724169,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.08188976347446442,
+            "ci_low": -0.09482945762574672,
+            "ci_high": -0.07095224633812906,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.1763449888669129,
+            "ci_low": -0.19092844294720843,
+            "ci_high": -0.16180595810053053,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10585939388614357,
+            "ci_low": -0.1172309520148654,
+            "ci_high": -0.09534553796071739,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.08070866018533707,
+            "ci_low": -0.09085589079186321,
+            "ci_high": -0.06833730200305582,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.17445930929249953,
+            "ci_low": -0.19211352189292005,
+            "ci_high": -0.15775287627331933,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.09339637743219384,
+            "ci_low": -0.10442092262049664,
+            "ci_high": -0.08279425442357236,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.08110236003994942,
+            "ci_low": -0.09385351082310081,
+            "ci_high": -0.06879204092547297,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.1725842375943133,
+            "ci_low": -0.18614154617536427,
+            "ci_high": -0.15789065693767512,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.10386966522973187,
+            "ci_low": -0.11450843492956217,
+            "ci_high": -0.09203036648156143,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.07834645733237267,
+            "ci_low": -0.0892660797573626,
+            "ci_high": -0.06694985963404179,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.18365191515357582,
+            "ci_low": -0.19948095093157825,
+            "ci_high": -0.1665852343221498,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.09459587493826177,
+            "ci_low": -0.10512986364204499,
+            "ci_high": -0.08386468748279931,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.05433070659637451,
+            "ci_low": -0.06775342281907797,
+            "ci_high": -0.046557707898318784,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "roc_auc": {
+            "estimate": -0.17369004822264522,
+            "ci_low": -0.18733749634343372,
+            "ci_high": -0.15894425356072966,
+            "valid_replicates": 300
+          },
+          "pr_auc": {
+            "estimate": -0.1044593775851842,
+            "ci_low": -0.11605911570431532,
+            "ci_high": -0.09320685301591775,
+            "valid_replicates": 300
+          },
+          "recall_at_top_k": {
+            "estimate": -0.07834645360708237,
+            "ci_low": -0.09056579945608974,
+            "ci_high": -0.06720486162230373,
+            "valid_replicates": 300
+          }
+        }
+      }
+    ],
+    "output_attack_diagnostics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "loss_attack_auc": 0.69906340625,
+        "ci_low": 0.6879676179687501,
+        "ci_high": 0.70971815859375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.71100328125,
+        "ci_low": 0.70026959140625,
+        "ci_high": 0.7223529320312501,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.7488758437499999,
+        "ci_low": 0.73762344296875,
+        "ci_high": 0.7604081859375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L0",
+        "loss_attack_auc": 0.6998340937499999,
+        "ci_low": 0.68862228671875,
+        "ci_high": 0.7116143828125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.7047708750000001,
+        "ci_low": 0.6941679992187498,
+        "ci_high": 0.71584862109375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.7595918437500001,
+        "ci_low": 0.7488743625,
+        "ci_high": 0.7708651125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L0",
+        "loss_attack_auc": 0.67624834375,
+        "ci_low": 0.6647544351562501,
+        "ci_high": 0.6865807429687499,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.7093819687499999,
+        "ci_low": 0.6977412773437501,
+        "ci_high": 0.72057926796875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.75524225,
+        "ci_low": 0.7441441359375,
+        "ci_high": 0.76412625625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L0",
+        "loss_attack_auc": 0.7018912500000001,
+        "ci_low": 0.68982781875,
+        "ci_high": 0.71386282109375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.7117079375,
+        "ci_low": 0.6999151375,
+        "ci_high": 0.72177970859375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.7540465312500001,
+        "ci_low": 0.74361067421875,
+        "ci_high": 0.7656832859375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L0",
+        "loss_attack_auc": 0.6809624375,
+        "ci_low": 0.67003868203125,
+        "ci_high": 0.69262571015625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.7104893437500001,
+        "ci_low": 0.6991446546875,
+        "ci_high": 0.7216739718749999,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.73336359375,
+        "ci_low": 0.722806490625,
+        "ci_high": 0.742720553125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      }
+    ]
+  }
+}

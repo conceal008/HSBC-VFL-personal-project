@@ -1,0 +1,1526 @@
+{
+  "id": "r011",
+  "step": "S5.P2",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "historical_acceptance_invalidated_S5P2",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/功能模拟训练/hillstrom_email_marketing/hillstrom_email_marketing_functional_20261002T123132938467Z/alice/results/private_evaluation.json",
+  "source_summary_sha256": "de6ef1722e5c62bb9560660ad0d9cfea0daf6eed76a261d6474aa5e8e9ce565f",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/hillstrom_email_marketing_functional_20261002T123132938467Z/code/local_functional.yaml",
+    "config_sha256": "dfb23264ed6b0a98cc6f7879ad6591227c9eaa4614de40d435782d2c2c34668a",
+    "runtime_git_sha": "e7728cf46f211053a397254a8b34fe0f2bd9eb78",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {
+        "model_seeds": [
+          11,
+          22,
+          33,
+          44,
+          55
+        ],
+        "split_seed": 20260927,
+        "bootstrap_seed": 20261001,
+        "bootstrap_repeats": 300
+      },
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [],
+  "results": {
+    "status": "completed",
+    "selection": "validation only; strongest L0 selected within family grid",
+    "round": "hillstrom_email_marketing_functional_20261002T123132938467Z",
+    "metrics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "selected_training": "L0_LR_all_arms_seed11_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.00015905667623982372,
+            "ci_low": -0.001228946170188074,
+            "ci_high": 0.001363322875335392,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.008312580175697803,
+            "ci_low": -0.00551459202542901,
+            "ci_high": 0.025068996520712965,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007607406579586038,
+            "ci_low": 0.00522590256777216,
+            "ci_high": 0.010928601055398116,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0008976054772615706,
+            "ci_low": -0.000506122109706471,
+            "ci_high": 0.002536969791995055,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0004973579632720914,
+            "ci_low": -0.0005948411023663654,
+            "ci_high": 0.001693641138240138,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.005080989561975002,
+            "ci_low": -0.00863016981165856,
+            "ci_high": 0.019006070867180813,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007171040387754011,
+            "ci_low": 0.004653607538784303,
+            "ci_high": 0.010040658690980907,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.000461239285429545,
+            "ci_low": -0.0009615483849310055,
+            "ci_high": 0.0018856047752045385,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -1.2690564061256908e-05,
+            "ci_low": -0.001172497611014553,
+            "ci_high": 0.0011366593620788323,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.002026365138590336,
+            "ci_low": -0.0067427112255245445,
+            "ci_high": 0.015866637811996025,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.006926585279470333,
+            "ci_low": 0.004887689505455189,
+            "ci_high": 0.010011762167908491,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.00021678417714586593,
+            "ci_low": -0.000718907260963336,
+            "ci_high": 0.0016165127382249053,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.000572630078162108,
+            "ci_low": -0.0004872582417666459,
+            "ci_high": 0.0017033946382796145,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.004290157929062843,
+            "ci_low": -0.004733546636998653,
+            "ci_high": 0.014680842636153085,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007180056498693684,
+            "ci_low": 0.00490210913486276,
+            "ci_high": 0.009817777876822685,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.000470255396369218,
+            "ci_low": -0.00047927150730889007,
+            "ci_high": 0.0015424354318870198,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed11_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -9.75701721958007e-05,
+            "ci_low": -0.0012732546733905533,
+            "ci_high": 0.001229348098851867,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.016212306916713715,
+            "ci_low": 0.0027630942407995463,
+            "ci_high": 0.02845941064879296,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.008326313840549373,
+            "ci_low": 0.005709173100970052,
+            "ci_high": 0.011079736990030372,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0016165127382249062,
+            "ci_low": 0.00022040234342639149,
+            "ci_high": 0.0028944162645400755,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00020388592564425103,
+            "ci_low": -0.0008379766733387244,
+            "ci_high": 0.0013685808137635217,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0018902404699474573,
+            "ci_low": -0.007073303055949509,
+            "ci_high": 0.008908686228096485,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.006943426115352463,
+            "ci_low": 0.0045500739491212356,
+            "ci_high": 0.009816200057408244,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.00023362501302799654,
+            "ci_low": -0.0007189072609633355,
+            "ci_high": 0.000946521533364884,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed22_candidate2",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.00040299014227452554,
+            "ci_low": -0.0016197989915918923,
+            "ci_high": 0.0009306939236321205,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.017572302371263504,
+            "ci_low": 0.0023860904620960355,
+            "ci_high": 0.03456888580694794,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.008543098017695238,
+            "ci_low": 0.005907104727496341,
+            "ci_high": 0.010912985811450587,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0018332969153707713,
+            "ci_low": 0.0001975507669178115,
+            "ci_high": 0.003469043063823731,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.000555953748887622,
+            "ci_low": -0.0005898876262748891,
+            "ci_high": 0.0015660943942255939,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.007722095586359501,
+            "ci_low": -0.00215408515650779,
+            "ci_high": 0.01872921166941523,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007416686882034906,
+            "ci_low": 0.005020179076974792,
+            "ci_high": 0.009799595386427678,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0007068857797104394,
+            "ci_low": -0.00024264112396766863,
+            "ci_high": 0.001656412683388548,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed22_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 8.847865411054595e-05,
+            "ci_low": -0.001107127423271099,
+            "ci_high": 0.001176703716213245,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.004098452161997557,
+            "ci_low": -0.007373710768297314,
+            "ci_high": 0.016356181120499965,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007150986648785726,
+            "ci_low": 0.004781098855030377,
+            "ci_high": 0.009513257250371549,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.00044118554646125924,
+            "ci_low": -0.0007381406711913904,
+            "ci_high": 0.0017339425975070053,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0007114545472429004,
+            "ci_low": -0.0004214132048065612,
+            "ci_high": 0.0019309904756160995,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.006802257150411606,
+            "ci_low": -0.0024230714887380597,
+            "ci_high": 0.017919899430125945,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007416686882034905,
+            "ci_low": 0.005029345456430126,
+            "ci_high": 0.009338356100998134,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0007068857797104386,
+            "ci_low": -0.0002426411239676695,
+            "ci_high": 0.0017806436346426834,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed22_candidate1",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.0001756730825932642,
+            "ci_low": -0.001005722154732502,
+            "ci_high": 0.0013111032975942716,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.02163461595773697,
+            "ci_low": 0.009235938708297909,
+            "ci_high": 0.03407235564664005,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.008797968155688738,
+            "ci_low": 0.00596404323896355,
+            "ci_high": 0.011186708500063664,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0020881670533642706,
+            "ci_low": 0.0009280742459396741,
+            "ci_high": 0.003248259860788864,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00027504244795644914,
+            "ci_low": -0.000987353542988475,
+            "ci_high": 0.0012988110054284927,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.006818181835114956,
+            "ci_low": 0.0,
+            "ci_high": 0.01397056421265006,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.00741969225234813,
+            "ci_low": 0.005024611998186798,
+            "ci_high": 0.009576414035238137,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0007098911500236635,
+            "ci_low": 0.0,
+            "ci_high": 0.001419782300047327,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed33_candidate2",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.0012575728517394515,
+            "ci_low": -0.0024742341657269335,
+            "ci_high": -4.879389914436459e-05,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.012962096370756626,
+            "ci_low": -0.0003582407021895048,
+            "ci_high": 0.028306240262463686,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.008086678086894927,
+            "ci_low": 0.0057284065111981065,
+            "ci_high": 0.010700581519802198,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0013768769845704599,
+            "ci_low": -2.2851576508579538e-05,
+            "ci_high": 0.0030010069149648913,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0009476083282336143,
+            "ci_low": -0.00012045115782048212,
+            "ci_high": 0.002148935096788421,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.014601734466850758,
+            "ci_low": 0.002518480899743736,
+            "ci_high": 0.027913174498826264,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.008126578032058568,
+            "ci_low": 0.005734653416726122,
+            "ci_high": 0.010647316788372819,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.001416776929734102,
+            "ci_low": 0.00023061964271477379,
+            "ci_high": 0.0026029342167534324,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed33_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 8.094410483614053e-05,
+            "ci_low": -0.0011643776858725036,
+            "ci_high": 0.0013245177361418431,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0014424873515963554,
+            "ci_low": -0.01296132244169712,
+            "ci_high": 0.015724369743838902,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.0069037337029617535,
+            "ci_low": 0.00473939472790222,
+            "ci_high": 0.009285237714775631,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0001939326006372864,
+            "ci_low": -0.0012250293706698079,
+            "ci_high": 0.0016088955460553788,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00040457904830554063,
+            "ci_low": -0.0006751530771441219,
+            "ci_high": 0.0013922897993309624,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0022050468251109123,
+            "ci_low": -0.009627548931166529,
+            "ci_high": 0.01460673599503934,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.006937415374726015,
+            "ci_low": 0.004538242429954174,
+            "ci_high": 0.00956296500308646,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.00022761427240154848,
+            "ci_low": -0.0009661315746586703,
+            "ci_high": 0.001418354749148545,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed33_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 9.685519874713035e-05,
+            "ci_low": -0.0010761998477382298,
+            "ci_high": 0.0015119666239666076,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.00652918079867959,
+            "ci_low": -0.005739883659407496,
+            "ci_high": 0.021264441590756175,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007383005210270644,
+            "ci_low": 0.004978649621948189,
+            "ci_high": 0.009973295347452383,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0006732041079461773,
+            "ci_low": -0.0005173574681565236,
+            "ci_high": 0.002076931694914217,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0003920195403656592,
+            "ci_low": -0.000655975266409261,
+            "ci_high": 0.0013116480095221087,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0022573363967239857,
+            "ci_low": 0.0,
+            "ci_high": 0.00682718283496797,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.006946431485665688,
+            "ci_low": 0.004664051200622758,
+            "ci_high": 0.009577991854652579,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.00023663038334122144,
+            "ci_low": 0.0,
+            "ci_high": 0.0007098911500236635,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed44_candidate2",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.0012348611828555255,
+            "ci_low": -0.0023611948913100653,
+            "ci_high": 0.00020197518709778642,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.008863797411322594,
+            "ci_low": -0.004143655963707715,
+            "ci_high": 0.023556853551417584,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.00762264096392509,
+            "ci_low": 0.005344109436255499,
+            "ci_high": 0.010277867664352042,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0009128398616006228,
+            "ci_low": -0.00027772171450207765,
+            "ci_high": 0.002320185614849188,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0007668952972681108,
+            "ci_low": -0.0004926698643829754,
+            "ci_high": 0.002080926956044733,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.00125593738630414,
+            "ci_low": -0.01327526376117021,
+            "ci_high": 0.010809699771925805,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.006461149237730348,
+            "ci_low": 0.004419982525756307,
+            "ci_high": 0.009336928550099353,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.00024865186459411843,
+            "ci_low": -0.0014408198922398973,
+            "ci_high": 0.0009405107927384355,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed44_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.00015458386631470877,
+            "ci_low": -0.0009904339684530018,
+            "ci_high": 0.0014455412927811436,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.005864775739610195,
+            "ci_low": -0.005566587182693183,
+            "ci_high": 0.02298602047376334,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007375388018101118,
+            "ci_low": 0.005229901593661162,
+            "ci_high": 0.01023978170350441,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0006655869157766508,
+            "ci_low": -0.0005137393018759984,
+            "ci_high": 0.0023013330642296104,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0007537977491384225,
+            "ci_low": -0.00025027995653327913,
+            "ci_high": 0.0019116787229650136,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.006665755528956652,
+            "ci_low": -0.0029213673900812865,
+            "ci_high": 0.016337030939757823,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007416686882034905,
+            "ci_low": 0.005253954358518449,
+            "ci_high": 0.010046669431607355,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0007068857797104386,
+            "ci_low": -0.00024865186459411756,
+            "ci_high": 0.0016564126833885475,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed44_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 4.2130979582196464e-05,
+            "ci_low": -0.001043509786460906,
+            "ci_high": 0.0012030330242498652,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.006136611104011536,
+            "ci_low": -0.006984688248485326,
+            "ci_high": 0.02088853847235441,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007383005210270644,
+            "ci_low": 0.0054811535653741346,
+            "ci_high": 0.010247398895673937,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0006732041079461773,
+            "ci_low": -0.0005173574681565218,
+            "ci_high": 0.0020881670533642693,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00036085782268019043,
+            "ci_low": -0.0006045376012562244,
+            "ci_high": 0.0013074471307586552,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0023041474632918835,
+            "ci_low": 0.0,
+            "ci_high": 0.007195148605387657,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.006946431485665688,
+            "ci_low": 0.00478970970277568,
+            "ci_high": 0.0094700253437775,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.00023663038334122144,
+            "ci_low": 0.0,
+            "ci_high": 0.0007098911500236635,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L0",
+        "selected_training": "L0_tree_all_arms_seed55_candidate2",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.0008204761655803267,
+            "ci_low": -0.001998016378116259,
+            "ci_high": 0.000451410843434031,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0029720161110162735,
+            "ci_low": -0.012547316588461399,
+            "ci_high": 0.015683691296726466,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.006903733702961754,
+            "ci_low": 0.00452622871703688,
+            "ci_high": 0.009753654723242943,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.00019393260063728726,
+            "ci_low": -0.0013460773962324366,
+            "ci_high": 0.0016016592134943288,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 6.003108831553557e-05,
+            "ci_low": -0.0011266071823824125,
+            "ci_high": 0.0013325762659906642,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0059018367901444435,
+            "ci_low": -0.00972604041453451,
+            "ci_high": 0.02543899202719326,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007168035017440787,
+            "ci_low": 0.004777688221522783,
+            "ci_high": 0.010030515566173773,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.000458233915116321,
+            "ci_low": -0.0010992283683368244,
+            "ci_high": 0.002244437484838469,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L1_secure",
+        "selected_training": "L1_secure_all_arms_seed55_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -2.6464314371957803e-05,
+            "ci_low": -0.0011861398053258706,
+            "ci_high": 0.0012531370910194386,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.008123151026666164,
+            "ci_low": -0.0114003547700122,
+            "ci_high": 0.027435304597020115,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.00759978938741651,
+            "ci_low": 0.005096856490431528,
+            "ci_high": 0.010536290638693218,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0008899882850920433,
+            "ci_low": -0.0010046270272434151,
+            "ci_high": 0.002882800046481547,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.0007294235084020008,
+            "ci_low": -0.0004217522415898236,
+            "ci_high": 0.0017900400157638417,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.006968364119529724,
+            "ci_low": -0.0033092369558289647,
+            "ci_high": 0.016729617165401577,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007416686882034905,
+            "ci_low": 0.004900831852479639,
+            "ci_high": 0.00981304441857936,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.0007068857797104386,
+            "ci_low": -0.00024722431369533695,
+            "ci_high": 0.0016564126833885483,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "route": "L3_secure",
+        "selected_training": "L3_secure_all_arms_seed55_candidate0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -9.355733496770296e-05,
+            "ci_low": -0.0016083026444015315,
+            "ci_high": 0.0012116435667809953,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.008393947966396809,
+            "ci_low": -0.0044603610993362965,
+            "ci_high": 0.02405766393058002,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.007615023771755563,
+            "ci_low": 0.005101998095145959,
+            "ci_high": 0.010123669562867687,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0009052226694310963,
+            "ci_low": -0.0004945058916479431,
+            "ci_high": 0.00253335162571453,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00032365405132446344,
+            "ci_low": -0.0007003153270339419,
+            "ci_high": 0.0012270711612135015,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.004494382068514824,
+            "ci_low": 0.0,
+            "ci_high": 0.01154873913619667,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.007183061869006908,
+            "ci_low": 0.004786554063946794,
+            "ci_high": 0.009819055159205805,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.000473260766682442,
+            "ci_low": 0.0,
+            "ci_high": 0.0011831519167061055,
+            "valid_replicates": 300
+          }
+        }
+      }
+    ],
+    "paired_differences": [
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.0002566268484356244,
+            "ci_low": -0.0019290511667573956,
+            "ci_high": 0.0015195671084614576,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.007899726741015911,
+            "ci_low": -0.00999426250346005,
+            "ci_high": 0.0237506897188723,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.0007189072609633355,
+            "ci_low": -0.0011412402568050167,
+            "ci_high": 0.0023582715756968213,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0007189072609633355,
+            "ci_low": -0.0011412402568050167,
+            "ci_high": 0.0023582715756968213,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0002934720376278403,
+            "ci_low": -0.0019144625663209665,
+            "ci_high": 0.0012114017334803645,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.003190749092027545,
+            "ci_low": -0.017662836221279576,
+            "ci_high": 0.011440767993917689,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": -0.00022761427240154848,
+            "ci_low": -0.0016595683222174332,
+            "ci_high": 0.0012027619579998935,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.00022761427240154848,
+            "ci_low": -0.0016595683222174332,
+            "ci_high": 0.0012027619579998935,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 11,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -8.487960813454379e-05,
+            "ci_low": -0.0011262763267311392,
+            "ci_high": 0.0010353266541529003,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.014185941778123379,
+            "ci_low": -0.004749572719447315,
+            "ci_high": 0.029675023595336796,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.0013997285610790403,
+            "ci_low": -0.0004528017645197876,
+            "ci_high": 0.003027857517362472,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0013997285610790403,
+            "ci_low": -0.0004528017645197876,
+            "ci_high": 0.003027857517362472,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.000368744152517857,
+            "ci_low": -0.0013135232356762043,
+            "ci_high": 0.0005828089128694057,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.002399917459115386,
+            "ci_low": -0.014246547227958217,
+            "ci_high": 0.007024156703846526,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": -0.00023663038334122144,
+            "ci_low": -0.001424365489774993,
+            "ci_high": 0.0007159018906501115,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.00023663038334122144,
+            "ci_low": -0.001424365489774993,
+            "ci_high": 0.0007159018906501115,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.0005786632248677897,
+            "ci_low": -0.0012586581383073785,
+            "ci_high": 0.0023945317692429823,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.004062313586473465,
+            "ci_low": -0.016022728523239493,
+            "ci_high": 0.026323355478234577,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.00025487013799349936,
+            "ci_low": -0.001840914107540297,
+            "ci_high": 0.002582672945012213,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.00025487013799349936,
+            "ci_low": -0.001840914107540297,
+            "ci_high": 0.002582672945012213,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0002809113009311729,
+            "ci_low": -0.0014852184271720577,
+            "ci_high": 0.0009058705309244807,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.000903913751244545,
+            "ci_low": -0.012737656396348029,
+            "ci_high": 0.011047851585317401,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 3.0053703132240303e-06,
+            "ci_low": -0.0011801465463928806,
+            "ci_high": 0.0011861572870193295,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 3.0053703132240303e-06,
+            "ci_low": -0.0011801465463928806,
+            "ci_high": 0.0011861572870193295,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 22,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 8.719442848271825e-05,
+            "ci_low": -0.0012519539082760677,
+            "ci_high": 0.0012522193111589575,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.017536163795739412,
+            "ci_low": 0.00455435635522008,
+            "ci_high": 0.029114033537916837,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.0016469815069030114,
+            "ci_low": 0.00035422445585725807,
+            "ci_high": 0.002811073340216606,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.0016469815069030114,
+            "ci_low": 0.00035422445585725807,
+            "ci_high": 0.002811073340216606,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0004364120992864513,
+            "ci_low": -0.0013220108564655903,
+            "ci_high": 0.00041959098313560885,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 1.5924684703350067e-05,
+            "ci_low": -0.006969789415597916,
+            "ci_high": 0.0070416739792562985,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 3.0053703132248977e-06,
+            "ci_low": -0.0007098911500236626,
+            "ci_high": 0.000718907260963336,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 3.0053703132248977e-06,
+            "ci_low": -0.0007098911500236626,
+            "ci_high": 0.000718907260963336,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.001354428050486582,
+            "ci_low": -0.00023364818004661467,
+            "ci_high": 0.003289968836935965,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": -0.006432915572077036,
+            "ci_low": -0.0263463479350321,
+            "ci_high": 0.012541639793198545,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": -0.0007036728766242825,
+            "ci_low": -0.0027109573031358944,
+            "ci_high": 0.0011829443839331743,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": -0.0007036728766242825,
+            "ci_low": -0.0027109573031358944,
+            "ci_high": 0.0011829443839331743,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0005555887878679551,
+            "ci_low": -0.0019415222415103163,
+            "ci_high": 0.0009344654455611487,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.012344398070126772,
+            "ci_low": -0.025524805259192363,
+            "ci_high": 0.0003974169085267721,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": -0.0011801465463928806,
+            "ci_low": -0.002366303833412212,
+            "ci_high": 0.00012994115484926135,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.0011801465463928806,
+            "ci_low": -0.002366303833412212,
+            "ci_high": 0.00012994115484926135,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 33,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 1.5911093910989815e-05,
+            "ci_low": -0.0011099667661261547,
+            "ci_high": 0.0010909527756029855,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.005086693447083235,
+            "ci_low": -0.01167684377869591,
+            "ci_high": 0.02393165999092158,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.00047927150730889094,
+            "ci_low": -0.0011640918333135958,
+            "ci_high": 0.0022549182319440532,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.00047927150730889094,
+            "ci_low": -0.0011640918333135958,
+            "ci_high": 0.0022549182319440532,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -1.255950793988144e-05,
+            "ci_low": -0.001307320799201599,
+            "ci_high": 0.0011536269420489532,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 5.228957161307335e-05,
+            "ci_low": -0.01390664656064473,
+            "ci_high": 0.011809129774337634,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 9.016110939672958e-06,
+            "ci_low": -0.0014153493788353205,
+            "ci_high": 0.0012041895088986737,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 9.016110939672958e-06,
+            "ci_low": -0.0014153493788353205,
+            "ci_high": 0.0012041895088986737,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.001276992162437722,
+            "ci_low": -0.0004212701042595715,
+            "ci_high": 0.002816975932035103,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": -0.002727186307311058,
+            "ci_low": -0.019677542138379068,
+            "ci_high": 0.015470698382705445,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": -0.00023963575365444547,
+            "ci_low": -0.0020072844265116106,
+            "ci_high": 0.0016241299303944314,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": -0.00023963575365444547,
+            "ci_low": -0.0020072844265116106,
+            "ci_high": 0.0016241299303944314,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0004060374745879204,
+            "ci_low": -0.0019102089225806727,
+            "ci_high": 0.0008129315342665078,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": 0.0035600848495960236,
+            "ci_low": -0.008788865234237164,
+            "ci_high": 0.015176892664749171,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 0.00048528224793533987,
+            "ci_low": -0.000707036048226101,
+            "ci_high": 0.0016760227246823364,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 0.00048528224793533987,
+            "ci_low": -0.000707036048226101,
+            "ci_high": 0.0016760227246823364,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 44,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -0.0001124528867325123,
+            "ci_low": -0.0013826212869630888,
+            "ci_high": 0.0009735036328148286,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0002718353644013405,
+            "ci_low": -0.015067735780030489,
+            "ci_high": 0.013622278941329566,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 7.617192169526513e-06,
+            "ci_low": -0.001639364314733484,
+            "ci_high": 0.0013112287420568504,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 7.617192169526513e-06,
+            "ci_low": -0.001639364314733484,
+            "ci_high": 0.0013112287420568504,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.00039293992645823204,
+            "ci_low": -0.0015263051052475892,
+            "ci_high": 0.0006332463922783145,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.004361608065664768,
+            "ci_low": -0.01348353298380971,
+            "ci_high": 0.004857859911862761,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": -0.0004702553963692171,
+            "ci_low": -0.0014197823000473239,
+            "ci_high": 0.000480849326723333,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.0004702553963692171,
+            "ci_low": -0.0014197823000473239,
+            "ci_high": 0.000480849326723333,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "comparison": "L3_secure_minus_L0",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": 0.0007269188306126237,
+            "ci_low": -0.0008868107824407973,
+            "ci_high": 0.00238715512400288,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.005421931855380535,
+            "ci_low": -0.012069172691553831,
+            "ci_high": 0.023924070061184466,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 0.000711290068793809,
+            "ci_low": -0.0011793262176526475,
+            "ci_high": 0.002609904407018269,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 0.000711290068793809,
+            "ci_low": -0.0011793262176526475,
+            "ci_high": 0.002609904407018269,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": 0.00026362296300892784,
+            "ci_low": -0.0014177716149349764,
+            "ci_high": 0.0018276503245091284,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.0014074547216296196,
+            "ci_low": -0.022088262299075723,
+            "ci_high": 0.017087963654194002,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": 1.5026851566121019e-05,
+            "ci_low": -0.002005102268215351,
+            "ci_high": 0.001807391430430378,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": 1.5026851566121019e-05,
+            "ci_low": -0.002005102268215351,
+            "ci_high": 0.001807391430430378,
+            "valid_replicates": 300
+          }
+        }
+      },
+      {
+        "seed": 55,
+        "comparison": "L3_secure_minus_L1_secure",
+        "metrics": {
+          "arm1_centered_qini": {
+            "estimate": -6.709302059574516e-05,
+            "ci_low": -0.0010829189707284126,
+            "ci_high": 0.001029467649595974,
+            "valid_replicates": 300
+          },
+          "arm1_uplift_at_top_k": {
+            "estimate": 0.0002707969397306442,
+            "ci_low": -0.014644218701869249,
+            "ci_high": 0.017064875294454388,
+            "valid_replicates": 300
+          },
+          "arm1_policy_value": {
+            "estimate": 1.5234384339053025e-05,
+            "ci_low": -0.001517158420361144,
+            "ci_high": 0.0016662149171310647,
+            "valid_replicates": 300
+          },
+          "arm1_policy_gain_vs_no_contact": {
+            "estimate": 1.5234384339053025e-05,
+            "ci_low": -0.001517158420361144,
+            "ci_high": 0.0016662149171310647,
+            "valid_replicates": 300
+          },
+          "arm2_centered_qini": {
+            "estimate": -0.0004057694570775374,
+            "ci_low": -0.0013503693405741836,
+            "ci_high": 0.0005109531018633893,
+            "valid_replicates": 300
+          },
+          "arm2_uplift_at_top_k": {
+            "estimate": -0.0024739820510149,
+            "ci_low": -0.009853083360940217,
+            "ci_high": 0.007067797076888377,
+            "valid_replicates": 300
+          },
+          "arm2_policy_value": {
+            "estimate": -0.00023362501302799654,
+            "ci_low": -0.0009465215333648866,
+            "ci_high": 0.0007189072609633355,
+            "valid_replicates": 300
+          },
+          "arm2_policy_gain_vs_no_contact": {
+            "estimate": -0.00023362501302799654,
+            "ci_low": -0.0009465215333648866,
+            "ci_high": 0.0007189072609633355,
+            "valid_replicates": 300
+          }
+        }
+      }
+    ],
+    "output_attack_diagnostics": [
+      {
+        "seed": 11,
+        "route": "L0",
+        "loss_attack_auc": 0.50034571875,
+        "ci_low": 0.48959741796875006,
+        "ci_high": 0.51311304765625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.48186659375000007,
+        "ci_low": 0.469975925,
+        "ci_high": 0.49264094921875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 11,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.48386975,
+        "ci_low": 0.472283909375,
+        "ci_high": 0.49558915937500003,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L0",
+        "loss_attack_auc": 0.5050701875,
+        "ci_low": 0.492252078125,
+        "ci_high": 0.5176233046875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.491170875,
+        "ci_low": 0.47886129921875,
+        "ci_high": 0.5029211351562499,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 22,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.49404353125,
+        "ci_low": 0.4827495375,
+        "ci_high": 0.50620146328125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L0",
+        "loss_attack_auc": 0.50683990625,
+        "ci_low": 0.49276210078125,
+        "ci_high": 0.5208429015625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.49584071874999996,
+        "ci_low": 0.48318080078125,
+        "ci_high": 0.506587628125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 33,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.4945499375,
+        "ci_low": 0.48144271640624997,
+        "ci_high": 0.5053049140625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L0",
+        "loss_attack_auc": 0.50466625,
+        "ci_low": 0.49222602421875,
+        "ci_high": 0.51699620546875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.490896125,
+        "ci_low": 0.47841376484375003,
+        "ci_high": 0.50384420546875,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 44,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.491811125,
+        "ci_low": 0.47939298359375004,
+        "ci_high": 0.50388628203125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L0",
+        "loss_attack_auc": 0.49428737500000003,
+        "ci_low": 0.4803166578125,
+        "ci_high": 0.50580948515625,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L1_secure",
+        "loss_attack_auc": 0.50375275,
+        "ci_low": 0.49167794531250003,
+        "ci_high": 0.515024378125,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      },
+      {
+        "seed": 55,
+        "route": "L3_secure",
+        "loss_attack_auc": 0.5033465312500001,
+        "ci_low": 0.49108238984374997,
+        "ci_high": 0.51611629609375,
+        "scope": "Alice-private hypothetical score-and-label release; not proof against all attacks"
+      }
+    ]
+  }
+}

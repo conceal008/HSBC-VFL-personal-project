@@ -1,0 +1,30 @@
+{
+  "id": "r050",
+  "step": "S3.P2",
+  "dataset": "hillstrom_email_marketing",
+  "classification": "bounded_domain_mpc_psi_timing_only",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/秘密求交实验/S3P2_20261007_v3/hillstrom_email_marketing/hillstrom_email_marketing_bounded_psi_20261007T115500427521Z/alice/results/private_timing.json",
+  "source_summary_sha256": "bb39dac62b49ab04993f09957fe0df0c2734717cd63eb277e9aa0b01131b3b47",
+  "config_provenance": {
+    "config_path": "/srv/vfl/alice/hillstrom_email_marketing_bounded_psi_20261007T115500427521Z/code/bounded_psi.yaml",
+    "config_sha256": "3519574d35d542dcfaa5e212e9f03821d7f9a799d0a3d2db0a021f257e1a1eb3",
+    "runtime_git_sha": "1ae68c5e8242af8250b36a618eddd00bf1fc4d5c",
+    "source_owner": "alice",
+    "seed_protocol": {
+      "shared": {},
+      "experiment": {}
+    }
+  },
+  "omitted_fields": [
+    "/universe_rows"
+  ],
+  "results": {
+    "seconds": [
+      6.762886145035736,
+      5.398956550983712,
+      5.432349894952495,
+      5.568486591044348,
+      6.279508495994378
+    ]
+  }
+}

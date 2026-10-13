@@ -1,0 +1,10 @@
+card_id: BC-M3-003
+status: completed
+routes:
+- id: generic_spu_secret_sort_join
+  purpose: 成熟CHEETAH排序/256-bit字符串键求交，所有输出份额留本方，密态all-pairs核对仅返布尔。
+history:
+- 早期JAX CPU SIGILL、frontend回调错误、tmp日志重启丢失和home路径/lint预检保留；worker三个frontend现全部通过。
+- 扩展fixture缺rows_per_owner一项失败后修正，最终42通过；不改已完成worker算法/配置。
+- 旧轮训练UID撤权后只读审计遭拒，保持撤权、由对应VM可信管理面只返secret metadata通过布尔。
+falsifier: 出现实际键/交集名单/规模/索引重建或份额导出、VIS_PUBLIC输出、控制/权限/认证/指纹失败即停止，不按结果放宽；不声称工业或历史训练已消费。

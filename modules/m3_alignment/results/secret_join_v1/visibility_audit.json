@@ -1,0 +1,19 @@
+{
+  "actual_source_verification": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_可信管理面可见性审计_20261013T014947673946Z/verification.json",
+  "source_summary_sha256": "1c4c9dc877b8039d4b3ccbc01ea6f5015d228e0c2fce3bf4baabaedb010b2510",
+  "datasets": {
+    "uci_bank_marketing": {
+      "all_four_outputs_VIS_SECRET": true,
+      "CHEETAH_FM64_verified": true,
+      "trusted_owner_vm_audit": true,
+      "shares_or_metadata_exported": false
+    },
+    "hillstrom_email_marketing": {
+      "all_four_outputs_VIS_SECRET": true,
+      "CHEETAH_FM64_verified": true,
+      "trusted_owner_vm_audit": true,
+      "shares_or_metadata_exported": false
+    }
+  },
+  "historical_training_account_capability_remains_revoked": true
+}

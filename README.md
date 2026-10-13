@@ -110,3 +110,5 @@
 当前实验状态（2026-10-12）：[S7.P2新增输出重评完整指标与分析](modules/m7_security/新增输出重评实验记录.md)及[带输出汇总Notebook](modules/m7_security/notebooks/S7.P2_output_reaudit_summary.ipynb)追加交付；旧阶段索引保持冻结。
 
 当前实验状态（2026-10-13）：S5.X1两新增代理训练/来源核验完成，[全结果](modules/m5_modeling/results/external_training_v1/README.md)。S7.P2远端八项CI已成功；秘密输出PSI、正则/安全树及独立确认仍待执行。
+
+当前对齐状态（2026-10-13）：[通用秘密求交](modules/m3_alignment/通用秘密输出求交实验记录.md)十轮实际完成、四输出秘密態；未接入旧训练。下一阶段按照用户最新要求覆盖本地其他数据集及HSBC_mock，Amex继续暂缓。

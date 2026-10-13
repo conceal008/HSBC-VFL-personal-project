@@ -170,10 +170,10 @@ modules:
     path: modules/m3_alignment
     status: in_progress
     claimed_by: null
-    claimed_at: null
+    claimed_at: '2026-10-12T13:37:24.655868+00:00'
     expires_at: null
     current_step: null
-    next_step: S3.2
+    next_step: 秘密gather训练消费另步；先完成全本地数据集基线
     blocking_on:
     - M2 仿真台正确性验收通过（偏差 <5%）
     open_questions:
@@ -183,7 +183,9 @@ modules:
     - 缺少经审计的秘密分享输出适配器、双独立主机、各方密钥及双方认证握手证据；公开数据构造记录键不能证明真实跨机构匹配质量。
     - DR-M5-001 为本轮预对齐功能模拟单独授权；双虚拟机训练不构成真实客户 PSI 放行，也不修改 S3.P1 历史阻断结论。
     - S3.P2完成有限公开域MPC秘密分享求交，两任务各五轮；不是原生RR22或真实客户身份匹配，未接入既有训练，业务门禁不变。
-    latest_completed_step: S3.P2
+    - 所有者已确认继续秘密输出；原生明文PSI不启用，SPU通用密态排序方案待工程/实际验收，不与X1争用VM。
+    - S3.P3实际通用秘密求交十轮通过，四输出均VIS_SECRET，不依赖公域枚举；64填充小规模/构造身份，未接入旧训练、未放行真实业务。
+    latest_completed_step: S3.P3
   M4:
     name: 特征工程与跨域特征治理
     path: modules/m4_features

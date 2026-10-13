@@ -1,0 +1,154 @@
+{
+  "step": "S3.P3",
+  "dataset": "hillstrom_email_marketing",
+  "source_run": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z/hillstrom_email_marketing/hillstrom_email_marketing_secret_join_20261013T013914553900Z",
+  "classification": "reviewed_public_research_engineering",
+  "status": {
+    "status": "passed",
+    "exit_codes": [
+      0,
+      0
+    ],
+    "cleanup_errors": []
+  },
+  "reports": {
+    "alice": {
+      "status": "passed",
+      "kind": "generic_spu_secret_sort_join",
+      "seeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "known_controls_passed": true,
+      "secret_all_pairs_oracle_passed": true,
+      "intersection_reconstructed": false,
+      "membership_or_count_disclosed": false,
+      "peer_indices_disclosed": false,
+      "input_rows_padded_public": 64,
+      "federation_anonymous_denied": true,
+      "spu_anonymous_denied": true,
+      "test_read": false,
+      "native_rr22": false,
+      "existing_training_consumes_this_psi": false
+    },
+    "bob": {
+      "status": "passed",
+      "kind": "generic_spu_secret_sort_join",
+      "seeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "known_controls_passed": true,
+      "secret_all_pairs_oracle_passed": true,
+      "intersection_reconstructed": false,
+      "membership_or_count_disclosed": false,
+      "peer_indices_disclosed": false,
+      "input_rows_padded_public": 64,
+      "federation_anonymous_denied": true,
+      "spu_anonymous_denied": true,
+      "test_read": false,
+      "native_rr22": false,
+      "existing_training_consumes_this_psi": false
+    }
+  },
+  "timing": {
+    "seeds": [
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "participant_seconds": {
+      "alice": [
+        4.908595871998841,
+        3.8323215919990616,
+        3.390470825997909,
+        3.6106957129995862,
+        3.6717860409989953
+      ],
+      "bob": [
+        4.9089283119974425,
+        3.8323898159978853,
+        3.3904505430000427,
+        3.6104021789979015,
+        3.671728150002309
+      ]
+    },
+    "paired_max_seconds": [
+      4.9089283119974425,
+      3.8323898159978853,
+      3.390470825997909,
+      3.6106957129995862,
+      3.6717860409989953
+    ],
+    "mean_seconds": {
+      "estimate": 3.8828541415983637,
+      "ci_low": 3.512311113943615,
+      "ci_high": 4.396189332357917
+    },
+    "metric": "max participant end-to-end seconds per trial; first compilation retained",
+    "ci_scope": "conditional descriptive repeat-timing interval; serial cache/warmup limits exchangeability; no population or industrial-scale inference",
+    "bootstrap_seed": 20261013,
+    "bootstrap_repeats": 500
+  },
+  "source_files": {
+    "alice": {
+      "engineering.json": {
+        "path": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z/hillstrom_email_marketing/hillstrom_email_marketing_secret_join_20261013T013914553900Z/alice/results/engineering.json",
+        "source_summary_sha256": "8fd82cc396b7eca13be26ad5db88223ccd1df6bf8b486cad2c0400b3fcf30927"
+      },
+      "timing.json": {
+        "path": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z/hillstrom_email_marketing/hillstrom_email_marketing_secret_join_20261013T013914553900Z/alice/results/timing.json",
+        "source_summary_sha256": "c6dc4b9eeb4b1f91f84f5c30ed4b272669ca15a80b876003458b6a426a99f2c5"
+      }
+    },
+    "bob": {
+      "engineering.json": {
+        "path": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z/hillstrom_email_marketing/hillstrom_email_marketing_secret_join_20261013T013914553900Z/bob/results/engineering.json",
+        "source_summary_sha256": "8fd82cc396b7eca13be26ad5db88223ccd1df6bf8b486cad2c0400b3fcf30927"
+      },
+      "timing.json": {
+        "path": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z/hillstrom_email_marketing/hillstrom_email_marketing_secret_join_20261013T013914553900Z/bob/results/timing.json",
+        "source_summary_sha256": "1e7a35629f178d9b9a6b9f97fe6604d34078d357ea68b3477bddf2face29cc3f"
+      }
+    }
+  },
+  "provenance": {
+    "alice": {
+      "config_sha256": "20356716f6759a5211d9193ef54a802d43dda1c10e2fc11934bedd8e7c4940fc",
+      "code_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bounded_psi.py": "e13c9c0a092671e1915e45e140c590d52e6ebf278aaba4b9c83cb7857bb3e472",
+        "secret_join.py": "fc614919843b12263d9552f57adf592e139d6ec82d12da41942bb7b8b784ac71",
+        "secret_join_run.py": "8d63fa1dad4f6976def259d8ca0e5ccedcb50f381abbbc1c559833acac11ab2e"
+      },
+      "runtime_git_sha": "293c5afc7339800cb8e772f26863c1b4cd460906",
+      "executed_notebook_source_sha256": "81e05cfd31ed13bee7f1da9597f3ea0858d33d4d5578ff8074c346b723ea2b15"
+    },
+    "bob": {
+      "config_sha256": "20356716f6759a5211d9193ef54a802d43dda1c10e2fc11934bedd8e7c4940fc",
+      "code_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bounded_psi.py": "e13c9c0a092671e1915e45e140c590d52e6ebf278aaba4b9c83cb7857bb3e472",
+        "secret_join.py": "fc614919843b12263d9552f57adf592e139d6ec82d12da41942bb7b8b784ac71",
+        "secret_join_run.py": "8d63fa1dad4f6976def259d8ca0e5ccedcb50f381abbbc1c559833acac11ab2e"
+      },
+      "runtime_git_sha": "293c5afc7339800cb8e772f26863c1b4cd460906",
+      "executed_notebook_source_sha256": "81e05cfd31ed13bee7f1da9597f3ea0858d33d4d5578ff8074c346b723ea2b15"
+    }
+  },
+  "frozen_owner_keys_unchanged": true,
+  "shares_stay_owner_only": true,
+  "no_real_key_python_oracle": true
+}

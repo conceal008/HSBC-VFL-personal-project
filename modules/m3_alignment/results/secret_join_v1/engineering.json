@@ -1,0 +1,32 @@
+{
+  "step": "S3.P3",
+  "status": "passed",
+  "datasets": [
+    "uci_bank_marketing",
+    "hillstrom_email_marketing"
+  ],
+  "trials_per_dataset": 5,
+  "participant_exit_codes": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "secret_sort_256bit_keys": true,
+  "secret_all_pairs_oracle": true,
+  "keys_or_shares_exported": false,
+  "intersection_or_count_reconstructed": false,
+  "frozen_owner_keys_unchanged": true,
+  "shares_600_owner_only": true,
+  "existing_training_consumes_this_psi": false,
+  "native_rr22": false,
+  "real_customer_matching_validated": false,
+  "production_security": false,
+  "rows_per_owner_public_padding": 64,
+  "actual_source_queue": "/Applications/总文件夹/汇丰/8-9月/秘密输出求交/S3P3_queue_20261013T013838899648Z",
+  "config_sha256": "20356716f6759a5211d9193ef54a802d43dda1c10e2fc11934bedd8e7c4940fc"
+}

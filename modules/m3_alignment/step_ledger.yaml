@@ -68,16 +68,41 @@ steps:
   - modules/m3_alignment/results/bounded_psi_engineering.json
   - modules/m3_alignment/notebooks/S3.P2_bounded_psi.ipynb
   engineering_failed_attempts: 2
+- step_id: S3.P3
+  step_name: 通用秘密输出求交功能验证
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  change_id: CL-20261013-M3-001
+  committed_at: '2026-10-13T06:50:18+00:00'
+  outputs:
+  - modules/m3_alignment/results/secret_join_v1/
+  - modules/m3_alignment/通用秘密输出求交实验记录.md
+  - modules/m3_alignment/notebooks/S3.P3_secret_join.ipynb
+  - modules/m3_alignment/notebooks/S3.P3_secret_join_summary.ipynb
+  note: 十轮实际密态排序/独立oracle与四输出VIS_SECRET；两VM64行填充。旧owner撤权保持、root仅对应ownerVM审计元数据，不导出份额；原执行控制器前缀不变。不接入旧训练/真实匹配，不放行工业。
 current_step: null
 next_step: S3.2
 metrics:
-  avg_score: 10.667
+  avg_score: 10.75
   escalation_count: 0
-  revision_rate: 0.3333333333333333
-  steps_used: 3
-  budget_usage: 0.333
+  revision_rate: 0.5
+  steps_used: 4
+  budget_usage: 0.444
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:
   last_spot_check_step: null
   spot_checks_done: 0
+quality_actions:
+- 修正率2/4超0.4；秘密gather/训练消费、规模性能和恶意查询防护分别拆步，下一消费第5步需独立抽查；本轮2周期含worker编译/环境预检及测试替身/只读发布核验，实际MPI十轮无失败。

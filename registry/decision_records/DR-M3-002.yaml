@@ -1,0 +1,17 @@
+dr_id: DR-M3-002
+title: 所有者确认交集名单继续只保留秘密份额
+date: '2026-10-12'
+agent: Codex
+module: M3
+status: active
+requested_by: 仓库所有者
+approved_by: 用户2026-10-12异步问题回复：继续保护交集名单，使用秘密输出方案（推荐）
+related_step: S3.P3
+context: 锁定SPU原生psi_execute OutputParams仅文件输出路径/类型/对齐选项，ProtocolConfig有接收者/广播；现有明文交集政策不允许直接调用。
+decision: 保留DR-M5-001与DR-M3-001秘密交集边界；先工程验证通用SPU密态排序/求交，不依赖公开有限字典，输出直接dump各方秘密份额。专用Circuit-PSI作为后续规模适配候选，不用明文PSI偷换。
+consequences:
+- 不新增真实跨境资产，交集名单、成员标志、计数、匹配索引不重建。
+- 成熟CHEETAH安全排序原语下的应用算子，不自研密码框架；半诚实不串通和可信管理员假设保留。
+- 先完成并发布S5.X1再串行实际PSI；当前只准备编译/工程控制，未执行求交或接入训练。
+- Circuit-PSI官方实现资料https://github.com/ladnir/volepsi；适配/ARM/TLS/输出份额导入尚未验证，不能声称已部署。
+falsifier: 不支持安全编译、已知答案控制失败或出现明文交集/计数/索引、任何权限/认证/指纹缺陷即停，不放宽输出边界。

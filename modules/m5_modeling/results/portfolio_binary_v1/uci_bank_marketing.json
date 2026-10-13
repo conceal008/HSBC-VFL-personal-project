@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "synthetic_only": true,
+  "dataset": "uci_bank_marketing",
+  "rows": [
+    {
+      "name": "joint_secure_seed11_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00011515617370605469,
+          "mean_abs_error": 4.762772368849255e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00011485815048217773,
+          "mean_abs_error": 5.423847323982045e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 11,
+      "order_seed": 101,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed22_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00012373924255371094,
+          "mean_abs_error": 5.0708200433291495e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00012344121932983398,
+          "mean_abs_error": 6.105093052610755e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 22,
+      "order_seed": 102,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed33_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.0001354217529296875,
+          "mean_abs_error": 5.109201811137609e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00012183189392089844,
+          "mean_abs_error": 5.933467036811635e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 33,
+      "order_seed": 103,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed44_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00010842084884643555,
+          "mean_abs_error": 4.8668094677850604e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00013208389282226562,
+          "mean_abs_error": 5.829158908454701e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 44,
+      "order_seed": 104,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed55_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00010877847671508789,
+          "mean_abs_error": 4.483082011574879e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00011599063873291016,
+          "mean_abs_error": 5.215757119003683e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 55,
+      "order_seed": 105,
+      "learning_rate": 0.1
+    }
+  ],
+  "summary": [
+    {
+      "learning_rate": 0.1,
+      "split": "train",
+      "maximum": 0.0001354217529296875,
+      "mean": 0.00011830329895019531,
+      "seed_mean_ci_95": [
+        0.00010991096496582031,
+        0.00012775659561157227
+      ],
+      "seed_count": 5
+    },
+    {
+      "learning_rate": 0.1,
+      "split": "validation",
+      "maximum": 0.00013208389282226562,
+      "mean": 0.00012164115905761718,
+      "seed_mean_ci_95": [
+        0.00011680126190185546,
+        0.00012798309326171874
+      ],
+      "seed_count": 5
+    }
+  ],
+  "scope": "仅公开程序生成的二处理组/普通分类数学控制；旧真实数据与封存不读；不作实际业务指标",
+  "business_gain_evaluated": false
+}

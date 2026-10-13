@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "synthetic_only": true,
+  "dataset": "hillstrom_email_marketing",
+  "rows": [
+    {
+      "name": "joint_secure_seed11_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00012135505676269531,
+          "mean_abs_error": 5.601843076874502e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00018587708473205566,
+          "mean_abs_error": 6.050835509086028e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 11,
+      "order_seed": 101,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed22_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00011265277862548828,
+          "mean_abs_error": 5.3169147577136755e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00016629695892333984,
+          "mean_abs_error": 5.964584124740213e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 22,
+      "order_seed": 102,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed33_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00011485815048217773,
+          "mean_abs_error": 5.2214571041986346e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00016248226165771484,
+          "mean_abs_error": 6.033217141521163e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 33,
+      "order_seed": 103,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed44_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00011074542999267578,
+          "mean_abs_error": 5.0178081437479705e-05
+        },
+        "validation": {
+          "max_abs_error": 0.0002155005931854248,
+          "mean_abs_error": 6.024627145961858e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 44,
+      "order_seed": 104,
+      "learning_rate": 0.1
+    },
+    {
+      "name": "joint_secure_seed55_candidate0",
+      "passed": true,
+      "splits": {
+        "train": {
+          "max_abs_error": 0.00011974573135375977,
+          "mean_abs_error": 5.3105028200661764e-05
+        },
+        "validation": {
+          "max_abs_error": 0.00020509958267211914,
+          "mean_abs_error": 6.245514668989927e-05
+        }
+      },
+      "tolerance": 0.001,
+      "initialization_seed": 55,
+      "order_seed": 105,
+      "learning_rate": 0.1
+    }
+  ],
+  "summary": [
+    {
+      "learning_rate": 0.1,
+      "split": "train",
+      "maximum": 0.00012135505676269531,
+      "mean": 0.00011587142944335938,
+      "seed_mean_ci_95": [
+        0.00011233091354370117,
+        0.00011941194534301758
+      ],
+      "seed_count": 5
+    },
+    {
+      "learning_rate": 0.1,
+      "split": "validation",
+      "maximum": 0.0002155005931854248,
+      "mean": 0.00018705129623413085,
+      "seed_mean_ci_95": [
+        0.00016943097114562988,
+        0.00020541548728942872
+      ],
+      "seed_count": 5
+    }
+  ],
+  "scope": "仅公开程序生成的二处理组/普通分类数学控制；旧真实数据与封存不读；不作实际业务指标",
+  "business_gain_evaluated": false
+}

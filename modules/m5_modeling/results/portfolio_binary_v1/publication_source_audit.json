@@ -1,0 +1,14 @@
+{
+  "uci_bank_marketing_joint_math_20261013T075325530352Z": {
+    "actual_source_sha256": "0c0f517ce2071398bfb1f9a4cc30e9b07cd15d011fc0e57dcc6a5368b82abc6f",
+    "public_source_sha256": "b466711ad3a415afdc567e31408864663173aa32c8b1ec789275e612c31ae79b",
+    "algorithm_ast_identical": true,
+    "difference": "只添R1固定数学常量注释；运行源码保留原指纹，不改算法/配置/数字或重跑"
+  },
+  "hillstrom_email_marketing_joint_math_20261013T075402580402Z": {
+    "actual_source_sha256": "0c0f517ce2071398bfb1f9a4cc30e9b07cd15d011fc0e57dcc6a5368b82abc6f",
+    "public_source_sha256": "b466711ad3a415afdc567e31408864663173aa32c8b1ec789275e612c31ae79b",
+    "algorithm_ast_identical": true,
+    "difference": "只添R1固定数学常量注释；运行源码保留原指纹，不改算法/配置/数字或重跑"
+  }
+}

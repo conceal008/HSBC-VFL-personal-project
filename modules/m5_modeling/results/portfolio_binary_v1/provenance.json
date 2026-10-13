@@ -1,0 +1,74 @@
+{
+  "uci_bank_marketing": {
+    "source_file": "/Applications/总文件夹/汇丰/8-9月/二处理组数学核验/uci_bank_marketing/uci_bank_marketing_joint_math_20261013T075325530352Z/alice/results/joint_math_report.json",
+    "source_sha256": "a263ee4cb5256463aa61de151d39c141f4b757e954644a36a537bbaf5163a14f",
+    "verification": {
+      "verification": "passed",
+      "round": "uci_bank_marketing_joint_math_20261013T075325530352Z",
+      "dataset": "uci_bank_marketing",
+      "config_sha256": "705abbeefcab558dace83c8520e63f0e6017f93ccbb5612f735a75d3fe301d0c",
+      "report_sha256": "a263ee4cb5256463aa61de151d39c141f4b757e954644a36a537bbaf5163a14f",
+      "fits": 5,
+      "summary": [
+        {
+          "learning_rate": 0.1,
+          "split": "train",
+          "maximum": 0.0001354217529296875,
+          "mean": 0.00011830329895019531,
+          "seed_mean_ci_95": [
+            0.00010991096496582031,
+            0.00012775659561157227
+          ],
+          "seed_count": 5
+        },
+        {
+          "learning_rate": 0.1,
+          "split": "validation",
+          "maximum": 0.00013208389282226562,
+          "mean": 0.00012164115905761718,
+          "seed_mean_ci_95": [
+            0.00011680126190185546,
+            0.00012798309326171874
+          ],
+          "seed_count": 5
+        }
+      ]
+    }
+  },
+  "hillstrom_email_marketing": {
+    "source_file": "/Applications/总文件夹/汇丰/8-9月/二处理组数学核验/hillstrom_email_marketing/hillstrom_email_marketing_joint_math_20261013T075402580402Z/alice/results/joint_math_report.json",
+    "source_sha256": "898e7b2d3f159eee28cfb8e36f3d38d54ef7d10c157e129e50166b739c369a1f",
+    "verification": {
+      "verification": "passed",
+      "round": "hillstrom_email_marketing_joint_math_20261013T075402580402Z",
+      "dataset": "hillstrom_email_marketing",
+      "config_sha256": "705abbeefcab558dace83c8520e63f0e6017f93ccbb5612f735a75d3fe301d0c",
+      "report_sha256": "898e7b2d3f159eee28cfb8e36f3d38d54ef7d10c157e129e50166b739c369a1f",
+      "fits": 5,
+      "summary": [
+        {
+          "learning_rate": 0.1,
+          "split": "train",
+          "maximum": 0.00012135505676269531,
+          "mean": 0.00011587142944335938,
+          "seed_mean_ci_95": [
+            0.00011233091354370117,
+            0.00011941194534301758
+          ],
+          "seed_count": 5
+        },
+        {
+          "learning_rate": 0.1,
+          "split": "validation",
+          "maximum": 0.0002155005931854248,
+          "mean": 0.00018705129623413085,
+          "seed_mean_ci_95": [
+            0.00016943097114562988,
+            0.00020541548728942872
+          ],
+          "seed_count": 5
+        }
+      ]
+    }
+  }
+}

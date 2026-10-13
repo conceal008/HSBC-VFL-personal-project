@@ -1,0 +1,104 @@
+change_id: CL-20261013-M5-001
+timestamp: '2026-10-13T08:02:31+00:00'
+agent: Codex
+module: M5
+type: exp
+title: 二arm与分类十次实际安全数学控制
+what: 二arm/分类五seed完整原生安全更新与独立方程/CPU预测核对通过，公开误差/CI/布尔及实际Notebook
+why: Criteo只有一个处理arm，旧三arm应用列不能直接移植
+links:
+  branch_card: BC-M5-013
+  decision_record:
+  - DR-M5-007
+  - DR-GOV-012
+  loop_step:
+  - S5.V2
+cross_border_impact: none
+cross_border_detail: 仅本机纯程序生成控制；成熟MPC份额不公开；无新真实跨境资产
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 逐文件只有纯合成控制源码/指纹/固定协议及数值误差/CI/布尔；不包含样本、逐行预测、真实身份/交集、权重/份额、凭证或学习状态。两实际三cellNotebook输出仅指纹与误差汇总。
+downstream_affected:
+- M1
+- M6
+- M7
+breaking_change: false
+migration: 旧V1及三arm/Hillstrom模型冻结保留，二arm应用contract仅新版本；实际代理仍等待M1准备
+reproducibility:
+  config: modules/m5_modeling/configs/portfolio_binary_control.yaml
+  config_hash: 705abbeefcab558dace83c8520e63f0e6017f93ccbb5612f735a75d3fe301d0c
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+  note: 数据seed20261005、顺序101..105、误差bootstrap20261005/2000；纯控制33/17行而非实际数据量
+rollback: 另revert步骤撤回二arm应用入口，原所有成功/失败数据与冻结结果不删
+verification: 两轮双方exit0，十actual fit与数值CI/独立方程/原生CPU/路由及源码权限验收通过；15工程测试通过。全门禁/main发布回执接续。
+  发布R1数学常量注释移行已修，仅注释变化，publication_source_audit分别保留实际/公开SHA且AST完全一致；不追认字节相同。
+step:
+  step_id: S5.V2
+  step_name: 二处理组原生安全数学核验
+  declaration: '# S5.V2 二处理组数学核验
+
+
+    > 编写日期：2026-10-13 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：程序生成的公开控制；configs/portfolio_binary_control.yaml
+
+    > 口径基准：DR-M5-007；Criteo仅一个处理arm；不读取实际代理/封存
+
+
+    will_produce:
+
+    - 从已验收原生SS-SGD/CHEETAH链路派生一个处理arm的特征列契约：A/B基础列、T=1指示、每特征×指示、偏置。修改维度和潜在结果枚举，不改原生梯度、DF/L2或传输安全。
+
+    - 两纯控制（普通分类/二处理组）各五seed、一固定lr/12epoch；完整实际MPC概率与独立NumPy方程/锁定原生CPU更新对照；含非整批/尾部填充/潜在T0/T1、时间指纹/方程/预测误差CI。
+
+    - 明确源码差分、单方/联合初始化公共坐标一致控制；参数来自配置。三cell实际Notebook、每fit独立目录，原实际和失败版本不动。
+
+    will_not_produce:
+
+    - 不把Hillstrom三arm结果迁为Criteo二arm，禁止虚构第二处理组；不改旧模型/结果、不开新实际训练/封存，不证明业务收益或模型输出无泄漏。
+
+    success_criteria:
+
+    - 两方退出0、源码/输入一致、十fit全数值/CI均满足先定容差、标签/分数仅Alice，份额不重建；失败保留，最多两轮修正。
+
+    risk:
+
+    - 纯控制只校验应用数学/安全数据路由，不替代真实数据适配、安全证明或新输出攻击；高修正率与11分通过线保留。
+
+    '
+  scope:
+    files_changed: 26
+    lines_added: 2560
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/results/portfolio_binary_v1/provenance.json:1：完整actual十fit/源码配置/Notebook验收
+      D2: modules/m5_modeling/results/portfolio_binary_v1/hillstrom_email_marketing.json:1：五seed原误差与CI，纯二arm控制
+      D3: modules/m5_modeling/components/portfolio_binary_vm.py:1：双VM实际可复现控制，未独立物理主机验收
+      D4: modules/m5_modeling/components/portfolio_math.py:1：一个处理arm正确列/潜在结果、单方共同初始化，不改成熟优化器
+  revisions: 1
+  verdict: committed
+  next_step: S5.X2全本地代理固定基线，先S1.P8准备完整验收
+  outputs:
+  - modules/m5_modeling/results/portfolio_binary_v1/
+  - modules/m5_modeling/二处理组应用数学实测记录.md
+  - modules/m5_modeling/notebooks/S5.V2_binary_numerical.ipynb
+  - modules/m5_modeling/notebooks/S5.V2_binary_uplift.ipynb

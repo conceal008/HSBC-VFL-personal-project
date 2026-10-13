@@ -1,0 +1,9 @@
+card_id: BC-M5-013
+status: completed
+routes:
+- id: one_arm_secure_math
+  purpose: 原生安全优化器的二arm/分类完整数值控制
+history:
+- 原固定V1三arm协议保留；V2应用列改one arm，所有真实样本/旧结果均未动
+- 单位路由替身与实际十安全fit分开；无实际worker失败，不按结果调整容差
+falsifier: 任一方/seed/方程/预测误差超阈值或输入/权限/源码/披露失败即停真实代理训练，不能放宽容差追认

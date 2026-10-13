@@ -1,0 +1,3 @@
+# S5.V2 纯控制结果
+
+全seed与拆分误差在两个JSON，来源及验收见provenance.json。只有公开程序生成控制的数值误差，不能解释为实际UCI/Hillstrom/Criteo预测指标。代码从Notebook调用components/portfolio_binary_control.py，配置portfolio_binary_control.yaml；新目录由portfolio_binary_vm.launch创建，原结果不覆写。

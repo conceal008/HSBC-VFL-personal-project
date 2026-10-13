@@ -1,0 +1,9 @@
+component: portfolio_binary_control
+module: M5
+path: modules/m5_modeling/components/portfolio_binary_control.py
+purpose: 公开程序生成控制上的二arm/分类原生安全数学核验，不读实际数据或sealed
+cross_border_assets: []
+cross_border_note: 本机功能模拟，梯度/份额保持成熟CHEETAH，明文数学参考仅生成控制
+tests:
+- modules/m5_modeling/tests/test_portfolio_math.py
+- modules/m5_modeling/tests/test_portfolio_binary.py

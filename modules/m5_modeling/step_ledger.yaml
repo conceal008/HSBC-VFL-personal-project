@@ -1,6 +1,6 @@
 module: M5
 module_path: modules/m5_modeling
-total_steps_planned: 19
+total_steps_planned: 21
 steps:
 - step_id: S5.1
   step_name: 五级基线阶梯实现（L1 先于 L3 完成）
@@ -393,14 +393,37 @@ steps:
   - modules/m5_modeling/notebooks/S5.X1_external_training_summary.ipynb
   - modules/m5_modeling/notebooks/S5.X1_external_training.ipynb
   note: 完整构造开发train/validation；COIL/Santander原始全量范围不同。VZ中断原退出未知、4完整密态组只读复用/16组初始化重跑与冻结数学来源通过；输入未改变，不读封存，不运行本轮PSI/新增输出攻击。测试替身修正保留。
+- step_id: S5.V2
+  step_name: 二处理组原生安全数学核验
+  status: committed
+  score: 11
+  revisions: 1
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  change_id: CL-20261013-M5-001
+  committed_at: '2026-10-13T08:02:31+00:00'
+  outputs:
+  - modules/m5_modeling/results/portfolio_binary_v1/
+  - modules/m5_modeling/二处理组应用数学实测记录.md
+  - modules/m5_modeling/notebooks/S5.V2_binary_numerical.ipynb
+  - modules/m5_modeling/notebooks/S5.V2_binary_uplift.ipynb
+  note: 两纯生成控制/十完整安全fit与方程/CPU对照，原真实数据封存不读，CI是数值误差条件区间
 current_step: null
-next_step: S5.5
+next_step: S5.X2
 metrics:
-  avg_score: 10.5
+  avg_score: 10.529
   escalation_count: 1
-  revision_rate: 0.625
-  steps_used: 16
-  budget_usage: 0.842
+  revision_rate: 0.647
+  steps_used: 17
+  budget_usage: 0.81
   consecutive_low_d4: 0
   pass_threshold: 11
   original_self_average: 11.267
@@ -426,6 +449,8 @@ quality_actions:
 - S5.E5发布失败升级，R1独立修复，不以元数据修复取消旧G3失败。预算消费15/18，其他代理/正则/树/确认仍须重规划，不能扩大分母隐藏修正率。
 - 第15条消费步骤随机窗口抽查S5.E3独立11/12，原自评11差0；已返回独立评分消息，最终代理输出因配额中断。R1只读差异复核发现共用CL歧义，一轮修复为独立CL-20261012-M5-002及原未发布JSON归档，当前完整门禁/推送待核。
 - S5.X1两个工程修正周期含来源拒读强化、恢复/审计及测试替身；固定训练数学/协议不改，环境中断根因未知。旧9/15保留，当前10/16仍超0.4，继续分步及通过线11；新增统计CI条件于开发人群。
+- V2零修正纯控制，原10/16质量问题保留；17/21预算与10/17修正率不解除复评/11通过线。新实际训练、模型输出攻击、独立确认分步。
+- V2发布R1注释换行一次修正，只添非执行注释，actual/public AST一致；真实控制数值不变，11/17修正率继续超门槛。
 budget_replan:
   decision_record: DR-M5-004
   original_budget: 12
@@ -435,6 +460,6 @@ budget_replan:
   - S5.E4
   - 独立确认预留步骤（待新数据输入）
   does_not_clear_quality_actions: true
-  latest_decision_record: DR-M5-006
-  latest_planned_steps: 19
+  latest_decision_record: DR-M5-007
+  latest_planned_steps: 21
 next_research_step: S3.P3秘密输出对齐；S5.5分组正则、安全树及封存确认分别另步

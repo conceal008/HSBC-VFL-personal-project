@@ -200,10 +200,10 @@ modules:
     path: modules/m5_modeling
     status: in_progress
     claimed_by: null
-    claimed_at: '2026-10-12T13:10:33.014366+00:00'
+    claimed_at: '2026-10-13T07:48:49.646399+00:00'
     expires_at: null
     current_step: null
-    next_step: S5.5分组正则；先S3.P3秘密输出对齐完成发布
+    next_step: S5.X2本地全代理固定训练，先S1.P8准备验收
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
@@ -224,7 +224,8 @@ modules:
     - S5.E5实际四格48轮及固定端点完成；更多训练未证明稳定合作收益，新输出重评/分组正则/安全树/独立确认待执行，旧环境退出未知保留。
     - E5实际训练完成但发布契约G3失败升级7/12，R1只修发布记录；第15步独立随机复评接续，原两次恢复不增加第三次修正。
     - S5.X1完整构造开发分区训练/恢复来源核验完成；Santander合作排序条件增益明确，COIL区间跨零。新模型输出风险/真实PSI/独立确认未完成，950数值路径公开按DR-GOV-012。
-    latest_completed_step: S5.X1
+    - S5.V2纯二arm/分类actual数学控制十fit通过，实际Criteo/其他本地代理尚未训练；不等同新增模型泄漏或独立确认。
+    latest_completed_step: S5.V2
     preparation_note: COIL/Santander四格五seed实际完成；同VM端口串行，未看封存，下一步骤先完成当前main/CI。
   M6:
     name: 效果验证与评估体系

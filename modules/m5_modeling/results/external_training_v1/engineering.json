@@ -1,0 +1,52 @@
+{
+  "step": "S5.X1",
+  "status": "passed",
+  "config_sha256": "5b13a6651184048f39526155fe0250b93bf12858bdba87dd4f664416590a7cf6",
+  "source_queue": "/Applications/总文件夹/汇丰/8-9月/新增代理训练/S5X1_recovery_queue_20261012T160851840638Z",
+  "source_provenance": [
+    {
+      "verification": "passed",
+      "dataset": "coil2000",
+      "config_sha256": "5b13a6651184048f39526155fe0250b93bf12858bdba87dd4f664416590a7cf6",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "full_train_validation": true,
+      "independent_confirmation": false,
+      "owner_exits_verified": true,
+      "recovery_applied": false,
+      "recovery_lineage_verified": false,
+      "original_interrupted_exits": "not_applicable",
+      "plaintext_peer_data_read": false,
+      "source_run": "/Applications/总文件夹/汇丰/8-9月/新增代理训练/S5X1_queue_20261012T132606547531Z/coil2000/coil2000_external_training_20261012T132606610492Z"
+    },
+    {
+      "verification": "passed",
+      "dataset": "santander_transaction",
+      "config_sha256": "5b13a6651184048f39526155fe0250b93bf12858bdba87dd4f664416590a7cf6",
+      "secure_fits": 20,
+      "alice_fits": 40,
+      "bob_fits": 20,
+      "full_train_validation": true,
+      "independent_confirmation": false,
+      "owner_exits_verified": true,
+      "recovery_applied": true,
+      "recovery_lineage_verified": true,
+      "original_interrupted_exits": "unknown",
+      "plaintext_peer_data_read": false,
+      "source_run": "/Applications/总文件夹/汇丰/8-9月/新增代理训练/S5X1_recovery_queue_20261012T160851840638Z/santander_transaction/santander_transaction_external_training_20261012T160852012663Z"
+    }
+  ],
+  "total_secure_fits": 40,
+  "total_local_reference_fits": 40,
+  "reused_secure_fits": 4,
+  "new_secure_fits_in_recovery": 16,
+  "original_santander_guest_exits": "unknown_due_to_dead_VZ",
+  "source_unchanged": true,
+  "plaintext_prediction_export": false,
+  "bob_score_disclosure": false,
+  "test_read": false,
+  "native_psi_executed": false,
+  "production_security": false,
+  "independent_confirmation": false
+}

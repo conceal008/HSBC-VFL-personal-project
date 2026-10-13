@@ -1,0 +1,8 @@
+component: external_training_audit
+module: M5
+path: modules/m5_modeling/components/external_training_audit.py
+purpose: 实验后只读核验双方完整退出、恢复源码、本方输入数组与旧拟合指纹，不回传行数据或份额。
+cross_border_assets: []
+cross_border_note: 可信管理员只在对应owner VM核对本方资产，控制器仅接收布尔通过；无新增真实跨境信息。
+tests:
+- modules/m5_modeling/tests/test_external_training_audit.py

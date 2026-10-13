@@ -1,0 +1,8 @@
+component: external_training_vm
+module: M5
+path: modules/m5_modeling/components/external_training_vm.py
+purpose: S1.P6各VM本方内部只读复制、固定四格训练、授权汇总导出和失败生命周期
+cross_border_assets: []
+cross_border_note: DR-M5-001功能模拟；输入与清洗矩阵不跨方，Bob无分数/标签，host不获清洗CSV/预测/份额；非生产证明。
+tests:
+- modules/m5_modeling/tests/test_external_training_vm.py

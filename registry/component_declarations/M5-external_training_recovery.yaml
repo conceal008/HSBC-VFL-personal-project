@@ -1,0 +1,8 @@
+component: external_training_recovery
+module: M5
+path: modules/m5_modeling/components/external_training_recovery.py
+purpose: 只跳过双方完整训练，核验逐文件指纹和本方数组；未完成轨迹从固定初始化恢复，不改原数学。
+cross_border_assets: []
+cross_border_note: DR-M5-001功能模拟；仅本方数据与授权状态，无新Bob预测或真实跨境资产。
+tests:
+- modules/m5_modeling/tests/test_external_training_recovery.py

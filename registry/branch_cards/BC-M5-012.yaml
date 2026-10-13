@@ -1,0 +1,22 @@
+card_id: BC-M5-012
+status: completed
+routes:
+- id: external_classification_four_cell
+  purpose: COIL/Santander预先构造开发分区，固定四格五seed，完整S1.P6开发分区，清洗CSV只在本方VM内复制。
+falsifier: 配置/本方来源/权限/mTLS/数值/完整覆盖失败即停，不读取确认、不改变切分或按结果扩搜；未原生PSI/重评/确认不放行。
+history:
+- event: VZ_dead_interruption
+  original_guest_exit: unknown
+  complete_seed11_reused: true
+  partial_seed22_not_reused: true
+  model_math_changed: false
+- event: post_run_lineage_passed
+  new_owner_exit_codes:
+  - 0
+  - 0
+  source_and_input_unchanged: true
+- event: preflight_fixture_corrections
+  mock_shell_quote_mismatch: true
+  audit_logs_fixture_missing_directory: true
+  related_tests_final_passed: 32
+decision: 固定协议全量完成，不根据效果扩搜；保留COIL负结果及Santander构造增益，无PSI/新攻击/确认放行。

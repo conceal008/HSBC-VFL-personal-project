@@ -1,0 +1,80 @@
+{
+  "coil2000": {
+    "alice": {
+      "run_id": "coil2000_external_training_20261012T132606610492Z",
+      "original_model_math_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "nonlinear_full.py": "5ba70e029cc5d33adfa4095adc1e5d8f88d11ce1361ea99a2fd92965d246e09f"
+      },
+      "runtime_git_sha": "f0aa20af6abb8f1cc17d4cabf88187e1f123f9dd",
+      "executed_entry_source_sha256": "28d5be3d3a9852a1f49b4ef4cdd117bd2bba2fe898c3a43495b66ed8bf4dfb4d",
+      "recovery_controller_sha256": {},
+      "recovery_source_run": null,
+      "reused_completed_fits": []
+    },
+    "bob": {
+      "run_id": "coil2000_external_training_20261012T132606610492Z",
+      "original_model_math_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "nonlinear_full.py": "5ba70e029cc5d33adfa4095adc1e5d8f88d11ce1361ea99a2fd92965d246e09f"
+      },
+      "runtime_git_sha": "f0aa20af6abb8f1cc17d4cabf88187e1f123f9dd",
+      "executed_entry_source_sha256": "28d5be3d3a9852a1f49b4ef4cdd117bd2bba2fe898c3a43495b66ed8bf4dfb4d",
+      "recovery_controller_sha256": {},
+      "recovery_source_run": null,
+      "reused_completed_fits": []
+    }
+  },
+  "santander_transaction": {
+    "alice": {
+      "run_id": "santander_transaction_external_training_20261012T160852012663Z",
+      "original_model_math_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "nonlinear_full.py": "5ba70e029cc5d33adfa4095adc1e5d8f88d11ce1361ea99a2fd92965d246e09f"
+      },
+      "runtime_git_sha": "f0aa20af6abb8f1cc17d4cabf88187e1f123f9dd",
+      "executed_entry_source_sha256": "11390b6b8ee45dab9facbff9d404a93cb29cc7ed0eadef2f626786b2c174e587",
+      "recovery_controller_sha256": {
+        "external_training_recovery.py": "5ed98e29477ed776e5c31fff6cf4f9278fcfe040d3211da0916bef9685fe4fb7"
+      },
+      "recovery_source_run": "santander_transaction_external_training_20261012T133732778215Z",
+      "reused_completed_fits": [
+        "A0_seed11",
+        "A1_seed11",
+        "B0_seed11",
+        "B1_seed11"
+      ]
+    },
+    "bob": {
+      "run_id": "santander_transaction_external_training_20261012T160852012663Z",
+      "original_model_math_sha256": {
+        "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "nonlinear_full.py": "5ba70e029cc5d33adfa4095adc1e5d8f88d11ce1361ea99a2fd92965d246e09f"
+      },
+      "runtime_git_sha": "f0aa20af6abb8f1cc17d4cabf88187e1f123f9dd",
+      "executed_entry_source_sha256": "11390b6b8ee45dab9facbff9d404a93cb29cc7ed0eadef2f626786b2c174e587",
+      "recovery_controller_sha256": {
+        "external_training_recovery.py": "5ed98e29477ed776e5c31fff6cf4f9278fcfe040d3211da0916bef9685fe4fb7"
+      },
+      "recovery_source_run": "santander_transaction_external_training_20261012T133732778215Z",
+      "reused_completed_fits": [
+        "A0_seed11",
+        "A1_seed11",
+        "B0_seed11",
+        "B1_seed11"
+      ]
+    }
+  }
+}

@@ -1,0 +1,121 @@
+change_id: CL-20261012-M5-003
+timestamp: '2026-10-13T01:13:13+00:00'
+agent: Codex
+module: M5
+type: exp
+title: COIL及Santander完整构造开发分区四格训练与来源核验
+what: 40密态拟合及40本方参照完成；全每seed指标/CI/配对差/p公开，保留环境中断、完整组复用和未完组初始化重跑来源。
+why: 检验合作信息与固定单变量增强能否迁移到另外两代理，不能用UCI/Hillstrom结论替代。
+key_finding: 构造的Santander开发分区合作预测增益明确，COIL排序合作区间跨零；单变量增强未证明额外合作优势。
+links:
+  branch_card: BC-M5-012
+  decision_record:
+  - DR-M5-001
+  - DR-M5-006
+  - DR-GOV-012
+  waiver: []
+  loop_step: []
+cross_border_impact: none
+cross_border_detail: 本机双VM可信管理员功能模拟，MPC权重不明文披露，Alice原授权评分，Bob无标签/分数权限，无新增真实跨境资产；本轮PSI未运行。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 逐文件审查两个公开研究摘要及工程汇总/CSV/Notebook，保留全seed与CI/p但排除records、行数据、身份/交集规模、预测、学习状态/分位点、份额与凭证。公开950数值路径均可逐值追溯。实际入口清空，另汇总入口带输出。
+downstream_affected:
+- M3
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 原S7.P2已经在main f0aa20a，远端CI38255560912八job success。旧阶段冻结资产不覆盖；Santander旧退出未知不追认为正常，复用4组与新16组来源分开。
+reproducibility:
+  config: modules/m5_modeling/configs/external_training.yaml
+  config_hash: 5b13a6651184048f39526155fe0250b93bf12858bdba87dd4f664416590a7cf6
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: environments/python.lock
+  note: 抽样20261011/划分20261012、初始化11..55、顺序101..105分别固定。COIL完整源开发80/20；Santander25%抽样再60/20/20，封存排除。非全Santander/独立人群。
+rollback: 新revert步骤撤回本步实现，原数据及全部冻结结果/失败保留。
+verification: 两轮最终双方exit0，完整库存、隔离/mTLS/输入/数值及Notebook通过；新增只读来源审计原/恢复两轮passed，32项相关工程测试通过。全量门禁及远端发布回执接续记录。
+step:
+  step_id: S5.X1
+  step_name: 额外代理完整开发分区四格五seed联邦对照
+  declaration: '# S5.X1 额外代理开发分区联邦对照训练
+
+
+    > 编写日期：2026-10-12 ｜ 版本：v1.0 ｜ 状态：已声明，代码预检；S7.P2完成发布后训练
+
+    > 数据来源：S1.P6冻结COIL2000与Santander各VM本方清洗开发分区
+
+    > 口径基准：用户要求高效率继续后续内容；DR-GOV-012；DR-M5-006
+
+
+    will_produce:
+
+    - 两数据集各四格A0/A1/B0/B1、五初始化seed和分离的顺序seed，完整预先构造开发train/validation，合计40条密态拟合；每seed另设本方LR/tree原始及增强共四参照。
+
+    - 沿用已验证CHEETAH/FM64、DF、固定12轮/lr0.1/L2 0.1及固定单变量分位点基函数；COIL选numeric__f47，Santander选numeric__var_0，均预先指定而非按结果筛选。
+
+    - 本方准备目录经管理员在本VM内复制到独立训练input；哈希、只读权限、旧训练目录拒读、准备及sealed拒读、mTLS和输出能力验证。原始/清洗源不修改，test不投递。
+
+    - AUC/PR-AUC/logloss、Top名单回测及配对差、CI、置换p/Holm与工程资源记录；每训练独立code/data/results/logs。训练入口Notebook和经过审查的汇总Notebook/JSON/日志同步main。
+
+    will_not_produce:
+
+    - 不运行Criteo二元处理适配、不称现有标签为营销因果收益，不选参、不扩大样本或变更特征切分，不使用封存确认集。
+
+    - 不替代原生PSI：本轮仍是冻结预对齐与密态一致性验证；真实PSI另步。不开Bob分数/标签/残差/权重权限，host不接收清洗CSV/NPZ/预测/份额。
+
+    - 不把五初始化seed当作五独立人群划分；CI明确条件于固定开发划分。未原生PSI/输出攻击/确认前不放行生产。
+
+    success_criteria:
+
+    - 所有固定组与seed完成；配置/代码/本方输入冻结、权限/认证/对齐/数值控制、私有目录和Notebook验收通过。
+
+    - 所有正负结果保留，增益按预注册对照及CI/p解释；公开字段逐项审查，完成独立提交和普通main推送。
+
+    risk:
+
+    - COIL现有房车保险持有是代理标签；Santander匿名字段切分是构造条件，不能解释自然机构互补或银行联合营销收益。
+
+    - 单机双VM的管理员属于可信部署边界，不能防宿主root或恶意合谋；拟合预算扩大不消除历史质量问题。
+
+    '
+  scope:
+    files_changed: 30
+    lines_added: 4750
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      G1: modules/m5_modeling/results/external_training_v1/README.md:1：已审查公开汇总，无行级与份额。
+      G2: registry/component_declarations/M5-external_training_vm.yaml:1：功能模拟，不增加真实跨境资产。
+      G3: modules/m5_modeling/S5.X1_额外代理开发训练_步骤声明.md:7：固定四格/五seed，不按结果搜索或读取封存。
+      G4: modules/m5_modeling/额外代理训练实验记录.md:7：构造场景与独立确认/PSI/新增攻击限制。
+      D1: modules/m5_modeling/results/external_training_v1/engineering.json:1：两任务40密态/40本方完整验收与来源审计。
+      D2: modules/m5_modeling/results/external_training_v1/metrics.csv:1：950原数值路径，全seed/CI/p和两个来源摘要SHA256。
+      D3: modules/m5_modeling/components/external_training_recovery.py:83：原数学AST只插跳过，不改优化；未独立人群复现，2分。
+      D4: modules/m5_modeling/额外代理训练实验记录.md:7：Santander与COIL合作增益不同，不能泛化或把增强称联邦特有。
+  revisions: 2
+  verdict: committed
+  next_step: S3.P3通用秘密输出对齐；后续正则/安全树/封存确认另步
+  waiver_ref: null
+  outputs:
+  - modules/m5_modeling/results/external_training_v1/
+  - modules/m5_modeling/额外代理训练实验记录.md
+  - modules/m5_modeling/notebooks/S5.X1_external_training_summary.ipynb
+  - modules/m5_modeling/notebooks/S5.X1_external_training.ipynb

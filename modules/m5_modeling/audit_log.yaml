@@ -104,3 +104,77 @@ subsequent_reviews:
   limitation: substantive independent scoring and findings returned in messages; final
     agent output interrupted by usage quota; no independent full rerun or full R1
     publication pass claimed
+twentieth_consumed_step_check:
+  status: pending_independent_result
+  recorded_in_step: S5.R3
+  window:
+  - S5.X1
+  - S5.V2
+  - S5.X2
+  - S5.R2
+  - S5.R3
+  seed_material: f7febd1ec70d9618297b58733014d2b2b3128c89:M5:20
+  method: SHA256 to integer, random.Random.choice
+  selected_step: S5.X1
+  reviewer: /root/m5_twentieth_step_audit
+  initial_attempt: failed service quota; no independent score
+  retry: dispatched after latest user continue
+  score: null
+  does_not_clear_old_quality_actions: true
+
+twentieth_consumed_step_independent_review:
+  step_id: S5.X1
+  status: completed
+  recorded_in_step: S5.R3
+  reviewer: /root/m5_twentieth_step_audit
+  reassessed_score: 11
+  original_self_score: 11
+  difference: 0
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  completed_at: '2026-10-14T12:42:14+00:00'
+  sampling:
+    window:
+    - S5.X1
+    - S5.V2
+    - S5.X2
+    - S5.R2
+    - S5.R3
+    seed_material: f7febd1ec70d9618297b58733014d2b2b3128c89:M5:20
+    method: SHA256 to integer then random.Random.choice
+  findings:
+  - Actual public report fields and all 950 scalar CSV paths equal original summaries;
+    two private verify_lineage passed; 40 secure and 40 local fits, both final exits
+    0
+  - Initialization seeds11/22/33/44/55 matched order101/102/103/104/105 in actual
+    fit configs; recovery guards removed AST equals original math
+  - X1 0600 contract concerns host exported files; guest 80 model shares mode0664,
+    parent trainings0700, preparation UID1001 denied all shares; former roots currently
+    root0700
+  - X1 raw-full/PSI/output attack/independent confirmation boundaries are explicit;
+    p0.0625 conditional, constructed gain not bank causal value
+  evidence:
+  - modules/m5_modeling/results/external_training_v1/README.md:17
+  - registry/component_declarations/M5-external_training_vm.yaml:5
+  - modules/m5_modeling/components/nonlinear_full_vm.py:150
+  - modules/m5_modeling/S5.X1_额外代理开发训练_步骤声明.md:8
+  - modules/m5_modeling/results/external_training_v1/engineering.json:40
+  - modules/m5_modeling/额外代理训练实验记录.md:63
+  - modules/m5_modeling/components/external_training_audit.py:29
+  - modules/m5_modeling/configs/external_training.yaml:45
+  - modules/m5_modeling/非线性开发预试验运行说明.md:32
+  - modules/m5_modeling/components/nonlinear_full_vm.py:310
+  limited_invalidity: Any expanded assertion that X1 guest shares were0600 is invalid;
+    original X1 contract and numerical results remain valid. Does not validate stricter
+    X2 contract.
+  no_independent_training_rerun: true
+  does_not_clear_prior_quality_actions: true
+  first_attempt_service_quota_failure_retained: true

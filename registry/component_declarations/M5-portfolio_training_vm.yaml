@@ -1,0 +1,9 @@
+component: portfolio_training_vm
+module: M5
+path: modules/m5_modeling/components/portfolio_training_vm.py
+purpose: 本方VM内部复制冻结开发分区，十四代理固定安全基线逐任务训练
+cross_border_assets: []
+cross_border_note: 延续DR-M5-001本机构造两方；只授权汇总，无新跨境资产。
+tests:
+- modules/m5_modeling/tests/test_portfolio_training_vm.py
+- modules/m5_modeling/tests/test_portfolio_training.py

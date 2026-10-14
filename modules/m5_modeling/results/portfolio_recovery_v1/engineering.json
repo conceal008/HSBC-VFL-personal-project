@@ -1,0 +1,155 @@
+{
+  "status": "engineering_ready_only",
+  "step_id": "S5.R2",
+  "failed_original_step": "S5.X2",
+  "original_step_score": 7,
+  "original_revisions": 2,
+  "completed_full_tasks": 0,
+  "passed_phase_seeds": [
+    11,
+    22
+  ],
+  "actual_phase_audits": [
+    {
+      "verification": "passed",
+      "dataset": "homecredit",
+      "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+      "secure_fits": 2,
+      "alice_fits": 4,
+      "bob_fits": 2,
+      "full_train_validation": true,
+      "independent_confirmation": false,
+      "scope": "single_seed_session",
+      "source_path": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2R_20261014T074430408922Z/homecredit/homecredit_portfolio_seed11_20261014T074430460306Z"
+    },
+    {
+      "verification": "passed",
+      "dataset": "homecredit",
+      "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+      "secure_fits": 2,
+      "alice_fits": 4,
+      "bob_fits": 2,
+      "full_train_validation": true,
+      "independent_confirmation": false,
+      "scope": "single_seed_session",
+      "source_path": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2R_20261014T074430408922Z/homecredit/homecredit_portfolio_seed22_20261014T074450889224Z"
+    }
+  ],
+  "corrupt_file": "trainings/B0_seed33/results/status.json",
+  "corrupt_file_bytes": 0,
+  "corrupt_file_not_modified": true,
+  "source_failure_type": "JSONDecodeError",
+  "vm_original_exit_cause": "unconfirmed",
+  "security_or_performance_conclusion": false,
+  "source_audit_root": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5R2审查_20261014T075211363981Z",
+  "original_failure_queues": [
+    "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T013610270535Z",
+    "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T014213358779Z",
+    "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2R_20261014T074430408922Z"
+  ],
+  "next_step": "S5.X3",
+  "eligibility": {
+    "11": {
+      "source": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T014213358779Z/homecredit/homecredit_portfolio_training_20261014T014214342444Z",
+      "secure_checks": {
+        "alice": {
+          "complete": true,
+          "reasons": [],
+          "no_arrays_exported": true
+        },
+        "bob": {
+          "complete": true,
+          "reasons": [],
+          "no_arrays_exported": true
+        }
+      },
+      "local_check": {
+        "complete": true,
+        "reasons": [],
+        "no_arrays_exported": true
+      },
+      "secure_reused": true,
+      "local_reused": true,
+      "corruption_not_repaired": true
+    },
+    "22": {
+      "source": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T014213358779Z/homecredit/homecredit_portfolio_training_20261014T014214342444Z",
+      "secure_checks": {
+        "alice": {
+          "complete": true,
+          "reasons": [],
+          "no_arrays_exported": true
+        },
+        "bob": {
+          "complete": true,
+          "reasons": [],
+          "no_arrays_exported": true
+        }
+      },
+      "local_check": {
+        "complete": true,
+        "reasons": [],
+        "no_arrays_exported": true
+      },
+      "secure_reused": true,
+      "local_reused": true,
+      "corruption_not_repaired": true
+    },
+    "33": {
+      "source": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T014213358779Z/homecredit/homecredit_portfolio_training_20261014T014214342444Z",
+      "secure_checks": {
+        "alice": {
+          "complete": false,
+          "reasons": [
+            "ValueError"
+          ],
+          "no_arrays_exported": true
+        },
+        "bob": {
+          "complete": false,
+          "reasons": [
+            "ValueError"
+          ],
+          "no_arrays_exported": true
+        }
+      },
+      "local_check": {
+        "complete": true,
+        "reasons": [],
+        "no_arrays_exported": true
+      },
+      "secure_reused": false,
+      "local_reused": true,
+      "corruption_not_repaired": true
+    },
+    "44": {
+      "source": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X2_20261014T014213358779Z/homecredit/homecredit_portfolio_training_20261014T014214342444Z",
+      "secure_checks": {
+        "alice": {
+          "complete": false,
+          "reasons": [
+            "JSONDecodeError"
+          ],
+          "no_arrays_exported": true
+        },
+        "bob": {
+          "complete": false,
+          "reasons": [
+            "JSONDecodeError"
+          ],
+          "no_arrays_exported": true
+        }
+      },
+      "local_check": {
+        "complete": false,
+        "reasons": [
+          "JSONDecodeError"
+        ],
+        "no_arrays_exported": true
+      },
+      "secure_reused": false,
+      "local_reused": false,
+      "corruption_not_repaired": true
+    }
+  }
+}

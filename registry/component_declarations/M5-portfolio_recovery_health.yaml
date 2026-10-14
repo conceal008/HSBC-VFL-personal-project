@@ -1,0 +1,8 @@
+component: portfolio_recovery_health
+module: M5
+path: modules/m5_modeling/components/portfolio_recovery_health.py
+purpose: 拒绝损坏JSON/数组/未完成进度或越界恢复分数，只导出检查布尔
+cross_border_assets: []
+cross_border_note: 本机公开代理功能模拟/可信管理方本方资产检查，无新增跨境资产。
+tests:
+- modules/m5_modeling/tests/test_portfolio_recovery_health.py

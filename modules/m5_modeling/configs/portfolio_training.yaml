@@ -1,0 +1,390 @@
+step_id: S5.X2
+mode: two_vm_functional_simulation
+alignment: frozen_pre_alignment_secure_equality_only
+protocol: CHEETAH
+field: FM64
+smoke:
+  data_seed: 20261001
+  split_rows:
+  - 512
+  - 128
+  - 128
+  features_per_party: 2
+  treatment_effect: 0.3
+  precision_logits:
+  - -4096.0
+  - -1024.0
+  - -256.0
+  - -128.0
+  - -64.0
+  - -32.0
+  - -16.0
+  - -8.0
+  - -1.0
+  - 0.0
+  - 1.0
+  - 8.0
+  - 16.0
+  - 32.0
+  - 64.0
+  - 128.0
+  - 256.0
+  - 1024.0
+  - 4096.0
+  shared_overrides:
+    model_seeds:
+    - 11
+    learning_rates:
+    - 0.1
+    epochs: 2
+    bootstrap_repeats: 30
+    l0_c_grid:
+    - 1.0
+    tree_iterations: 20
+shared:
+  model_seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  initialization_std: 0.01
+  split_seed: 20261014
+  bootstrap_seed: 20261001
+  bootstrap_repeats: 500
+  top_k_fraction: 0.1
+  clip_features: 4.0
+  segments: 10
+  minimum_group: 10
+  prediction_batch_size: 2048
+  infeed_rows: 4096
+  precision_tolerance: 0.001
+  membership_max_rows: 4000
+  learning_rates:
+  - 0.1
+  epochs: 12
+  batch_size: 512
+  l2_norm: 0.1
+  sigmoid: df
+  weight_bound: 10.0
+  training_boundary_limit: 0.01
+  l0_c_grid:
+  - 0.1
+  - 1.0
+  l0_max_iter: 1000
+  tree_iterations: 100
+  tree_leaves: 15
+  tree_l2: 1.0
+  score_epsilon: 1.0e-06
+  ci_percentiles:
+  - 2.5
+  - 97.5
+  link_timeout_ms: 300000
+datasets:
+  homecredit:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开申请违约代理；本方申请字段/对方EXT_SOURCE的构造归属；不代表营销因果增量
+    resampling_unit: stratified_rows
+  fedads:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 原已对齐广告响应代理，l_/f_字段归属；非对齐文件/测试不读取，不证明真实客户PSI；源sample_id存在重复，训练事件键含固定行号，同源sample_id分组互斥切分防重复ID穿越，不把sample_id称稳定客户身份
+    resampling_unit: cluster
+  criteo:
+    treatment: true
+    treatment_arms:
+    - 1
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 随机处理广告增量代理；明确排除visit/exposure，两方特征奇偶构造；资源cohort不称原始全量
+    resampling_unit: stratified_rows
+  orange_small_churn:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信churn代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  orange_small_appetency:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信appetency代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  orange_small_upselling:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信upselling代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  orange_large_churn:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信churn代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  orange_large_appetency:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信appetency代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  orange_large_upselling:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 匿名电信upselling代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+    resampling_unit: stratified_rows
+  hsbc_mock_balanced:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    resampling_unit: cluster
+  hsbc_mock_overlap20:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    resampling_unit: cluster
+  hsbc_mock_overlap50:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    resampling_unit: cluster
+  hsbc_mock_overlap80:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    resampling_unit: cluster
+  santander_product:
+    treatment: false
+    treatment_arms: []
+    prohibited_features:
+    - label_new_any
+    - label_n_new
+    - outcome
+    - visit
+    - exposure
+    - ID_code
+    - sample_id
+    - ncodpers
+    - SK_ID_CURR
+    - fecha_dato
+    task_scope: 公开月度产品面板，本月特征预测次月任一新增产品，不称完成24产品推荐；只保留连续月份且产品状态已知的pair
+    resampling_unit: cluster
+disclosure:
+  controller:
+  - status
+  - artifact_path
+  both_parties:
+  - dimensions
+  - alignment_boolean
+  - fixed_training_schedule
+  - numerical_validity_boolean
+  alice_only:
+  - prediction
+  - evaluation
+  - model_selection
+  prohibited:
+  - cross_party_raw_values
+  - plaintext_joint_weights
+  - bob_labels
+  - bob_residuals
+  - bob_scores
+experiment:
+  candidate: fixed baseline portfolio; no additional candidate selection
+  selection_seed: 20261005
+  max_rows:
+    train: null
+    validation: null
+  quantiles:
+  - 0.25
+  - 0.5
+  - 0.75
+  variance_floor: 1.0e-12
+  features:
+    homecredit: []
+    fedads: []
+    criteo: []
+    orange_small_churn: []
+    orange_small_appetency: []
+    orange_small_upselling: []
+    orange_large_churn: []
+    orange_large_appetency: []
+    orange_large_upselling: []
+    hsbc_mock_balanced: []
+    hsbc_mock_overlap20: []
+    hsbc_mock_overlap50: []
+    hsbc_mock_overlap80: []
+    santander_product: []
+  order_seeds:
+    '11': 101
+    '22': 102
+    '33': 103
+    '44': 104
+    '55': 105
+  conditions:
+    A0:
+      enhanced: false
+      include_bob: false
+    B0:
+      enhanced: false
+      include_bob: true
+  local_lr_c: 1.0
+  bootstrap_seed: 20261005
+  alpha: 0.05
+  scope: 十四公开构造任务，最多25000资源cohort全部prepared train/validation；客户/时间或事件分组分区冻结；无独立确认、无原始全量或银行收益结论
+  comparisons:
+    B0_minus_A0:
+      B0: 1
+      A0: -1
+source_config_sha256: 6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959
+prepared_source_runs:
+  homecredit: S1P8_20261013T075227765655Z
+  fedads: S1P8_20261013T075227765655Z
+  criteo: S1P8_20261013T075227765655Z
+  orange_small_churn: S1P8_20261013T075227765655Z
+  orange_small_appetency: S1P8_20261013T075227765655Z
+  orange_small_upselling: S1P8_20261013T075227765655Z
+  orange_large_churn: S1P8_20261013T075227765655Z
+  orange_large_appetency: S1P8R_20261013T122807441559Z
+  orange_large_upselling: S1P8R_20261013T122807441559Z
+  hsbc_mock_balanced: S1P8R_20261013T122807441559Z
+  hsbc_mock_overlap20: S1P8R_20261013T122807441559Z
+  hsbc_mock_overlap50: S1P8R_20261013T122807441559Z
+  hsbc_mock_overlap80: S1P8R_20261013T122807441559Z
+  santander_product: S1P8R_20261013T122807441559Z

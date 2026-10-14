@@ -1,0 +1,6 @@
+step_id: S5.X3
+owner_umask: 63
+copied_owner_file_mode: 384
+copied_owner_directory_mode: 448
+base_control: modules/m5_modeling/configs/portfolio_phase_control.yaml
+note: 077/0600/0700 permission octals expressed as decimal YAML integers; no optimizer change

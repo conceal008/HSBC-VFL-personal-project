@@ -416,22 +416,91 @@ steps:
   - modules/m5_modeling/notebooks/S5.V2_binary_numerical.ipynb
   - modules/m5_modeling/notebooks/S5.V2_binary_uplift.ipynb
   note: 两纯生成控制/十完整安全fit与方程/CPU对照，原真实数据封存不读，CI是数值误差条件区间
+- step_id: S5.X2
+  step_name: 全本地代理固定基线（未完成升级）
+  status: escalated
+  score: 7
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 2
+    D3: 2
+    D4: 2
+  revisions: 2
+  committed_at: '2026-10-14T07:55:43+00:00'
+  change_id: null
+  note: 三队列失败，第二修正只两个HomeCredit阶段恢复通过；旧seed33空status不能复用。完整十四任务契约未完成，原步骤不做第三修正。
+  outputs:
+  - modules/m5_modeling/results/portfolio_recovery_v1/
+  - modules/m5_modeling/report/S5.R2_损坏恢复拒用与失败升级.md
+- step_id: S5.R2
+  step_name: 损坏恢复工件拒用与独立续训准备
+  status: escalated
+  score: 7
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 2
+    D3: 2
+    D4: 2
+  revisions: 2
+  committed_at: '2026-10-14T07:55:43+00:00'
+  change_id: null
+  outputs:
+  - modules/m5_modeling/components/portfolio_recovery_health.py
+  - modules/m5_modeling/components/portfolio_resume_vm.py
+  - modules/m5_modeling/results/portfolio_recovery_v1/
+  - modules/m5_modeling/notebooks/S5.R2_recovery_summary.ipynb
+  note: 只读实际两seed工程验收/损坏拒用；不报性能。不把R2纯工程准备称14任务完成，X3独立预声明。 两修正后最终R1未命名参数位置阻断发布，原11失效，有效7；R3独立仅注释/审查metadata修复。
+  original_unpublished_self_score: 11
+  original_change_id: CL-20261014-M5-002 (unpublished)
+  archived_assessment: modules/m5_modeling/report/S5.R2_未发布自评归档.json
+- step_id: S5.R3
+  step_name: 续训发布修复与模块复审
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261014-M5-003
+  committed_at: '2026-10-14T12:37:49+00:00'
+  outputs:
+  - modules/m5_modeling/results/portfolio_release_v1
+  - modules/m5_modeling/report/S5.R3_续训发布与模块复审.md
+  - modules/m5_modeling/notebooks/S5.R3_release_summary.ipynb
+  note: 原R2有效7和两修正保留；独立第20随机抽查X1已委派，回执待接续；本步无新训练。 第20独立X1复评11/12，差0，四门pass；guest664/父700与host600作用域分别记录，不撤销原X1数值。
 current_step: null
-next_step: S5.X2
+next_step: S5.X3
 metrics:
-  avg_score: 10.529
-  escalation_count: 1
-  revision_rate: 0.647
-  steps_used: 17
-  budget_usage: 0.81
+  avg_score: 10.2
+  escalation_count: 3
+  revision_rate: 0.65
+  steps_used: 20
+  budget_usage: 0.952
   consecutive_low_d4: 0
   pass_threshold: 11
   original_self_average: 11.267
   avg_score_basis: independent reassessment replaces invalidated self-scores; original
     score fields retained as history
 audit:
-  last_spot_check_step: S5.E3
-  spot_checks_done: 3
+  last_spot_check_step: S5.X1
+  spot_checks_done: 4
   record: modules/m5_modeling/audit_log.yaml
 quality_actions:
 - 修正率3/7超过0.4，依维护约束3.4重新拆分后续步骤：联合全字段纯合成数学核验、未查看人群确认、输出限制和攻击验证独立声明。
@@ -451,6 +520,11 @@ quality_actions:
 - S5.X1两个工程修正周期含来源拒读强化、恢复/审计及测试替身；固定训练数学/协议不改，环境中断根因未知。旧9/15保留，当前10/16仍超0.4，继续分步及通过线11；新增统计CI条件于开发人群。
 - V2零修正纯控制，原10/16质量问题保留；17/21预算与10/17修正率不解除复评/11通过线。新实际训练、模型输出攻击、独立确认分步。
 - V2发布R1注释换行一次修正，只添非执行注释，actual/public AST一致；真实控制数值不变，11/17修正率继续超门槛。
+- X2修正两轮后仍因旧空JSON终止，升级有效7，不做第三轮；R2独立完整性准备零修正，原高修正率、11通过线与审计义务不解除；下一消费步骤第20步须随机独立回溯抽查。
+- R2完整门禁Q2缺恢复source guard类型注解，独立步骤一轮补注解；不称原X2第三修正。原两phase与健康审查工件不变，第一失败快照停止并保留。
+- R2第二修正发现原share664与600声明不一致：旧目录700/prep拒读不替代文件mode；新X3 umask077/恢复副本chmod/实际stat验收，旧资产和原X2两修正留存。
+- R2最终612tests通过而R1参数位置注释未齐，两修正后有效7升级；R3独立发布修复/三升级模块复审，不加第三修正、不增预算。第20步窗口抽中X1独立复評第一次服务额度失败，重新委派，未评分不追认完成。
+- 第20消费随机窗口抽中X1，初次服务quota失败后重试获得独立11/12差0；950路径/实际来源/seed/恢复及权限作用域核验。来宾share664不能写600，原X1host600契约不追溯施加X2；旧质量/11通过线不解除。
 budget_replan:
   decision_record: DR-M5-004
   original_budget: 12

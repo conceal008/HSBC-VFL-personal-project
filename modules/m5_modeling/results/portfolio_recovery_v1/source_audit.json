@@ -1,0 +1,174 @@
+{
+  "11": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "public_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "public_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "public_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "public_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "public_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "public_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_control.py": {
+        "actual_sha256": "68a9cce744108e6e16699bc890427fa53375745047c55bb381f0a960aa29dab5",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_merge.py": {
+        "actual_sha256": "7770f5f81071c767510d87501fe63eccde89bd44c5879dcd5897df2193bad240",
+        "public_bytes_equal": true
+      },
+      "notebook": {
+        "source_cells_equal": true,
+        "metadata_review_reference_updated": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "public_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "public_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "public_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "public_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "public_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "public_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_control.py": {
+        "actual_sha256": "68a9cce744108e6e16699bc890427fa53375745047c55bb381f0a960aa29dab5",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_merge.py": {
+        "actual_sha256": "7770f5f81071c767510d87501fe63eccde89bd44c5879dcd5897df2193bad240",
+        "public_bytes_equal": true
+      },
+      "notebook": {
+        "source_cells_equal": true,
+        "metadata_review_reference_updated": true
+      }
+    }
+  },
+  "22": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "public_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "public_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "public_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "public_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "public_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "public_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_control.py": {
+        "actual_sha256": "68a9cce744108e6e16699bc890427fa53375745047c55bb381f0a960aa29dab5",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_merge.py": {
+        "actual_sha256": "7770f5f81071c767510d87501fe63eccde89bd44c5879dcd5897df2193bad240",
+        "public_bytes_equal": true
+      },
+      "notebook": {
+        "source_cells_equal": true,
+        "metadata_review_reference_updated": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "public_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "public_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "public_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "public_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "public_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "public_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_control.py": {
+        "actual_sha256": "68a9cce744108e6e16699bc890427fa53375745047c55bb381f0a960aa29dab5",
+        "public_bytes_equal": true
+      },
+      "portfolio_phase_merge.py": {
+        "actual_sha256": "7770f5f81071c767510d87501fe63eccde89bd44c5879dcd5897df2193bad240",
+        "public_bytes_equal": true
+      },
+      "notebook": {
+        "source_cells_equal": true,
+        "metadata_review_reference_updated": true
+      }
+    }
+  }
+}

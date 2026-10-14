@@ -1,0 +1,8 @@
+component: portfolio_groups
+module: M5
+path: modules/m5_modeling/components/portfolio_groups.py
+purpose: 可信fixture本方标识/月元数据分配与owner内整客户/源事件配对bootstrap；不查标签选样本
+cross_border_assets: []
+cross_border_note: 只读本地公开源key/月及已投递开发record_id，不开sealed；group map仅Alice私有，不给Bob或Public。
+tests:
+- modules/m5_modeling/tests/test_portfolio_groups.py

@@ -1,0 +1,8 @@
+component: portfolio_review
+module: M5
+path: modules/m5_modeling/components/portfolio_review.py
+purpose: 公开研究汇总白名单校验、完整seed和CI核验、禁止逐行结果与学习状态
+cross_border_assets: []
+cross_border_note: 按DR-GOV-012公开汇总；不输出身份/交集/行记录/份额/学习状态。
+tests:
+- modules/m5_modeling/tests/test_portfolio_review.py

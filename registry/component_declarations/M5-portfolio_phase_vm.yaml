@@ -1,0 +1,8 @@
+component: portfolio_phase_vm
+module: M5
+path: modules/m5_modeling/components/portfolio_phase_vm.py
+purpose: 有时限存活检查与owner VM内部恢复/合并，不转移明文行数据
+cross_border_assets: []
+cross_border_note: 延续DR-M5-001本机构造两方；没有新增跨境资产、没有本轮PSI。
+tests:
+- modules/m5_modeling/tests/test_portfolio_phase_vm.py

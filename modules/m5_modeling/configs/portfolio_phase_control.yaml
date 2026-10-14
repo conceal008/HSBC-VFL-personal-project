@@ -1,0 +1,9 @@
+step_id: S5.X2
+health_interval_seconds: 60
+management_timeout_seconds: 10
+command_timeout_seconds: 120
+poll_seconds: 1
+session_deadline_seconds: 21600
+termination_grace_seconds: 10
+reuse_policy: bilateral_complete_secure_cells_and_owner_local_block
+math_config: modules/m5_modeling/configs/portfolio_training.yaml

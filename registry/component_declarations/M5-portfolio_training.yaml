@@ -1,0 +1,8 @@
+component: portfolio_training
+module: M5
+path: modules/m5_modeling/components/portfolio_training.py
+purpose: 十四公开代理固定单方/联合安全基线，二arm列在V2验收后用于Criteo
+cross_border_assets: []
+cross_border_note: 双VM本机功能模拟，成熟MPC；只有Alice接收分数/评估，原始/份额不导出。
+tests:
+- modules/m5_modeling/tests/test_portfolio_training.py

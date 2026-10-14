@@ -147,3 +147,7 @@ L3b 纵向 GBDT 与 L4 集中式 GBDT 完全相等（0.7697）。协议无损，
 本轮逐run源码/实际入口指纹见[provenance.json](results/external_training_v1/provenance.json)。COIL使用首次冻结入口，Santander恢复入口新增完整组跳过，原train_full计算数学一致；复用组保留原入口而非伪称重训。
 
 当前数学准备（2026-10-13）：[S5.V2二处理组应用数学实测](二处理组应用数学实测记录.md)完成，两个纯生成控制各五seed、所有误差低于预定容差。全本地代理十四任务S5.X2尚未训练，待S1.P8准备验收；原正则/安全树/独立确认继续预留，M5预算21与旧质量问题独立记账。
+
+当前续训状态（2026-10-14）：M1十四任务准备/P9发布已完成。S5.X2两次修正后因旧损坏status终止升级7；[R2恢复完整性记录](report/S5.R2_损坏恢复拒用与失败升级.md)与[工程汇总](notebooks/S5.R2_recovery_summary.ipynb)只核验Home Credit两seed，没有完整性能结论。下一步[S5.X3独立续训](S5.X3_全本地代理续训_步骤声明.md)，原数学/数据/预算保持，先发布本步main。
+
+当前发布状态（2026-10-14）：R2两修正后612tests通过但R1未命名参数位置拒绝，正式有效7升级。[R3发布与模块复审](report/S5.R3_续训发布与模块复审.md)只补非执行注释/review引用；[带输出摘要](notebooks/S5.R3_release_summary.ipynb)。全本地14任务未完成，第20独立抽查X1已重新委派，先main发布再X3。

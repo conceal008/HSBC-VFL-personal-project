@@ -1,0 +1,14 @@
+card_id: BC-M5-014
+status: escalated
+routes:
+- id: fixed_portfolio
+  purpose: 14任务原生固定两格/五seed
+  status: incomplete
+- id: recovery_integrity
+  purpose: 独立R2拒用损坏恢复资产，X3预声明
+  status: engineering_ready
+history:
+- 首次重复router无路由模型前失败；第一次修正原协议重启
+- 第二原队列双VZ退出原因未核，来宾退出未知
+- 第二修正两个恢复阶段通过，seed33空status失败；X2有效7升级，两修正上限不绕过
+falsifier: 权限、源码、输入、概率、日志完整性或任一全任务契约失败不计完成，不放宽参数/选择结果

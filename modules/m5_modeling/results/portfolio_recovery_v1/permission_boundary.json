@@ -1,0 +1,29 @@
+{
+  "step": "S5.R2",
+  "source_phase": "homecredit_portfolio_seed11_20261014T074430460306Z",
+  "source_failure_claim": "old per-file 0600 requirement not implemented; parent 0700 prevents unprivileged traversal",
+  "parties": {
+    "alice": {
+      "old_source_share_mode": "664",
+      "old_parent_training_directory_mode": "700",
+      "preparation_account_old_share_read_denied": true,
+      "old_0600_claim_satisfied": false,
+      "configured_creation_probe_mode": "0o600",
+      "newly_cloned_copies_will_be_0600": true,
+      "source_assets_unchanged": true,
+      "native_fresh_fit_permissions_still_require_X3_check": true
+    },
+    "bob": {
+      "old_source_share_mode": "664",
+      "old_parent_training_directory_mode": "700",
+      "preparation_account_old_share_read_denied": true,
+      "old_0600_claim_satisfied": false,
+      "configured_creation_probe_mode": "0o600",
+      "newly_cloned_copies_will_be_0600": true,
+      "source_assets_unchanged": true,
+      "native_fresh_fit_permissions_still_require_X3_check": true
+    }
+  },
+  "continuation_config": "modules/m5_modeling/configs/portfolio_continuation_control.yaml",
+  "config_sha256": "553e0bbeec0d559a6d797bdcaeef9217cdb5d1047a8051a112aab6612a6b6e6c"
+}

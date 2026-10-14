@@ -1,0 +1,8 @@
+component: portfolio_network
+module: M5
+path: modules/m5_modeling/components/portfolio_network.py
+purpose: 训练前只读检查唯一共享虚拟网络进程及双向管理连接正对照
+cross_border_assets: []
+cross_border_note: 不读任何双方数据，不放宽训练网络白名单或mTLS。
+tests:
+- modules/m5_modeling/tests/test_portfolio_network.py

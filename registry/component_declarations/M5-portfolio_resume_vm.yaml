@@ -1,0 +1,8 @@
+component: portfolio_resume_vm
+module: M5
+path: modules/m5_modeling/components/portfolio_resume_vm.py
+purpose: 独立X3续训步骤与固定来源指纹、owner内部健康恢复
+cross_border_assets: []
+cross_border_note: 本机公开代理功能模拟/可信管理方本方资产检查，无新增跨境资产。
+tests:
+- modules/m5_modeling/tests/test_portfolio_resume_vm.py

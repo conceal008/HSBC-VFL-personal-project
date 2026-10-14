@@ -1,0 +1,113 @@
+change_id: CL-20261014-M5-003
+timestamp: '2026-10-14T12:37:49+00:00'
+agent: Codex
+module: M5
+type: fix
+title: 续训发布注释修复与三升级模块复审
+what: R2两修正后R1失败有效7升级；R3只补参数位置豁免注释与review CL引用，原执行AST/数学/数据不变，独立抽查X1接续
+why: 完整测试通过仍缺发布规则，独立修复有效记录才能交付续训代码
+links:
+  branch_card: BC-M5-014
+  decision_record:
+  - DR-M5-001
+  - DR-M5-007
+  - DR-GOV-012
+  loop_step:
+  - S5.R3
+cross_border_impact: none
+cross_border_detail: 本机构造两VM/公开代理与可信管理员本方恢复，无新跨境资产、未运行PSI
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 公开范围延续R2已审查工程布尔/文件mode/代码配置/指纹，原R2未发布自评JSON归档显式invalid/effective7；无行数据、身份/交集规模、逐行分数/标签、学习状态、权重/份额或凭证。五个实际训练入口输出清空并关联本CL
+    outputs；新R3 summary真实执行仅工程状态。
+downstream_affected:
+- M6
+- M7
+breaking_change: false
+migration: 旧成功/失败冻结；新X3显式execution_step_id，原数学模板X2保留，不给原X2第三修正
+reproducibility:
+  config: modules/m5_modeling/configs/portfolio_phase_control.yaml
+  config_hash: 6b6e13a7c2a9f24aae3f62cf1f714193787cdbf05fe7b3346bdbc5986e496cc0
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+rollback: 另revert步骤撤回新恢复入口，不删除旧失败或实际审查资产
+verification: 原612tests/93.2%通过但R2最终R1失败；R3新完整门禁/main回执接续，未用旧通过冒充新完成。 第20独立回溯X1复评11/12差0/四门pass，950数字路径与原摘要、来源/seed/恢复/权限作用域通过；未独立重训。
+  R3最终完整冻结索引门禁通过：612 tests、10727/11506=93.2%核心覆盖、53/53回归、所有数据/元数据/资产/类型/复现/端到端/证据链通过；私有回执S5R2完整门禁_20261014T124214339233Z。
+step:
+  step_id: S5.R3
+  step_name: 续训发布修复与模块复审
+  declaration: '# S5.R3 续训发布修复与模块复审
+
+
+    > 编写日期：2026-10-14 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：R2最终门禁612tests/93.2%、R1参数位置魔数失败；旧工件只读
+
+    > 口径基准：R2两修正后升级，不追加第三修正；M5三升级整体复审
+
+
+    will_produce:
+
+    - 独立归档R2未发布自评/CL草稿，R2有效7/G3fail保留；新R3只补参数位置常量的准确豁免注释，运行AST/数学/数据不变。
+
+    - 实际入口review CL指向本次有效发布记录；旧R2工程JSON/原实际Notebook/源码/训练结果不覆盖。新公开工程摘要实际执行，清空训练入口禁止输出。
+
+    - 模块三升级整体复审和第20消费步骤独立随机回溯抽查，原预算21、旧高修正率和11通过线保留，不靠增加分母消除质量问题。
+
+    - 完整门禁/main公开推送并核验，然后进入已预声明X3独立十四任务训练。
+
+    will_not_produce:
+
+    - 不生成新训练或性能指标、不将原失败或两phase工程通过记为完整十四任务；不修改优化/数据/封存/PSI权限，不给R2第三修正。
+
+    success_criteria:
+
+    - 仅非执行注释差异、有效元数据与审查引用完整、全部门禁/独立复评留痕/main推送；X3下阶段仍需独立实际验收。
+
+    risk:
+
+    - 治理发布缺陷反复，高步骤消耗不能说明任务已完成；本步最终为第20/21，X3为第21，后续方法/安全步骤须重新规划但不在本步改预算。
+
+    '
+  scope:
+    files_changed: 70
+    lines_added: 7226
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/results/portfolio_release_v1/engineering.json:1：仅注释/metadata契约修复，无新训练
+      D2: modules/m5_modeling/results/portfolio_release_v1/engineering.json:1：新旧源码SHA/AST一致，原R1失败留痕
+      D3: modules/m5_modeling/components/portfolio_resume_vm.py:67：非执行修复，不重训原模型，真实底层VZ根因未确认
+      D4: modules/m5_modeling/report/S5.R3_续训发布与模块复审.md:1：三升级根因/措施、原低分/预算与独立抽查义务公开
+  revisions: 0
+  verdict: committed
+  next_step: S5.X3
+  outputs:
+  - modules/m5_modeling/results/portfolio_release_v1
+  - modules/m5_modeling/report/S5.R3_续训发布与模块复审.md
+  - modules/m5_modeling/report/S5.R2_未发布自评归档.json
+  - modules/m5_modeling/notebooks/S5.R3_release_summary.ipynb
+  - modules/m5_modeling/results/portfolio_recovery_v1
+  - modules/m5_modeling/notebooks/S5.X2_portfolio_merge.ipynb
+  - modules/m5_modeling/notebooks/S5.X2_portfolio_phase.ipynb
+  - modules/m5_modeling/notebooks/S5.X2_portfolio_training.ipynb
+  - modules/m5_modeling/notebooks/S5.X3_portfolio_merge.ipynb
+  - modules/m5_modeling/notebooks/S5.X3_portfolio_phase.ipynb
+  - modules/m5_modeling/results/portfolio_release_v1/independent_audit.json

@@ -1,0 +1,1220 @@
+step_id: S1.P7
+seeds:
+  sampling: 20261013
+  split: 20261014
+  encoding: 20261015
+max_cohort_rows: 25000
+split_fractions:
+- 0.6
+- 0.2
+- 0.2
+hash_dimensions: 128
+numeric_clip: 4.0
+wide_dimensions: 256
+wide_threshold: 500
+datasets:
+  homecredit:
+    kind: csv
+    source: HomeCredit_DefaultRisk/解压/application_train.csv
+    columns:
+    - SK_ID_CURR
+    - TARGET
+    - NAME_CONTRACT_TYPE
+    - CODE_GENDER
+    - FLAG_OWN_CAR
+    - FLAG_OWN_REALTY
+    - CNT_CHILDREN
+    - AMT_INCOME_TOTAL
+    - AMT_CREDIT
+    - AMT_ANNUITY
+    - AMT_GOODS_PRICE
+    - NAME_TYPE_SUITE
+    - NAME_INCOME_TYPE
+    - NAME_EDUCATION_TYPE
+    - NAME_FAMILY_STATUS
+    - NAME_HOUSING_TYPE
+    - REGION_POPULATION_RELATIVE
+    - DAYS_BIRTH
+    - DAYS_EMPLOYED
+    - DAYS_REGISTRATION
+    - DAYS_ID_PUBLISH
+    - OWN_CAR_AGE
+    - FLAG_MOBIL
+    - FLAG_EMP_PHONE
+    - FLAG_WORK_PHONE
+    - FLAG_CONT_MOBILE
+    - FLAG_PHONE
+    - FLAG_EMAIL
+    - OCCUPATION_TYPE
+    - CNT_FAM_MEMBERS
+    - REGION_RATING_CLIENT
+    - REGION_RATING_CLIENT_W_CITY
+    - WEEKDAY_APPR_PROCESS_START
+    - HOUR_APPR_PROCESS_START
+    - REG_REGION_NOT_LIVE_REGION
+    - REG_REGION_NOT_WORK_REGION
+    - LIVE_REGION_NOT_WORK_REGION
+    - REG_CITY_NOT_LIVE_CITY
+    - REG_CITY_NOT_WORK_CITY
+    - LIVE_CITY_NOT_WORK_CITY
+    - ORGANIZATION_TYPE
+    - EXT_SOURCE_1
+    - EXT_SOURCE_2
+    - EXT_SOURCE_3
+    - APARTMENTS_AVG
+    - BASEMENTAREA_AVG
+    - YEARS_BEGINEXPLUATATION_AVG
+    - YEARS_BUILD_AVG
+    - COMMONAREA_AVG
+    - ELEVATORS_AVG
+    - ENTRANCES_AVG
+    - FLOORSMAX_AVG
+    - FLOORSMIN_AVG
+    - LANDAREA_AVG
+    - LIVINGAPARTMENTS_AVG
+    - LIVINGAREA_AVG
+    - NONLIVINGAPARTMENTS_AVG
+    - NONLIVINGAREA_AVG
+    - APARTMENTS_MODE
+    - BASEMENTAREA_MODE
+    - YEARS_BEGINEXPLUATATION_MODE
+    - YEARS_BUILD_MODE
+    - COMMONAREA_MODE
+    - ELEVATORS_MODE
+    - ENTRANCES_MODE
+    - FLOORSMAX_MODE
+    - FLOORSMIN_MODE
+    - LANDAREA_MODE
+    - LIVINGAPARTMENTS_MODE
+    - LIVINGAREA_MODE
+    - NONLIVINGAPARTMENTS_MODE
+    - NONLIVINGAREA_MODE
+    - APARTMENTS_MEDI
+    - BASEMENTAREA_MEDI
+    - YEARS_BEGINEXPLUATATION_MEDI
+    - YEARS_BUILD_MEDI
+    - COMMONAREA_MEDI
+    - ELEVATORS_MEDI
+    - ENTRANCES_MEDI
+    - FLOORSMAX_MEDI
+    - FLOORSMIN_MEDI
+    - LANDAREA_MEDI
+    - LIVINGAPARTMENTS_MEDI
+    - LIVINGAREA_MEDI
+    - NONLIVINGAPARTMENTS_MEDI
+    - NONLIVINGAREA_MEDI
+    - FONDKAPREMONT_MODE
+    - HOUSETYPE_MODE
+    - TOTALAREA_MODE
+    - WALLSMATERIAL_MODE
+    - EMERGENCYSTATE_MODE
+    - OBS_30_CNT_SOCIAL_CIRCLE
+    - DEF_30_CNT_SOCIAL_CIRCLE
+    - OBS_60_CNT_SOCIAL_CIRCLE
+    - DEF_60_CNT_SOCIAL_CIRCLE
+    - DAYS_LAST_PHONE_CHANGE
+    - FLAG_DOCUMENT_2
+    - FLAG_DOCUMENT_3
+    - FLAG_DOCUMENT_4
+    - FLAG_DOCUMENT_5
+    - FLAG_DOCUMENT_6
+    - FLAG_DOCUMENT_7
+    - FLAG_DOCUMENT_8
+    - FLAG_DOCUMENT_9
+    - FLAG_DOCUMENT_10
+    - FLAG_DOCUMENT_11
+    - FLAG_DOCUMENT_12
+    - FLAG_DOCUMENT_13
+    - FLAG_DOCUMENT_14
+    - FLAG_DOCUMENT_15
+    - FLAG_DOCUMENT_16
+    - FLAG_DOCUMENT_17
+    - FLAG_DOCUMENT_18
+    - FLAG_DOCUMENT_19
+    - FLAG_DOCUMENT_20
+    - FLAG_DOCUMENT_21
+    - AMT_REQ_CREDIT_BUREAU_HOUR
+    - AMT_REQ_CREDIT_BUREAU_DAY
+    - AMT_REQ_CREDIT_BUREAU_WEEK
+    - AMT_REQ_CREDIT_BUREAU_MON
+    - AMT_REQ_CREDIT_BUREAU_QRT
+    - AMT_REQ_CREDIT_BUREAU_YEAR
+    label: TARGET
+    treatment: null
+    key: SK_ID_CURR
+    parties:
+      alice:
+        features:
+        - NAME_CONTRACT_TYPE
+        - CODE_GENDER
+        - FLAG_OWN_CAR
+        - FLAG_OWN_REALTY
+        - CNT_CHILDREN
+        - AMT_INCOME_TOTAL
+        - AMT_CREDIT
+        - AMT_ANNUITY
+        - AMT_GOODS_PRICE
+        - NAME_TYPE_SUITE
+        - NAME_INCOME_TYPE
+        - NAME_EDUCATION_TYPE
+        - NAME_FAMILY_STATUS
+        - NAME_HOUSING_TYPE
+        - REGION_POPULATION_RELATIVE
+        - DAYS_BIRTH
+        - DAYS_EMPLOYED
+        - DAYS_REGISTRATION
+        - DAYS_ID_PUBLISH
+        - OWN_CAR_AGE
+        - FLAG_MOBIL
+        - FLAG_EMP_PHONE
+        - FLAG_WORK_PHONE
+        - FLAG_CONT_MOBILE
+        - FLAG_PHONE
+        - FLAG_EMAIL
+        - OCCUPATION_TYPE
+        - CNT_FAM_MEMBERS
+        - REGION_RATING_CLIENT
+        - REGION_RATING_CLIENT_W_CITY
+        - WEEKDAY_APPR_PROCESS_START
+        - HOUR_APPR_PROCESS_START
+        - REG_REGION_NOT_LIVE_REGION
+        - REG_REGION_NOT_WORK_REGION
+        - LIVE_REGION_NOT_WORK_REGION
+        - REG_CITY_NOT_LIVE_CITY
+        - REG_CITY_NOT_WORK_CITY
+        - LIVE_CITY_NOT_WORK_CITY
+        - ORGANIZATION_TYPE
+        - APARTMENTS_AVG
+        - BASEMENTAREA_AVG
+        - YEARS_BEGINEXPLUATATION_AVG
+        - YEARS_BUILD_AVG
+        - COMMONAREA_AVG
+        - ELEVATORS_AVG
+        - ENTRANCES_AVG
+        - FLOORSMAX_AVG
+        - FLOORSMIN_AVG
+        - LANDAREA_AVG
+        - LIVINGAPARTMENTS_AVG
+        - LIVINGAREA_AVG
+        - NONLIVINGAPARTMENTS_AVG
+        - NONLIVINGAREA_AVG
+        - APARTMENTS_MODE
+        - BASEMENTAREA_MODE
+        - YEARS_BEGINEXPLUATATION_MODE
+        - YEARS_BUILD_MODE
+        - COMMONAREA_MODE
+        - ELEVATORS_MODE
+        - ENTRANCES_MODE
+        - FLOORSMAX_MODE
+        - FLOORSMIN_MODE
+        - LANDAREA_MODE
+        - LIVINGAPARTMENTS_MODE
+        - LIVINGAREA_MODE
+        - NONLIVINGAPARTMENTS_MODE
+        - NONLIVINGAREA_MODE
+        - APARTMENTS_MEDI
+        - BASEMENTAREA_MEDI
+        - YEARS_BEGINEXPLUATATION_MEDI
+        - YEARS_BUILD_MEDI
+        - COMMONAREA_MEDI
+        - ELEVATORS_MEDI
+        - ENTRANCES_MEDI
+        - FLOORSMAX_MEDI
+        - FLOORSMIN_MEDI
+        - LANDAREA_MEDI
+        - LIVINGAPARTMENTS_MEDI
+        - LIVINGAREA_MEDI
+        - NONLIVINGAPARTMENTS_MEDI
+        - NONLIVINGAREA_MEDI
+        - FONDKAPREMONT_MODE
+        - HOUSETYPE_MODE
+        - TOTALAREA_MODE
+        - WALLSMATERIAL_MODE
+        - EMERGENCYSTATE_MODE
+        - OBS_30_CNT_SOCIAL_CIRCLE
+        - DEF_30_CNT_SOCIAL_CIRCLE
+        - OBS_60_CNT_SOCIAL_CIRCLE
+        - DEF_60_CNT_SOCIAL_CIRCLE
+        - DAYS_LAST_PHONE_CHANGE
+        - FLAG_DOCUMENT_2
+        - FLAG_DOCUMENT_3
+        - FLAG_DOCUMENT_4
+        - FLAG_DOCUMENT_5
+        - FLAG_DOCUMENT_6
+        - FLAG_DOCUMENT_7
+        - FLAG_DOCUMENT_8
+        - FLAG_DOCUMENT_9
+        - FLAG_DOCUMENT_10
+        - FLAG_DOCUMENT_11
+        - FLAG_DOCUMENT_12
+        - FLAG_DOCUMENT_13
+        - FLAG_DOCUMENT_14
+        - FLAG_DOCUMENT_15
+        - FLAG_DOCUMENT_16
+        - FLAG_DOCUMENT_17
+        - FLAG_DOCUMENT_18
+        - FLAG_DOCUMENT_19
+        - FLAG_DOCUMENT_20
+        - FLAG_DOCUMENT_21
+        - AMT_REQ_CREDIT_BUREAU_HOUR
+        - AMT_REQ_CREDIT_BUREAU_DAY
+        - AMT_REQ_CREDIT_BUREAU_WEEK
+        - AMT_REQ_CREDIT_BUREAU_MON
+        - AMT_REQ_CREDIT_BUREAU_QRT
+        - AMT_REQ_CREDIT_BUREAU_YEAR
+        categorical:
+        - NAME_CONTRACT_TYPE
+        - CODE_GENDER
+        - FLAG_OWN_CAR
+        - FLAG_OWN_REALTY
+        - NAME_TYPE_SUITE
+        - NAME_INCOME_TYPE
+        - NAME_EDUCATION_TYPE
+        - NAME_FAMILY_STATUS
+        - NAME_HOUSING_TYPE
+        - OCCUPATION_TYPE
+        - WEEKDAY_APPR_PROCESS_START
+        - ORGANIZATION_TYPE
+        - FONDKAPREMONT_MODE
+        - HOUSETYPE_MODE
+        - WALLSMATERIAL_MODE
+        - EMERGENCYSTATE_MODE
+      bob:
+        features:
+        - EXT_SOURCE_1
+        - EXT_SOURCE_2
+        - EXT_SOURCE_3
+        categorical: []
+    scope: 公开申请违约代理；本方申请字段/对方EXT_SOURCE的构造归属；不代表营销因果增量
+  fedads:
+    kind: csv
+    source: FedAds_阿里纵向广告/sample_train_aligned.csv
+    columns:
+    - sample_id
+    - label
+    - l_i_fea_1
+    - l_i_fea_2
+    - l_i_fea_3
+    - l_i_fea_4
+    - l_i_fea_5
+    - l_i_fea_6
+    - l_i_fea_7
+    - l_i_fea_8
+    - l_i_fea_9
+    - l_i_fea_10
+    - l_u_fea_1
+    - l_u_fea_2
+    - l_u_fea_3
+    - l_u_fea_4
+    - l_u_fea_5
+    - l_u_fea_6
+    - l_c_fea
+    - f_u_fea_1
+    - f_u_fea_2
+    - f_uc_fea_1
+    - f_uc_fea_2
+    - f_c
+    label: label
+    treatment: null
+    key: sample_id
+    parties:
+      alice:
+        features:
+        - l_i_fea_1
+        - l_i_fea_2
+        - l_i_fea_3
+        - l_i_fea_4
+        - l_i_fea_5
+        - l_i_fea_6
+        - l_i_fea_7
+        - l_i_fea_8
+        - l_i_fea_9
+        - l_i_fea_10
+        - l_u_fea_1
+        - l_u_fea_2
+        - l_u_fea_3
+        - l_u_fea_4
+        - l_u_fea_5
+        - l_u_fea_6
+        - l_c_fea
+        categorical:
+        - l_i_fea_1
+        - l_i_fea_2
+        - l_i_fea_3
+        - l_i_fea_4
+        - l_i_fea_5
+        - l_i_fea_6
+        - l_i_fea_7
+        - l_i_fea_8
+        - l_i_fea_9
+        - l_i_fea_10
+        - l_u_fea_1
+        - l_u_fea_2
+        - l_u_fea_3
+        - l_u_fea_4
+        - l_u_fea_5
+        - l_u_fea_6
+        - l_c_fea
+      bob:
+        features:
+        - f_u_fea_1
+        - f_u_fea_2
+        - f_uc_fea_1
+        - f_uc_fea_2
+        - f_c
+        categorical:
+        - f_u_fea_1
+        - f_u_fea_2
+        - f_uc_fea_1
+        - f_uc_fea_2
+        - f_c
+    token_lists: true
+    scope: 原已对齐广告响应代理，l_/f_字段归属；非对齐文件/测试不读取，不证明真实客户PSI；源sample_id存在重复，训练事件键含固定行号，同源sample_id分组互斥切分防重复ID穿越，不把sample_id称稳定客户身份
+    event_identity: source_key_plus_row
+    split_group: source_sample_id
+  criteo:
+    kind: csv
+    source: Criteo_Uplift_v2.1_纠偏版/解压/criteo-uplift-v2.1.csv
+    columns:
+    - f0
+    - f1
+    - f2
+    - f3
+    - f4
+    - f5
+    - f6
+    - f7
+    - f8
+    - f9
+    - f10
+    - f11
+    - treatment
+    - conversion
+    - visit
+    - exposure
+    label: conversion
+    treatment: treatment
+    key: null
+    parties:
+      alice:
+        features:
+        - f0
+        - f2
+        - f4
+        - f6
+        - f8
+        - f10
+        categorical: []
+      bob:
+        features:
+        - f1
+        - f3
+        - f5
+        - f7
+        - f9
+        - f11
+        categorical: []
+    excluded:
+    - visit
+    - exposure
+    scope: 随机处理广告增量代理；明确排除visit/exposure，两方特征奇偶构造；资源cohort不称原始全量
+  orange_small_churn:
+    kind: orange
+    orange_size: small
+    width: 230
+    task: churn
+    sources:
+    - Orange_KDDCup2009/解压/小版/orange_small_train.data
+    labels: Orange_KDDCup2009/orange_small_train_churn.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信churn代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  orange_small_appetency:
+    kind: orange
+    orange_size: small
+    width: 230
+    task: appetency
+    sources:
+    - Orange_KDDCup2009/解压/小版/orange_small_train.data
+    labels: Orange_KDDCup2009/orange_small_train_appetency.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信appetency代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  orange_small_upselling:
+    kind: orange
+    orange_size: small
+    width: 230
+    task: upselling
+    sources:
+    - Orange_KDDCup2009/解压/小版/orange_small_train.data
+    labels: Orange_KDDCup2009/orange_small_train_upselling.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信upselling代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  orange_large_churn:
+    kind: orange
+    orange_size: large
+    width: 15000
+    task: churn
+    sources:
+    - Orange_KDDCup2009/解压/大版/train/chunk1/orange_large_train.data.chunk1
+    - Orange_KDDCup2009/解压/大版/train/chunk2/orange_large_train.data.chunk2
+    - Orange_KDDCup2009/解压/大版/train/chunk3/orange_large_train.data.chunk3
+    - Orange_KDDCup2009/解压/大版/train/chunk4/orange_large_train.data.chunk4
+    - Orange_KDDCup2009/解压/大版/train/chunk5/orange_large_train.data.chunk5
+    labels: Orange_KDDCup2009/orange_large_train_churn.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信churn代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  orange_large_appetency:
+    kind: orange
+    orange_size: large
+    width: 15000
+    task: appetency
+    sources:
+    - Orange_KDDCup2009/解压/大版/train/chunk1/orange_large_train.data.chunk1
+    - Orange_KDDCup2009/解压/大版/train/chunk2/orange_large_train.data.chunk2
+    - Orange_KDDCup2009/解压/大版/train/chunk3/orange_large_train.data.chunk3
+    - Orange_KDDCup2009/解压/大版/train/chunk4/orange_large_train.data.chunk4
+    - Orange_KDDCup2009/解压/大版/train/chunk5/orange_large_train.data.chunk5
+    labels: Orange_KDDCup2009/orange_large_train_appetency.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信appetency代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  orange_large_upselling:
+    kind: orange
+    orange_size: large
+    width: 15000
+    task: upselling
+    sources:
+    - Orange_KDDCup2009/解压/大版/train/chunk1/orange_large_train.data.chunk1
+    - Orange_KDDCup2009/解压/大版/train/chunk2/orange_large_train.data.chunk2
+    - Orange_KDDCup2009/解压/大版/train/chunk3/orange_large_train.data.chunk3
+    - Orange_KDDCup2009/解压/大版/train/chunk4/orange_large_train.data.chunk4
+    - Orange_KDDCup2009/解压/大版/train/chunk5/orange_large_train.data.chunk5
+    labels: Orange_KDDCup2009/orange_large_train_upselling.labels
+    label: outcome
+    treatment: null
+    key: null
+    parties:
+      alice:
+        var_start: 1
+        var_step: 2
+      bob:
+        var_start: 2
+        var_step: 2
+    hybrid_numeric: true
+    scope: 匿名电信upselling代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读
+  hsbc_mock_balanced:
+    kind: mock
+    guest: HSBC_mock数据/balanced_guest.csv
+    host: HSBC_mock数据/balanced_host.csv
+    guest_columns:
+    - ncodpers
+    - fecha_dato
+    - ind_empleado
+    - pais_residencia
+    - sexo
+    - age
+    - fecha_alta
+    - ind_nuevo
+    - antiguedad
+    - indrel
+    - indrel_1mes
+    - indresi
+    - indext
+    - canal_entrada
+    - indfall
+    - tipodom
+    - cod_prov
+    - nomprov
+    - renta
+    - segmento
+    - label_new_any
+    - label_n_new
+    host_columns:
+    - ncodpers
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    - ind_actividad_cliente
+    label: outcome
+    treatment: null
+    key: ncodpers
+    time: fecha_dato
+    parties:
+      alice:
+        features:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - age
+        - fecha_alta
+        - ind_nuevo
+        - antiguedad
+        - indrel
+        - indrel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - tipodom
+        - cod_prov
+        - nomprov
+        - renta
+        - segmento
+        categorical:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - ind_nuevo
+        - indrel
+        - indrel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - nomprov
+        - segmento
+      bob:
+        features:
+        - ind_ahor_fin_ult1
+        - ind_aval_fin_ult1
+        - ind_cco_fin_ult1
+        - ind_cder_fin_ult1
+        - ind_cno_fin_ult1
+        - ind_ctju_fin_ult1
+        - ind_ctma_fin_ult1
+        - ind_ctop_fin_ult1
+        - ind_ctpp_fin_ult1
+        - ind_deco_fin_ult1
+        - ind_deme_fin_ult1
+        - ind_dela_fin_ult1
+        - ind_ecue_fin_ult1
+        - ind_fond_fin_ult1
+        - ind_hip_fin_ult1
+        - ind_plan_fin_ult1
+        - ind_pres_fin_ult1
+        - ind_reca_fin_ult1
+        - ind_tjcr_fin_ult1
+        - ind_valo_fin_ult1
+        - ind_viv_fin_ult1
+        - ind_nomina_ult1
+        - ind_nom_pens_ult1
+        - ind_recibo_ult1
+        - ind_actividad_cliente
+        categorical: []
+    scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    temporal:
+      train_last_target: 2015-12
+      validation_targets:
+      - 2016-01
+      - 2016-02
+      confirmation_targets:
+      - 2016-03
+      - 2016-04
+      customer_disjoint: true
+    mock_outcome_policy: derive_next_product_transition
+  hsbc_mock_overlap20:
+    kind: mock
+    guest: HSBC_mock数据/overlap20_guest.csv
+    host: HSBC_mock数据/overlap20_host.csv
+    guest_columns:
+    - ncodpers
+    - fecha_dato
+    - ind_empleado
+    - pais_residencia
+    - sexo
+    - age
+    - fecha_alta
+    - ind_nuevo
+    - antiguedad
+    - indrel
+    - indrel_1mes
+    - tiprel_1mes
+    - indresi
+    - indext
+    - canal_entrada
+    - indfall
+    - tipodom
+    - cod_prov
+    - nomprov
+    - renta
+    - segmento
+    - label_new_any
+    - label_n_new
+    host_columns:
+    - ncodpers
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    - ind_actividad_cliente
+    label: outcome
+    treatment: null
+    key: ncodpers
+    time: fecha_dato
+    parties:
+      alice:
+        features:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - age
+        - fecha_alta
+        - ind_nuevo
+        - antiguedad
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - tipodom
+        - cod_prov
+        - nomprov
+        - renta
+        - segmento
+        categorical:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - ind_nuevo
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - nomprov
+        - segmento
+      bob:
+        features:
+        - ind_ahor_fin_ult1
+        - ind_aval_fin_ult1
+        - ind_cco_fin_ult1
+        - ind_cder_fin_ult1
+        - ind_cno_fin_ult1
+        - ind_ctju_fin_ult1
+        - ind_ctma_fin_ult1
+        - ind_ctop_fin_ult1
+        - ind_ctpp_fin_ult1
+        - ind_deco_fin_ult1
+        - ind_deme_fin_ult1
+        - ind_dela_fin_ult1
+        - ind_ecue_fin_ult1
+        - ind_fond_fin_ult1
+        - ind_hip_fin_ult1
+        - ind_plan_fin_ult1
+        - ind_pres_fin_ult1
+        - ind_reca_fin_ult1
+        - ind_tjcr_fin_ult1
+        - ind_valo_fin_ult1
+        - ind_viv_fin_ult1
+        - ind_nomina_ult1
+        - ind_nom_pens_ult1
+        - ind_recibo_ult1
+        - ind_actividad_cliente
+        categorical: []
+    scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    temporal:
+      train_last_target: 2015-12
+      validation_targets:
+      - 2016-01
+      - 2016-02
+      confirmation_targets:
+      - 2016-03
+      - 2016-04
+      customer_disjoint: true
+    mock_outcome_policy: derive_next_product_transition
+  hsbc_mock_overlap50:
+    kind: mock
+    guest: HSBC_mock数据/overlap50_guest.csv
+    host: HSBC_mock数据/overlap50_host.csv
+    guest_columns:
+    - ncodpers
+    - fecha_dato
+    - ind_empleado
+    - pais_residencia
+    - sexo
+    - age
+    - fecha_alta
+    - ind_nuevo
+    - antiguedad
+    - indrel
+    - indrel_1mes
+    - tiprel_1mes
+    - indresi
+    - indext
+    - canal_entrada
+    - indfall
+    - tipodom
+    - cod_prov
+    - nomprov
+    - renta
+    - segmento
+    - label_new_any
+    - label_n_new
+    host_columns:
+    - ncodpers
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    - ind_actividad_cliente
+    label: outcome
+    treatment: null
+    key: ncodpers
+    time: fecha_dato
+    parties:
+      alice:
+        features:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - age
+        - fecha_alta
+        - ind_nuevo
+        - antiguedad
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - tipodom
+        - cod_prov
+        - nomprov
+        - renta
+        - segmento
+        categorical:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - ind_nuevo
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - nomprov
+        - segmento
+      bob:
+        features:
+        - ind_ahor_fin_ult1
+        - ind_aval_fin_ult1
+        - ind_cco_fin_ult1
+        - ind_cder_fin_ult1
+        - ind_cno_fin_ult1
+        - ind_ctju_fin_ult1
+        - ind_ctma_fin_ult1
+        - ind_ctop_fin_ult1
+        - ind_ctpp_fin_ult1
+        - ind_deco_fin_ult1
+        - ind_deme_fin_ult1
+        - ind_dela_fin_ult1
+        - ind_ecue_fin_ult1
+        - ind_fond_fin_ult1
+        - ind_hip_fin_ult1
+        - ind_plan_fin_ult1
+        - ind_pres_fin_ult1
+        - ind_reca_fin_ult1
+        - ind_tjcr_fin_ult1
+        - ind_valo_fin_ult1
+        - ind_viv_fin_ult1
+        - ind_nomina_ult1
+        - ind_nom_pens_ult1
+        - ind_recibo_ult1
+        - ind_actividad_cliente
+        categorical: []
+    scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    temporal:
+      train_last_target: 2015-12
+      validation_targets:
+      - 2016-01
+      - 2016-02
+      confirmation_targets:
+      - 2016-03
+      - 2016-04
+      customer_disjoint: true
+    mock_outcome_policy: derive_next_product_transition
+  hsbc_mock_overlap80:
+    kind: mock
+    guest: HSBC_mock数据/overlap80_guest.csv
+    host: HSBC_mock数据/overlap80_host.csv
+    guest_columns:
+    - ncodpers
+    - fecha_dato
+    - ind_empleado
+    - pais_residencia
+    - sexo
+    - age
+    - fecha_alta
+    - ind_nuevo
+    - antiguedad
+    - indrel
+    - indrel_1mes
+    - tiprel_1mes
+    - indresi
+    - indext
+    - canal_entrada
+    - indfall
+    - tipodom
+    - cod_prov
+    - nomprov
+    - renta
+    - segmento
+    - label_new_any
+    - label_n_new
+    host_columns:
+    - ncodpers
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    - ind_actividad_cliente
+    label: outcome
+    treatment: null
+    key: ncodpers
+    time: fecha_dato
+    parties:
+      alice:
+        features:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - age
+        - fecha_alta
+        - ind_nuevo
+        - antiguedad
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - tipodom
+        - cod_prov
+        - nomprov
+        - renta
+        - segmento
+        categorical:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - ind_nuevo
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - canal_entrada
+        - indfall
+        - nomprov
+        - segmento
+      bob:
+        features:
+        - ind_ahor_fin_ult1
+        - ind_aval_fin_ult1
+        - ind_cco_fin_ult1
+        - ind_cder_fin_ult1
+        - ind_cno_fin_ult1
+        - ind_ctju_fin_ult1
+        - ind_ctma_fin_ult1
+        - ind_ctop_fin_ult1
+        - ind_ctpp_fin_ult1
+        - ind_deco_fin_ult1
+        - ind_deme_fin_ult1
+        - ind_dela_fin_ult1
+        - ind_ecue_fin_ult1
+        - ind_fond_fin_ult1
+        - ind_hip_fin_ult1
+        - ind_plan_fin_ult1
+        - ind_pres_fin_ult1
+        - ind_reca_fin_ult1
+        - ind_tjcr_fin_ult1
+        - ind_valo_fin_ult1
+        - ind_viv_fin_ult1
+        - ind_nomina_ult1
+        - ind_nom_pens_ult1
+        - ind_recibo_ult1
+        - ind_actividad_cliente
+        categorical: []
+    scope: 公开Santander派生构造数据，不是HSBC客户；本月两方特征预测次月给定新增产品标签；不读取shared名单、不把cohort级别解释为真实两方重叠率；原label_new_any与邻月产品变化不一致，未用于本轮目标；重新构造明确0→1次月产品标签并由可信公开fixture分配Alice，不证明实际机构标签来源
+    temporal:
+      train_last_target: 2015-12
+      validation_targets:
+      - 2016-01
+      - 2016-02
+      confirmation_targets:
+      - 2016-03
+      - 2016-04
+      customer_disjoint: true
+    mock_outcome_policy: derive_next_product_transition
+  santander_product:
+    kind: product
+    source: santander-product-recommendation/解压/train_ver2.csv
+    columns:
+    - fecha_dato
+    - ncodpers
+    - ind_empleado
+    - pais_residencia
+    - sexo
+    - age
+    - fecha_alta
+    - ind_nuevo
+    - antiguedad
+    - indrel
+    - ult_fec_cli_1t
+    - indrel_1mes
+    - tiprel_1mes
+    - indresi
+    - indext
+    - conyuemp
+    - canal_entrada
+    - indfall
+    - tipodom
+    - cod_prov
+    - nomprov
+    - ind_actividad_cliente
+    - renta
+    - segmento
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    label: outcome
+    treatment: null
+    key: ncodpers
+    time: fecha_dato
+    products: &id001
+    - ind_ahor_fin_ult1
+    - ind_aval_fin_ult1
+    - ind_cco_fin_ult1
+    - ind_cder_fin_ult1
+    - ind_cno_fin_ult1
+    - ind_ctju_fin_ult1
+    - ind_ctma_fin_ult1
+    - ind_ctop_fin_ult1
+    - ind_ctpp_fin_ult1
+    - ind_deco_fin_ult1
+    - ind_deme_fin_ult1
+    - ind_dela_fin_ult1
+    - ind_ecue_fin_ult1
+    - ind_fond_fin_ult1
+    - ind_hip_fin_ult1
+    - ind_plan_fin_ult1
+    - ind_pres_fin_ult1
+    - ind_reca_fin_ult1
+    - ind_tjcr_fin_ult1
+    - ind_valo_fin_ult1
+    - ind_viv_fin_ult1
+    - ind_nomina_ult1
+    - ind_nom_pens_ult1
+    - ind_recibo_ult1
+    parties:
+      alice:
+        features:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - age
+        - fecha_alta
+        - ind_nuevo
+        - antiguedad
+        - indrel
+        - ult_fec_cli_1t
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - conyuemp
+        - canal_entrada
+        - indfall
+        - tipodom
+        - cod_prov
+        - nomprov
+        - ind_actividad_cliente
+        - renta
+        - segmento
+        categorical:
+        - ind_empleado
+        - pais_residencia
+        - sexo
+        - ind_nuevo
+        - indrel
+        - indrel_1mes
+        - tiprel_1mes
+        - indresi
+        - indext
+        - conyuemp
+        - canal_entrada
+        - indfall
+        - nomprov
+        - segmento
+      bob:
+        features: *id001
+        categorical: []
+    scope: 公开月度产品面板，本月特征预测次月任一新增产品，不称完成24产品推荐；只保留连续月份且产品状态已知的pair
+    temporal:
+      train_last_target: 2015-12
+      validation_targets:
+      - 2016-01
+      - 2016-02
+      confirmation_targets:
+      - 2016-03
+      - 2016-04
+      customer_disjoint: true
+    customer_sampling_fraction: 0.05

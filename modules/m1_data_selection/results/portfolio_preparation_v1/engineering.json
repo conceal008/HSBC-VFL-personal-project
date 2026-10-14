@@ -1,0 +1,291 @@
+{
+  "status": "prepared",
+  "tasks": {
+    "homecredit": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "fedads": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "criteo": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_small_churn": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_small_appetency": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_small_upselling": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_large_churn": {
+      "status": "prepared",
+      "source_run": "S1P8_20261013T075227765655Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_large_appetency": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "orange_large_upselling": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": false
+    },
+    "hsbc_mock_balanced": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": true
+    },
+    "hsbc_mock_overlap20": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": true
+    },
+    "hsbc_mock_overlap50": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": true
+    },
+    "hsbc_mock_overlap80": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": true
+    },
+    "santander_product": {
+      "status": "prepared",
+      "source_run": "S1P8R_20261013T122807441559Z",
+      "owners": {
+        "alice": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        },
+        "bob": {
+          "notebook_completed": true,
+          "owner_permissions_verified": true,
+          "sealed_read_denied": true,
+          "train_only_fit": true
+        }
+      },
+      "actual_source_verified": true,
+      "time_safe": true
+    }
+  },
+  "confirmation_unopened": true,
+  "training_performed": false,
+  "physical_isolation": false,
+  "raw_sources_unchanged": true,
+  "source_config_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+  "scope": "最多25000行的标签无关资源cohort，完整prepared train/validation；并非原始全量"
+}

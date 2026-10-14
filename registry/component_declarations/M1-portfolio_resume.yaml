@@ -1,0 +1,8 @@
+component: portfolio_resume
+module: M1
+path: modules/m1_data_selection/components/portfolio_resume.py
+purpose: VM失活后同协议新目录恢复，已完成双方产物只读逐项核验
+cross_border_assets: []
+cross_border_note: 不读取确认数据，不导出清洗行或学习状态。
+tests:
+- modules/m1_data_selection/tests/test_portfolio_resume.py

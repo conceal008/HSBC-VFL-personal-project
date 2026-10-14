@@ -1,0 +1,12 @@
+card_id: BC-M1-002
+status: failed_consumed_by_S1.P8
+routes:
+- S1.P7十四任务准备初版
+falsifier: 重复源ID或非标准标量格式导致任一任务无法完整准备，即不允许称全部通过。
+evidence:
+- S1P7_20261013T073652031095Z
+- S1P7_20261013T074104138295Z
+failures:
+- FedAds duplicate allocation identity
+- FedAds singleton-list outcome rejected
+source_policy: 原标签/ID/结果不修改；新格式契约独立步骤，新目录重跑

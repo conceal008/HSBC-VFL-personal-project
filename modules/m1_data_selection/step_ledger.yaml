@@ -1,6 +1,6 @@
 module: M1
 module_path: modules/m1_data_selection
-total_steps_planned: 9
+total_steps_planned: 18
 steps:
 - step_id: S1.P1
   step_name: 新增前置：Notebook 数据准备与原件保护
@@ -151,14 +151,80 @@ steps:
   - report/S1.P6_新代理封存与重跑验收.md
   - results/external_preparation_engineering.json
   note: 只准备，不训练/不确认；P5失败前置被本步消费/修复，历史声明和冻结代码保留；第一次修正扩展保护至完整Notebook入口，第二次修正更正总览规模状态，首次全门禁失败记录保留。
+- step_id: S1.P7
+  step_name: 全本地代理冻结准备初版
+  status: escalated
+  score: 7
+  revisions: 2
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 3
+    D3: 1
+    D4: 2
+  blocker: 首FedAds重复ID主动拒绝，第二队列列表标签尚未适配，HomeCredit成功但十四任务契约未完成；不作第三轮同一步修正
+  repair_step: S1.P8
+  failure_card: BC-M1-002
+- step_id: S1.P8
+  step_name: 全本地代理格式修复与冻结准备
+  status: escalated
+  score: 7
+  revisions: 2
+  gates:
+    G1: pass
+    G2: pass
+    G3: fail
+    G4: pass
+  dimensions:
+    D1: 1
+    D2: 3
+    D3: 1
+    D4: 2
+  outputs:
+  - modules/m1_data_selection/report/S1.P8_全本地代理冻结准备验收.md
+  - modules/m1_data_selection/results/portfolio_preparation_v1/
+  - modules/m1_data_selection/notebooks/S1.P8_portfolio_engineering.ipynb
+  note: 数据準备完成但第三发布契约问题不可并入两轮修正；首次门禁497pass/1fail，旧11失效，独立P9修发布。
+  attempted_score: 11
+  repair_step: S1.P9
+  failure_card: BC-M1-003
+- step_id: S1.P9
+  step_name: 准备发布元数据修复及模块复审
+  status: committed
+  score: 11
+  revisions: 0
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  change_id: CL-20261014-M1-001
+  committed_at: '2026-10-14T01:23:03+00:00'
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P7_portfolio_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P8_portfolio_repair_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P8_portfolio_engineering.ipynb
+  - modules/m1_data_selection/notebooks/S1.P9_publication_engineering.ipynb
+  - modules/m1_data_selection/report/S1.P8_全本地代理冻结准备验收.md
+  - modules/m1_data_selection/report/S1.P9_发布修复与模块复审.md
+  - modules/m1_data_selection/results/portfolio_preparation_v1/
 current_step: null
 next_step: S1.1
 metrics:
-  avg_score: 10.167
-  escalation_count: 1
-  revision_rate: 1.0
-  steps_used: 6
-  budget_usage: 0.667
+  avg_score: 9.556
+  escalation_count: 3
+  revision_rate: 0.889
+  steps_used: 9
+  budget_usage: 0.5
   consecutive_low_d4: 0
   pass_threshold: 10
   prior_reported_revision_rate: 1.25
@@ -171,3 +237,11 @@ audit:
 quality_actions:
 - 修正率继续超过0.4；P5超过修正上限升级，不伪造通过，独立P6修复，不并入模型训练。
 - P3首cell时间缺项由独立抽查确认；历史score11保留，有效score10，不触发分差≥3上调。
+- P7两修正仍格式失败升级7/12，P8独立修复；原6步/修正率1.0保留，不通过预算分母稀释。
+- 平均9.875<10/修正率1.0触发复审：整批异构格式缺预检，后续格式/时间支持、模型/攻击/确认分别声明；P5/P7两升级不抹除。
+- P8发布G3fail原11失效有效7，P9独立修复；三升级整体复审见P9报告，平均9.556/修正率8/9，预算扩大不解除。
+budget_replan:
+  prior_total_steps_planned: 9
+  prior_usage: 1.0
+  decision_record: DR-M1-001
+  remaining_formal_steps: 9

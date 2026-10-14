@@ -1,0 +1,10 @@
+component: portfolio_party
+module: M1
+path: modules/m1_data_selection/components/portfolio_party.py
+purpose: 全本地公开代理只读投递、预测时点冻结和单方VM准备；不训练
+cross_border_assets: []
+cross_border_note: 仅本机可信公开fixture分配；双方清洗状态仅本方VM，确认默认拒绝。
+tests:
+- modules/m1_data_selection/tests/test_portfolio_source.py
+- modules/m1_data_selection/tests/test_portfolio_party.py
+- modules/m1_data_selection/tests/test_portfolio_vm.py

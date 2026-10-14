@@ -1,0 +1,23 @@
+{
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/全数据集准备/S1P8R_20261013T122807441559Z/publication_audit.json",
+  "source_sha256": "6726a6edd886cdbf1779f9ddc1901334e0737c2b5608ac6970c193f2e83879ab",
+  "config": "modules/m1_data_selection/configs/portfolio_repair_freeze.yaml",
+  "config_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+  "source_run_mapping": {
+    "homecredit": "S1P8_20261013T075227765655Z",
+    "fedads": "S1P8_20261013T075227765655Z",
+    "criteo": "S1P8_20261013T075227765655Z",
+    "orange_small_churn": "S1P8_20261013T075227765655Z",
+    "orange_small_appetency": "S1P8_20261013T075227765655Z",
+    "orange_small_upselling": "S1P8_20261013T075227765655Z",
+    "orange_large_churn": "S1P8_20261013T075227765655Z",
+    "orange_large_appetency": "S1P8R_20261013T122807441559Z",
+    "orange_large_upselling": "S1P8R_20261013T122807441559Z",
+    "hsbc_mock_balanced": "S1P8R_20261013T122807441559Z",
+    "hsbc_mock_overlap20": "S1P8R_20261013T122807441559Z",
+    "hsbc_mock_overlap50": "S1P8R_20261013T122807441559Z",
+    "hsbc_mock_overlap80": "S1P8R_20261013T122807441559Z",
+    "santander_product": "S1P8R_20261013T122807441559Z"
+  },
+  "authorized_fields": "工程布尔、配置/源码指纹和公开构造来源；不导出行、规模分布、学习状态或身份"
+}

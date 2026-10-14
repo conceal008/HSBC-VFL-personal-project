@@ -1,0 +1,105 @@
+change_id: CL-20261014-M1-001
+timestamp: '2026-10-14T01:13:10+00:00'
+agent: Codex
+module: M1
+type: fix
+title: 准备发布元数据修复与十四代理验收留痕
+what: P8实际准备完成但两修正后发布G3fail升级7，P9修公开Notebook审查链接和输出清单；保留原准备/失败，模块整体复审及原正式预算单列
+why: 为全部本地任务固定可追溯且不读封存的开发输入，先解决异构标签/极端数值/时间目标语义
+links:
+  branch_card: BC-M1-003
+  decision_record:
+  - DR-M1-001
+  - DR-GOV-012
+  - DR-M5-001
+  loop_step:
+  - S1.P8
+cross_border_impact: none
+cross_border_detail: 本机构造公开fixture，两owner UID/VM，prep网络禁止；无新真实跨境资产
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 公开仅源码/config/工程布尔与源码指纹/构造语义；两实际入口清空输出，summary实际执行只读取审查工程JSON。无原件/清洗行/身份/交集规模/分布/学习状态/凭证；完整执行及失败日志私有。
+downstream_affected:
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 已用目录写前拒绝；P7及P8失败版本和原件均冻结，新恢复索引逐数据集映射精确source run，不覆写原结果
+reproducibility:
+  config: modules/m1_data_selection/configs/portfolio_repair_freeze.yaml
+  config_hash: 6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959
+  seeds:
+  - 20261013
+  - 20261014
+  - 20261015
+  env_lock: environments/python.lock
+  note: 抽样/客户切分/编码独立seed；signed log1p固定，未用验证/封存调参；P9不改该冻结P8数据协议，仅公开metadata
+rollback: 另revert步骤回退入口，不删除任何冻结原件、失败卡或私有产物
+verification: P8十四任务28owner工程复核通过；首次门禁497pass/1fail保留；P9链接修复/实际代码cell等价检查，完整门禁接续
+step:
+  step_id: S1.P9
+  step_name: 准备发布元数据修复与模块复审
+  declaration: '# S1.P9 准备验收发布元数据修复
+
+
+    > 编写日期：2026-10-14 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：S1.P8冻结准备及首次完整门禁缺失review_change_id失败
+
+    > 口径基准：维护约束v2 §3.1/3.4；BC-M1-003
+
+
+    will_produce:
+
+    - S1.P8两轮修正后发布G3失败，原11自评作废并升级7/12；实际十四任务数据准备成功仍保留。
+
+    - 仅修复公开清空Notebook的review_change_id及outputs登记，实际执行source/protocol/输入/结果不动；逐方比对可执行源码与Notebook代码cell一致，发布metadata差异单列。
+
+    - 新带输出工程汇总Notebook读取已审查冻结工程布尔；完整门禁、单步main发布和模块整体质量复审。
+
+    will_not_produce:
+
+    - 不重新处理原数据、不改results既有资产、不更改原cfg/标签/切分、不训练、不解封。
+
+    success_criteria:
+
+    - 两份实际入口输出清空且准确对应本条审查，所有导出代码cell与原执行相同；工程/元数据/门禁全部通过。
+
+    risk:
+
+    - 平均分低于10、第三升级触发模块整体复审；不得通过重写P8成绩或扩大预算稀释质量问题。
+
+    '
+  scope:
+    files_changed: 43
+    lines_added: 8986
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m1_data_selection/results/portfolio_preparation_v1/publication_release_audit.json:1：实际/pub可执行源码与Notebookcell等价；审查输出链接完整
+      D2: modules/m1_data_selection/components/portfolio_resume.py:1：复用前冻结源码/输入/清洗/完整Notebook核验；provenance来源
+      D3: modules/m1_data_selection/results/portfolio_preparation_v1/publication_source_audit.json:1：执行/发布AST校验，非独立主机复现，故2
+      D4: modules/m1_data_selection/report/S1.P9_发布修复与模块复审.md:1：P8发布失败与三升级整体复审，不追认原11
+  revisions: 0
+  verdict: committed
+  next_step: S5.X2全本地固定基线；正式S1.1仍待
+  outputs:
+  - modules/m1_data_selection/notebooks/S1.P7_portfolio_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P8_portfolio_repair_preparation.ipynb
+  - modules/m1_data_selection/notebooks/S1.P8_portfolio_engineering.ipynb
+  - modules/m1_data_selection/notebooks/S1.P9_publication_engineering.ipynb
+  - modules/m1_data_selection/report/S1.P8_全本地代理冻结准备验收.md
+  - modules/m1_data_selection/report/S1.P9_发布修复与模块复审.md
+  - modules/m1_data_selection/results/portfolio_preparation_v1/

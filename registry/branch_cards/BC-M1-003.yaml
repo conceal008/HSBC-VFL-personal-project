@@ -1,0 +1,12 @@
+card_id: BC-M1-003
+status: failed_consumed_by_S1.P9
+routes:
+- S1.P8 data preparation accepted, publication contract failed
+falsifier: 任何Notebook审查条目缺失/输出清单错位即G3fail，不以数据处理已成功放行发布
+evidence:
+- S1P8_完整门禁_20261014T011320248080Z:497 passed/1 failed review_change_id missing
+assessment_history:
+  attempted: 11
+  effective: 7
+  revisions: 2
+retained: 所有实际准备/源代码/首次门禁/工程结果冻结，仅新P9处理公开发布元数据

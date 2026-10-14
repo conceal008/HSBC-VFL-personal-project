@@ -1,0 +1,1262 @@
+{
+  "homecredit": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "fedads": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "criteo": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_small_churn": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_small_appetency": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_small_upselling": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_large_churn": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "f91975205ce1b9c89a1d06046672d70ee9a6b6e650b0a43b329e78a3f696eb05",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": false,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_large_appetency": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "orange_large_upselling": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "hsbc_mock_balanced": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap20": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap50": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap80": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  },
+  "santander_product": {
+    "alice": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    },
+    "bob": {
+      "portfolio_repair_party.py": {
+        "actual_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "published_sha256": "dbdcde7d833d68af5ab0584c65fdd3292ab4eb659088673f5b55962cc826ba70",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "external_party.py": {
+        "actual_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "published_sha256": "e5b7bb2881657b30a81c7c6390ccca7ea2eb4fddc6df9e58091170c64b84591f",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "portfolio_repair_freeze.yaml": {
+        "actual_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "published_sha256": "6c0de1c97de199eca0c8bc0c5d4c570477a88544f390f7f9bf0a6a022a0f1959",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "S1.P8_portfolio_repair_preparation.ipynb": {
+        "actual_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "published_sha256": "847d28ec16d36ac19adbf11aff669755ca6efe99d80adb7b6ad9ef50aff46503",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "bytes_equal": true,
+        "executable_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "bytes_equal": true,
+        "executable_equal": true
+      }
+    }
+  }
+}

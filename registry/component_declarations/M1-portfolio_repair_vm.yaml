@@ -1,0 +1,8 @@
+component: portfolio_repair_vm
+module: M1
+path: modules/m1_data_selection/components/portfolio_repair_vm.py
+purpose: 消费原列表标签格式失败；全本地代理单方准备，冻结确认仍不可读
+cross_border_assets: []
+cross_border_note: 仅本机可信公开fixture分配，owner VM数据/状态不导出。
+tests:
+- modules/m1_data_selection/tests/test_portfolio_repair.py

@@ -136,12 +136,12 @@ modules:
     path: modules/m1_data_selection
     status: in_progress
     claimed_by: null
-    claimed_at: '2026-10-11T01:42:47.469295+00:00'
+    claimed_at: '2026-10-13T07:11:10.825547+00:00'
     expires_at: null
     current_step: null
-    next_step: S1.1
+    next_step: S1.1；S5.X2消费十四代理冻结开发输入
     blocking_on: []
-    latest_completed_step: S1.P6
+    latest_completed_step: S1.P9
     preparation_status: three_proxy_owner_preparation_and_rerun_guard_verified_no_model_training
     open_questions:
     - S1.P1 完成 UCI/Hillstrom 数据准备；原 S1.1–S1.9 验收尚未完成。
@@ -155,6 +155,8 @@ modules:
       PR checks 为准。
     - S1.P5首次三组准备通过，但两次修正后发现同目录重跑先覆盖清洗文件；本步升级，P6独立修复，不追认P5全范围通过。
     - P3独立随机复评10/12、P5 G3fail升级7/12，P6独立修复；正式模型/独立确认另步，修正率不解除。
+    - S1.P8十四任务双方实际准备完成，封存不读；P7失败及VM恢复来源/注释AST记录保留。平均9.875<10、修正率1.0已复审，后续格式预检/模型/攻击/独立确认分开。
+    - P8处理完成但发布链接G3fail升级7，P9独立修复；三升级整体复审、有效平均9.556和8/9修正率，原九正式工作另保留，预算18不是质量放行。
   M2:
     name: 合成数据生成与仿真台
     path: modules/m2_synthetic

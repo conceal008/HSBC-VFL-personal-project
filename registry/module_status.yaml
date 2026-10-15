@@ -201,11 +201,11 @@ modules:
     name: 建模方案与基线阶梯
     path: modules/m5_modeling
     status: in_progress
-    claimed_by: Codex
-    claimed_at: '2026-10-14T12:37:49+00:00'
-    expires_at: '2026-10-15T12:37:49+00:00'
-    current_step: S5.R3
-    next_step: S5.X3
+    claimed_by: null
+    claimed_at: '2026-10-15T03:19:40+00:00'
+    expires_at: null
+    current_step: null
+    next_step: 先新模型输出重评/联合诊断，正则/安全树/独立确认分别重规划
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
@@ -230,7 +230,9 @@ modules:
     - S5.X2两修正后三队列未整任务完成，seed33旧status空导致拒用，原步骤升级7；R2只完成恢复健康准备/两seed工程审查。X3固定十四任务续训，原PSI/输出/确认门禁不解除。
     - R2两修正后612tests/93.2%通过但R1参数位置常量缺注释，原11失效有效7升级；R3仅非执行注释/审查metadata修复，三升级整体复审/第20独立抽查X1回执接续。原14新任务未完成；预算20/21不清旧质量。
     - 第20独立回溯X1已完成11/12差0；guest664/父700/prep拒读、host600作用域分开，原X1数值不撤销。R3完整发布门禁/main接续，X3仍未开始。
-    latest_completed_step: S5.R3
+    - S5.X3十四任务280逻辑模型完成（270新拟合/10核验复用），完整每seed/CI/条件检验公开；双盘容量一修正、旧失败保留。原始全量/秘密PSI接训练/新输出安全/独立人群不追认，M5
+      21/21预算需另规划。
+    latest_completed_step: S5.X3
     preparation_note: COIL/Santander四格五seed实际完成；同VM端口串行，未看封存，下一步骤先完成当前main/CI。
   M6:
     name: 效果验证与评估体系

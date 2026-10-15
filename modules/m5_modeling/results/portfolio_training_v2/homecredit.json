@@ -1,0 +1,392 @@
+{
+  "step": "S5.X3",
+  "dataset": "homecredit",
+  "classification": "reviewed_public_research_aggregate",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_aggregate_20261014T131802892364Z/alice/results/private_feature_evaluation.json",
+  "source_summary_sha256": "af3d167bfed2e29e1a3e62b0d0d4fd7afa07b4bc5c8ae998a1471435d193d1ca",
+  "config_provenance": {
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "runtime_git_sha": "5b11ad75fa601afcd73c83b5033718f9aa8956b3",
+    "code_sha256": {
+      "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+      "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+      "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+      "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+      "portfolio_training.py": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+      "portfolio_math.py": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+      "portfolio_resampling.py": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4"
+    },
+    "seed_protocol": {
+      "model_seeds": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "order_seeds": {
+        "11": 101,
+        "22": 102,
+        "33": 103,
+        "44": 104,
+        "55": 105
+      },
+      "source_split_seed": 20261014,
+      "bootstrap_seed": 20261005
+    }
+  },
+  "omitted_fields": [
+    "/records"
+  ],
+  "results": {
+    "holm_pvalues": {
+      "B0_minus_A0": 0.0625
+    },
+    "seed_points": {
+      "11": {
+        "A0": {
+          "roc_auc": 0.6298717865667403,
+          "pr_auc": 0.12399097012084706,
+          "recall_at_top_k": 0.16046512126922607,
+          "log_loss": 0.2909409488801666,
+          "brier": 0.07810925023445098
+        },
+        "B0": {
+          "roc_auc": 0.7071327131118541,
+          "pr_auc": 0.1883322357015515,
+          "recall_at_top_k": 0.2604651153087616,
+          "log_loss": 0.28269668689908334,
+          "brier": 0.07659764989168014
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6426761875812856,
+          "pr_auc": 0.13527337931959102,
+          "recall_at_top_k": 0.18837209045886993,
+          "log_loss": 0.2826843316199668,
+          "brier": 0.0764549122918577
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6646727891529343,
+          "pr_auc": 0.14739655156848788,
+          "recall_at_top_k": 0.216279074549675,
+          "log_loss": 0.2772986136848803,
+          "brier": 0.07549901001958506
+        }
+      },
+      "22": {
+        "A0": {
+          "roc_auc": 0.630422162536563,
+          "pr_auc": 0.12431397582474402,
+          "recall_at_top_k": 0.16511628031730652,
+          "log_loss": 0.2908749055275924,
+          "brier": 0.07808319583874665
+        },
+        "B0": {
+          "roc_auc": 0.7077486159626472,
+          "pr_auc": 0.18937405911927474,
+          "recall_at_top_k": 0.2604651153087616,
+          "log_loss": 0.28261453121787317,
+          "brier": 0.07656772817096504
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6426761875812856,
+          "pr_auc": 0.13527337931959102,
+          "recall_at_top_k": 0.18837209045886993,
+          "log_loss": 0.2826843316199668,
+          "brier": 0.0764549122918577
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6615038294606863,
+          "pr_auc": 0.15240049472707412,
+          "recall_at_top_k": 0.21162790060043335,
+          "log_loss": 0.2772570427763838,
+          "brier": 0.07531394990984056
+        }
+      },
+      "33": {
+        "A0": {
+          "roc_auc": 0.6301386279717562,
+          "pr_auc": 0.12432928837228918,
+          "recall_at_top_k": 0.16511628031730652,
+          "log_loss": 0.2909719864714366,
+          "brier": 0.07812074545053206
+        },
+        "B0": {
+          "roc_auc": 0.7071008217021043,
+          "pr_auc": 0.1888352254244868,
+          "recall_at_top_k": 0.262790709733963,
+          "log_loss": 0.2826778560253534,
+          "brier": 0.07658617784835493
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6426761875812856,
+          "pr_auc": 0.13527337931959102,
+          "recall_at_top_k": 0.18837209045886993,
+          "log_loss": 0.2826843316199668,
+          "brier": 0.0764549122918577
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6530752786761078,
+          "pr_auc": 0.1447327045564452,
+          "recall_at_top_k": 0.20930232107639313,
+          "log_loss": 0.27908657426171973,
+          "brier": 0.07589367070961107
+        }
+      },
+      "44": {
+        "A0": {
+          "roc_auc": 0.6299674607959896,
+          "pr_auc": 0.12394150914011057,
+          "recall_at_top_k": 0.15813954174518585,
+          "log_loss": 0.29105665153105625,
+          "brier": 0.07815321237828265
+        },
+        "B0": {
+          "roc_auc": 0.707004400017939,
+          "pr_auc": 0.18846833414117978,
+          "recall_at_top_k": 0.262790709733963,
+          "log_loss": 0.282737526086363,
+          "brier": 0.07660715352284758
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6426761875812856,
+          "pr_auc": 0.13527337931959102,
+          "recall_at_top_k": 0.18837209045886993,
+          "log_loss": 0.2826843316199668,
+          "brier": 0.0764549122918577
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6545637105655244,
+          "pr_auc": 0.1481581793087692,
+          "recall_at_top_k": 0.20930232107639313,
+          "log_loss": 0.27860520652045195,
+          "brier": 0.07569678980838541
+        }
+      },
+      "55": {
+        "A0": {
+          "roc_auc": 0.6295615927765956,
+          "pr_auc": 0.12389043461292451,
+          "recall_at_top_k": 0.1627907007932663,
+          "log_loss": 0.2913940840903128,
+          "brier": 0.0782955745147951
+        },
+        "B0": {
+          "roc_auc": 0.7061570352948211,
+          "pr_auc": 0.18758478856565058,
+          "recall_at_top_k": 0.2581395208835602,
+          "log_loss": 0.28311660876696737,
+          "brier": 0.07676048454866383
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6426761875812856,
+          "pr_auc": 0.13527337931959102,
+          "recall_at_top_k": 0.18837209045886993,
+          "log_loss": 0.2826843316199668,
+          "brier": 0.0764549122918577
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6586343500381201,
+          "pr_auc": 0.14383918982381147,
+          "recall_at_top_k": 0.22558139264583588,
+          "log_loss": 0.2784045456530781,
+          "brier": 0.07580868468295063
+        }
+      }
+    },
+    "full_prepared_development": true,
+    "scope": "十四公开构造任务，最多25000资源cohort全部prepared train/validation；客户/时间或事件分组分区冻结；无独立确认、无原始全量或银行收益结论",
+    "bootstrap": "same whole customer/source-event cluster draws (cluster support pattern strata) for declared panel/event tasks, otherwise label/treatment stratified rows; paired models plus seed resampling, conditional on frozen training/validation",
+    "task_scope": "公开申请违约代理；本方申请字段/对方EXT_SOURCE的构造归属；不代表营销因果增量",
+    "full_data_training": true,
+    "models": {
+      "A0": {
+        "roc_auc": {
+          "estimate": 0.629992326129529,
+          "ci_low": 0.6036948004544525,
+          "ci_high": 0.6573428613072488,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.12409323561418306,
+          "ci_low": 0.11228830892087922,
+          "ci_high": 0.14276340452210542,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.16232558488845825,
+          "ci_low": 0.12788372233510018,
+          "ci_high": 0.19326744273304938,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.2910477153001129,
+          "ci_low": 0.2879573260999248,
+          "ci_high": 0.2938720884371191,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.07815239568336149,
+          "ci_low": 0.07728915265965884,
+          "ci_high": 0.0789326378823408,
+          "valid_replicates": 500
+        }
+      },
+      "B0": {
+        "roc_auc": {
+          "estimate": 0.7070287172178731,
+          "ci_low": 0.6802790647844091,
+          "ci_high": 0.7330063795277082,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.18851892859042868,
+          "ci_low": 0.16622432512771537,
+          "ci_high": 0.22148665678747534,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.2609302341938019,
+          "ci_low": 0.22484883666038513,
+          "ci_high": 0.297674423456192,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.2827686417991281,
+          "ci_low": 0.2774323124820844,
+          "ci_high": 0.2875705731908758,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.0766238387965023,
+          "ci_low": 0.07481151318427105,
+          "ci_high": 0.07828544584198023,
+          "valid_replicates": 500
+        }
+      },
+      "L0_LR_0": {
+        "roc_auc": {
+          "estimate": 0.6426761875812856,
+          "ci_low": 0.616635045171192,
+          "ci_high": 0.6686301642905905,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.13527337931959102,
+          "ci_low": 0.12200268056287371,
+          "ci_high": 0.15545847759259138,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.18837209045886993,
+          "ci_low": 0.1534883677959442,
+          "ci_high": 0.22093023359775543,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.2826843316199668,
+          "ci_low": 0.27721491470731024,
+          "ci_high": 0.2882600165085686,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.0764549122918577,
+          "ci_low": 0.07536688779418335,
+          "ci_high": 0.07750700856481124,
+          "valid_replicates": 500
+        }
+      },
+      "L0_tree_0": {
+        "roc_auc": {
+          "estimate": 0.6584899915786745,
+          "ci_low": 0.632587128328043,
+          "ci_high": 0.683890198872838,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.1473054239969176,
+          "ci_low": 0.13386714463033544,
+          "ci_high": 0.16876128302963128,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.2144186019897461,
+          "ci_low": 0.18301162965595721,
+          "ci_high": 0.24443022958934307,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.2781303965793028,
+          "ci_low": 0.27335046068485963,
+          "ci_high": 0.28255635011986513,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.07564242102607455,
+          "ci_low": 0.07463700954572487,
+          "ci_high": 0.07650237489517159,
+          "valid_replicates": 500
+        }
+      }
+    },
+    "resampling_unit": "stratified_rows",
+    "raw_full_training": false,
+    "pvalue_scope": "two-sided sign flips across five fitting seeds, assuming symmetry; not a population test; minimum resolution prevents p<0.05 with five seeds",
+    "model_seeds": [
+      11,
+      22,
+      33,
+      44,
+      55
+    ],
+    "paired_comparisons": {
+      "B0_minus_A0": {
+        "roc_auc": {
+          "estimate": 0.07703639108834417,
+          "ci_low": 0.05825183624757693,
+          "ci_high": 0.09516728788475248,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.0644256929762456,
+          "ci_low": 0.0471516547570397,
+          "ci_high": 0.08787273940438423,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.09860464930534363,
+          "ci_low": 0.06673256121575832,
+          "ci_high": 0.13397674664855,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": -0.00827907350098488,
+          "ci_low": -0.01205050278254021,
+          "ci_high": -0.004681765063953528,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": -0.0015285568868591865,
+          "ci_low": -0.0030100020107836174,
+          "ci_high": -0.00013887182649390602,
+          "valid_replicates": 500
+        }
+      }
+    },
+    "status": "completed",
+    "primary": "roc_auc",
+    "prepared_source_run": "S1P8_20261013T075227765655Z",
+    "pvalues": {
+      "B0_minus_A0": 0.0625
+    },
+    "independent_confirmation": false
+  },
+  "mathematical_template_step": "S5.X2",
+  "phase_sources": {
+    "11": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_seed11_20261014T130134656637Z",
+    "22": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_seed22_20261014T130202224546Z",
+    "33": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_seed33_20261014T130224258399Z",
+    "44": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_seed44_20261014T130713292862Z",
+    "55": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/homecredit/homecredit_portfolio_seed55_20261014T131241948271Z"
+  }
+}

@@ -1,0 +1,2382 @@
+{
+  "homecredit": {
+    "verification": "passed",
+    "dataset": "homecredit",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 42.57048820890486,
+    "logical_models": 20,
+    "reused_complete_logical_models": 10,
+    "newly_fitted_final_models": 10,
+    "owner_integrity": {
+      "alice": {
+        "homecredit_portfolio_seed11_20261014T130134656637Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed22_20261014T130202224546Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed33_20261014T130224258399Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed44_20261014T130713292862Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed55_20261014T131241948271Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_aggregate_20261014T131802892364Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "homecredit_portfolio_seed11_20261014T130134656637Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed22_20261014T130202224546Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed33_20261014T130224258399Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed44_20261014T130713292862Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_seed55_20261014T131241948271Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "homecredit_portfolio_aggregate_20261014T131802892364Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 27.387304042000324,
+      "22": 21.873155209003016,
+      "33": 288.8434707499109,
+      "44": 328.4936435420532,
+      "55": 320.78631487488747
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "fedads": {
+    "verification": "passed",
+    "dataset": "fedads",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 84.64738741703331,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "fedads_portfolio_seed11_20261014T131846383420Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed22_20261014T132415770419Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed33_20261014T132958313814Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed44_20261014T133532267685Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed55_20261014T141554446545Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_aggregate_20261014T142246230082Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "fedads_portfolio_seed11_20261014T131846383420Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed22_20261014T132415770419Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed33_20261014T132958313814Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed44_20261014T133532267685Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_seed55_20261014T141554446545Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "fedads_portfolio_aggregate_20261014T142246230082Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 329.2035232919734,
+      "22": 342.380314250011,
+      "33": 333.78022687509656,
+      "44": 337.05723904212937,
+      "55": 411.60927416710183
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "criteo": {
+    "verification": "passed",
+    "dataset": "criteo",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 29.72831629193388,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "criteo_portfolio_seed11_20261014T142412052773Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed22_20261014T143503517666Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed33_20261014T144352725400Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed44_20261014T145319858036Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed55_20261014T150346834199Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_aggregate_20261014T151229157035Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "criteo_portfolio_seed11_20261014T142412052773Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed22_20261014T143503517666Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed33_20261014T144352725400Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed44_20261014T145319858036Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_seed55_20261014T150346834199Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "criteo_portfolio_aggregate_20261014T151229157035Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 651.2794926669449,
+      "22": 529.0518573748413,
+      "33": 566.8651725000236,
+      "44": 626.7963813329116,
+      "55": 522.1490732498933
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_small_churn": {
+    "verification": "passed",
+    "dataset": "orange_small_churn",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 45.59863437502645,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_small_churn_portfolio_seed11_20261014T151259853208Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed22_20261014T151846770258Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed33_20261014T152433335424Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed44_20261014T153133067820Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed55_20261014T153912780337Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_aggregate_20261014T154438311784Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_small_churn_portfolio_seed11_20261014T151259853208Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed22_20261014T151846770258Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed33_20261014T152433335424Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed44_20261014T153133067820Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_seed55_20261014T153912780337Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_churn_portfolio_aggregate_20261014T154438311784Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 346.7422232499812,
+      "22": 346.39374974998645,
+      "33": 419.5623976250645,
+      "44": 342.6003888330888,
+      "55": 325.3713126250077
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_small_appetency": {
+    "verification": "passed",
+    "dataset": "orange_small_appetency",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 45.144211374921724,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_small_appetency_portfolio_seed11_20261014T154524837777Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed22_20261014T155104948725Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed33_20261014T155648753791Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed44_20261014T160543992491Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed55_20261014T161129778278Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_aggregate_20261014T161733970841Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_small_appetency_portfolio_seed11_20261014T154524837777Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed22_20261014T155104948725Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed33_20261014T155648753791Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed44_20261014T160543992491Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_seed55_20261014T161129778278Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_appetency_portfolio_aggregate_20261014T161733970841Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 339.93905037501827,
+      "22": 343.63719870802015,
+      "33": 335.7888104999438,
+      "44": 345.62232083291747,
+      "55": 364.0368879160378
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_small_upselling": {
+    "verification": "passed",
+    "dataset": "orange_small_upselling",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 47.37238158308901,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_small_upselling_portfolio_seed11_20261014T161819979089Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed22_20261014T162347319223Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed33_20261014T162919566521Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed44_20261014T164305874151Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed55_20261014T172223657360Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_aggregate_20261014T173024492443Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_small_upselling_portfolio_seed11_20261014T161819979089Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed22_20261014T162347319223Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed33_20261014T162919566521Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed44_20261014T164305874151Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_seed55_20261014T172223657360Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_small_upselling_portfolio_aggregate_20261014T173024492443Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 327.1750000829343,
+      "22": 332.0844576670788,
+      "33": 343.7211461251136,
+      "44": 482.9385335408151,
+      "55": 480.67735429201275
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_large_churn": {
+    "verification": "passed",
+    "dataset": "orange_large_churn",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 50.25757620786317,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_large_churn_portfolio_seed11_20261014T173112682356Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed22_20261014T174142152809Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed33_20261014T175157588590Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed44_20261014T180211875556Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed55_20261014T181228380313Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_aggregate_20261014T182247157458Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_large_churn_portfolio_seed11_20261014T173112682356Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed22_20261014T174142152809Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed33_20261014T175157588590Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed44_20261014T180211875556Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_seed55_20261014T181228380313Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_churn_portfolio_aggregate_20261014T182247157458Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 629.3129855829757,
+      "22": 615.2745505420025,
+      "33": 614.1362299169414,
+      "44": 616.344123207964,
+      "55": 618.6259154158179
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_large_appetency": {
+    "verification": "passed",
+    "dataset": "orange_large_appetency",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 49.445860125124454,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_large_appetency_portfolio_seed11_20261014T182338240656Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed22_20261014T183412738564Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed33_20261014T184427084182Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed44_20261014T185442521392Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed55_20261014T190511957940Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_aggregate_20261014T191527216382Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_large_appetency_portfolio_seed11_20261014T182338240656Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed22_20261014T183412738564Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed33_20261014T184427084182Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed44_20261014T185442521392Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_seed55_20261014T190511957940Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_appetency_portfolio_aggregate_20261014T191527216382Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 634.3361115828156,
+      "22": 614.189033749979,
+      "33": 615.2685525419656,
+      "44": 629.2794893339742,
+      "55": 615.0917679578997
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "orange_large_upselling": {
+    "verification": "passed",
+    "dataset": "orange_large_upselling",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 50.64446537499316,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "orange_large_upselling_portfolio_seed11_20261014T191617593790Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed22_20261014T192650432683Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed33_20261014T193711152531Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed44_20261014T194728926244Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed55_20261014T195744418717Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_aggregate_20261014T200800050630Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "orange_large_upselling_portfolio_seed11_20261014T191617593790Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed22_20261014T192650432683Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed33_20261014T193711152531Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed44_20261014T194728926244Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_seed55_20261014T195744418717Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "orange_large_upselling_portfolio_aggregate_20261014T200800050630Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 632.6686849170364,
+      "22": 620.559234125074,
+      "33": 617.5954622919671,
+      "44": 615.336680874927,
+      "55": 615.4792620001826
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "hsbc_mock_balanced": {
+    "verification": "passed",
+    "dataset": "hsbc_mock_balanced",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 36.883104959037155,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "hsbc_mock_balanced_portfolio_seed11_20261014T200851545732Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed22_20261014T201955327804Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed33_20261014T203103230677Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed44_20261015T032102311808Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed55_20261015T032736099393Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_aggregate_20261015T033443832321Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "hsbc_mock_balanced_portfolio_seed11_20261014T200851545732Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed22_20261014T201955327804Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed33_20261014T203103230677Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed44_20261015T032102311808Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_seed55_20261015T032736099393Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_balanced_portfolio_aggregate_20261015T033443832321Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 663.6229942499194,
+      "22": 667.7452104580589,
+      "33": 654.5721127919387,
+      "44": 393.66078608413227,
+      "55": 427.5981049579568
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "hsbc_mock_overlap20": {
+    "verification": "passed",
+    "dataset": "hsbc_mock_overlap20",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 26.152621499961242,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "hsbc_mock_overlap20_portfolio_seed11_20261015T033521620899Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed22_20261015T033758898803Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed33_20261015T034047882360Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed44_20261015T034349856710Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed55_20261015T034637962929Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_aggregate_20261015T034937055594Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "hsbc_mock_overlap20_portfolio_seed11_20261015T033521620899Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed22_20261015T033758898803Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed33_20261015T034047882360Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed44_20261015T034349856710Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_seed55_20261015T034637962929Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap20_portfolio_aggregate_20261015T034937055594Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 157.15415237494744,
+      "22": 168.8416967918165,
+      "33": 181.84282304090448,
+      "44": 167.97815516707487,
+      "55": 178.96297266706824
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "hsbc_mock_overlap50": {
+    "verification": "passed",
+    "dataset": "hsbc_mock_overlap50",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 33.678812166908756,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "hsbc_mock_overlap50_portfolio_seed11_20261015T035004015313Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed22_20261015T035724780763Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed33_20261015T040500393771Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed44_20261015T041224627795Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed55_20261015T041938829942Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_aggregate_20261015T042647256317Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "hsbc_mock_overlap50_portfolio_seed11_20261015T035004015313Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed22_20261015T035724780763Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed33_20261015T040500393771Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed44_20261015T041224627795Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_seed55_20261015T041938829942Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap50_portfolio_aggregate_20261015T042647256317Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 440.6300415408332,
+      "22": 455.465055791894,
+      "33": 444.08083783392794,
+      "44": 434.0777778751217,
+      "55": 428.28876324999146
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "hsbc_mock_overlap80": {
+    "verification": "passed",
+    "dataset": "hsbc_mock_overlap80",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 34.70324825006537,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "hsbc_mock_overlap80_portfolio_seed11_20261015T042721751259Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed22_20261015T043429612007Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed33_20261015T044126456963Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed44_20261015T044800266844Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed55_20261015T045433677025Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_aggregate_20261015T050107718256Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "hsbc_mock_overlap80_portfolio_seed11_20261015T042721751259Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed22_20261015T043429612007Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed33_20261015T044126456963Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed44_20261015T044800266844Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_seed55_20261015T045433677025Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "hsbc_mock_overlap80_portfolio_aggregate_20261015T050107718256Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 427.725302208215,
+      "22": 416.7148892080877,
+      "33": 393.6826675829943,
+      "44": 393.2856824169867,
+      "55": 393.9171488340944
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  },
+  "santander_product": {
+    "verification": "passed",
+    "dataset": "santander_product",
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "secure_fits": 10,
+    "alice_fits": 20,
+    "bob_fits": 10,
+    "full_train_validation": true,
+    "independent_confirmation": false,
+    "scope": "five_seed_aggregate",
+    "owner_model_share_permissions_verified": true,
+    "aggregate_exit_codes": [
+      0
+    ],
+    "owner_phase_exit_codes": {
+      "11": [
+        0,
+        0
+      ],
+      "22": [
+        0,
+        0
+      ],
+      "33": [
+        0,
+        0
+      ],
+      "44": [
+        0,
+        0
+      ],
+      "55": [
+        0,
+        0
+      ]
+    },
+    "network_controls": {
+      "single_shared_router": true,
+      "bidirectional_management_control": true,
+      "training_firewall_relaxed": false,
+      "mtls_relaxed": false,
+      "preparation_uid_deny_all_restored": true
+    },
+    "wall_seconds": 67.88364679203369,
+    "logical_models": 20,
+    "reused_complete_logical_models": 0,
+    "newly_fitted_final_models": 20,
+    "owner_integrity": {
+      "alice": {
+        "santander_product_portfolio_seed11_20261015T050143261371Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed22_20261015T050848567006Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed33_20261015T051614998322Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed44_20261015T052316625224Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed55_20261015T053021938926Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_aggregate_20261015T053723167432Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      },
+      "bob": {
+        "santander_product_portfolio_seed11_20261015T050143261371Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed22_20261015T050848567006Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed33_20261015T051614998322Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed44_20261015T052316625224Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_seed55_20261015T053021938926Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": true,
+          "bob_aggregate_requires_verified_source_phases": false,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        },
+        "santander_product_portfolio_aggregate_20261015T053723167432Z": {
+          "expected_nonempty_owner_shares_600": true,
+          "owner_block_checks_passed": true,
+          "owner_matrices_checked_in_this_root": false,
+          "bob_aggregate_requires_verified_source_phases": true,
+          "frozen_copies_match_manifest": true,
+          "trainings_directory_700": true,
+          "row_values_exported": false
+        }
+      }
+    },
+    "owner_phase_wall_seconds": {
+      "11": 425.1844082919415,
+      "22": 446.3109515418764,
+      "33": 421.50573837500997,
+      "44": 425.18872895790264,
+      "55": 421.105939042056
+    },
+    "timing_scope": "phase includes startup, local references, A0/B0, exports and recovered assets; aggregate has no new fit; not secure/plaintext overhead benchmark"
+  }
+}

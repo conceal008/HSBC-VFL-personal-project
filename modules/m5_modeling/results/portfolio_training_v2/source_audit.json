@@ -1,0 +1,870 @@
+{
+  "homecredit": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "fedads": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "criteo": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_small_churn": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_small_appetency": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_small_upselling": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_large_churn": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_large_appetency": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "orange_large_upselling": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "hsbc_mock_balanced": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap20": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap50": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "hsbc_mock_overlap80": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  },
+  "santander_product": {
+    "alice": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    },
+    "bob": {
+      "functional_training.py": {
+        "actual_sha256": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+        "published_bytes_equal": true
+      },
+      "functional_metrics.py": {
+        "actual_sha256": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+        "published_bytes_equal": true
+      },
+      "functional_tls.py": {
+        "actual_sha256": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+        "published_bytes_equal": true
+      },
+      "active_diagnostic.py": {
+        "actual_sha256": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+        "published_bytes_equal": true
+      },
+      "portfolio_training.py": {
+        "actual_sha256": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+        "published_bytes_equal": true
+      },
+      "portfolio_math.py": {
+        "actual_sha256": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+        "published_bytes_equal": true
+      },
+      "portfolio_resampling.py": {
+        "actual_sha256": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4",
+        "published_bytes_equal": true
+      }
+    }
+  }
+}

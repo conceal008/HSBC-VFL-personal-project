@@ -1,0 +1,167 @@
+change_id: CL-20261015-M5-001
+timestamp: '2026-10-15T05:56:18+00:00'
+agent: Codex
+module: M5
+type: exp
+title: 十四本地代理五seed训练及全指标汇总
+what: 完成14任务280最终逻辑模型，270新拟合/10完整复用，五seed/CI/正负结果与显式模型完整性公开
+why: 跨本地公开代理检验固定联合基线，保留异质效用和环境失败，不用任务数量替代稳定人群增益
+links:
+  branch_card: BC-M5-015
+  decision_record:
+  - DR-M5-001
+  - DR-M5-007
+  - DR-GOV-012
+  loop_step:
+  - S5.X3
+cross_border_impact: none
+cross_border_detail: 本机构造两VM/可信宿主公开代理，预对齐模拟；没有新增跨境资产，没有本轮真实PSI
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 逐字段白名单审查14公开研究任务全部3018汇总数值路径/每seed/CI/p和旧四参考；仅代码、配置、模型数量、工程布尔和模式。无原始/清洗行、身份/哈希组图/交集规模、逐行预测/标签、学习预处理参数、权重/份额、凭证或机构内部信息。实际训练入口沿用清空输出与原有效CL003审查；新summary真实执行仅经审查汇总。
+downstream_affected:
+- M6
+- M7
+breaking_change: false
+migration: 旧输入/结果/失败冻结不覆盖；新目录续训和Alice本方合并；Amex暂停
+reproducibility:
+  config: modules/m5_modeling/configs/portfolio_training.yaml
+  config_hash: 00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143
+  seeds:
+  - 11
+  - 22
+  - 33
+  - 44
+  - 55
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+rollback: 另revert步骤撤回本轮公开索引/新入口，不删除冻结实际结果或旧失败
+verification: '完整原生阶段/Notebook/源指纹/权限/矩阵/概率/CI及新控制/完整性负例通过；完整发布门禁和远端回执接续；发布前两Agent只读复核确认14源摘要/3018路径/四旧任务一致、13控制负例通过；汇总Notebook补齐实际UTC运行指纹并重执行三个只读cell。
+  首轮全门禁Q3为624通过/1失败、M9 F2/F3未过，源于总览当前数量未同步；停止剩余重复回归并保留失败日志，修正二只更新状态计数，完整门禁重新执行。
+
+  完整验收实际通过：625测试、10768/11548=93.2%核心行覆盖、53/53回归、M9四项100%；索引511e95e8839556d065b5316012177b76350737b0。首轮失败及两修正保留；验收后仅状态回执更新，代码/测试/配置/Notebook及冻结结果不变。'
+step:
+  step_id: S5.X3
+  step_name: 十四本地代理固定五seed续训与全结果汇总
+  declaration: '# S5.X3 全本地代理独立续训
+
+
+    > 编写日期：2026-10-14 ｜ 版本：v1.0 ｜ 状态：执行前声明；R2主线发布后运行
+
+    > 数据来源：M1 P9冻结准备，portfolio_training.yaml原数学协议；X2有效完成工件
+
+    > 口径基准：原X2失败升级；这是新步骤，不增加原X2修正轮次
+
+
+    will_produce:
+
+    - 十四任务每任务五seed、A0/B0相同原生SS-SGD/12轮/固定lr0.1和L2=0.1；各五本方LR/树，合计280逻辑模型。冻结所有prepared
+    train/validation，不读sealed，不新增选参。数值/人群边界完全沿用X2原声明。
+
+    - 独立seed进程与目录、损坏工件fail closed；只有双侧完整A0/B0和Alice完整本地块且源码/配置/输入/矩阵一致才恢复。完整恢复不算新独立拟合，部分从原初始化重跑。
+
+    - 五seed本方合并原finalize，500次配对CI/每seed指标/条件符号翻转与十四主比较Holm，全部正负结果。原数学配置step_id仍标X2来源模板，实际runtime新增execution_step_id=S5.X3、新Notebook与续训声明明确区分。
+
+    - 双VM非root/mTLS/CHEETAH、旧轮/prep/sealed/peer不可读，预测仅Alice；每fit code/data/results/logs，目的/中间数据路径/结果/失败同步日志与公开main。
+
+    will_not_produce:
+
+    - 不运行明文交集PSI，不将预对齐模拟记作真实PSI；不以旧攻击覆盖新输出，不打开确认，不降低数据/seed/轮次来制造完成，不宣称银行收益/生产安全。
+
+    success_criteria:
+
+    - 原14任务各20逻辑模型全完成，70双侧阶段退出0/源码权限与完整性验收；14本方汇总退出0并原CI核验；公开逐字段审查、全部门禁与main推送。
+
+    risk:
+
+    - 本底层双VM可能继续故障；任何新失败如实留痕，新步骤修正仍最多两轮。根因未知不以健康布尔替代真实训练验收。
+
+
+    # 十四任务续训与容量修正
+
+
+    > 编写日期：2026-10-15 ｜ 版本：v1.0 ｜ 状态：执行中，修正一预声明
+
+    > 数据来源：8-9月/全本地代理训练/S5X3_20261014T130134588288Z/status.json及各阶段原生日志
+
+    > 口径基准：DR-GOV-012、DR-M5-001/007、固定portfolio_training.yaml
+
+
+    will_produce：完成原预声明十四任务的固定五seed开发基线，保留每fit代码/本方数据引用/结果/日志，核验实际模型份额存在、非空及600权限，发布经审查的汇总指标/CI/负结果及带输出汇总Notebook。已通过任务和阶段只读复用，不重算或覆盖；续训调用已发布的phase/merge核心。
+
+
+    will_not_produce：不改数据、切分、超参、数学、种子或验收阈值；不读取封存；不执行明文交集PSI；不声称新增输出攻击、独立人群确认、物理隔离、生产安全或零泄漏。Amex继续暂停。
+
+
+    success_criteria：十四任务各五seed、两方原生会话exit0、本方合并exit0、完整模型/CI及原始输入/源码/权限验证通过；Public审查和完整发布门禁通过再同步main。失败与未执行项保持可追溯。
+
+
+    risk：长队列容量与通信中断；旧已查看开发人群不独立，模型输出仍可能泄漏。修正最多两轮，失败不更改方法以追求收益。
+
+
+    原队列九任务完整通过（Home Credit、FedAds、Criteo及Orange两宽度三标签），HSBC_mock balanced前3seed阶段通过；seed44双方exit1，直接报错为安全计算P2P接收超时。检查时Alice根分区24GB已使用约23GB、剩余约72MB，Bob剩余约4.4GB；没有发现可据以断言OOM或磁盘直接触发该超时的日志，根因未最终确认。匿名TLS握手拒绝是既有负例，不据此认定认证失败。原失败目录永久保留。
+
+
+    修正一（执行前声明）：可信管理员正常停止双VM，在保留磁盘与所有冻结资产前提下将两方磁盘容量增至64GiB；重启后检查文件系统容量、单共享router、双向管理连接、准备账户禁网及既有权限。新增控制入口只在新目录复用通过阶段，按原初始化从头运行未完成seed，不使用部分权重。逐阶段/聚合沿用原Notebook，数学源码及配置逐字不变。容量变化属于环境调整，不是模型对照。九个完整任务及三个完整阶段不重复训练。
+
+
+    main前次R3提交5b11ad75fa601afcd73c83b5033718f9aa8956b3的远端CI 38568083075已完成success；不把旧发布通过视为本轮新结果已发布。
+
+
+    # S5.X3 发布计数修正
+
+
+    > 编写日期：2026-10-15 ｜ 版本：v1.0 ｜ 状态：修正二执行前声明
+
+    > 数据来源：私有完整门禁 S5R2完整门禁_20261015T063133770972Z/gates.log；M9 evidence_map F2/F3
+
+    > 口径基准：步骤修正最多两轮；冻结结果不可修改；全部门禁通过再推送
+
+
+    will_produce：按仓库实际文件数量更新《项目进度总览》的当前 Notebook/组件声明状态行，记录失败门禁和修正二，复测证据链并重新完整执行门禁。
+
+
+    will_not_produce：不改测试或核验规则；不改任何训练代码、配置、模型、数据、结果 JSON/CSV，不重新拟合；不把首次失败或中止的回归套件标为通过。
+
+
+    success_criteria：当前状态数量与实际文件集合一致，证据链全部核验通过；新冻结索引的完整门禁通过后方可推送main。若第二次修正仍失败，按规范升级，不增加第三轮。
+
+
+    risk：门禁Q3的1失败/624通过及M9数字一致1/3来自同一陈旧计数：原54份Notebook/85份组件声明，新增后应按实际重新计算。首轮在已明确失败后停止剩余重复回归检查以节约运行时间，日志和失败回执原样保留；并非通过。首次把进入回归阶段误报为代码全通过，已在会话纠正，不作为验收依据。
+
+    '
+  scope:
+    files_changed: 40
+    lines_added: 13785
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: modules/m5_modeling/results/portfolio_training_v2/engineering.json:1：14任务/70双侧阶段与14本方汇总、完整性/固定协议
+      D2: modules/m5_modeling/results/portfolio_training_v2/metrics.csv:1：全部数值路径原摘要/每seed/CI及config来源
+      D3: modules/m5_modeling/results/portfolio_training_v2/source_audit.json:1：实际/公开数学源码一致；未独立重新训练全部原生模型，直接超时根因未定
+      D4: modules/m5_modeling/report/S5.X3_十四任务结果分析.md:1：跨任务正负/强单方参照/条件证据及未执行边界
+  revisions: 2
+  verdict: committed
+  next_step: 重新规划后分步执行新输出重评/联合诊断及正则/安全树/独立确认
+  outputs:
+  - modules/m5_modeling/results/portfolio_training_v2
+  - 本地数据集联邦训练与结果汇总_v2.md
+  - 实验方法与运行日志_v10.md
+  - modules/m5_modeling/report/S5.X3_十四任务结果分析.md
+  - modules/m5_modeling/report/S5.X3_续训与容量修正.md
+  - modules/m5_modeling/notebooks/S5.X3_portfolio_summary.ipynb
+  - modules/m5_modeling/components/portfolio_owner_integrity.py
+  - modules/m5_modeling/experiments/portfolio_continue_queue.py
+  - modules/m5_modeling/本地功能模拟实验要求_容量与续训补充.md
+  - modules/m5_modeling/report/S5.X3_发布计数修正.md

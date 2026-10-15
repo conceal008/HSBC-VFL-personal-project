@@ -1,0 +1,13 @@
+card_id: BC-M5-015
+status: completed
+routes:
+- id: fixed_portfolio_continuation
+  purpose: 原十四任务固定五seed开发基线续训
+  status: completed
+history:
+- X3首队列九任务及Mock balanced前三seed完成，seed44双方P2P超时，失败保留
+- 修正一预声明双VM磁盘24至64GiB、新目录复用完整阶段，原数学与配置不变
+- 修正一新目录完成十四任务与五seed，明确份额非空600/700、矩阵/复制/原CI和公开审查通过；完整发布门禁接续
+- 发布门禁首轮Q3 624通过/1失败与M9 F2/F3来自同一陈旧总览计数；修正二只更新55 Notebook/86组件声明状态行，模型/结果不变，重新完整验收；无第三修正。
+- 修正二完整发布门禁通过：625测试/93.2%覆盖/53回归/M9全项100%；首次失败保持，推送main和远端CI实际核对接续。
+falsifier: 任一源码、输入、模型完整性、权限、CI或披露契约失败不计完成，不放宽验收，不用部分权重

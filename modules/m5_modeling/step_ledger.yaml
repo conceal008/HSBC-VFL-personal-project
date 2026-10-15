@@ -485,14 +485,44 @@ steps:
   - modules/m5_modeling/report/S5.R3_续训发布与模块复审.md
   - modules/m5_modeling/notebooks/S5.R3_release_summary.ipynb
   note: 原R2有效7和两修正保留；独立第20随机抽查X1已委派，回执待接续；本步无新训练。 第20独立X1复评11/12，差0，四门pass；guest664/父700与host600作用域分别记录，不撤销原X1数值。
+- step_id: S5.X3
+  step_name: 十四本地代理固定五seed续训与全结果汇总
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  change_id: CL-20261015-M5-001
+  committed_at: '2026-10-15T05:56:18+00:00'
+  outputs:
+  - modules/m5_modeling/results/portfolio_training_v2
+  - 本地数据集联邦训练与结果汇总_v2.md
+  - 实验方法与运行日志_v10.md
+  - modules/m5_modeling/report/S5.X3_十四任务结果分析.md
+  - modules/m5_modeling/report/S5.X3_续训与容量修正.md
+  - modules/m5_modeling/notebooks/S5.X3_portfolio_summary.ipynb
+  - modules/m5_modeling/components/portfolio_owner_integrity.py
+  - modules/m5_modeling/experiments/portfolio_continue_queue.py
+  - modules/m5_modeling/本地功能模拟实验要求_容量与续训补充.md
+  - modules/m5_modeling/report/S5.X3_发布计数修正.md
+  note: 280最终逻辑模型，270新拟合/10完整复用；九旧任务/Mock三阶段只读复用，容量一修正，原数学/配置/封存/阈值不变。新增输出攻击/PSI集成/独立确认未完成。
+    发布门禁初轮624通过/1失败及M9 F2/F3由同一陈旧数量引起；修正二只更新总览状态计数，不改模型/结果/核验规则。
 current_step: null
-next_step: S5.X3
+next_step: 新模型输出重评/联合诊断；正则/安全树/独立确认各自重规划后声明
 metrics:
-  avg_score: 10.2
+  avg_score: 10.238
   escalation_count: 3
-  revision_rate: 0.65
-  steps_used: 20
-  budget_usage: 0.952
+  revision_rate: 0.667
+  steps_used: 21
+  budget_usage: 1.0
   consecutive_low_d4: 0
   pass_threshold: 11
   original_self_average: 11.267
@@ -525,6 +555,8 @@ quality_actions:
 - R2第二修正发现原share664与600声明不一致：旧目录700/prep拒读不替代文件mode；新X3 umask077/恢复副本chmod/实际stat验收，旧资产和原X2两修正留存。
 - R2最终612tests通过而R1参数位置注释未齐，两修正后有效7升级；R3独立发布修复/三升级模块复审，不加第三修正、不增预算。第20步窗口抽中X1独立复評第一次服务额度失败，重新委派，未评分不追认完成。
 - 第20消费随机窗口抽中X1，初次服务quota失败后重试获得独立11/12差0；950路径/实际来源/seed/恢复及权限作用域核验。来宾share664不能写600，原X1host600契约不追溯施加X2；旧质量/11通过线不解除。
+- X3容量修正一，21/21与14/21修正事实保留，下一阶段重规划，不稀释旧三升级/11通过线。
+- X3发布门禁发现总览计数未同步，第二修正更新55份Notebook/86份组件声明，失败回执保留，后续不允许第三修正。
 budget_replan:
   decision_record: DR-M5-004
   original_budget: 12

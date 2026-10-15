@@ -1,0 +1,392 @@
+{
+  "step": "S5.X3",
+  "dataset": "orange_small_appetency",
+  "classification": "reviewed_public_research_aggregate",
+  "source_file": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_aggregate_20261014T161733970841Z/alice/results/private_feature_evaluation.json",
+  "source_summary_sha256": "7d92a1ec04847b69be6c70b4cd303bd6bbd682fc91af5d445a036194c168971b",
+  "config_provenance": {
+    "config_sha256": "00b727155efd23fe51da2700fba6fa85f112a108671de466ecc6d4cb87304143",
+    "runtime_git_sha": "5b11ad75fa601afcd73c83b5033718f9aa8956b3",
+    "code_sha256": {
+      "functional_training.py": "030c8faa4b9b9f39134d4fec78d396f4b64845131ffe8ba3a7c8ac96ffd7ff49",
+      "functional_metrics.py": "fa11465b1eba9bc65d8043c90610ee7b8189fe6835c64e33807550ca6d9344f3",
+      "functional_tls.py": "6753d344878ffb52e6b53da84cdd200b71b123fa9b3f876b1d649e0baeb163b3",
+      "active_diagnostic.py": "95c01445081330eb4790212e799cfa3d896482e71d7a3e009c07c9331a62f282",
+      "portfolio_training.py": "47dc30823add9577812c36c441269a8bfe06479ca8d2f47b99506763625c0491",
+      "portfolio_math.py": "8e0b2c8861ba0d94347f68ba8d8ea63c1eaf2d0135845874eaa90221edd08bb0",
+      "portfolio_resampling.py": "5453f43b3eab682c74ad90a10220cf1d6503b7621e44b42dc59e94719fc898d4"
+    },
+    "seed_protocol": {
+      "model_seeds": [
+        11,
+        22,
+        33,
+        44,
+        55
+      ],
+      "order_seeds": {
+        "11": 101,
+        "22": 102,
+        "33": 103,
+        "44": 104,
+        "55": 105
+      },
+      "source_split_seed": 20261014,
+      "bootstrap_seed": 20261005
+    }
+  },
+  "omitted_fields": [
+    "/records"
+  ],
+  "results": {
+    "holm_pvalues": {
+      "B0_minus_A0": 0.0625
+    },
+    "seed_points": {
+      "11": {
+        "A0": {
+          "roc_auc": 0.6062136000862812,
+          "pr_auc": 0.02346909244148155,
+          "recall_at_top_k": 0.14473684132099152,
+          "log_loss": 0.12640838112218342,
+          "brier": 0.020327084962230874
+        },
+        "B0": {
+          "roc_auc": 0.704882981018119,
+          "pr_auc": 0.03321847620740516,
+          "recall_at_top_k": 0.2763157784938812,
+          "log_loss": 0.12493350585303552,
+          "brier": 0.02043525512384777
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6092590595340811,
+          "pr_auc": 0.021748013753866327,
+          "recall_at_top_k": 0.15789473056793213,
+          "log_loss": 0.0851599221326922,
+          "brier": 0.01576548940259847
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.665091134598792,
+          "pr_auc": 0.027890333426591737,
+          "recall_at_top_k": 0.19736842811107635,
+          "log_loss": 0.0776429644771567,
+          "brier": 0.015157218485214221
+        }
+      },
+      "22": {
+        "A0": {
+          "roc_auc": 0.6030265854184642,
+          "pr_auc": 0.023063279674613746,
+          "recall_at_top_k": 0.14473684132099152,
+          "log_loss": 0.1263963486171742,
+          "brier": 0.020324679498521358
+        },
+        "B0": {
+          "roc_auc": 0.7034081104400345,
+          "pr_auc": 0.032514705406853715,
+          "recall_at_top_k": 0.30263158679008484,
+          "log_loss": 0.12484735480424586,
+          "brier": 0.020394010125967404
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6092590595340811,
+          "pr_auc": 0.021748013753866327,
+          "recall_at_top_k": 0.15789473056793213,
+          "log_loss": 0.0851599221326922,
+          "brier": 0.01576548940259847
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6681473792062123,
+          "pr_auc": 0.031261904520169935,
+          "recall_at_top_k": 0.21052631735801697,
+          "log_loss": 0.07689390835609594,
+          "brier": 0.015053951633215414
+        }
+      },
+      "33": {
+        "A0": {
+          "roc_auc": 0.6042533973252804,
+          "pr_auc": 0.023354237736662162,
+          "recall_at_top_k": 0.14473684132099152,
+          "log_loss": 0.12640807552260627,
+          "brier": 0.02032909990349966
+        },
+        "B0": {
+          "roc_auc": 0.704195427092321,
+          "pr_auc": 0.032846180508210726,
+          "recall_at_top_k": 0.28947368264198303,
+          "log_loss": 0.12490103318824917,
+          "brier": 0.020421764665533592
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6092590595340811,
+          "pr_auc": 0.021748013753866327,
+          "recall_at_top_k": 0.15789473056793213,
+          "log_loss": 0.0851599221326922,
+          "brier": 0.01576548940259847
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6361478106125971,
+          "pr_auc": 0.02496210301675163,
+          "recall_at_top_k": 0.17105263471603394,
+          "log_loss": 0.07908516993977464,
+          "brier": 0.015217317965081141
+        }
+      },
+      "44": {
+        "A0": {
+          "roc_auc": 0.6054006686798965,
+          "pr_auc": 0.023471713618929944,
+          "recall_at_top_k": 0.14473684132099152,
+          "log_loss": 0.126345125972258,
+          "brier": 0.020315487946967165
+        },
+        "B0": {
+          "roc_auc": 0.7020896246764452,
+          "pr_auc": 0.032720593815726534,
+          "recall_at_top_k": 0.28947368264198303,
+          "log_loss": 0.12486441707989716,
+          "brier": 0.020405570776300324
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6092590595340811,
+          "pr_auc": 0.021748013753866327,
+          "recall_at_top_k": 0.15789473056793213,
+          "log_loss": 0.0851599221326922,
+          "brier": 0.01576548940259847
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6597349547023297,
+          "pr_auc": 0.027981545463703388,
+          "recall_at_top_k": 0.2631579041481018,
+          "log_loss": 0.07775026090777497,
+          "brier": 0.015172830574548936
+        }
+      },
+      "55": {
+        "A0": {
+          "roc_auc": 0.602024913718723,
+          "pr_auc": 0.023205102551130837,
+          "recall_at_top_k": 0.14473684132099152,
+          "log_loss": 0.1263772400522356,
+          "brier": 0.020322063000743844
+        },
+        "B0": {
+          "roc_auc": 0.7008830349439171,
+          "pr_auc": 0.03303908500230055,
+          "recall_at_top_k": 0.30263158679008484,
+          "log_loss": 0.12486060927773245,
+          "brier": 0.020405381406399057
+        },
+        "L0_LR_0": {
+          "roc_auc": 0.6092590595340811,
+          "pr_auc": 0.021748013753866327,
+          "recall_at_top_k": 0.15789473056793213,
+          "log_loss": 0.0851599221326922,
+          "brier": 0.01576548940259847
+        },
+        "L0_tree_0": {
+          "roc_auc": 0.6721041846419327,
+          "pr_auc": 0.028365284402548128,
+          "recall_at_top_k": 0.2368421107530594,
+          "log_loss": 0.07716763998542163,
+          "brier": 0.015114146798217017
+        }
+      }
+    },
+    "full_prepared_development": true,
+    "scope": "十四公开构造任务，最多25000资源cohort全部prepared train/validation；客户/时间或事件分组分区冻结；无独立确认、无原始全量或银行收益结论",
+    "bootstrap": "same whole customer/source-event cluster draws (cluster support pattern strata) for declared panel/event tasks, otherwise label/treatment stratified rows; paired models plus seed resampling, conditional on frozen training/validation",
+    "task_scope": "匿名电信appetency代理，字段奇偶构造归属；large仅第一chunk有表头，后四chunk首条数据保留；官方无标签测试不读",
+    "full_data_training": true,
+    "models": {
+      "A0": {
+        "roc_auc": {
+          "estimate": 0.604183833045729,
+          "ci_low": 0.5402315438955997,
+          "ci_high": 0.666256450873598,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.02331268520456365,
+          "ci_low": 0.01869813763759074,
+          "ci_high": 0.03506008996951311,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.14473684132099152,
+          "ci_low": 0.06578947603702545,
+          "ci_high": 0.2368421107530594,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.1263870342572915,
+          "ci_low": 0.125582831006436,
+          "ci_high": 0.12719095230570981,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.020323683062392583,
+          "ci_low": 0.020144483541580684,
+          "ci_high": 0.020538921809380727,
+          "valid_replicates": 500
+        }
+      },
+      "B0": {
+        "roc_auc": {
+          "estimate": 0.7030918356341673,
+          "ci_low": 0.6473568674503883,
+          "ci_high": 0.7578511985008628,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.03286780818809933,
+          "ci_low": 0.025648738997498886,
+          "ci_high": 0.04625049900030094,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.29210526347160337,
+          "ci_low": 0.19210526332259178,
+          "ci_high": 0.37769737035036083,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.12488138404063202,
+          "ci_low": 0.12363798234908105,
+          "ci_high": 0.12618785958222775,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.02041239641960963,
+          "ci_low": 0.02004822735824974,
+          "ci_high": 0.020896649482038208,
+          "valid_replicates": 500
+        }
+      },
+      "L0_LR_0": {
+        "roc_auc": {
+          "estimate": 0.6092590595340811,
+          "ci_low": 0.541782584663503,
+          "ci_high": 0.6630501105478861,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.021748013753866327,
+          "ci_low": 0.0175802346975282,
+          "ci_high": 0.02996852112924612,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.15789473056793213,
+          "ci_low": 0.07894736528396606,
+          "ci_high": 0.2368421107530594,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.0851599221326922,
+          "ci_low": 0.08080871442183618,
+          "ci_high": 0.09041766013105776,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.01576548940259847,
+          "ci_low": 0.015534505409583208,
+          "ci_high": 0.016013390399859065,
+          "valid_replicates": 500
+        }
+      },
+      "L0_tree_0": {
+        "roc_auc": {
+          "estimate": 0.6602450927523729,
+          "ci_low": 0.6023607029227782,
+          "ci_high": 0.7171385353753237,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.028092234165952967,
+          "ci_low": 0.022860233876520628,
+          "ci_high": 0.04112664537848035,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.2157894790172577,
+          "ci_low": 0.13809210583567622,
+          "ci_high": 0.3026315808296204,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": 0.07770798873324478,
+          "ci_low": 0.07528103973272403,
+          "ci_high": 0.08005285535790034,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 0.015143093091255347,
+          "ci_low": 0.015013541486235734,
+          "ci_high": 0.015261614786005784,
+          "valid_replicates": 500
+        }
+      }
+    },
+    "resampling_unit": "stratified_rows",
+    "raw_full_training": false,
+    "pvalue_scope": "two-sided sign flips across five fitting seeds, assuming symmetry; not a population test; minimum resolution prevents p<0.05 with five seeds",
+    "model_seeds": [
+      11,
+      22,
+      33,
+      44,
+      55
+    ],
+    "paired_comparisons": {
+      "B0_minus_A0": {
+        "roc_auc": {
+          "estimate": 0.09890800258843828,
+          "ci_low": 0.06410059183563417,
+          "ci_high": 0.13851509922346847,
+          "valid_replicates": 500
+        },
+        "pr_auc": {
+          "estimate": 0.009555122983535691,
+          "ci_low": 0.004700598507737756,
+          "ci_high": 0.016110773439722014,
+          "valid_replicates": 500
+        },
+        "recall_at_top_k": {
+          "estimate": 0.14736842215061188,
+          "ci_low": 0.06578947212547064,
+          "ci_high": 0.2368421072140336,
+          "valid_replicates": 500
+        },
+        "log_loss": {
+          "estimate": -0.0015056502166594654,
+          "ci_low": -0.0022600303087199135,
+          "ci_high": -0.0005049417194041354,
+          "valid_replicates": 500
+        },
+        "brier": {
+          "estimate": 8.871335721704967e-05,
+          "ci_low": -0.0001856008587649798,
+          "ci_high": 0.0004761907951473132,
+          "valid_replicates": 500
+        }
+      }
+    },
+    "status": "completed",
+    "primary": "roc_auc",
+    "prepared_source_run": "S1P8_20261013T075227765655Z",
+    "pvalues": {
+      "B0_minus_A0": 0.0625
+    },
+    "independent_confirmation": false
+  },
+  "mathematical_template_step": "S5.X2",
+  "phase_sources": {
+    "11": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_seed11_20261014T154524837777Z",
+    "22": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_seed22_20261014T155104948725Z",
+    "33": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_seed33_20261014T155648753791Z",
+    "44": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_seed44_20261014T160543992491Z",
+    "55": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3_20261014T130134588288Z/orange_small_appetency/orange_small_appetency_portfolio_seed55_20261014T161129778278Z"
+  }
+}

@@ -1,0 +1,8 @@
+component: portfolio_owner_integrity
+module: M5
+path: modules/m5_modeling/components/portfolio_owner_integrity.py
+purpose: 显式核验预期份额存在非空及600/700、owner状态/矩阵和复制哈希，拒绝空集合通过
+cross_border_assets: []
+cross_border_note: 本机公开代理功能模拟；可信管理员仅导出本方检查布尔，份额/矩阵/逐行预测不导出。
+tests:
+- modules/m5_modeling/tests/test_portfolio_owner_integrity.py

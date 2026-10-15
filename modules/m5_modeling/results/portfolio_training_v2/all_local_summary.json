@@ -1,0 +1,513 @@
+{
+  "new_tasks": 14,
+  "completed_logical_models": 280,
+  "reused_complete_logical_models": 10,
+  "newly_fitted_final_models": 270,
+  "historical_tasks": 4,
+  "amex": "deferred_by_user",
+  "source_queue": "/Applications/总文件夹/汇丰/8-9月/全本地代理训练/S5X3R1_20261015T032101865226Z",
+  "numeric_paths": 3018,
+  "results": [
+    {
+      "dataset": "homecredit",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.629992326129529,
+        "ci_low": 0.6036948004544525,
+        "ci_high": 0.6573428613072488,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.7070287172178731,
+        "ci_low": 0.6802790647844091,
+        "ci_high": 0.7330063795277082,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.07703639108834417,
+        "ci_low": 0.05825183624757693,
+        "ci_high": 0.09516728788475248,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/homecredit.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "fedads",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.43782427242349875,
+        "ci_low": 0.3439735169709967,
+        "ci_high": 0.5426556164084196,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.46052576847884874,
+        "ci_low": 0.37329371634361846,
+        "ci_high": 0.5543198375598544,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.02270149605534989,
+        "ci_low": -0.031108028067210983,
+        "ci_high": 0.07607352863430349,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/fedads.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "criteo",
+      "step": "S5.X3",
+      "primary": "mean_centered_qini",
+      "active": {
+        "estimate": -0.0002900243427907852,
+        "ci_low": -0.0005132521159536698,
+        "ci_high": 0.0001542489633747298,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": -0.00019674013849167805,
+        "ci_low": -0.0006134108791880457,
+        "ci_high": 0.0003745315342669329,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 9.328420429910713e-05,
+        "ci_low": -0.00020377547821494684,
+        "ci_high": 0.0005703101281577432,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.125,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/criteo.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_small_churn",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.6316006884681583,
+        "ci_low": 0.6015151249466179,
+        "ci_high": 0.6622568911521488,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.6617342409379732,
+        "ci_low": 0.6350862154310044,
+        "ci_high": 0.6926716738058571,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.03013355246981484,
+        "ci_low": 0.01255835802932474,
+        "ci_high": 0.04672137260103781,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_small_churn.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_small_appetency",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.604183833045729,
+        "ci_low": 0.5402315438955997,
+        "ci_high": 0.666256450873598,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.7030918356341673,
+        "ci_low": 0.6473568674503883,
+        "ci_high": 0.7578511985008628,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.09890800258843828,
+        "ci_low": 0.06410059183563417,
+        "ci_high": 0.13851509922346847,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_small_appetency.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_small_upselling",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.6422804541447091,
+        "ci_low": 0.6149619479732301,
+        "ci_high": 0.6693120172270424,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.7494457816538762,
+        "ci_low": 0.7208640540154688,
+        "ci_high": 0.7773513328541086,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.10716532750916705,
+        "ci_low": 0.08232396632736896,
+        "ci_high": 0.13224450290039477,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_small_upselling.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_large_churn",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.6882276245673554,
+        "ci_low": 0.6614035406171824,
+        "ci_high": 0.7163676453107329,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.6866439742469416,
+        "ci_low": 0.6566858933788253,
+        "ci_high": 0.7137312739346664,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": -0.001583650320413943,
+        "ci_low": -0.011942069272386169,
+        "ci_high": 0.009661902757787435,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_large_churn.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_large_appetency",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.6782270909204793,
+        "ci_low": 0.6291027295829345,
+        "ci_high": 0.7240877696699088,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.7170490439077641,
+        "ci_low": 0.6678895169877502,
+        "ci_high": 0.7662493344935888,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.0388219529872849,
+        "ci_low": 0.014684013081954645,
+        "ci_high": 0.061242746539366594,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_large_appetency.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "orange_large_upselling",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.787147516540863,
+        "ci_low": 0.7661627005306066,
+        "ci_high": 0.8063231687859869,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8060499882809081,
+        "ci_low": 0.7832089358782119,
+        "ci_high": 0.8272560805143975,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.01890247174004509,
+        "ci_low": 0.008763368942429675,
+        "ci_high": 0.02792981817052274,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/orange_large_upselling.json",
+      "resampling_unit": "stratified_rows",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "hsbc_mock_balanced",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.6612917159225244,
+        "ci_low": 0.5972856008569413,
+        "ci_high": 0.7299233148124562,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8464081113030826,
+        "ci_low": 0.8096739073361257,
+        "ci_high": 0.8893781244999264,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.1851163953805583,
+        "ci_low": 0.1308906035012585,
+        "ci_high": 0.2444977411859133,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/hsbc_mock_balanced.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "hsbc_mock_overlap20",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7669531585732703,
+        "ci_low": 0.6835816414069202,
+        "ci_high": 0.8328285777274376,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8468915628133505,
+        "ci_low": 0.7603769015499425,
+        "ci_high": 0.9055793770005904,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.07993840424008022,
+        "ci_low": 0.02727533349947736,
+        "ci_high": 0.13901969545324566,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/hsbc_mock_overlap20.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "hsbc_mock_overlap50",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7885576662143826,
+        "ci_low": 0.74344048104362,
+        "ci_high": 0.8293461538461538,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8577937584803257,
+        "ci_low": 0.8155070350632218,
+        "ci_high": 0.8963742084370578,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.069236092265943,
+        "ci_low": 0.03616792927041087,
+        "ci_high": 0.10356705962894143,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/hsbc_mock_overlap50.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "hsbc_mock_overlap80",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7897913929040736,
+        "ci_low": 0.7456616813092332,
+        "ci_high": 0.8302492576790519,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.864844776609724,
+        "ci_low": 0.8291662021417875,
+        "ci_high": 0.8975125247722363,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.07505338370565048,
+        "ci_low": 0.04555227638938979,
+        "ci_high": 0.10732544960806613,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/hsbc_mock_overlap80.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "santander_product",
+      "step": "S5.X3",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7962057227682227,
+        "ci_low": 0.758076566140186,
+        "ci_high": 0.8353897501819679,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8522880835380835,
+        "ci_low": 0.8097987495092417,
+        "ci_high": 0.8948220332047903,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.05608236076986084,
+        "ci_low": 0.028066494962632464,
+        "ci_high": 0.08913903712244484,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/portfolio_training_v2/santander_product.json",
+      "resampling_unit": "cluster",
+      "independent_confirmation": false,
+      "holm_over_14_conditional_tests": 0.875
+    },
+    {
+      "dataset": "uci_bank_marketing",
+      "step": "S5.E2",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.5798082771766981,
+        "ci_low": 0.5590164416809154,
+        "ci_high": 0.6031264084060136,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.4843381808842335,
+        "ci_low": 0.4644697957526905,
+        "ci_high": 0.5031524601754865,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": -0.0954700962924647,
+        "ci_low": -0.11285099880083445,
+        "ci_high": -0.07424987749412093,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m9_documentation/results/current_phase_v1/r037.json",
+      "resampling_unit": "historical frozen protocol; row-based",
+      "independent_confirmation": false
+    },
+    {
+      "dataset": "hillstrom_email_marketing",
+      "step": "S5.E2",
+      "primary": "mean_centered_qini",
+      "active": {
+        "estimate": 0.0005219588731027352,
+        "ci_low": -0.0002326897884997078,
+        "ci_high": 0.0012690975245103233,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": -3.843744997122106e-05,
+        "ci_low": -0.0008331369902134803,
+        "ci_high": 0.0008340944849077168,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": -0.0005603963230739562,
+        "ci_low": -0.00147571456704819,
+        "ci_high": 0.0002812618623594746,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m9_documentation/results/current_phase_v1/r036.json",
+      "resampling_unit": "historical frozen protocol; row-based",
+      "independent_confirmation": false
+    },
+    {
+      "dataset": "coil2000",
+      "step": "S5.X1",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7358123866286602,
+        "ci_low": 0.671970296708992,
+        "ci_high": 0.791949760300596,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.7423322104172065,
+        "ci_low": 0.6796985941953875,
+        "ci_high": 0.7973140062192279,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.006519823788546297,
+        "ci_low": -0.035324436382482574,
+        "ci_high": 0.04259270536408379,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/external_training_v1/coil2000.json",
+      "resampling_unit": "historical frozen protocol; row-based",
+      "independent_confirmation": false
+    },
+    {
+      "dataset": "santander_transaction",
+      "step": "S5.X1",
+      "primary": "roc_auc",
+      "active": {
+        "estimate": 0.7794120532496629,
+        "ci_low": 0.7642221272198905,
+        "ci_high": 0.7930190047992225,
+        "valid_replicates": 500
+      },
+      "joint": {
+        "estimate": 0.8560910563114554,
+        "ci_low": 0.8436299147257786,
+        "ci_high": 0.8679008493935952,
+        "valid_replicates": 500
+      },
+      "difference": {
+        "estimate": 0.07667900306179247,
+        "ci_low": 0.06710905791601039,
+        "ci_high": 0.08743148973177788,
+        "valid_replicates": 500
+      },
+      "p_conditional": 0.0625,
+      "source": "modules/m5_modeling/results/external_training_v1/santander_transaction.json",
+      "resampling_unit": "historical frozen protocol; row-based",
+      "independent_confirmation": false
+    }
+  ],
+  "holm_scope": "14 new task primary sign-flip P values; five fitting seeds, not a population test"
+}

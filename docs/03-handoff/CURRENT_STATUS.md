@@ -38,7 +38,7 @@ FedAds、Criteo、Orange large appetency/upselling的B0点估计低于至少一�
 
 ## 模块台账快照
 
-下表为本次整理后的已登记步骤数；不是业务完成百分比。M5 D2暂停尝试另记，M9包含本次S9.H1。
+下表为本次整理后的已登记步骤数；不是业务完成百分比。M5 D2暂停尝试另记，M9包含S9.H1及S9.H2整理修复。
 
 | 模块 | 已登记步骤 / 预算 | 当前入口 |
 |---|---|---|
@@ -51,6 +51,8 @@ FedAds、Criteo、Orange large appetency/upselling的B0点估计低于至少一�
 | M6 | 1 / 9 | [m6_evaluation](../../modules/m6_evaluation/README.md) / [台账](../../modules/m6_evaluation/step_ledger.yaml) |
 | M7 | 7 / 15 | [m7_security](../../modules/m7_security/README.md) / [台账](../../modules/m7_security/step_ledger.yaml) |
 | M8 | 1 / 10 | [m8_industrialization](../../modules/m8_industrialization/README.md) / [台账](../../modules/m8_industrialization/step_ledger.yaml) |
-| M9 | 3 / 10 | [m9_documentation](../../modules/m9_documentation/README.md) / [台账](../../modules/m9_documentation/step_ledger.yaml) |
+| M9 | 4 / 10 | [m9_documentation](../../modules/m9_documentation/README.md) / [台账](../../modules/m9_documentation/step_ledger.yaml) |
 
 初版合成结论与后续实际代理结果须分层阅读。S5.4/S5.P2/S7.2等旧全部通过自评的失效范围，以对应audit_log与独立复评记录为准，原资产不删除、新结果不追认旧流程。M9的技术侧材料完整不等于法务审核或风险接受签署。
+
+2026-10-16结构复核补充：当前交接见[H2](HO-20261016-Codex-M9-migration-repair.md)。旧根证据行号保留、状态索引来源恢复、恢复检查不再永久锁X3；这是治理修复，不新增科研完成项。

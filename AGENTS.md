@@ -1,5 +1,7 @@
 # AGENTS.md · 本仓库的 Agent 入口
 
+> **2026-10-16当前执行状态**：先读[START_HERE](docs/03-handoff/START_HERE.md)，核对`registry/module_status.yaml`的`experiment_pause`。全部科研实验暂停；旧计划、历史日志和本次迁移修复不授权恢复。
+
 > **动手改任何文件之前，必读本文件。读完本文件后必须再读 `docs/02-governance/3_项目维护约束_v2_步进量化版.md`。**
 
 ---

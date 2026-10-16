@@ -11,3 +11,6 @@ resume_automatically: false
 latest_completed_experiment: S5.X3
 baseline_commit: 9d222d869ec8748754ef9aa0788a2060625616ee
 baseline_ci: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/38696097711
+record_kind: historical_pause_snapshot
+current_authority: registry/module_status.yaml#experiment_pause
+current_state_must_be_read_separately: true

@@ -1,0 +1,82 @@
+change_id: CL-20261016-M9-001
+timestamp: '2026-10-16T01:40:42+00:00'
+agent: Codex
+module: M9
+type: fix
+title: 修复迁移证据行号与恢复检查并补齐私有索引
+what: 恢复11旧日志原文前缀以保留历史证据行号；归档测试分历史快照与当前授权；修复1260训练/11 L0状态丢失及3未知退出，51本地导航/恢复依赖与私有父目录700；未恢复实验。
+why: S9.H1短导航破坏旧证据行号，永久状态断言阻断合法恢复；状态索引漏非status字段且检查点绝对路径/源权限边界未说明。
+links:
+  branch_card: none
+  decision_record: DR-GOV-015
+  loop_step: S9.H2
+cross_border_impact: none
+cross_border_detail: 只修公开治理代码/资料引用和本地私有元数据；无新模型、PSI或跨方流；父目录权限不改变guest源数据或原盘。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 公开文件只有原已审查日志全文、归档合同/元数据分类工具与纯合成单测、兼容路径/源码指纹及工程文件计数；不含行数据、身份/分组/交集规模、逐行分数、学习参数、权重/份额或凭证。状态索引v3/依赖/SSH路径/权限回执仅本地，不上传；13.pending与11规范历史正文不变。
+downstream_affected:
+- M1
+- M3
+- M5
+- M7
+breaking_change: false
+migration: 旧7行导航转原文兼容镜像、尾部指规范路径；H1清单不重写，新增compatibility_manifest_v2。历史暂停回执标明snapshot，当前仍paused。私有索引新增v3，不覆盖旧版；仅私有父目录755改700。
+reproducibility:
+  config: docs/04-experiment-records/compatibility_manifest_v2.json
+  config_hash: be54a589cf7dc58b1fbed35b06fe1a7f80e016abea8f7a3238bf51cf98ec7f40
+  seeds: []
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+rollback: 另revert步骤撤回本次工具/入口；保留旧清单/状态v2/v3/私有回执；原数据/盘不删，权限回退需依据现场回执与所有者需求。
+verification: 2026-10-16完整工程门禁通过：冻结索引835fcd250372c27ad96a7230c1d6eeb9f98ad3bc，646测试、10768/11548=93.2%核心逻辑行覆盖、53/53门禁回归、M9四项100%。21项交接定向测试包含其中；16项第三方提示、旧临时目录清理权限提示和28项受限Notebook清空输出提示原样保留，不计失败或新研究结果。验收后仅补六份状态/回执文件，源码、测试、配置、Notebook、11规范正文、13草稿和冻结结果不变。科研实验仍暂停，VM未启动。
+  前次58c9e65的远端CI38835257056已只读核实completed/success、8/8作业成功；该结果仅属于H1，不替代H2。本次main提交与远端CI在发布后另核验，记录于本地交接中心90回执和系统总日志。 第二工程修正已覆盖恢复后再次暂停及无条件原路径校验；无第三轮。
+step:
+  step_id: S9.H2
+  step_name: 迁移漏洞复核与修复
+  declaration: '# S9.H2 迁移漏洞复核与修复
+
+
+    > 编写日期：2026-10-16 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：58c9e65暂停归档、迁移/草稿清单、本地交接中心元数据及远端发布回执
+
+    > 口径基准：用户要求继续查漏修复；全部科研实验保持暂停，冻结资产只读
+
+
+    will_produce：审计全仓库及当前入口的迁移引用、锚点、旧入口兼容性、机器消费路径；核对本地导航/状态索引覆盖、备份恢复依赖与权限；核验前次main远端CI。对真实漏洞做最小修复，补可重复的结构/引用测试，写新审计报告、交接、日志并同步Public/main。
+
+
+    will_not_produce：不训练、不运行PSI/攻击/新模型诊断，不启动VM，不读取行数据/凭证，不修改既有results/原训练数学或已冻结配置，不删除历史或覆盖前次清单/失败；不将暂停D2修成可执行实验或自动恢复。
+
+
+    success_criteria：新Agent沿当前入口能找到有效正文、指标、状态和安全恢复条件；发现项都有可追溯证据、修复或明确保留理由；迁移前正文/数值与13草稿保持可验；本地私有资产不入库；完整工程门禁通过后正常推送main。
+
+
+    risk：只检查链接存在不能发现旧锚点/正文消费失效；仅打包VM目录不保证外部路径可恢复。当前状态类文档与历史冻结文档区别处理，修复不能掩盖旧失败和未验证项。
+
+    '
+  scope:
+    files_changed: 37
+    lines_added: 1334
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: docs/04-experiment-records/迁移漏洞复核与修复报告.md:1：六类发现与不启动实验边界
+      D2: tools/tests/test_handoff_archive.py:1、tools/tests/test_handoff_contracts.py:1：原文前缀/草稿SHA、合法恢复和缺授权/exit未知不误判
+      D3: docs/03-handoff/FILESYSTEM_MAP.md:1：恢复依赖/路径和权限作用域补齐，未做VM启动/全盘hash，故2分
+      D4: docs/03-handoff/HO-20261016-Codex-M9-migration-repair.md:1：真实行号兼容与状态丢失修复
+  revisions: 2
+  verdict: committed
+  next_step: 保持科研实验暂停；仅维护交接；M9下一第5步触发独立抽查

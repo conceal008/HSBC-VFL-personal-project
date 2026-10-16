@@ -77,14 +77,39 @@ steps:
   note: 仅归档整理，不恢复实验；D2预检失败0完成、补丁未验收、完整字节保留。VM停机备份只在本地，不声称实际灾备恢复通过。 工程修正一为质量CI完整历史；首门禁快照停止保留，新索引重验，不算科研实验。
   verification: 2026-10-16发布前核验：冻结索引47bf6f0ddb652ef372683dc1f5cc238d5dc347c2的完整工程门禁通过，629测试、10768/11548=93.2%核心逻辑行覆盖、53/53门禁回归、M9四项100%。独立只读审查34文档/354链接、11正文和13草稿完整性通过。此前仅CI完整历史兼容性一轮工程修正，首次快照停止保留、不计通过。验收后仅更新本状态回执与明确原因边界，不改数学/测试/配置/Notebook/冻结结果；推送与远端CI另核对。
   completed_on_client_date: '2026-10-16'
+- step_id: S9.H2
+  step_name: 迁移漏洞复核与修复
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 2
+  change_id: CL-20261016-M9-001
+  committed_at: '2026-10-16T07:08:19.778392+00:00'
+  outputs:
+  - docs/04-experiment-records/迁移漏洞复核与修复报告.md
+  - docs/04-experiment-records/compatibility_manifest_v2.json
+  - tools/handoff_contract.py
+  - tools/handoff_inventory.py
+  - docs/03-handoff/HO-20261016-Codex-M9-migration-repair.md
+  note: 旧证据行号/未来恢复检查/私有状态丢失及依赖权限修复；显式null一轮工程兼容修正，v2保留v3独立，不恢复科研实验。 第二工程修正为恢复后再次暂停保留有授权/已登记组件及无条件路径边界；定向21测试通过。原修正步骤比例3/4不变。
+  verification: 2026-10-16完整工程门禁通过：冻结索引835fcd250372c27ad96a7230c1d6eeb9f98ad3bc，646测试、10768/11548=93.2%核心逻辑行覆盖、53/53门禁回归、M9四项100%。21项交接定向测试包含其中；16项第三方提示、旧临时目录清理权限提示和28项受限Notebook清空输出提示原样保留，不计失败或新研究结果。验收后仅补六份状态/回执文件，源码、测试、配置、Notebook、11规范正文、13草稿和冻结结果不变。科研实验仍暂停，VM未启动。
 current_step: null
-next_step: 保持全部科研实验暂停；待用户明确恢复
+next_step: 保持实验暂停；后续M9第5步需独立随机回溯抽查
 metrics:
-  avg_score: 11.333
+  avg_score: 11.25
   escalation_count: 0
-  revision_rate: 0.667
-  steps_used: 3
-  budget_usage: 0.3
+  revision_rate: 0.75
+  steps_used: 4
+  budget_usage: 0.4
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:
@@ -92,3 +117,4 @@ audit:
   spot_checks_done: 0
 quality_actions:
 - S9.H1仅结构整理；修正率2/3超过0.4，后续结果归档、发布兼容性与业务合规验收继续分步，不以自评分解除。
+- H2显式退出null状态兼容一次修正，历史3/4修正仍超0.4，保持分步；后续第5步必须独立抽查，不以治理修复追认科研结果。

@@ -19,11 +19,11 @@
 | 每轮目的、方法、代码、配置、结果和失败 | [实验总台账](docs/04-experiment-records/实验总台账.md) |
 | 14＋4任务具体指标 | [完整结果报告](docs/04-experiment-records/reports/本地数据集联邦训练与结果汇总_v2.md) |
 | 全部原值JSON/CSV与带输出Notebook | [冻结结果](modules/m5_modeling/results/portfolio_training_v2/README.md) / [Notebook](modules/m5_modeling/notebooks/S5.X3_portfolio_summary.ipynb) |
-| 历史逐轮日志与本次归档日志 | [版本导航](docs/04-experiment-records/logbooks/README.md) / [v11](docs/04-experiment-records/logbooks/实验方法与运行日志_v11.md) |
+| 历史逐轮日志与本次归档日志 | [版本导航](docs/04-experiment-records/logbooks/README.md) / [v12](docs/04-experiment-records/logbooks/实验方法与运行日志_v12.md) |
 | 本地资产、权限、双VM和私有恢复备份 | [文件与环境地图](docs/03-handoff/FILESYSTEM_MAP.md) |
 | 暂停草稿的缺陷与恢复条件 | [S5.D2暂停归档](modules/m5_modeling/experiments/paused/S5.D2_20261015/README.md) |
 | 用户恢复后应做的顺序 | [恢复计划](docs/03-handoff/RESTART_PLAN.md) |
-| 决策、质量、阶段状态与交接 | [registry](registry/module_status.yaml) / [本次交接](docs/03-handoff/HO-20261015-Codex-M9-paused-handoff.md) |
+| 决策、质量、阶段状态与交接 | [registry](registry/module_status.yaml) / [本次交接](docs/03-handoff/HO-20261016-Codex-M9-migration-repair.md) |
 
 ## 目录职责
 
@@ -46,6 +46,8 @@ ci/                          工程与证据链门禁
 
 联合信息收益随任务与字段构造变化，不保证优于强单方。5 seed条件符号翻转最小双侧p=0.0625，开发CI不等于独立人群增益。预对齐双VM模拟依赖可信宿主管理员、半诚实不合谋假设；秘密输出PSI原型未接训练，不能称生产安全或零泄漏。营销捕获率不能替代因果新增收益。
 
-旧README和初始化预算/PR状态保留为[整理前历史快照](docs/04-experiment-records/history/README_整理前快照_20261015.md)，旧根目录实验日志保留兼容导航。正式业务、合规假设与失效自评继续以[目标要求](项目目标与要求.md)、各模块台账/audit_log及对外表述红线为准。
+旧README和初始化预算/PR状态保留为[整理前历史快照](docs/04-experiment-records/history/README_整理前快照_20261015.md)，旧根目录实验日志保留原全文/行号与尾部兼容导航。正式业务、合规假设与失效自评继续以[目标要求](项目目标与要求.md)、各模块台账/audit_log及对外表述红线为准。
 
 按[AGENTS.md](AGENTS.md)执行一步一提交和数据审查；本次结构整理完成工程门禁后正常推送main，不改Private、不删除历史、不强推。
+
+2026-10-16迁移复核：[修复报告](docs/04-experiment-records/迁移漏洞复核与修复报告.md)记录旧证据行号、授权恢复测试、状态索引与备份依赖修复；全部实验继续暂停。

@@ -1,16 +1,16 @@
-updated_at: '2026-10-11T08:03:26+00:00'
+updated_at: '2026-10-16T01:39:33+00:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: M8 护栏与故障注入 7/7、M9 证据链三项 100%、M4 规格——全部模块走完一轮
-  last_action_at: '2026-09-04T03:30:00+08:00'
-  by: Claude (Opus 5, Claude Code)
-  change_id: CL-20260904-M4-001
+  last_action: S9.H2整理迁移漏洞复核与修复；所有科研实验仍暂停
+  last_action_at: '2026-10-16T01:39:33+00:00'
+  by: Codex
+  change_id: CL-20261016-M9-001
   previous_action_000: 新增术语与表达规范并建立权威术语表（S-GOV.4，CL-20260830-GOV-008，2026-08-30T02:15:00+08:00）
   previous_action_00: 新增结果可见性要求（S-GOV.3，CL-20260830-GOV-007，2026-08-30T01:45:00+08:00）
   previous_action_0: 实现 changelog schema 校验与门禁回归测试（S-INIT.4，CL-20260830-GOV-006，2026-08-30T01:20:00+08:00）
   previous_action_1: 取消单步规模硬上限与门禁 3（S-GOV.2，CL-20260830-GOV-005，2026-08-30T00:50:00+08:00）
   previous_action_2: 实现门禁 2 步骤元数据校验（S-INIT.3，CL-20260830-GOV-004，2026-08-30T00:35:00+08:00）
-  next_step: 补齐恶意（非半诚实）参与方设定的攻防——目前唯一最可能改变结论的技术缺口
+  next_step: 保持科研实验暂停；只维护交接与工程验收
   previous_actions:
   - 实现门禁 4 合规一致性核验（S-INIT.2，CL-20260830-GOV-003，2026-08-30T00:00:00+08:00）
   - 修订 1.1 可见性条款并同步全部引用点（S-INIT.1R，CL-20260829-GOV-002，2026-08-29T22:20:00+08:00）
@@ -70,6 +70,14 @@ governance:
   previous_action_0000000: M7 补齐特征推断与成员推断攻击（S7.3）：发现无防护协议是双向完全泄露的 （CL-20260903-M7-002，2026-09-03T21:10:00+08:00）
   previous_action_00000000: M5 各级别超参搜索（S5.4）：C1 未被翻转，从 12.3% 收紧到 2.1% （CL-20260903-M5-002，2026-09-03T22:30:00+08:00）
   previous_action_000000000: M2 第二种 SCM 结构（S2.3）：分支卡 falsifier 触发，模型排序作废，C1 加固 （CL-20260903-M2-002，2026-09-03T23:50:00+08:00）
+  header_before_H2:
+    last_action: M8 护栏与故障注入 7/7、M9 证据链三项 100%、M4 规格——全部模块走完一轮
+    last_action_at: '2026-09-04T03:30:00+08:00'
+    by: Claude (Opus 5, Claude Code)
+    change_id: CL-20260904-M4-001
+    next_step: 补齐恶意（非半诚实）参与方设定的攻防——目前唯一最可能改变结论的技术缺口
+  current_entry: docs/03-handoff/START_HERE.md
+  historical_open_items_note: 以下open_items保留各历史时点；当前状态以experiment_pause、模块台账及START_HERE为准
 modules:
   M0:
     name: 业务问题定义与合规边界
@@ -278,15 +286,15 @@ modules:
     path: modules/m9_documentation
     status: handoff_ready_experiments_paused
     claimed_by: null
-    next_step: 维护交接入口；所有科研实验等待用户明确恢复
+    next_step: 实验保持暂停；后续第5步独立抽查
     blocking_on:
     - M0–M8 全部产出
     open_questions:
     - S9.R1完整阶段汇总/每seed/CI/失败状态整理完成；main发布回执接续。没有新增攻击或代理模型，公开范围按DR-GOV-012。
-    claimed_at: '2026-10-15T12:31:51+00:00'
+    claimed_at: '2026-10-16T01:33:02+00:00'
     expires_at: null
     current_step: null
-    latest_completed_step: S9.H1
+    latest_completed_step: S9.H2
 framework_refresh_20260916:
   step_id: S-GOV.11
   status: committed

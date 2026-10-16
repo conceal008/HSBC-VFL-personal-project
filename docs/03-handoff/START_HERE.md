@@ -1,5 +1,7 @@
 # 新 Agent 接手入口：先保持暂停
 
+> **2026-10-16修复入口**：[迁移漏洞修复交接](HO-20261016-Codex-M9-migration-repair.md)。当前状态读取registry；暂停状态yaml为H1历史回执。科研实验仍暂停。
+
 > 编写日期：2026-10-15 ｜ 版本：v1.0 ｜ 状态：用户暂停实验，归档交接
 > 数据来源：模块台账、已发布S5.X3/S7.P2/S3.P3工件、S5.D2失败状态
 > 口径基准：Public/main、DR-GOV-012、用户最新暂停指示
@@ -13,7 +15,7 @@
 3. [实验总台账](../04-experiment-records/实验总台账.md)和[日志版本导航](../04-experiment-records/logbooks/README.md)：每轮方法、指标、代码、配置、Notebook和失败记录。
 4. [文件与环境地图](FILESYSTEM_MAP.md)：Public仓库、本地私有输入/结果、VM与停机备份的职责。
 5. [恢复前检查与后续顺序](RESTART_PLAN.md)：先等用户明确恢复；不能照旧日志的“下一步”直接执行。
-6. [本次正式交接记录](HO-20261015-Codex-M9-paused-handoff.md)、[模块状态](../../registry/module_status.yaml)及目标模块台账：领取工作前再次核对。
+6. [当前正式交接记录](HO-20261016-Codex-M9-migration-repair.md)（[上轮H1历史](HO-20261015-Codex-M9-paused-handoff.md)）、[模块状态](../../registry/module_status.yaml)及目标模块台账：领取工作前再次核对。
 
 ## 两个不能混淆的状态
 

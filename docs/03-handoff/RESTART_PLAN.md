@@ -36,3 +36,11 @@ Criteo训练保存事实分数1列，验证保存两潜在结果2列；成员/�
 - 秘密输出PSI→安全gather→训练→受控输出的端到端集成另步验收，继续保护明文交集名单；Kuscia扩展编排仅在规模需要后评估。
 
 每项均先核对预算与质量约束，不把以上路线合并成一次大实验。M0业务/合规前置、生产准入与未签风险不因公开代理效果解除。
+
+## 迁移修复后的状态切换前置（S9.H2）
+
+当前仍暂停。未来必须先有用户明确恢复指令，在registry/decision_records新增active判决，记录authorized_by=project_owner、resume_research_experiments=true和原用户指示；当前experiment_pause切为resumed_by_user并引用resume_authorization_record。归档合同只验证记录，不能自行创造人类授权。之后才还原/修复D2、补注册并做工程检查。历史暂停回执及归档SHA保留，测试不再要求末步永远为X3。
+
+VM恢复先看本地恢复指南v2与依赖清单：LIMA_HOME为原环境别名，备份ssh.config仍引用原根，宿主工具不在盘快照内。不得直接用副本ssh.config连接原VM，也不得为了验证而在本轮启动VM。
+
+恢复生命周期补充：恢复草稿须在所有者授权记录列promote_paused_assets=true及promoted_original_paths精确清单，恢复的components须有对应组件声明；当前状态通过resume_authorization_record或archive_promotion_record引用记录。合法恢复后再次暂停只停止执行，不要求删除已登记代码；持续有效的原晋升记录可保留，越界/未登记仍拒绝。当前没有这些恢复/晋升记录，仍为暂停。

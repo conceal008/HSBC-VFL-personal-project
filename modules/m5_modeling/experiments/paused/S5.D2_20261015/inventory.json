@@ -1,0 +1,110 @@
+{
+  "status": "paused_by_user",
+  "restore_automatically": false,
+  "items": [
+    {
+      "original_path": "modules/m5_modeling/components/portfolio_endpoint_owner.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/src/portfolio_endpoint_owner.py.pending",
+      "sha256": "f5b1bbc117274ecd8bca4124518b0538e2ebaeeeeb19ddc823152aa909e1f864",
+      "bytes": 8075,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/components/portfolio_endpoint_diagnostics.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/src/portfolio_endpoint_diagnostics.py.pending",
+      "sha256": "3ae1c4d11e39caabd41269fbe8fde567292fda8a17f587e9984bc2cbdffeb86e",
+      "bytes": 12630,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/components/portfolio_endpoint_vm.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/src/portfolio_endpoint_vm.py.pending",
+      "sha256": "14d7ebfde61245b156e23becb89a47d33bca29f9e66d4099c6db1fa1193cc9ef",
+      "bytes": 21778,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/tests/test_portfolio_endpoint_diagnostics.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/tests/test_portfolio_endpoint_diagnostics.py.pending",
+      "sha256": "b559b87210adfb205d2355a021a5e3be83ed729d03830de7bb0e6c16306632f1",
+      "bytes": 7017,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/tests/test_portfolio_endpoint_vm.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/tests/test_portfolio_endpoint_vm.py.pending",
+      "sha256": "28a4cd90d28be709d00a7acc49b5ff941ef411cd3eff549c7fd96b34cd4db1e2",
+      "bytes": 13954,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/tests/test_portfolio_endpoint_owner.py",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/tests/test_portfolio_endpoint_owner.py.pending",
+      "sha256": "f11842a1913c63b6fac9f7b88921f94ecc435d29b6d747f7979770adc396e773",
+      "bytes": 6557,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/configs/portfolio_endpoint_diagnostics.yaml",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/configs/portfolio_endpoint_diagnostics.yaml.pending",
+      "sha256": "3761da2ce41cf15cb18c535596356ba90867edec28e5da30b62bea183c9de032",
+      "bytes": 8944,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/notebooks/S5.D2_endpoint_diagnostics.ipynb",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/notebooks/S5.D2_endpoint_diagnostics.ipynb.pending",
+      "sha256": "8a980ed7e5f6782d0e8a5721cae5e542f314718be0d1e81085cd4bf7109ca093",
+      "bytes": 2011,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "registry/component_declarations/M5-portfolio_endpoint_vm.yaml",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/registration/M5-portfolio_endpoint_vm.yaml.pending",
+      "sha256": "b4da67b136677a4d71c06a48027784f99be10a1a4d0abfc5eac4e96bbfd965e2",
+      "bytes": 422,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "registry/component_declarations/M5-portfolio_endpoint_diagnostics.yaml",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/registration/M5-portfolio_endpoint_diagnostics.yaml.pending",
+      "sha256": "1c36f5ba3440b7ab64cae31e95f572afd8042d3d4ac54f8e4b0ca2d6cb3f87fe",
+      "bytes": 455,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "registry/component_declarations/M5-portfolio_endpoint_owner.yaml",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/registration/M5-portfolio_endpoint_owner.yaml.pending",
+      "sha256": "188147ad7fc391168c79c323d29250210a3575eee09ffe78fea497e743fbcc63",
+      "bytes": 428,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/S5.D2_强单方配对端点诊断_步骤声明.md",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/declarations/S5.D2_强单方配对端点诊断_步骤声明.md.pending",
+      "sha256": "17723d588d38d9a6e81c1837cecfc3108dab49fceea4ca1518e46f2aac6404db",
+      "bytes": 3260,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    },
+    {
+      "original_path": "modules/m5_modeling/report/S5.D2_隔离拒绝验收修正.md",
+      "archived_path": "modules/m5_modeling/experiments/paused/S5.D2_20261015/declarations/S5.D2_隔离拒绝验收修正.md.pending",
+      "sha256": "a43c583133c9e2faf432ff7d0b14d7e758827ff733d4d283c6e30c838e391935",
+      "bytes": 1336,
+      "byte_preserved": true,
+      "status": "paused_unvalidated"
+    }
+  ]
+}

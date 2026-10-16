@@ -1,0 +1,8 @@
+component: portfolio_endpoint_diagnostics
+module: M5
+path: modules/m5_modeling/components/portfolio_endpoint_diagnostics.py
+purpose: 纯函数重放既有指标与五组配对CI，不拟合、不写入、不导出行数据
+cross_border_assets: []
+cross_border_note: 延续DR-M5-001本地半诚实、可信管理员模拟；未新增跨方流、未调用PSI、未拟合新模型。
+tests:
+- modules/m5_modeling/tests/test_portfolio_endpoint_diagnostics.py

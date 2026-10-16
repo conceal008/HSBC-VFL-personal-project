@@ -1,0 +1,66 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "id": "endpoint-0",
+   "source": [
+    "from pathlib import Path\n",
+    "from datetime import datetime, timezone\n",
+    "import json, hashlib, yaml\n",
+    "runtime = json.loads(Path(RUNTIME_PATH).read_text())\n",
+    "config = Path(runtime[\"config\"])\n",
+    "cfg = yaml.safe_load(config.read_text())\n",
+    "print(json.dumps({\"config\":str(config),\"config_sha256\":hashlib.sha256(config.read_bytes()).hexdigest(),\"seeds\":cfg[\"shared\"][\"model_seeds\"],\"bootstrap_seed\":cfg[\"experiment\"][\"bootstrap_seed\"],\"git_sha\":runtime[\"git_sha\"],\"run_at_utc\":datetime.now(timezone.utc).isoformat()}))\n"
+   ],
+   "metadata": {},
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "id": "endpoint-1",
+   "source": [
+    "from portfolio_endpoint_owner import run\n",
+    "result = run(RUNTIME_PATH)\n"
+   ],
+   "metadata": {},
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "id": "endpoint-2",
+   "source": [
+    "print(json.dumps({\"status\":result[\"status\"],\"source_replay\":result[\"source_replay\"],\"new_model_fits\":result[\"new_model_fits\"],\"independent_confirmation\":result[\"independent_confirmation\"]}))\n"
+   ],
+   "metadata": {},
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "markdown",
+   "id": "boundary",
+   "metadata": {},
+   "source": [
+    "仅在原冻结开发分区完成后验端点配对诊断。原模型、每seed与原差值区间必须重放一致；没有重新拟合或逐轮收敛证据，结果不代表独立人群或业务收益确认。"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python"
+  },
+  "hsbc_vfl": {
+   "step_id": "S5.D2",
+   "classification": "owner_private_execution",
+   "config": "modules/m5_modeling/configs/portfolio_endpoint_diagnostics.yaml"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

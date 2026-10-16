@@ -200,12 +200,12 @@ modules:
   M5:
     name: 建模方案与基线阶梯
     path: modules/m5_modeling
-    status: in_progress
+    status: paused_by_user
     claimed_by: null
-    claimed_at: '2026-10-15T03:19:40+00:00'
+    claimed_at: '2026-10-15T08:44:43.647580+00:00'
     expires_at: null
     current_step: null
-    next_step: 先新模型输出重评/联合诊断，正则/安全树/独立确认分别重规划
+    next_step: 先读START_HERE；等待用户恢复后核对暂停D2缺陷与原预算
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
@@ -234,6 +234,7 @@ modules:
       21/21预算需另规划。
     latest_completed_step: S5.X3
     preparation_note: COIL/Santander四格五seed实际完成；同VM端口串行，未看封存，下一步骤先完成当前main/CI。
+    paused_step: S5.D2
   M6:
     name: 效果验证与评估体系
     path: modules/m6_evaluation
@@ -248,9 +249,9 @@ modules:
   M7:
     name: 安全攻防与隐私评测
     path: modules/m7_security
-    status: in_progress
+    status: paused_by_user
     claimed_by: null
-    next_step: 新代理模型完成后声明输出风险评估/实际标签推断
+    next_step: 等待用户明确恢复；新增14任务输出风险另声明
     blocking_on:
     - M5 可攻击的模型产物
     - M6 评估口径
@@ -275,17 +276,17 @@ modules:
   M9:
     name: 合规证据链与交付物
     path: modules/m9_documentation
-    status: not_started
+    status: handoff_ready_experiments_paused
     claimed_by: null
-    next_step: S9.1
+    next_step: 维护交接入口；所有科研实验等待用户明确恢复
     blocking_on:
     - M0–M8 全部产出
     open_questions:
     - S9.R1完整阶段汇总/每seed/CI/失败状态整理完成；main发布回执接续。没有新增攻击或代理模型，公开范围按DR-GOV-012。
-    claimed_at: '2026-10-12T02:26:06.170856+00:00'
+    claimed_at: '2026-10-15T12:31:51+00:00'
     expires_at: null
     current_step: null
-    latest_completed_step: S9.R1
+    latest_completed_step: S9.H1
 framework_refresh_20260916:
   step_id: S-GOV.11
   status: committed
@@ -372,3 +373,9 @@ merge_ci_repair_20261009:
   scope: 修复合并提交HEAD回归断言，不放宽门禁规则
   change_id: CL-20261009-GOV-002
   completed_at: '2026-10-09T15:29:38+08:00'
+experiment_pause:
+  status: paused_by_user
+  recorded_at: '2026-10-15T12:31:51+00:00'
+  instruction: 先暂停一切实验，整理进度、日志、GitHub及本地结构以便新Agent接手
+  resume_requires: 所有者明确要求恢复实验；本次交接不自动授权新运行
+  start_here: docs/03-handoff/START_HERE.md

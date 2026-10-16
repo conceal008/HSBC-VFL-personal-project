@@ -1,0 +1,12 @@
+card_id: BC-M5-016
+status: paused_by_user
+routes:
+- id: frozen_endpoint_pairing
+  purpose: 十四任务既有开发预测相对强单方的配对端点诊断，零新增模型训练
+  status: paused_by_user
+history:
+- 运行前声明与DR-M5-008冻结历史21步预算，仅解锁D2一步；开发测试28项先通过。
+- 只读交叉复核要求补充远端进程清理与完整源目录指纹；实现先于正式执行修正，并补超时、异常、中断与源完整性测试。
+- 首次正式队列Home Credit在隔离预检退出1，0项完成/0新增训练；sudo/挂载/源访问负例通过，网络拒绝实际errno113(EHOSTUNREACH)。保留失败目录与cleanup无错误回执。修正一在新目录增设root记录双栈REJECT规则和IPv4包计数增量，账号接受其内核错误码并由管理员证据补验；不改统计、数据、配置、seed或CI。
+- 用户要求暂停全部实验，双VM正常停止。补丁后未测试/未重跑；草稿逐字迁移至experiments/paused/S5.D2_20261015，0项实验完成。
+falsifier: 原模型/seed点/原B0-A0区间不能重放、源目录字节/权限/集合变化、权限或披露检查任一失败则停止；不改口径或过滤bootstrap draw。

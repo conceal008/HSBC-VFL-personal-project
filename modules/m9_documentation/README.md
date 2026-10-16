@@ -1,7 +1,7 @@
 # M9 · 合规证据链与交付物
 
-> 状态：🟨 **S9.R1当前全部结果整理完成；发布回执另登记** ｜ 步数预算 **10** ｜ 已用 **2** ｜ 认领人：无
-> 最后更新：2026-10-12 ｜ 规范位置：`docs/00-framework/` §M9 · `docs/01-loops/` LOOP M9
+> 状态：🟨 **S9.H1暂停归档与Agent交接完成；新发布回执另核验** ｜ 步数预算 **10** ｜ 已用 **3** ｜ 认领人：无
+> 最后更新：2026-10-15 ｜ 规范位置：`docs/00-framework/` §M9 · `docs/01-loops/` LOOP M9
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
 ## 目标
@@ -28,7 +28,7 @@ M0–M8 全部产出
 
 ## 当前结论
 
-暂无。本模块尚未开始，`step_ledger.yaml` 中 `steps` 为空。
+此句为初始化历史，已被S9.1、S9.R1和本次S9.H1取代。当前统一入口为[START_HERE](../../docs/03-handoff/START_HERE.md)；用户暂停全部实验，未验收D2草稿不计完成。
 
 ## 未决问题
 
@@ -90,3 +90,7 @@ M9 的验收人是法务与合规，不是技术方。写成「已核验」四�
 > 删掉它会让缺口消失于无形。
 
 当前具体结果：52份评价摘要、124份执行状态、35张既有表索引，见[完整阶段归档](results/current_phase_v1/README.md)和[带输出Notebook](notebooks/S9.R1_result_archive.ipynb)。按DR-GOV-012公开审查后研究汇总，不读取或提交行数据/预测/身份/份额；旧接受失效和未执行状态明确保留。独立新目录重建55文件字节一致，不生成新CI或结论。
+
+## S9.H1 当前交接
+
+用户要求暂停所有实验；停机与私有检查点完成。11份日志/报告正文迁移，13份D2草稿字节保留、明确缺陷和未执行状态；原results不动。见[当前进度](../../docs/03-handoff/CURRENT_STATUS.md)、[实验台账](../../docs/04-experiment-records/实验总台账.md)及[迁移清单](../../docs/04-experiment-records/migration_manifest.json)。此步为文档/资产整理，不新增研究指标，不追认旧法务/风险签署或D2通过。

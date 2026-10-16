@@ -1,0 +1,196 @@
+"""Paired inference must replay the source, reject invalid capabilities and be pure."""
+
+import copy
+from pathlib import Path
+import sys
+import numpy as np
+import pytest
+import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "components"))
+import portfolio_endpoint_diagnostics as endpoint  # noqa: E402
+import portfolio_training as original  # noqa: E402
+
+MODULE = Path(__file__).resolve().parents[1]
+
+
+def example(tmp_path, unit="stratified_rows", treatment=False, identical=False):
+    cfg = yaml.safe_load(
+        (MODULE / "configs/portfolio_endpoint_diagnostics.yaml").read_text()
+    )
+    cfg["shared"]["bootstrap_repeats"] = 12
+    dataset = "criteo" if treatment else "homecredit"
+    cfg["datasets"][dataset]["resampling_unit"] = unit
+    count = 100 if treatment else 20
+    y = np.tile([0, 1, 0, 1], count).astype(np.float32)
+    t = (
+        np.tile([0, 0, 1, 1], count).astype(np.int32)
+        if treatment
+        else np.zeros(len(y), dtype=np.int32)
+    )
+    clusters = (
+        np.repeat([f"customer{i}" for i in range(20)], 4) if unit == "cluster" else None
+    )
+    predictions = {}
+    records = {}
+    source = tmp_path / "original"
+    (source / "results").mkdir(parents=True)
+    for seed in cfg["shared"]["model_seeds"]:
+        sid = str(seed)
+        predictions[sid] = {}
+        records[sid] = {}
+        for i, cell in enumerate(cfg["cells"]):
+            rng = np.random.default_rng(seed if identical else seed + i)
+            p = np.clip(0.25 + 0.4 * y + rng.normal(0, 0.15, len(y)), 0.01, 0.99)[
+                :, None
+            ]
+            if treatment:
+                p = np.c_[p, np.clip(p[:, 0] + 0.04, 0.01, 0.99)]
+            predictions[sid][cell] = p
+            name = f"{cell}_seed{seed}"
+            records[sid][cell] = name
+            target = source / "trainings" / name / "results"
+            target.mkdir(parents=True)
+            np.save(target / "validation_predictions.npy", p)
+    old = yaml.safe_load((MODULE / "configs/portfolio_training.yaml").read_text())
+    old["shared"] = copy.deepcopy(cfg["shared"])
+    old["datasets"][dataset] = copy.deepcopy(cfg["datasets"][dataset])
+    old["experiment"]["bootstrap_seed"] = cfg["experiment"]["bootstrap_seed"]
+    validation = dict(y=y, t=t)
+    if clusters is not None:
+        validation["clusters"] = clusters
+    data = dict(
+        root=str(source),
+        cfg=old,
+        shared=old["shared"],
+        spec=old["datasets"][dataset],
+        dataset=dataset,
+        validation=validation,
+    )
+    original.finalize(data, records)
+    import json
+
+    reference = json.loads(
+        (source / "results/private_feature_evaluation.json").read_text()
+    )
+    return y, t, predictions, cfg, dataset, clusters, reference
+
+
+@pytest.mark.parametrize(
+    "unit,treatment",
+    [("stratified_rows", False), ("cluster", False), ("stratified_rows", True)],
+)
+def test_replays_original_protocol_without_writes(tmp_path, unit, treatment):
+    args = example(tmp_path, unit, treatment)
+    snapshots = {str(p): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
+    y, t, p, cfg, dataset, clusters, ref = args
+    before = copy.deepcopy((y, t, p, cfg, clusters, ref))
+    result = endpoint.analyze(y, t, p, cfg, dataset, clusters, ref)
+    assert result["source_replay"]["passed"] and all(
+        result["source_replay"][k]
+        for k in ["models_match", "seed_points_match", "original_comparison_match"]
+    )
+    assert (
+        result["models"] == ref["models"]
+        and result["paired_comparisons"]["B0_minus_A0"]
+        == ref["paired_comparisons"]["B0_minus_A0"]
+    )
+    assert set(result["paired_comparisons"]) == set(cfg["experiment"]["comparisons"])
+    assert (
+        result["new_model_fits"] == 0
+        and not result["test_read"]
+        and not result["convergence_diagnosis"]
+    )
+    assert result["metric_directions"]["brier"] == "lower_is_better"
+    assert result["pvalues"]["B0_minus_A0"] >= 0.0625
+    assert all(
+        np.array_equal(p[s][cell], before[2][s][cell]) for s in p for cell in p[s]
+    )
+    assert (
+        np.array_equal(y, before[0])
+        and np.array_equal(t, before[1])
+        and cfg == before[3]
+        and ref == before[5]
+    )
+    assert snapshots == {
+        str(p): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()
+    }
+
+
+def test_identical_models_have_exact_zero_paired_intervals(tmp_path):
+    args = example(tmp_path, identical=True)
+    result = endpoint.analyze(*args)
+    for table in result["paired_comparisons"].values():
+        assert all(
+            x["estimate"] == x["ci_low"] == x["ci_high"] == 0 for x in table.values()
+        )
+    assert all(p == 1 for p in result["pvalues"].values())
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "missing_seed",
+        "missing_model",
+        "nan",
+        "probability_range",
+        "wrong_width",
+        "too_few_seeds",
+        "source_reference",
+        "cluster_missing",
+        "cluster_wrong_length",
+        "strata_with_cluster",
+        "unexpected_treatment",
+        "bad_bootstrap",
+    ],
+)
+def test_invalid_or_incomplete_source_is_rejected(tmp_path, change):
+    y, t, p, cfg, dataset, clusters, ref = example(
+        tmp_path, unit="cluster" if change.startswith("cluster") else "stratified_rows"
+    )
+    sid = str(cfg["shared"]["model_seeds"][0])
+    if change == "missing_seed":
+        p.pop(sid)
+    elif change == "missing_model":
+        p[sid].pop("B0")
+    elif change == "nan":
+        p[sid]["B0"][0, 0] = np.nan
+    elif change == "probability_range":
+        p[sid]["B0"][0, 0] = 1.1
+    elif change == "wrong_width":
+        p[sid]["B0"] = p[sid]["B0"][:, 0]
+    elif change == "too_few_seeds":
+        cfg["shared"]["model_seeds"] = cfg["shared"]["model_seeds"][:4]
+    elif change == "source_reference":
+        ref["models"]["B0"]["roc_auc"]["ci_low"] += 0.01
+    elif change == "cluster_missing":
+        clusters = None
+    elif change == "cluster_wrong_length":
+        clusters = clusters[:-1]
+    elif change == "strata_with_cluster":
+        clusters = np.arange(len(y))
+    elif change == "unexpected_treatment":
+        t[:] = 1
+    elif change == "bad_bootstrap":
+        cfg["shared"]["bootstrap_repeats"] = 0
+    with pytest.raises(ValueError):
+        endpoint.analyze(y, t, p, cfg, dataset, clusters, ref)
+
+
+def test_reference_required_and_no_invalid_draw_filtering(tmp_path, monkeypatch):
+    y, t, p, cfg, dataset, clusters, ref = example(tmp_path)
+    with pytest.raises(ValueError, match="reference"):
+        endpoint.analyze(y, t, p, cfg, dataset)
+    saved = endpoint.pt.metric_values
+    calls = [0]
+
+    def invalid_draw(*args):
+        values = saved(*args)
+        calls[0] += 1
+        if calls[0] > 20:
+            values["roc_auc"] = float("nan")
+        return values
+
+    monkeypatch.setattr(endpoint.pt, "metric_values", invalid_draw)
+    with pytest.raises(ValueError, match="nonfinite"):
+        endpoint.analyze(y, t, p, cfg, dataset, clusters, ref)

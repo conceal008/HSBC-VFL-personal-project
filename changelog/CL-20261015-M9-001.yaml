@@ -1,0 +1,87 @@
+change_id: CL-20261015-M9-001
+timestamp: '2026-10-15T12:40:55+00:00'
+agent: Codex
+module: M9
+type: doc
+title: 暂停全部实验并整理日志结构与Agent交接
+what: 按用户要求暂停全部实验、正常停双VM并私有备份；迁移11份历史日志/报告正文与13份未验收D2草稿，建立接手入口、总台账、恢复计划和本地分类中心。没有新模型或效果指标。
+  质量CI取完整Git历史以核对迁移前正文。
+why: 区分已交付冻结结果、历史失效与尚未验收草稿，避免新Agent照旧下一步误运行或把D2预检失败写成完成。
+links:
+  branch_card: none
+  decision_record: DR-GOV-014
+  loop_step: S9.H1
+cross_border_impact: none
+cross_border_detail: 只进行已有公开资料结构整理；原私有行数据/VM/凭证留本机，无新增跨方资产、PSI或模型运行。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Codex
+  conclusion: 11份已审查公开研究日志/结果报告正文逐字保留，只改链接目标；13份暂停代码/config/Notebook/测试/声明无运行输出、无行数据/身份/组图/逐行分数/学习状态/模型份额/凭证。新文档只复述已公开汇总及状态，私有1514状态索引/28文件VM停机备份/现场回执未入库；不发表新模型指标。实际Notebook.pending无输出，非新增有效实验入口。
+downstream_affected:
+- M1
+- M3
+- M5
+- M7
+breaking_change: false
+migration: 11份正文迁入docs/04-experiment-records，旧根路径保留导航；原results/源代码/config不变。D2草稿移至paused并加.pending，需用户恢复后手工修复验收。
+reproducibility:
+  config: docs/04-experiment-records/migration_manifest.json
+  config_hash: 0b7369554c0eb48875d651840982747a8361ffe2b6505b2895c8fea7825207f1
+  seeds: []
+  env_lock: modules/m5_modeling/configs/linux_environment.lock
+rollback: 另建revert步骤撤回当前导航/结构；依据迁移清单与旧git blob恢复正文，保留原私有备份/旧失败，不删除历史。
+verification: 四项新增文档完整性测试通过；独立只读复核11正文/数字与13草稿SHA/字节一致、原results/可用源码/config无差异；完整发布工程门禁与推送回执接续。
+  发布预检发现新增历史正文比对测试依赖原Git blob，Q3作业原浅检出不足；执行前补fetch-depth:0，首个快照停止并保留非通过回执，新冻结索引完整验收。
+  2026-10-16发布前核验：冻结索引47bf6f0ddb652ef372683dc1f5cc238d5dc347c2的完整工程门禁通过，629测试、10768/11548=93.2%核心逻辑行覆盖、53/53门禁回归、M9四项100%。独立只读审查34文档/354链接、11正文和13草稿完整性通过。此前仅CI完整历史兼容性一轮工程修正，首次快照停止保留、不计通过。验收后仅更新本状态回执与明确原因边界，不改数学/测试/配置/Notebook/冻结结果；推送与远端CI另核对。
+step:
+  step_id: S9.H1
+  step_name: 暂停归档与Agent交接
+  declaration: '# S9.H1 暂停归档与 Agent 交接
+
+
+    > 编写日期：2026-10-15 ｜ 版本：v1.0 ｜ 状态：执行前声明
+
+    > 数据来源：当前main、各模块台账、S5.X3冻结结果、本地目录和S5.D2失败回执
+
+    > 口径基准：所有者明确要求暂停一切实验；Public/main、DR-GOV-012与冻结资产只读
+
+
+    will_produce：确认无实验进程并正常停止项目双VM；保留未完成D2代码/配置/Notebook/测试为不可误运行的暂停草稿；整理主入口、实验台账、结果与日志目录、已完成/未完成、恢复顺序、环境与本地私有路径。迁移文档保留全部正文与历史，并保留旧入口导航、逐文件路径/哈希映射。维护本地交接中心、日志、交接记录与main。
+
+
+    will_not_produce：不训练、不计算新效果指标/置信区间、不运行攻击或PSI、不重跑D2；不读行数据内容、不迁移/改写冻结数据或results、不删除历史、失败和凭证；本地私有资产/虚拟机备份不上传。
+
+
+    success_criteria：新Agent从唯一入口能定位规范、现状、每轮方法与结果、失败与未执行边界、环境恢复和暂停草稿；迁移清单与原文件可核对、旧入口可达；工程发布门禁通过后同步Public/main。质量验证仅做代码/文档门禁，不视为科研实验或自动恢复。
+
+
+    risk：旧相对链接与机器证据路径容易因搬移断裂，因此冻结结果/配置/源码路径保持原位；仅移动独立日志/报告正文并机械修正链接，旧路径变导航。暂停草稿未完成验收，文件使用.pending后缀、显式缺陷清单，不能冒充可用实现。
+
+
+    工程修正一预声明：新迁移完整性测试必须读取基线Git blob，远端代码质量作业取完整历史（fetch-depth:0）；不改门禁判据。初门禁快照已停止并保留非通过回执，新冻结索引重新完整验收。仅工程兼容性变化，不启动科研实验。
+
+    '
+  scope:
+    files_changed: 64
+    lines_added: 3545
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: docs/03-handoff/START_HERE.md:1：暂停边界/阅读顺序与所有交付物；模块无实验进程、双VM正常停机回执在本地
+      D2: docs/04-experiment-records/migration_manifest.json:1、tools/tests/test_handoff_archive.py:21：11正文/数字、13草稿字节/哈希与链接可机械核验
+      D3: docs/03-handoff/FILESYSTEM_MAP.md:1：环境和本地备份/恢复路径；未做全盘哈希/实际启动恢复，故2分
+      D4: docs/03-handoff/CURRENT_STATUS.md:1、RESTART_PLAN.md:1：14+4有效成果、D2失败/缺陷、未执行界限和后续条件清楚
+  revisions: 1
+  verdict: committed
+  next_step: 全部实验保持暂停；用户恢复后先核对D2缺陷与工程验收

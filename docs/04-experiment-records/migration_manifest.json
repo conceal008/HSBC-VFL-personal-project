@@ -1,0 +1,94 @@
+{
+  "step": "S9.H1",
+  "source_commit": "9d222d869ec8748754ef9aa0788a2060625616ee",
+  "assets": [
+    {
+      "old_path": "实验方法与运行日志.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志.md",
+      "before_sha256": "21d4abdef36b2904a4e0a04de19ba9c0068e7b85083c031dd64234e92ac80eb3",
+      "after_sha256": "41b589b4171bf4c4f6084239da36c9101ca3cfe79d5de6b8b35359d226a3b22e",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v2.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v2.md",
+      "before_sha256": "e953ce0388b03233e88c58b48cdbd6e176db8f938bd839527553508ba9cd86eb",
+      "after_sha256": "f2c52e8e6b551ced22bfaf83e963fbcf0b6c66035d2bbae1a8e38bfbcd82a12e",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v3.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v3.md",
+      "before_sha256": "2d25d0cde5bfa480e673f92261acc58523b213442909332ba32c3b56edfaeb50",
+      "after_sha256": "4f1c4bc24aa28bcd547755b60010019875bc8ecf5ba26d9d0387b716098d78b8",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v4.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v4.md",
+      "before_sha256": "52f00d0f77ee8ae3675f27e5ad4fcb8bfbcff6bd3e0f4118269cb49aae261942",
+      "after_sha256": "9af6a6137191857623dc4c0f049f84ca3e04d2fe93776921009cc07a39d28bdd",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v5.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v5.md",
+      "before_sha256": "169bde285923f46922ac51bae3107522cdfa97fefe3ebb7dbbd72952ac294b5a",
+      "after_sha256": "7af0f508e3aab8f305753226029faf6b8d5acbfb440a2eadb141faa926c8e2f7",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v6.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v6.md",
+      "before_sha256": "0625dd4148ce36803b4f3db9932920a5a27c3b510de050aa7605968acad9c6b8",
+      "after_sha256": "2682e5123032f73c74fdf34e866a9f97e10c1e5a9e053d4c572f5bbf2014f0ca",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v7.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v7.md",
+      "before_sha256": "030dd385fa00991be116b3431605232a4be80aaae40adc4d805efa4ff49aeceb",
+      "after_sha256": "b4c829c55b2e3aefdf85e10a04b4371018f7f98e83f34c782bcc7a0d4c0b7f8a",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v8.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v8.md",
+      "before_sha256": "fad3c949f90261dfc5eb647e390270392bb477af038ec55fd286a26dd41d3877",
+      "after_sha256": "287a5b92828963e31eb4503d23e6565f352fd03637a5307473c64f6700dc6acd",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v9.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v9.md",
+      "before_sha256": "36bf8f7037c4fedc0bde8c3476886aa2ed6e70c7c3dde59a1d1b7ae41d79ad9a",
+      "after_sha256": "50376e2efa35617ba518562d2a818076652c8d350a464873720ae1623e6b01ad",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "实验方法与运行日志_v10.md",
+      "canonical_path": "docs/04-experiment-records/logbooks/实验方法与运行日志_v10.md",
+      "before_sha256": "a95722a5747c05c2d60c828156620152ca59cd6b5b0e960982d02788732cacc5",
+      "after_sha256": "b2c8630ef0d021486d098a7e180195026a4b22673ccf0c53bff5bee0700e7a2e",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    },
+    {
+      "old_path": "本地数据集联邦训练与结果汇总_v2.md",
+      "canonical_path": "docs/04-experiment-records/reports/本地数据集联邦训练与结果汇总_v2.md",
+      "before_sha256": "971ac0b0b8c9ee635140d93fe75e1fc041714ae7348932df216cae8ba75037fc",
+      "after_sha256": "4ceebe4078fccdb15c968021a04dd14f23c6e2b4bc1e53ae8e5aaccc4412fca0",
+      "change": "body moved; only relative Markdown link targets rewritten; legacy navigation retained",
+      "full_prose_and_numbers_preserved": true
+    }
+  ]
+}

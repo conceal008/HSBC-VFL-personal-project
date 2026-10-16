@@ -1,0 +1,8 @@
+component: portfolio_endpoint_vm
+module: M5
+path: modules/m5_modeling/components/portfolio_endpoint_vm.py
+purpose: 仅Alice新账号只读复制、整源指纹、超时清理与汇总导出白名单
+cross_border_assets: []
+cross_border_note: 延续DR-M5-001本地半诚实、可信管理员模拟；未新增跨方流、未调用PSI、未拟合新模型。
+tests:
+- modules/m5_modeling/tests/test_portfolio_endpoint_vm.py

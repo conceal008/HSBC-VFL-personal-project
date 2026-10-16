@@ -1,6 +1,6 @@
 module: M5
 module_path: modules/m5_modeling
-total_steps_planned: 21
+total_steps_planned: 22
 steps:
 - step_id: S5.1
   step_name: 五级基线阶梯实现（L1 先于 L3 完成）
@@ -516,7 +516,7 @@ steps:
   note: 280最终逻辑模型，270新拟合/10完整复用；九旧任务/Mock三阶段只读复用，容量一修正，原数学/配置/封存/阈值不变。新增输出攻击/PSI集成/独立确认未完成。
     发布门禁初轮624通过/1失败及M9 F2/F3由同一陈旧数量引起；修正二只更新总览状态计数，不改模型/结果/核验规则。
 current_step: null
-next_step: 新模型输出重评/联合诊断；正则/安全树/独立确认各自重规划后声明
+next_step: 等待用户明确恢复；先阅读START_HERE和暂停草稿缺陷清单
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -557,6 +557,8 @@ quality_actions:
 - 第20消费随机窗口抽中X1，初次服务quota失败后重试获得独立11/12差0；950路径/实际来源/seed/恢复及权限作用域核验。来宾share664不能写600，原X1host600契约不追溯施加X2；旧质量/11通过线不解除。
 - X3容量修正一，21/21与14/21修正事实保留，下一阶段重规划，不稀释旧三升级/11通过线。
 - X3发布门禁发现总览计数未同步，第二修正更新55份Notebook/86份组件声明，失败回执保留，后续不允许第三修正。
+- DR-M5-008仅解锁一项零拟合端点诊断；历史21/21、3升级、14/21独立冻结，不把扩大分母作为质量改善。
+- 用户暂停：D2首次预检失败、修正一未执行，仅归档草稿；旧21/21、三升级、14/21修正与11通过线继续冻结，暂停不算通过。
 budget_replan:
   decision_record: DR-M5-004
   original_budget: 12
@@ -569,3 +571,39 @@ budget_replan:
   latest_decision_record: DR-M5-007
   latest_planned_steps: 21
 next_research_step: S3.P3秘密输出对齐；S5.5分组正则、安全树及封存确认分别另步
+quality_snapshot_before_D2:
+  steps_used: 21
+  steps_planned: 21
+  metrics:
+    avg_score: 10.238
+    escalation_count: 3
+    revision_rate: 0.667
+    steps_used: 21
+    budget_usage: 1.0
+    consecutive_low_d4: 0
+    pass_threshold: 11
+    original_self_average: 11.267
+    avg_score_basis: independent reassessment replaces invalidated self-scores; original
+      score fields retained as history
+  revised_steps: 14
+  last_step_revisions: 2
+phase_budgets:
+- phase: post_portfolio_endpoint_diagnosis
+  decision_record: DR-M5-008
+  new_steps_authorized: 1
+  steps_used: 0
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  steps_attempted: 1
+  steps_completed: 0
+  status: paused_by_user
+paused_step:
+  step_id: S5.D2
+  status: paused_by_user
+  formal_attempts: 1
+  completed_tasks: 0
+  revisions_declared: 1
+  revision_run_completed: false
+  score: null
+  archive: modules/m5_modeling/experiments/paused/S5.D2_20261015
+  note: 未达到交付，不能记committed；不开展第三修正。

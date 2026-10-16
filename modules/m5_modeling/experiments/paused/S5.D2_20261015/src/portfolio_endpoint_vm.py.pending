@@ -1,0 +1,513 @@
+"""Trusted Alice-only staging for read-only endpoint diagnosis; no model fitting."""
+
+from __future__ import annotations
+
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shlex
+import subprocess
+import tarfile
+import time
+import yaml
+import portfolio_phase_vm as phase
+import portfolio_training_vm as source_provider
+
+MODULE = Path(__file__).resolve().parents[1]
+REPOSITORY = MODULE.parent.parent
+CONFIG = MODULE / "configs/portfolio_endpoint_diagnostics.yaml"
+NOTEBOOK = "S5.D2_endpoint_diagnostics.ipynb"
+CODE = source_provider.CODE + (
+    "portfolio_endpoint_diagnostics.py",
+    "portfolio_endpoint_owner.py",
+)
+ACCOUNT = "alice_endpoint"
+GUEST_BASE = "/srv/vfl_endpoint/alice"
+OWNER_CODE_CELLS = 3
+EXPORTS = (
+    "private_endpoint_diagnostics.json",
+    "engineering.json",
+    "party.executed.ipynb",
+    "NOTEBOOK_COMPLETED.json",
+)
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def save(path, value):
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+
+
+def guest(script):
+    phase.vm.lima = phase.bounded_lima
+    return phase.vm.guest("alice", script)
+
+
+def python_guest(code):
+    return guest("sudo /opt/secretflow/bin/python -c " + shlex.quote(code))
+
+
+def source_description(source, cfg):
+    """Source status, runtime, code and reviewed aggregate are all mandatory."""
+    source = Path(source)
+    dataset = source.parent.name
+    if dataset not in cfg["datasets"] or not re.fullmatch(
+        dataset + r"_portfolio_aggregate_[0-9]{8}T[0-9]+Z", source.name
+    ):
+        raise ValueError("Undeclared aggregate identity")
+    status, declaration = (
+        read(source / "status.json"),
+        read(source / "phase_declaration.json"),
+    )
+    if (
+        status["status"] != "passed"
+        or status["exit_codes"] != [0]
+        or status["cleanup_errors"]
+    ):
+        raise ValueError("Source aggregate incomplete")
+    if set(declaration["phases"]) != set(map(str, cfg["shared"]["model_seeds"])):
+        raise ValueError("Source phase inventory incomplete")
+    for sid, path in declaration["phases"].items():
+        path = Path(path)
+        if path.parent.name != dataset or f"_seed{sid}_" not in path.name:
+            raise ValueError("Source phase ownership differs")
+        state = read(path / "status.json")
+        if (
+            state["status"] != "passed"
+            or state["exit_codes"] != [0, 0]
+            or state["cleanup_errors"]
+        ):
+            raise ValueError("Source phase incomplete")
+    rt = read(source / "alice/code/runtime.json")
+    reference_path = REPOSITORY / cfg["source_results_directory"] / (dataset + ".json")
+    reference = read(reference_path)
+    if (
+        rt["party"] != "alice"
+        or rt["dataset"] != dataset
+        or rt["config_sha256"] != cfg["source_config_sha256"]
+        or reference["dataset"] != dataset
+        or reference["step"] != cfg["source_step"]
+        or reference["config_provenance"]["config_sha256"] != rt["config_sha256"]
+        or set(rt["code_sha256"]) != set(source_provider.CODE)
+        or set(rt["controller_sha256"]) != set(phase.CONTROLLERS)
+        or sha(source / "alice/code" / Path(rt["config"]).name) != rt["config_sha256"]
+        or sha(source / "alice/results/private_feature_evaluation.json")
+        != reference["source_summary_sha256"]
+        or sha(REPOSITORY / cfg["source_config"]) != cfg["source_config_sha256"]
+    ):
+        raise ValueError("Frozen source protocol differs")
+    for name, digest in dict(rt["code_sha256"], **rt["controller_sha256"]).items():
+        if (
+            sha(source / "alice/code" / name) != digest
+            or sha(MODULE / "components" / name) != digest
+        ):
+            raise ValueError("Frozen source code differs")
+    return dataset, rt, reference_path, reference
+
+
+def stage(source, output):
+    cfg = yaml.safe_load(CONFIG.read_text())
+    if (cfg["owner_account"], cfg["guest_analysis_root"], cfg["owner_code_cells"]) != (
+        ACCOUNT,
+        GUEST_BASE,
+        OWNER_CODE_CELLS,
+    ):
+        raise ValueError("Unregistered owner execution identity")
+    dataset, old, reference_path, reference = source_description(source, cfg)
+    run_id = (
+        dataset
+        + "_endpoint_diagnostic_"
+        + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    )
+    target = Path(output) / dataset / run_id
+    target.mkdir(parents=True, exist_ok=False, mode=phase.vm.PRIVATE_DIRECTORY_MODE)
+    for name in ("code", "data", "results", "logs"):
+        (target / "alice" / name).mkdir(
+            parents=True, mode=phase.vm.PRIVATE_DIRECTORY_MODE
+        )
+    code = target / "alice/code"
+    for name in CODE:
+        (code / name).write_bytes((MODULE / "components" / name).read_bytes())
+    for src in (
+        CONFIG,
+        MODULE / "notebooks" / NOTEBOOK,
+        MODULE / "configs/linux_environment.lock",
+    ):
+        (code / src.name).write_bytes(src.read_bytes())
+    (code / "reference.json").write_bytes(reference_path.read_bytes())
+    root, previous = GUEST_BASE + "/" + run_id, "/srv/vfl/alice/" + Path(source).name
+    runtime = dict(
+        party="alice",
+        account=ACCOUNT,
+        root=root,
+        run_id=run_id,
+        dataset=dataset,
+        config=root + "/code/" + CONFIG.name,
+        config_sha256=sha(CONFIG),
+        code_sha256={name: sha(code / name) for name in CODE},
+        notebook=NOTEBOOK,
+        git_sha=subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=REPOSITORY, text=True
+        ).strip(),
+        source_root=previous,
+        source_group_sha256=old.get("group_map_sha256"),
+        source_summary_sha256=reference["source_summary_sha256"],
+        source_config_sha256=old["config_sha256"],
+        source_code_sha256=dict(old["code_sha256"], **old["controller_sha256"]),
+        source_config_basename=Path(old["config"]).name,
+        source_reference_sha256=sha(reference_path),
+    )
+    save(code / "runtime.json", runtime)
+    package = target / "code_package.tar"
+    with tarfile.open(package, "w") as archive:
+        for file in code.iterdir():
+            archive.add(file, arcname=file.name, recursive=False)
+    temporary = "/tmp/" + run_id + ".tar"
+    phase.vm.lima = phase.bounded_lima
+    phase.vm.copy_to(package, "alice", temporary)
+    guest(
+        f"id {ACCOUNT} >/dev/null 2>&1 || sudo useradd --system --create-home --shell /usr/sbin/nologin {ACCOUNT}"
+    )
+    setup = f"""import os,pwd,grp,json,hashlib,stat,shutil,tarfile
+from pathlib import Path
+import pandas as pd
+p=Path({root!r});old=Path({previous!r});account={ACCOUNT!r};uid=pwd.getpwnam(account).pw_uid;gid=grp.getgrnam(account).gr_gid
+assert not p.exists()
+for folder in [p.parent.parent,p.parent,p,p/'code',p/'input',p/'data',p/'results',p/'logs']:
+ folder.mkdir(parents=True,exist_ok=True)
+os.chown(p.parent.parent,0,gid);os.chmod(p.parent.parent,0o750);os.chown(p.parent,0,gid);os.chmod(p.parent,0o750)
+os.chown(p,0,gid);os.chmod(p,0o750)
+for sub in ['code','input']:
+ os.chown(p/sub,0,gid);os.chmod(p/sub,0o550)
+for sub in ['data','results','logs']:
+ os.chown(p/sub,uid,gid);os.chmod(p/sub,0o700)
+expected={set(f.name for f in code.iterdir())!r}
+with tarfile.open({temporary!r}) as tar:
+ assert set(tar.getnames())==expected and all(m.isfile() and '/' not in m.name for m in tar.getmembers())
+ for member in tar.getmembers():
+  destination=p/'code'/member.name
+  destination.write_bytes(tar.extractfile(member).read());os.chmod(destination,0o444)
+rt=json.loads((p/'code/runtime.json').read_text());cfg=__import__('yaml').safe_load((p/'code'/{CONFIG.name!r}).read_text())
+def digest(f):return hashlib.sha256(f.read_bytes()).hexdigest()
+assert digest(old/'code'/rt['source_config_basename'])==rt['source_config_sha256']
+assert digest(old/'results/private_feature_evaluation.json')==rt['source_summary_sha256']
+for name,h in rt['source_code_sha256'].items():assert digest(old/'code'/name)==h
+files={{'validation_local.npz':old/'data/validation_local.npz'}}
+for seed in cfg['shared']['model_seeds']:
+ for cell in cfg['cells']:files[f'{{cell}}_seed{{seed}}_validation.npy']=old/'trainings'/f'{{cell}}_seed{{seed}}'/'results/validation_predictions.npy'
+if cfg['datasets'][rt['dataset']]['resampling_unit']=='cluster':
+ files['owner_groups.json']=old/'input/owner_groups.json'
+ assert digest(files['owner_groups.json'])==rt['source_group_sha256']
+all_paths=[old]+list(old.rglob('*'));assert not any(f.is_symlink() for f in all_paths)
+inventory={{'files':{{str(f):dict(sha256=digest(f),mode=stat.S_IMODE(f.stat().st_mode),uid=f.stat().st_uid,gid=f.stat().st_gid,size=f.stat().st_size) for f in all_paths if f.is_file()}},'directories':{{str(f):dict(mode=stat.S_IMODE(f.stat().st_mode),uid=f.stat().st_uid,gid=f.stat().st_gid) for f in all_paths if f.is_dir()}}}}
+for name,source_file in files.items():
+ destination=p/'input'/name;shutil.copyfile(source_file,destination);assert digest(destination)==inventory['files'][str(source_file)]['sha256']
+shutil.copyfile(p/'code/reference.json',p/'input/reference.json');assert digest(p/'input/reference.json')==rt['source_reference_sha256']
+if cfg['datasets'][rt['dataset']]['resampling_unit']=='cluster':
+ ids=pd.read_csv(old/'data/validation_selected.csv',usecols=['record_id'],dtype={{'record_id':str}})['record_id'].tolist();(p/'input/validation_ids.json').write_text(json.dumps(ids))
+manifest={{f.name:digest(f) for f in (p/'input').iterdir()}}
+(p/'input/manifest.json').write_text(json.dumps(manifest,sort_keys=True))
+for f in (p/'input').iterdir():os.chown(f,0,gid);os.chmod(f,0o440)
+(p/'code/source_inventory.json').write_text(json.dumps(inventory,sort_keys=True));os.chmod(p/'code/source_inventory.json',0o444)
+rt['input_manifest_sha256']=digest(p/'input/manifest.json');rt['source_inventory_sha256']=digest(p/'code/source_inventory.json')
+(p/'code/runtime.json').write_text(json.dumps(rt));os.chmod(p/'code/runtime.json',0o444)
+print(json.dumps(rt))"""
+    staged = json.loads(python_guest(setup))
+    save(code / "runtime.json", staged)
+    firewall = f"set -e; uid=$(id -u {ACCOUNT}); sudo iptables -C OUTPUT -m owner --uid-owner $uid -j REJECT --reject-with icmp-admin-prohibited 2>/dev/null || sudo iptables -A OUTPUT -m owner --uid-owner $uid -j REJECT --reject-with icmp-admin-prohibited; sudo ip6tables -C OUTPUT -m owner --uid-owner $uid -j REJECT --reject-with icmp6-adm-prohibited 2>/dev/null || sudo ip6tables -A OUTPUT -m owner --uid-owner $uid -j REJECT --reject-with icmp6-adm-prohibited"
+    guest(firewall)
+    firewall_receipt(staged, baseline=True)
+    save(
+        target / "declaration.json",
+        dict(
+            step=cfg["step_id"],
+            dataset=dataset,
+            run_id=run_id,
+            source=str(source),
+            new_model_fits=0,
+            source_read_only=True,
+            test_staged=False,
+            peer_data_staged=False,
+            config_sha256=sha(CONFIG),
+        ),
+    )
+    phase.vm.private_permissions(target)
+    return target, run_id
+
+
+def firewall_receipt(runtime, baseline=False):
+    """An unreachable error alone is insufficient: prove this UID rule was hit."""
+    script = f'''import subprocess,pwd,re,json,os
+from pathlib import Path
+uid=pwd.getpwnam({ACCOUNT!r}).pw_uid;root=Path({runtime['root']!r})
+def counters(binary):
+ text=subprocess.check_output([binary,'-c'],text=True)
+ suffix=f'-A OUTPUT -m owner --uid-owner {{uid}} -j REJECT --reject-with '
+ matches=[line for line in text.splitlines() if suffix in line]
+ assert len(matches)==1
+ expected='icmp-admin-prohibited' if binary=='iptables-save' else 'icmp6-adm-prohibited'
+ assert matches[0].endswith(expected)
+ return int(re.match(r'\\[(\\d+):\\d+\\]',matches[0]).group(1))
+current={{'ipv4':counters('iptables-save'),'ipv6':counters('ip6tables-save')}};file=root/'code/firewall_baseline.json'
+if {baseline!r}:
+ assert not file.exists();file.write_text(json.dumps(current));os.chmod(file,0o444)
+else:
+ assert file.stat().st_uid==0 and file.stat().st_mode&0o777==0o444
+ previous=json.loads(file.read_text());assert current['ipv4']>previous['ipv4'] and current['ipv6']>=previous['ipv6']
+print('firewall_verified')'''
+    if python_guest(script) != 'firewall_verified':
+        raise ValueError('Owner firewall policy/counter not verified')
+
+
+def verify_source(runtime):
+    root = runtime["root"]
+    code = f"""from pathlib import Path
+import json,hashlib,stat
+p=Path({root!r});rt=json.loads((p/'code/runtime.json').read_text());f=p/'code/source_inventory.json'
+assert hashlib.sha256(f.read_bytes()).hexdigest()==rt['source_inventory_sha256']
+items=json.loads(f.read_text());old=Path(rt['source_root']);all_paths=[old]+list(old.rglob('*'))
+assert items['files'] and not any(q.is_symlink() for q in all_paths)
+assert set(items['files'])=={{str(q) for q in all_paths if q.is_file()}} and set(items['directories'])=={{str(q) for q in all_paths if q.is_dir()}}
+for name,expected in items['files'].items():
+ q=Path(name);s=q.stat();actual=dict(sha256=hashlib.sha256(q.read_bytes()).hexdigest(),mode=stat.S_IMODE(s.st_mode),uid=s.st_uid,gid=s.st_gid,size=s.st_size);assert actual==expected
+for name,expected in items['directories'].items():
+ s=Path(name).stat();assert dict(mode=stat.S_IMODE(s.st_mode),uid=s.st_uid,gid=s.st_gid)==expected
+print('source_unchanged')"""
+    if python_guest(code) != "source_unchanged":
+        raise ValueError("Frozen source changed")
+
+
+def verify(target, run_id):
+    target = Path(target)
+    state = read(target / "status.json")
+    rt = read(target / "alice/code/runtime.json")
+    if (
+        state["status"] != "passed"
+        or state["exit_codes"] != [0]
+        or rt["run_id"] != run_id
+    ):
+        raise ValueError("Owner analysis incomplete")
+    verify_source(rt)
+    firewall_receipt(rt)
+    engineering = read(target / "alice/results/engineering.json")
+    required = {k: v for k, v in engineering.items() if k != "row_values_exported"}
+    if (
+        not required
+        or not all(v is True for v in required.values())
+        or engineering["row_values_exported"] is not False
+    ):
+        raise ValueError("Owner capability check incomplete")
+    notebook = read(target / "alice/results/party.executed.ipynb")
+    cells = [c for c in notebook["cells"] if c["cell_type"] == "code"]
+    if [c["execution_count"] for c in cells] != list(
+        range(1, OWNER_CODE_CELLS + 1)
+    ) or any(o["output_type"] == "error" for c in cells for o in c["outputs"]):
+        raise ValueError("Owner Notebook incomplete")
+    if read(target / "alice/results/NOTEBOOK_COMPLETED.json") != {
+        "status": "passed",
+        "code_cells": OWNER_CODE_CELLS,
+    }:
+        raise ValueError("Owner Notebook completion missing")
+    report = read(target / "alice/results/private_endpoint_diagnostics.json")
+    cfg = yaml.safe_load(CONFIG.read_text())
+    if (
+        report["status"] != "completed"
+        or not report["source_replay"]["passed"]
+        or report["new_model_fits"] != 0
+        or set(report["paired_comparisons"]) != set(cfg["experiment"]["comparisons"])
+    ):
+        raise ValueError("Endpoint output inventory incomplete")
+    if any(
+        list(target.rglob(pattern))
+        for pattern in (
+            "*.npy",
+            "*.npz",
+            "owner_groups.json",
+            "validation_ids.json",
+            "source_inventory.json",
+        )
+    ):
+        raise ValueError("Forbidden owner array/identifier export")
+    for name, digest in rt["code_sha256"].items():
+        if (
+            sha(target / "alice/code" / name) != digest
+            or sha(MODULE / "components" / name) != digest
+        ):
+            raise ValueError("Analysis source changed")
+    if (
+        sha(CONFIG) != rt["config_sha256"]
+        or sha(target / "alice/code" / CONFIG.name) != rt["config_sha256"]
+    ):
+        raise ValueError("Analysis config changed")
+    result = dict(
+        status="passed",
+        source_unchanged=True,
+        source_replay_passed=True,
+        source_permissions_unchanged=True,
+        owner_only=True,
+        no_new_model_fit=True,
+        no_test_or_peer_data=True,
+        no_row_export=True,
+    )
+    save(target / "verification.json", result)
+    return result
+
+
+def cleanup_owner(runtime):
+    """Terminate only this account's processes inside this new run capability."""
+    if not re.fullmatch(
+        r"[a-z0-9_]+_endpoint_diagnostic_[0-9]{8}T[0-9]+Z", runtime["run_id"]
+    ):
+        raise ValueError("Invalid cleanup run identity")
+    if runtime["root"] != GUEST_BASE + "/" + runtime["run_id"]:
+        raise ValueError("Invalid cleanup root")
+    script = f"""import os,pwd,signal,time,json
+from pathlib import Path
+uid=pwd.getpwnam({ACCOUNT!r}).pw_uid;root=Path({runtime["root"]!r})
+def targets():
+ found=[]
+ for proc in Path('/proc').iterdir():
+  if not proc.name.isdigit():continue
+  try:
+   if proc.stat().st_uid!=uid:continue
+   cwd=(proc/'cwd').resolve();command=(proc/'cmdline').read_bytes().replace(b'\\0',b' ').decode(errors='replace')
+   if cwd==root or root in cwd.parents or str(root) in command:found.append(int(proc.name))
+  except (FileNotFoundError,ProcessLookupError):pass
+ return found
+for sig in [signal.SIGTERM,signal.SIGKILL]:
+ for pid in targets():
+  try:os.kill(pid,sig)
+  except ProcessLookupError:pass
+ time.sleep(0.2)
+assert not targets()
+print(json.dumps(dict(owner_processes_stopped=True)))"""
+    result = json.loads(python_guest(script))
+    if result != {"owner_processes_stopped": True}:
+        raise RuntimeError("Owner cleanup incomplete")
+    return result
+
+
+def execute(target, run_id):
+    target = Path(target)
+    rt = read(target / "alice/code/runtime.json")
+    if (target / "status.json").exists() or any((target / "alice/results").iterdir()):
+        raise FileExistsError("Used host analysis directory")
+    root = rt["root"]
+    script = "import os,sys;os.chdir(sys.argv[1]);sys.path.insert(0,sys.argv[1]+'/code');from portfolio_endpoint_owner import execute_notebook;execute_notebook(sys.argv[1]+'/code/runtime.json')"
+    command = [
+        "limactl",
+        "shell",
+        phase.vm.VM_NAMES["alice"],
+        "sudo",
+        "-u",
+        ACCOUNT,
+        "env",
+        "-i",
+        "PATH=/opt/secretflow/bin:/usr/bin:/bin",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "PYTHONDONTWRITEBYTECODE=1",
+        f"IPYTHONDIR={root}/logs/ipython",
+        "/opt/secretflow/bin/python",
+        "-I",
+        "-B",
+        "-c",
+        script,
+        root,
+    ]
+    environment = dict(os.environ, LIMA_HOME=phase.vm.LIMA_HOME_PATH)
+    started = time.monotonic()
+    code = None
+    failure = None
+    try:
+        with (target / "alice/logs/process.log").open("x") as stream:
+            process = subprocess.run(
+                command,
+                env=environment,
+                stdout=stream,
+                stderr=subprocess.STDOUT,
+                timeout=yaml.safe_load(CONFIG.read_text())["session_timeout_seconds"],
+            )
+            code = process.returncode
+        if code != 0:
+            raise RuntimeError("Diagnostic owner failed; inspect private log")
+        for name in EXPORTS:
+            payload = guest("sudo cat " + shlex.quote(root + "/results/" + name))
+            save(target / "alice/results" / name, json.loads(payload))
+    except BaseException as exc:
+        failure = exc
+    cleanup_errors = []
+    try:
+        cleanup_owner(rt)
+    except Exception as exc:
+        cleanup_errors.append(type(exc).__name__)
+        if failure is None:
+            failure = exc
+    save(
+        target / "status.json",
+        dict(
+            status="passed" if failure is None else "failed",
+            exit_codes=[code],
+            cleanup_errors=cleanup_errors,
+            wall_seconds=time.monotonic() - started,
+            error_type=type(failure).__name__ if failure else None,
+        ),
+    )
+    phase.vm.private_permissions(target)
+    if failure:
+        raise failure
+    try:
+        return verify(target, run_id)
+    except Exception as exc:
+        receipt = read(target / "status.json")
+        receipt.update(
+            status="failed", failure_phase="verification", error_type=type(exc).__name__
+        )
+        save(target / "status.json", receipt)
+        raise
+
+
+def queue(source_queue, output):
+    source_queue, output = Path(source_queue), Path(output)
+    cfg = yaml.safe_load(CONFIG.read_text())
+    state = read(source_queue / "status.json")
+    if (
+        state["status"] != "passed"
+        or len(state["completed"]) != cfg["expected_tasks"]
+        or {Path(p).parent.name for p in state["completed"]} != set(cfg["datasets"])
+    ):
+        raise ValueError("Incomplete fourteen-task source queue")
+    output.mkdir(mode=phase.vm.PRIVATE_DIRECTORY_MODE, parents=True, exist_ok=False)
+    progress = dict(
+        status="running",
+        completed=[],
+        current=None,
+        source_queue=str(source_queue),
+        new_model_fits=0,
+    )
+    save(output / "status.json", progress)
+    try:
+        for source in map(Path, state["completed"]):
+            target, run_id = stage(source, output)
+            progress["current"] = str(target)
+            save(output / "status.json", progress)
+            execute(target, run_id)
+            progress["completed"].append(str(target))
+            save(output / "status.json", progress)
+        progress.update(status="passed", current=None)
+    except BaseException as exc:
+        progress.update(status="failed", error_type=type(exc).__name__)
+        raise
+    finally:
+        save(output / "status.json", progress)
+        phase.vm.private_permissions(output)
+    return progress

@@ -1,0 +1,8 @@
+component: portfolio_endpoint_owner
+module: M5
+path: modules/m5_modeling/components/portfolio_endpoint_owner.py
+purpose: Alice独立诊断账号只读验证能力、分组对齐及新汇总目录写入
+cross_border_assets: []
+cross_border_note: 延续DR-M5-001本地半诚实、可信管理员模拟；未新增跨方流、未调用PSI、未拟合新模型。
+tests:
+- modules/m5_modeling/tests/test_portfolio_endpoint_owner.py

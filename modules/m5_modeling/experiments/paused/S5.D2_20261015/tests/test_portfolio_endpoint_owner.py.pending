@@ -1,0 +1,188 @@
+"""Validation-only read capability and immutable owner inputs are mandatory."""
+
+from pathlib import Path
+import json
+import sys
+import numpy as np
+import pytest
+import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "components"))
+import portfolio_endpoint_owner as owner  # noqa: E402
+
+MODULE = Path(__file__).resolve().parents[1]
+
+
+@pytest.fixture
+def capability(tmp_path, monkeypatch):
+    root = tmp_path / "run"
+    for name in ["code", "input", "data", "results", "logs"]:
+        (root / name).mkdir(parents=True)
+    cfg = yaml.safe_load(
+        (MODULE / "configs/portfolio_endpoint_diagnostics.yaml").read_text()
+    )
+    dataset = "homecredit"
+    config = root / "code/config.yaml"
+    config.write_text(yaml.safe_dump(cfg))
+    (root / "code/fixture.py").write_text("# frozen helper\n")
+    np.savez(
+        root / "input/validation_local.npz",
+        x=np.ones((4, 2)),
+        enhanced_x=np.ones((4, 2)),
+        ids=np.zeros((4, 8), dtype=np.uint32),
+        y=np.array([0, 1, 0, 1]),
+        t=np.zeros(4, dtype=int),
+    )
+    ref = dict(
+        dataset=dataset,
+        step=cfg["source_step"],
+        classification="reviewed_public_research_aggregate",
+        config_provenance=dict(config_sha256=cfg["source_config_sha256"]),
+        results={"expected": "source"},
+    )
+    (root / "input/reference.json").write_text(json.dumps(ref))
+    for seed in cfg["shared"]["model_seeds"]:
+        for cell in cfg["cells"]:
+            np.save(
+                root / "input" / f"{cell}_seed{seed}_validation.npy",
+                np.ones((4, 1)) * 0.5,
+            )
+    runtime = dict(
+        party="alice",
+        account="alice_endpoint",
+        root=str(root),
+        config=str(config),
+        config_sha256=owner.sha(config),
+        dataset=dataset,
+        code_sha256={"fixture.py": owner.sha(root / "code/fixture.py")},
+    )
+    for f in (root / "code").iterdir():
+        f.chmod(0o444)
+
+    def refresh():
+        manifest = {
+            p.name: owner.sha(p)
+            for p in (root / "input").iterdir()
+            if p.name != "manifest.json"
+        }
+        file = root / "input/manifest.json"
+        if file.exists():
+            file.chmod(0o600)
+        file.write_text(json.dumps(manifest))
+        runtime["input_manifest_sha256"] = owner.sha(file)
+        for f in (root / "input").iterdir():
+            f.chmod(0o440)
+        (root / "input").chmod(0o550)
+        (root / "code/runtime.json").write_text(json.dumps(runtime))
+
+    refresh()
+    monkeypatch.setattr(
+        owner, "isolation", lambda rt: {"nonroot": True, "expected_account": True}
+    )
+    monkeypatch.setattr(
+        owner,
+        "analyze",
+        lambda *a, **k: {
+            "source_replay": {"passed": True},
+            "new_model_fits": 0,
+            "independent_confirmation": False,
+        },
+    )
+    yield root, runtime, cfg, refresh
+    # These are synthetic fixtures. Restore traversal for deterministic cleanup.
+    (root / "input").chmod(0o700)
+
+
+def test_run_writes_only_new_aggregate_and_rejects_reentry(capability):
+    root, rt, cfg, refresh = capability
+    before = {p.name: p.read_bytes() for p in (root / "input").iterdir()}
+    report = owner.run(root / "code/runtime.json")
+    assert report["status"] == "completed"
+    assert before == {p.name: p.read_bytes() for p in (root / "input").iterdir()}
+    assert owner.sha(root / "code/config.yaml") == rt["config_sha256"]
+    engineering = json.loads((root / "results/engineering.json").read_text())
+    assert (
+        engineering["no_train_or_test_input"]
+        and engineering["no_new_model_fit"]
+        and not engineering["row_values_exported"]
+    )
+    with pytest.raises(FileExistsError):
+        owner.run(root / "code/runtime.json")
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "modified_input",
+        "writable",
+        "extra_test",
+        "extra_symlink",
+        "wrong_party",
+        "wrong_config",
+        "wrong_code",
+        "source_reference",
+    ],
+)
+def test_owner_rejects_changed_or_expanded_capabilities(capability, change):
+    root, rt, cfg, refresh = capability
+    if change == "modified_input":
+        f = root / "input/reference.json"
+        f.chmod(0o600)
+        f.write_text("{}")
+        f.chmod(0o440)
+    elif change == "writable":
+        (root / "input/reference.json").chmod(0o640)
+    elif change == "extra_test":
+        (root / "input").chmod(0o750)
+        (root / "input/test.npy").write_bytes(b"not real data")
+        refresh()
+    elif change == "extra_symlink":
+        (root / "input").chmod(0o750)
+        (root / "input/secret").symlink_to(root / "code/config.yaml")
+    elif change == "wrong_party":
+        rt["party"] = "bob"
+    elif change == "wrong_config":
+        rt["config_sha256"] = "0" * 64
+    elif change == "wrong_code":
+        rt["code_sha256"]["fixture.py"] = "0" * 64
+    elif change == "source_reference":
+        (root / "input").chmod(0o750)
+        f = root / "input/reference.json"
+        f.chmod(0o600)
+        ref = json.loads(f.read_text())
+        ref["step"] = "other"
+        f.write_text(json.dumps(ref))
+        refresh()
+    if change in ["wrong_party", "wrong_config", "wrong_code"]:
+        (root / "code/runtime.json").write_text(json.dumps(rt))
+    with pytest.raises(ValueError):
+        owner.run(root / "code/runtime.json")
+    assert not (root / "results/private_endpoint_diagnostics.json").exists()
+
+
+def test_cluster_ids_must_match_frozen_array_order(capability):
+    root, rt, cfg, refresh = capability
+    cfg["datasets"][rt["dataset"]]["resampling_unit"] = "cluster"
+    config = root / "code/config.yaml"
+    config.chmod(0o600)
+    config.write_text(yaml.safe_dump(cfg))
+    rt["config_sha256"] = owner.sha(config)
+    config.chmod(0o444)
+    (root / "input").chmod(0o750)
+    (root / "input/owner_groups.json").write_text(
+        json.dumps({"a": "g1", "b": "g2", "c": "g3", "d": "g4"})
+    )
+    (root / "input/validation_ids.json").write_text(json.dumps(["a", "b", "c", "d"]))
+    rt["source_group_sha256"] = owner.sha(root / "input/owner_groups.json")
+    refresh()
+    with pytest.raises(ValueError, match="order"):
+        owner.run(root / "code/runtime.json")
+
+
+def test_notebook_executor_refuses_used_directory(tmp_path):
+    root = tmp_path / "run"
+    for name in ["code", "data", "results", "logs"]:
+        (root / name).mkdir(parents=True)
+    (root / "logs/old.log").write_text("prior run")
+    with pytest.raises(FileExistsError):
+        owner.execute_notebook(root / "code/runtime.json")

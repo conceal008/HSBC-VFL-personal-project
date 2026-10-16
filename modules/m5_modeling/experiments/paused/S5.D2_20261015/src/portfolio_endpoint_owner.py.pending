@@ -1,0 +1,214 @@
+"""Capability-limited Alice evaluator; read frozen copies and write a new analysis."""
+
+from __future__ import annotations
+
+import errno
+import hashlib
+import json
+import os
+from pathlib import Path
+import socket
+import stat
+import subprocess
+import numpy as np
+import yaml
+import functional_training as ft
+from portfolio_endpoint_diagnostics import analyze
+from portfolio_resampling import load_groups
+
+READ_ONLY_FILE_MODE = 0o440
+READ_ONLY_DIRECTORY_MODE = 0o550
+CODE_FILE_MODE = 0o444
+PRIVATE_UMASK = 0o077
+SSH_PORT = 22
+HASH_WORD_DTYPE = "<u4"
+NETWORK_TIMEOUT_SECONDS = 3
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def save_new(path, payload):
+    with Path(path).open("x") as stream:
+        json.dump(payload, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
+
+
+def isolation(runtime):
+    """The evaluator has no peer or original-party account capability."""
+    checks = {
+        "nonroot": os.geteuid() != 0,
+        "expected_account": subprocess.check_output(["id", "-un"], text=True).strip()
+        == runtime["account"],
+        "no_sudo": subprocess.run(
+            ["sudo", "-n", "true"], capture_output=True
+        ).returncode
+        != 0,
+        "no_host_mount": "virtiofs" not in Path("/proc/mounts").read_text(),
+        "not_source_account": runtime["account"] != runtime["party"],
+    }
+    for key, target in {
+        "peer_sentinel_denied": Path("/srv/forbidden/peer_sentinel"),
+        "source_arrays_denied": Path(runtime["source_root"])
+        / "data/validation_local.npz",
+    }.items():
+        try:
+            target.read_bytes()
+        except OSError as error:
+            checks[key] = error.errno in (errno.EACCES, errno.EPERM)
+        else:
+            checks[key] = False
+    try:
+        with socket.create_connection(
+            ("lima-hsbc-bob.internal", SSH_PORT), timeout=NETWORK_TIMEOUT_SECONDS
+        ):
+            checks["peer_ssh_egress_denied"] = False
+    except OSError as error:
+        # Linux ICMP admin-prohibited can map to EHOSTUNREACH. The trusted
+        # controller must additionally prove an increment of this UID's REJECT rule.
+        checks["peer_ssh_egress_denied"] = error.errno in (errno.EACCES, errno.EPERM, errno.EHOSTUNREACH)
+    if not all(checks.values()):
+        raise ValueError("Diagnostic account isolation failed")
+    return checks
+
+
+def expected_inputs(cfg, dataset):
+    names = {"validation_local.npz", "reference.json"}
+    names.update(
+        f"{cell}_seed{seed}_validation.npy"
+        for seed in cfg["shared"]["model_seeds"]
+        for cell in cfg["cells"]
+    )
+    if cfg["datasets"][dataset]["resampling_unit"] == "cluster":
+        names.update(("owner_groups.json", "validation_ids.json"))
+    return names
+
+
+def validate_inputs(root, runtime, cfg):
+    source = root / "input"
+    manifest = json.loads((source / "manifest.json").read_text())
+    expected = expected_inputs(cfg, runtime["dataset"])
+    if (
+        sha(source / "manifest.json") != runtime["input_manifest_sha256"]
+        or set(manifest) != expected
+        or {p.name for p in source.iterdir()} != expected | {"manifest.json"}
+        or stat.S_IMODE(source.stat().st_mode) != READ_ONLY_DIRECTORY_MODE
+    ):
+        raise ValueError("Diagnostic input capability inventory differs")
+    for name in expected | {"manifest.json"}:
+        path = source / name
+        if (
+            not path.is_file()
+            or path.is_symlink()
+            or stat.S_IMODE(path.stat().st_mode) != READ_ONLY_FILE_MODE
+            or os.access(path, os.W_OK)
+            or (name in manifest and sha(path) != manifest[name])
+        ):
+            raise ValueError("Frozen diagnostic input changed or writable")
+    return manifest
+
+
+def run(runtime_path):
+    """Only validation capabilities are staged; no train/test rows, fit or peer read."""
+    runtime_path = Path(runtime_path)
+    runtime = json.loads(runtime_path.read_text())
+    root = runtime_path.parent.parent
+    if runtime["party"] != "alice" or runtime["root"] != str(root):
+        raise ValueError("Only Alice diagnostics are authorized")
+    if (root / "results/private_endpoint_diagnostics.json").exists():
+        raise FileExistsError("Used analysis; choose a new directory")
+    cfg = yaml.safe_load(Path(runtime["config"]).read_text())
+    if sha(runtime["config"]) != runtime["config_sha256"]:
+        raise ValueError("Diagnostic config differs")
+    if runtime["account"] != cfg["owner_account"]:
+        raise ValueError("Unregistered diagnostic account")
+    for name, digest in runtime["code_sha256"].items():
+        if Path(name).name != name or sha(root / "code" / name) != digest:
+            raise ValueError("Diagnostic source differs")
+    checks = isolation(runtime)
+    manifest = validate_inputs(root, runtime, cfg)
+    reference = json.loads((root / "input/reference.json").read_text())
+    if (
+        reference["dataset"] != runtime["dataset"]
+        or reference["step"] != cfg["source_step"]
+        or reference["classification"] != "reviewed_public_research_aggregate"
+        or reference["config_provenance"]["config_sha256"]
+        != cfg["source_config_sha256"]
+    ):
+        raise ValueError("Reviewed source reference differs")
+    with np.load(root / "input/validation_local.npz", allow_pickle=False) as archive:
+        if set(archive.files) != {"x", "enhanced_x", "ids", "y", "t"}:
+            raise ValueError("Unexpected owner validation schema")
+        y, treatment, hashed_ids = archive["y"], archive["t"], archive["ids"]
+    clusters = None
+    if cfg["datasets"][runtime["dataset"]]["resampling_unit"] == "cluster":
+        identifiers = json.loads((root / "input/validation_ids.json").read_text())
+        if not isinstance(identifiers, list) or not all(
+            isinstance(s, str) for s in identifiers
+        ):
+            raise ValueError("Invalid owner alignment identifiers")
+        computed = np.stack(
+            [
+                np.frombuffer(
+                    hashlib.sha256(s.encode()).digest(), dtype=HASH_WORD_DTYPE
+                )
+                for s in identifiers
+            ]
+        )
+        if not np.array_equal(computed, hashed_ids):
+            raise ValueError("Owner cluster metadata order differs")
+        if manifest["owner_groups.json"] != runtime["source_group_sha256"]:
+            raise ValueError("Owner cluster metadata differs from frozen training")
+        clusters = load_groups(
+            root / "input/owner_groups.json",
+            runtime["source_group_sha256"],
+            identifiers,
+        )
+    predictions = {
+        str(seed): {
+            cell: np.load(
+                root / "input" / f"{cell}_seed{seed}_validation.npy", allow_pickle=False
+            )
+            for cell in cfg["cells"]
+        }
+        for seed in cfg["shared"]["model_seeds"]
+    }
+    report = analyze(
+        y,
+        treatment,
+        predictions,
+        cfg,
+        runtime["dataset"],
+        clusters=clusters,
+        reference=reference["results"],
+    )
+    report["status"] = "completed"
+    if validate_inputs(root, runtime, cfg) != manifest:
+        raise ValueError("Inputs changed during analysis")
+    engineering = dict(
+        checks,
+        frozen_inputs_unchanged=True,
+        input_inventory_verified=True,
+        code_config_verified=True,
+        source_replay_passed=report["source_replay"]["passed"],
+        no_new_model_fit=True,
+        no_train_or_test_input=True,
+        no_peer_data=True,
+        row_values_exported=False,
+    )
+    save_new(root / "results/private_endpoint_diagnostics.json", report)
+    save_new(root / "results/engineering.json", engineering)
+    return report
+
+
+def execute_notebook(runtime_path):
+    root = Path(runtime_path).parent.parent
+    if any(
+        next((root / name).iterdir(), None) is not None
+        for name in ("data", "results", "logs")
+    ):
+        raise FileExistsError("Used diagnostic directory")
+    os.umask(PRIVATE_UMASK)
+    ft.ROOT = root.parents[1]
+    return ft.execute_notebook(runtime_path)

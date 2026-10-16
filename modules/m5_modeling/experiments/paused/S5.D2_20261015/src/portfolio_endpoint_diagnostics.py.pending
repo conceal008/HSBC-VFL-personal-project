@@ -1,0 +1,332 @@
+"""Read-only owner-local paired endpoint diagnosis; no fitting or row export."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping
+import math
+
+import numpy as np
+
+import portfolio_training as pt  # type: ignore[import-not-found]
+from portfolio_resampling import cluster_draw  # type: ignore[import-not-found]
+
+MINIMUM_SEEDS = 5
+MAXIMUM_PERCENTILE = 100
+EXPECTED_CELLS = {"A0", "B0", "L0_LR_0", "L0_tree_0"}
+EXPECTED_COMPARISONS = {
+    "B0_minus_A0": {"B0": 1, "A0": -1},
+    "B0_minus_local_lr": {"B0": 1, "L0_LR_0": -1},
+    "B0_minus_local_tree": {"B0": 1, "L0_tree_0": -1},
+    "A0_minus_local_lr": {"A0": 1, "L0_LR_0": -1},
+    "A0_minus_local_tree": {"A0": 1, "L0_tree_0": -1},
+}
+LOWER_IS_BETTER = {"log_loss", "brier"}
+
+
+def _numeric_array(value, name, dimensions):
+    array = np.asarray(value)
+    if (
+        array.ndim != dimensions
+        or not np.issubdtype(array.dtype, np.number)
+        or np.iscomplexobj(array)
+        or not np.isfinite(array).all()
+    ):
+        raise ValueError(f"Invalid finite numeric {name}")
+    return array
+
+
+def _validate(y, treatment, predictions, cfg, dataset, clusters, reference):
+    if dataset not in cfg["datasets"]:
+        raise ValueError("Undeclared dataset")
+    seeds, cells = cfg["shared"]["model_seeds"], cfg["cells"]
+    if (
+        len(seeds) < MINIMUM_SEEDS
+        or len(set(seeds)) != len(seeds)
+        or any(type(seed) is not int for seed in seeds)
+        or len(cells) != len(EXPECTED_CELLS)
+        or set(cells) != EXPECTED_CELLS
+        or cfg["experiment"]["comparisons"] != EXPECTED_COMPARISONS
+        or cfg.get("new_model_fits") != 0
+        or cfg.get("independent_confirmation") is not False
+        or cfg.get("test_read") is not False
+        or cfg.get("source_read_only") is not True
+    ):
+        raise ValueError("Unregistered endpoint diagnostic protocol")
+    repeats = cfg["shared"]["bootstrap_repeats"]
+    percentiles = cfg["shared"]["ci_percentiles"]
+    tolerance = cfg["source_replay_tolerance"]
+    if (
+        type(repeats) is not int
+        or repeats <= 0
+        or len(percentiles) != 2
+        or not all(math.isfinite(p) for p in percentiles)
+        or not 0 <= percentiles[0] < percentiles[1] <= MAXIMUM_PERCENTILE
+        or not math.isfinite(tolerance)
+        or tolerance < 0
+    ):
+        raise ValueError("Invalid bootstrap or replay protocol")
+    yy = _numeric_array(y, "labels", 1)
+    tt = _numeric_array(treatment, "treatment", 1)
+    if len(yy) != len(tt) or set(np.unique(yy)) != {0, 1}:
+        raise ValueError("Invalid binary label support or treatment length")
+    spec = cfg["datasets"][dataset]
+    if type(spec["treatment"]) is not bool:
+        raise ValueError("Invalid treatment declaration")
+    if spec["treatment"]:
+        if spec["treatment_arms"] != [1] or set(np.unique(tt)) != {0, 1}:
+            raise ValueError("Invalid binary treatment support")
+        if any(
+            not np.any((tt == arm) & (yy == label))
+            for arm in (0, 1)
+            for label in (0, 1)
+        ):
+            raise ValueError("Missing treatment/outcome bootstrap support")
+    elif spec["treatment_arms"] or np.any(tt != 0):
+        raise ValueError("Unexpected treatment for classification")
+    unit = spec["resampling_unit"]
+    cc = None
+    if unit == "cluster":
+        if clusters is None:
+            raise ValueError("Declared cluster metadata is required")
+        cc = np.asarray(clusters)
+        if (
+            cc.ndim != 1
+            or len(cc) != len(yy)
+            or cc.dtype.kind not in "USiu"
+            or any(not str(value) for value in cc)
+        ):
+            raise ValueError("Invalid cluster coverage or values")
+        if spec["treatment"]:
+            raise ValueError("Treatment cluster resampling is not declared")
+    elif unit != "stratified_rows" or clusters is not None:
+        raise ValueError("Unexpected resampling unit or cluster metadata")
+    if not isinstance(predictions, Mapping) or set(predictions) != set(map(str, seeds)):
+        raise ValueError("Missing or unexpected prediction seeds")
+    arrays = {}
+    for seed in seeds:
+        sid = str(seed)
+        if not isinstance(predictions[sid], Mapping) or set(predictions[sid]) != set(
+            cells
+        ):
+            raise ValueError("Missing or unexpected model predictions")
+        arrays[sid] = {}
+        for cell in cells:
+            array = _numeric_array(predictions[sid][cell], "probabilities", 2)
+            if array.shape != (len(yy), 1 + int(spec["treatment"])) or np.any(
+                (array < 0) | (array > 1)
+            ):
+                raise ValueError("Invalid probability shape or range")
+            arrays[sid][cell] = array
+    if not isinstance(reference, Mapping):
+        raise ValueError("Reviewed source reference is required")
+    if (
+        reference.get("model_seeds") != seeds
+        or reference.get("primary")
+        != ("mean_centered_qini" if spec["treatment"] else "roc_auc")
+        or reference.get("resampling_unit") != unit
+        or reference.get("independent_confirmation") is not False
+    ):
+        raise ValueError("Source reference protocol differs")
+    return yy, tt.astype(int, copy=False), arrays, cc
+
+
+def _interval(estimate, values, cfg):
+    draws = np.asarray(values)
+    if (
+        draws.shape != (cfg["shared"]["bootstrap_repeats"],)
+        or not np.isfinite(draws).all()
+        or not np.isfinite(estimate)
+    ):
+        raise ValueError("Incomplete or nonfinite bootstrap; no draw filtering")
+    low, high = np.percentile(draws, cfg["shared"]["ci_percentiles"])
+    return {
+        "estimate": float(estimate),
+        "ci_low": float(low),
+        "ci_high": float(high),
+        "valid_replicates": len(draws),
+    }
+
+
+def _same_numbers(actual, expected, tolerance):
+    if isinstance(actual, dict):
+        return (
+            isinstance(expected, Mapping)
+            and set(actual) == set(expected)
+            and all(
+                _same_numbers(value, expected[key], tolerance)
+                for key, value in actual.items()
+            )
+        )
+    return (
+        isinstance(expected, (int, float))
+        and not isinstance(expected, bool)
+        and math.isfinite(expected)
+        and abs(actual - expected) <= tolerance
+    )
+
+
+def analyze(y, treatment, predictions, cfg, dataset, clusters=None, reference=None):
+    """Return aggregate diagnostics only; source arrays/config/results stay untouched.
+
+    ``reference`` is mandatory for use: it is the reviewed S5.X3 JSON ``results``.
+    All source models and the original paired contrast must replay before return.
+    """
+    y, treatment, predictions, clusters = _validate(
+        y, treatment, predictions, cfg, dataset, clusters, reference
+    )
+    seeds, cells = cfg["shared"]["model_seeds"], cfg["cells"]
+    spec, shared = cfg["datasets"][dataset], cfg["shared"]
+    contrasts = cfg["experiment"]["comparisons"]
+    points = {
+        str(seed): {
+            cell: pt.metric_values(
+                y, predictions[str(seed)][cell], spec, shared, treatment
+            )
+            for cell in cells
+        }
+        for seed in seeds
+    }
+    metric_names = list(points[str(seeds[0])][cells[0]])
+    if any(
+        set(metrics) != set(metric_names)
+        or not all(np.isfinite(value) for value in metrics.values())
+        for models in points.values()
+        for metrics in models.values()
+    ):
+        raise ValueError("Incomplete or nonfinite point metrics")
+    draws = {cell: {metric: [] for metric in metric_names} for cell in cells}
+    contrast_draws = {
+        name: {metric: [] for metric in metric_names} for name in contrasts
+    }
+    strata = treatment * 2 + y.astype(int) if spec["treatment"] else y.astype(int)
+    groups = [np.flatnonzero(strata == key) for key in np.unique(strata)]
+    rng = np.random.default_rng(cfg["experiment"]["bootstrap_seed"])
+    for _ in range(shared["bootstrap_repeats"]):
+        idx = (
+            cluster_draw(clusters, y, rng)
+            if clusters is not None
+            else np.concatenate(
+                [rng.choice(group, len(group), replace=True) for group in groups]
+            )
+        )
+        # Original finalize shuffles again after cluster_draw; retain exact RNG order.
+        rng.shuffle(idx)
+        selected = rng.integers(len(seeds), size=len(seeds))
+        current = {
+            str(seed): {
+                cell: pt.metric_values(
+                    y[idx],
+                    predictions[str(seed)][cell][idx],
+                    spec,
+                    shared,
+                    treatment[idx],
+                )
+                for cell in cells
+            }
+            for seed in seeds
+        }
+        averages = {
+            cell: {
+                metric: float(
+                    np.mean([current[str(seeds[i])][cell][metric] for i in selected])
+                )
+                for metric in metric_names
+            }
+            for cell in cells
+        }
+        for cell in cells:
+            for metric, value in averages[cell].items():
+                draws[cell][metric].append(value)
+        for name, coefficients in contrasts.items():
+            for metric in metric_names:
+                contrast_draws[name][metric].append(
+                    sum(
+                        coef * averages[cell][metric]
+                        for cell, coef in coefficients.items()
+                    )
+                )
+    models = {
+        cell: {
+            metric: _interval(
+                np.mean([points[str(seed)][cell][metric] for seed in seeds]),
+                draws[cell][metric],
+                cfg,
+            )
+            for metric in metric_names
+        }
+        for cell in cells
+    }
+    differences = {
+        str(seed): {
+            name: {
+                metric: float(
+                    sum(
+                        coef * points[str(seed)][cell][metric]
+                        for cell, coef in coefficients.items()
+                    )
+                )
+                for metric in metric_names
+            }
+            for name, coefficients in contrasts.items()
+        }
+        for seed in seeds
+    }
+    comparisons = {
+        name: {
+            metric: _interval(
+                np.mean([differences[str(seed)][name][metric] for seed in seeds]),
+                contrast_draws[name][metric],
+                cfg,
+            )
+            for metric in metric_names
+        }
+        for name in contrasts
+    }
+    primary = "mean_centered_qini" if spec["treatment"] else "roc_auc"
+    pvalues = {
+        name: pt.exact_seed_p([differences[str(seed)][name][primary] for seed in seeds])
+        for name in contrasts
+    }
+    tolerance = cfg["source_replay_tolerance"]
+    replay = {
+        "models_match": _same_numbers(models, reference.get("models"), tolerance),
+        "seed_points_match": _same_numbers(
+            points, reference.get("seed_points"), tolerance
+        ),
+        "original_comparison_match": _same_numbers(
+            comparisons["B0_minus_A0"],
+            reference.get("paired_comparisons", {}).get("B0_minus_A0"),
+            tolerance,
+        ),
+    }
+    if not all(replay.values()):
+        raise ValueError("Reviewed source metrics/intervals do not replay")
+    return {
+        "dataset": dataset,
+        "models": models,
+        "paired_comparisons": comparisons,
+        "seed_points": points,
+        "seed_differences": differences,
+        "pvalues": pvalues,
+        "within_task_holm_pvalues": pt.holm_adjust(pvalues),
+        "primary": primary,
+        "model_seeds": list(seeds),
+        "resampling_unit": spec["resampling_unit"],
+        "metric_directions": {
+            metric: "lower_is_better"
+            if metric in LOWER_IS_BETTER
+            else "higher_is_better"
+            for metric in metric_names
+        },
+        "contrast_direction": "raw left-minus-right; negative loss/Brier differences favor the left model",
+        "source_replay": dict(replay, passed=True, tolerance=tolerance),
+        "posthoc": True,
+        "independent_confirmation": False,
+        "test_read": False,
+        "new_model_fits": 0,
+        "source_read_only": True,
+        "convergence_diagnosis": False,
+        "scope": cfg["scope"],
+        "pvalue_scope": "two-sided sign flips across fitting seeds assuming symmetry; not a population test; five seeds cannot yield p<0.05",
+        "bootstrap_scope": "same source outcome/treatment-stratified rows or whole customer/event cluster draws plus seed resampling; conditional on frozen development data",
+    }

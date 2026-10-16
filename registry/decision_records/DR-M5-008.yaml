@@ -1,0 +1,28 @@
+dr_id: DR-M5-008
+title: 冻结既往质量记录并分阶段解锁强单方端点诊断
+date: '2026-10-15'
+agent: Codex
+module: M5
+status: active
+requested_by: 仓库所有者：继续下一步；既定顺序为联合诊断/新增输出重评，随后正则/安全树及独立确认
+related_step: S5.D2
+context: 21/21已消费；E5、X2、R2三个升级，14/21步骤经历修正；X3两修正完成。旧预留正则/树/确认额度已被恢复和发布修复消费，不能宣称仍有空余。
+frozen_quality_snapshot:
+  steps_used: 21
+  steps_planned: 21
+  escalation_count: 3
+  revised_steps: 14
+  revision_rate: 0.667
+  pass_threshold: 11
+  last_step: S5.X3
+  last_step_revisions: 2
+decision: 立即仅解锁1步S5.D2零新增拟合诊断，累计计划22；新阶段独立记录1步额度，不以14/22或21/22掩盖既往质量问题。后续四类实验未自动获得预算。
+consequences:
+- 现有14任务无逐轮loss/gradient轨迹，只能在新目录重评端点及强单方配对CI；真实收敛检查点需独立密态训练步骤
+- 每步最多两修正、通过线11；失败不得改效用门槛或挪到下一步骤偷偷追加第三修正
+- 未来联合检查点诊断、分组正则、安全树、独立确认各需重新预声明/冻结候选和拟合上限，并按证据逐步解锁
+- 新输出攻击属M7，秘密PSI接训练属M3，不混入M5额度；累计第25消费步继续强制独立随机复评
+- M5既往21/21、3升级、14/21及原独立审计记录保持可追溯，新增预算不解除整体质量复审
+falsifier: 来源/只读性/隐私/数值或原对照重放失败即停止；不得以新强单方效用结果改变旧标签、原切分或筛掉负结果。第二修正仍失败则升级，不继续同一套路。
+execution_status: paused_by_user
+pause_note: 仅一次正式预检失败，修正一未执行；不撤销历史预算与质量快照，不授权自动恢复。

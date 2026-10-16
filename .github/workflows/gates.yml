@@ -85,6 +85,8 @@ jobs:
     needs: gate6-reproducibility
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # 交接迁移测试需与原提交的全文/指纹逐项比对
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

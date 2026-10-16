@@ -1,0 +1,13 @@
+status: paused_by_user
+recorded_at: '2026-10-15T12:38:36+00:00'
+experiment_processes_absent: true
+vm_state:
+  alice: Stopped
+  bob: Stopped
+d2_completed_tasks: 0
+d2_first_attempt: failed_isolation_preflight
+d2_patch_after_failure: unvalidated_not_executed
+resume_automatically: false
+latest_completed_experiment: S5.X3
+baseline_commit: 9d222d869ec8748754ef9aa0788a2060625616ee
+baseline_ci: https://github.com/conceal008/HSBC-VFL-personal-project/actions/runs/38696097711

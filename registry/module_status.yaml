@@ -1,10 +1,11 @@
-updated_at: '2026-10-16T01:39:33+00:00'
+updated_at: '2026-10-21T14:20:00+00:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S9.H2整理迁移漏洞复核与修复；所有科研实验仍暂停
-  last_action_at: '2026-10-16T01:39:33+00:00'
-  by: Codex
-  change_id: CL-20261016-M9-001
+  last_action: S9.E1导入外部隐语SGB优化与攻防实验记录（单seed，仅作外部参考）；所有科研实验仍暂停
+  last_action_at: '2026-10-21T14:20:00+00:00'
+  by: Claude (Opus 5.5)
+  change_id: CL-20261021-M9-001
+  previous_action_S9H2: S9.H2整理迁移漏洞复核与修复；所有科研实验仍暂停（CL-20261016-M9-001，2026-10-16T01:39:33+00:00，Codex）
   previous_action_000: 新增术语与表达规范并建立权威术语表（S-GOV.4，CL-20260830-GOV-008，2026-08-30T02:15:00+08:00）
   previous_action_00: 新增结果可见性要求（S-GOV.3，CL-20260830-GOV-007，2026-08-30T01:45:00+08:00）
   previous_action_0: 实现 changelog schema 校验与门禁回归测试（S-INIT.4，CL-20260830-GOV-006，2026-08-30T01:20:00+08:00）
@@ -286,15 +287,16 @@ modules:
     path: modules/m9_documentation
     status: handoff_ready_experiments_paused
     claimed_by: null
-    next_step: 实验保持暂停；后续第5步独立抽查
+    next_step: 实验保持暂停；第5步（S9.E1）已完成，需另一Agent或人工按§3.5随机抽查1步
     blocking_on:
     - M0–M8 全部产出
     open_questions:
     - S9.R1完整阶段汇总/每seed/CI/失败状态整理完成；main发布回执接续。没有新增攻击或代理模型，公开范围按DR-GOV-012。
-    claimed_at: '2026-10-16T01:33:02+00:00'
+    - S9.E1外部隐语SGB记录为单seed（42）外部参考，未达≥5 seed结论门槛；若要纳入本仓库结论，须在恢复实验后按M5/M7规程重跑。
+    claimed_at: '2026-10-21T14:20:00+00:00'
     expires_at: null
     current_step: null
-    latest_completed_step: S9.H2
+    latest_completed_step: S9.E1
 framework_refresh_20260916:
   step_id: S-GOV.11
   status: committed

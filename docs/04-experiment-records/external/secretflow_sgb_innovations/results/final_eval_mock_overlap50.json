@@ -1,0 +1,60 @@
+{
+ "configs": {
+  "guest": {
+   "learning_rate": 0.3,
+   "max_depth": 6,
+   "reg_lambda": 10.0,
+   "colsample_bytree": 1.0,
+   "rounds": 198,
+   "val_auc": 0.8738189223741865
+  },
+  "host": {
+   "learning_rate": 0.3,
+   "max_depth": 5,
+   "reg_lambda": 10.0,
+   "colsample_bytree": 0.7,
+   "rounds": 16,
+   "val_auc": 0.851024199370936
+  },
+  "central": {
+   "learning_rate": 0.3,
+   "max_depth": 6,
+   "reg_lambda": 10.0,
+   "colsample_bytree": 1.0,
+   "rounds": 134,
+   "val_auc": 0.9098266797961698
+  }
+ },
+ "metrics": {
+  "guest_tuned": {
+   "auroc": 0.869596926235399,
+   "ci_lo": 0.8537667835544238,
+   "ci_hi": 0.8844186714818916
+  },
+  "host_tuned": {
+   "auroc": 0.8269496701290737,
+   "ci_lo": 0.8033503913951444,
+   "ci_hi": 0.8497887314116691
+  },
+  "central_tuned": {
+   "auroc": 0.9083983832252129,
+   "ci_lo": 0.8946985905341243,
+   "ci_hi": 0.9218562795942189
+  },
+  "fed_def": {
+   "auroc": 0.9001095377494993,
+   "ci_lo": 0.8858474291778783,
+   "ci_hi": 0.9143811547884274
+  },
+  "fed_def_minus_guest_tuned": {
+   "delta": 0.03051261151410034,
+   "ci_lo": 0.01842108155476927,
+   "ci_hi": 0.04323038663773445
+  },
+  "fed_def_minus_central_tuned": {
+   "delta": -0.008288845475713624,
+   "ci_lo": -0.016038135277003866,
+   "ci_hi": 0.00042211668638162693
+  }
+ }
+}

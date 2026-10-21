@@ -1,0 +1,175 @@
+{
+ "name": "M_overlap50_def",
+ "model": "../../data/processed/attack/model_M_overlap50_def.json",
+ "tag": "mock_overlap50",
+ "trees": 100,
+ "A1": {
+  "trees_visible": 99,
+  "leaf_columns": 2427,
+  "known_frac": 0.01,
+  "own_only": {
+   "mean": 0.7079176686863751,
+   "sd": 0.028057583737846403,
+   "runs": [
+    0.668095267654068,
+    0.748180279563608,
+    0.7193969878651443,
+    0.7181817479317966,
+    0.6857340604172589
+   ]
+  },
+  "own_plus_leaves": {
+   "mean": 0.759864546781249,
+   "sd": 0.05212692956816512,
+   "runs": [
+    0.6587249480389876,
+    0.8005939851512273,
+    0.7736438171636486,
+    0.7976867161557183,
+    0.7686732673966631
+   ]
+  },
+  "leaves_only": {
+   "mean": 0.7618333804364468,
+   "sd": 0.05105440155445336,
+   "runs": [
+    0.6625655211255821,
+    0.7998189658977449,
+    0.7745454192305788,
+    0.8001651559019806,
+    0.7720718400263471
+   ]
+  },
+  "leakage_auc": 0.05194687809487397
+ },
+ "A1_by_known_frac": {
+  "0.01": {
+   "trees_visible": 99,
+   "leaf_columns": 2427,
+   "known_frac": 0.01,
+   "own_only": {
+    "mean": 0.7079176686863751,
+    "sd": 0.028057583737846403,
+    "runs": [
+     0.668095267654068,
+     0.748180279563608,
+     0.7193969878651443,
+     0.7181817479317966,
+     0.6857340604172589
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.759864546781249,
+    "sd": 0.05212692956816512,
+    "runs": [
+     0.6587249480389876,
+     0.8005939851512273,
+     0.7736438171636486,
+     0.7976867161557183,
+     0.7686732673966631
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.7618333804364468,
+    "sd": 0.05105440155445336,
+    "runs": [
+     0.6625655211255821,
+     0.7998189658977449,
+     0.7745454192305788,
+     0.8001651559019806,
+     0.7720718400263471
+    ]
+   },
+   "leakage_auc": 0.05194687809487397
+  },
+  "0.05": {
+   "trees_visible": 99,
+   "leaf_columns": 2427,
+   "known_frac": 0.05,
+   "own_only": {
+    "mean": 0.7841319687248383,
+    "sd": 0.0071542372463613635,
+    "runs": [
+     0.7729840444165854,
+     0.7851823499062025,
+     0.7852334755774404,
+     0.7819644642190468,
+     0.7952955095049163
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.8406532641045382,
+    "sd": 0.010641891600429861,
+    "runs": [
+     0.8403137581433352,
+     0.8406998254699005,
+     0.8214617431022666,
+     0.8483961002801834,
+     0.8523948935270055
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.8415439637091305,
+    "sd": 0.010629264023034742,
+    "runs": [
+     0.841757723369332,
+     0.8416915705472178,
+     0.8220966593910404,
+     0.8495861609983544,
+     0.8525877042397079
+    ]
+   },
+   "leakage_auc": 0.056521295379699965
+  }
+ },
+ "A2_train": {
+  "phase": "train",
+  "n_samples": 38925,
+  "host_split_nodes": 856,
+  "features_used": 24,
+  "features_total": 25,
+  "mean_revealed_frac_all": 0.9236161849710982,
+  "cells_revealed_frac": 0.9236161849710982,
+  "used_features_revealed_frac": 0.9621001926782274,
+  "identity_free": {
+   "split_nodes": 856,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 178,
+   "columns_with_2plus_nodes": 10,
+   "true_features_behind_nodes": 24,
+   "node_weighted_purity": 0.4053738317757009
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.9400224791265254,
+   "holder_recall_pooled": 0.9823608550500772,
+   "holder_precision_pooled": 1.0,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ },
+ "A2_infer": {
+  "phase": "infer",
+  "n_samples": 10884,
+  "host_split_nodes": 854,
+  "features_used": 24,
+  "features_total": 25,
+  "mean_revealed_frac_all": 0.96,
+  "cells_revealed_frac": 0.96,
+  "used_features_revealed_frac": 1.0,
+  "identity_free": {
+   "split_nodes": 854,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 114,
+   "columns_with_2plus_nodes": 19,
+   "true_features_behind_nodes": 24,
+   "node_weighted_purity": 0.8629976580796253
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.9583333333333334,
+   "holder_recall_pooled": 1.0,
+   "holder_precision_pooled": 1.0,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ }
+}

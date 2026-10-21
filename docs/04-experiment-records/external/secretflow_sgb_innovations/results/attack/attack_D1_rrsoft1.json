@@ -1,0 +1,175 @@
+{
+ "name": "D1_rrsoft1",
+ "model": "../../data/processed/attack/model_D1_rrsoft1.json",
+ "tag": "business",
+ "trees": 100,
+ "A1": {
+  "trees_visible": 99,
+  "leaf_columns": 2805,
+  "known_frac": 0.01,
+  "own_only": {
+   "mean": 0.7702678025628467,
+   "sd": 0.010124884609022791,
+   "runs": [
+    0.7864966642836367,
+    0.765429833108036,
+    0.7579826967844755,
+    0.7646132330066145,
+    0.7768165856314703
+   ]
+  },
+  "own_plus_leaves": {
+   "mean": 0.7643958793396465,
+   "sd": 0.01720736781857443,
+   "runs": [
+    0.7804253922287403,
+    0.7696968134960506,
+    0.7527322725942321,
+    0.737060695627374,
+    0.7820642227518353
+   ]
+  },
+  "leaves_only": {
+   "mean": 0.765062096722841,
+   "sd": 0.01667106530110041,
+   "runs": [
+    0.7804033715350027,
+    0.7713128491806083,
+    0.7523493760959781,
+    0.7392430004332398,
+    0.782001886369376
+   ]
+  },
+  "leakage_auc": -0.005871923223200182
+ },
+ "A1_by_known_frac": {
+  "0.01": {
+   "trees_visible": 99,
+   "leaf_columns": 2805,
+   "known_frac": 0.01,
+   "own_only": {
+    "mean": 0.7702678025628467,
+    "sd": 0.010124884609022791,
+    "runs": [
+     0.7864966642836367,
+     0.765429833108036,
+     0.7579826967844755,
+     0.7646132330066145,
+     0.7768165856314703
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.7643958793396465,
+    "sd": 0.01720736781857443,
+    "runs": [
+     0.7804253922287403,
+     0.7696968134960506,
+     0.7527322725942321,
+     0.737060695627374,
+     0.7820642227518353
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.765062096722841,
+    "sd": 0.01667106530110041,
+    "runs": [
+     0.7804033715350027,
+     0.7713128491806083,
+     0.7523493760959781,
+     0.7392430004332398,
+     0.782001886369376
+    ]
+   },
+   "leakage_auc": -0.005871923223200182
+  },
+  "0.05": {
+   "trees_visible": 99,
+   "leaf_columns": 2805,
+   "known_frac": 0.05,
+   "own_only": {
+    "mean": 0.7865540876658885,
+    "sd": 0.006535323360886128,
+    "runs": [
+     0.7921364917930196,
+     0.7899728151296779,
+     0.774435331987771,
+     0.7911932645162918,
+     0.7850325349026825
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.8099649811723098,
+    "sd": 0.011098466633899535,
+    "runs": [
+     0.809387658962895,
+     0.8203389907115397,
+     0.792556636150218,
+     0.8231491704946986,
+     0.8043924495421968
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.8106592459966541,
+    "sd": 0.010579153682462462,
+    "runs": [
+     0.809986091687276,
+     0.8209648902295961,
+     0.7944717337496421,
+     0.8231403790494592,
+     0.804733135267297
+    ]
+   },
+   "leakage_auc": 0.023410893506421226
+  }
+ },
+ "A2_train": {
+  "phase": "train",
+  "n_samples": 78267,
+  "host_split_nodes": 540,
+  "features_used": 24,
+  "features_total": 25,
+  "mean_revealed_frac_all": 0.9386566496735534,
+  "cells_revealed_frac": 0.9386566496735534,
+  "used_features_revealed_frac": 0.9777673434099515,
+  "identity_free": {
+   "split_nodes": 540,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 76,
+   "columns_with_2plus_nodes": 10,
+   "true_features_behind_nodes": 24,
+   "node_weighted_purity": 0.3648148148148148
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.9558045962325544,
+   "holder_recall_pooled": 0.9945492278072727,
+   "holder_precision_pooled": 1.0,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ },
+ "A2_infer": {
+  "phase": "infer",
+  "n_samples": 21735,
+  "host_split_nodes": 540,
+  "features_used": 24,
+  "features_total": 25,
+  "mean_revealed_frac_all": 0.96,
+  "cells_revealed_frac": 0.96,
+  "used_features_revealed_frac": 1.0,
+  "identity_free": {
+   "split_nodes": 540,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 52,
+   "columns_with_2plus_nodes": 19,
+   "true_features_behind_nodes": 24,
+   "node_weighted_purity": 0.8981481481481481
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.9583333333333334,
+   "holder_recall_pooled": 1.0,
+   "holder_precision_pooled": 1.0,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "name": "hc",
+ "rows": [
+  {
+   "tag": "hc_business",
+   "guest": 0.6686250975279705,
+   "host": 0.7112088901537499,
+   "central": 0.730543449805039,
+   "best_single": "host",
+   "gain_proxy": 0.019334559651289163,
+   "gain_ci_lo": 0.009369674581864294,
+   "gain_ci_hi": 0.029579290335340735,
+   "guest_minus_host": -0.04258379262577938,
+   "n_boot": 1000
+  },
+  {
+   "tag": "hc_diagnostic",
+   "guest": 0.7323351382030208,
+   "host": 0.5188909422521772,
+   "central": 0.730543449805039,
+   "best_single": "guest",
+   "gain_proxy": -0.0017916883979817166,
+   "gain_ci_lo": -0.008201243882092433,
+   "gain_ci_hi": 0.00455106096728019,
+   "guest_minus_host": 0.21344419595084352,
+   "n_boot": 1000
+  }
+ ],
+ "random": [
+  {
+   "tag": "hc_random_seed42",
+   "guest": 0.7260602846018518,
+   "host": 0.5894834990613294,
+   "central": 0.730543449805039,
+   "best_single": "guest",
+   "gain_proxy": 0.004483165203187256,
+   "gain_ci_lo": -0.0019156662177682521,
+   "gain_ci_hi": 0.011135294710182039,
+   "guest_minus_host": 0.13657678554052244,
+   "n_boot": 300
+  },
+  {
+   "tag": "hc_random_seed43",
+   "guest": 0.7278817793390395,
+   "host": 0.590014974759103,
+   "central": 0.730543449805039,
+   "best_single": "guest",
+   "gain_proxy": 0.0026616704659995216,
+   "gain_ci_lo": -0.0033779983484892332,
+   "gain_ci_hi": 0.00948099136660561,
+   "guest_minus_host": 0.1378668045799365,
+   "n_boot": 300
+  },
+  {
+   "tag": "hc_random_seed44",
+   "guest": 0.7323047890050471,
+   "host": 0.5633186055749695,
+   "central": 0.7305279783301637,
+   "best_single": "guest",
+   "gain_proxy": -0.0017768106748834445,
+   "gain_ci_lo": -0.007761140002412219,
+   "gain_ci_hi": 0.004583802294927227,
+   "guest_minus_host": 0.16898618343007765,
+   "n_boot": 300
+  },
+  {
+   "tag": "hc_random_seed45",
+   "guest": 0.7343224254006875,
+   "host": 0.5985401984881655,
+   "central": 0.7305407355112011,
+   "best_single": "guest",
+   "gain_proxy": -0.0037816898894863504,
+   "gain_ci_lo": -0.010107216940483853,
+   "gain_ci_hi": 0.0030403332011633864,
+   "guest_minus_host": 0.13578222691252195,
+   "n_boot": 300
+  },
+  {
+   "tag": "hc_random_seed46",
+   "guest": 0.7310710745984303,
+   "host": 0.5696875264219541,
+   "central": 0.730543449805039,
+   "best_single": "guest",
+   "gain_proxy": -0.0005276247933913014,
+   "gain_ci_lo": -0.006205867021479302,
+   "gain_ci_hi": 0.005514888514828745,
+   "guest_minus_host": 0.16138354817647627,
+   "n_boot": 300
+  }
+ ],
+ "random_gain_min": -0.0037816898894863504,
+ "random_gain_max": 0.004483165203187256,
+ "random_gain_mean": 0.00021174206228513626
+}

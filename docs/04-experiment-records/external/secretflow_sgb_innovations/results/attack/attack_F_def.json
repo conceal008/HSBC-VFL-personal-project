@@ -1,0 +1,175 @@
+{
+ "name": "F_def",
+ "model": "../../data/processed/attack/model_F_def.json",
+ "tag": "fedads",
+ "trees": 100,
+ "A1": {
+  "trees_visible": 99,
+  "leaf_columns": 2779,
+  "known_frac": 0.01,
+  "own_only": {
+   "mean": 0.5142507624940077,
+   "sd": 0.02019490031083119,
+   "runs": [
+    0.5140142785256059,
+    0.5149786257136972,
+    0.5372496511020718,
+    0.477668770228081,
+    0.5273424869005823
+   ]
+  },
+  "own_plus_leaves": {
+   "mean": 0.5723078296578542,
+   "sd": 0.02723326841242662,
+   "runs": [
+    0.5596313285050641,
+    0.582020227338813,
+    0.5892955342998392,
+    0.5261404586642551,
+    0.6044515994812998
+   ]
+  },
+  "leaves_only": {
+   "mean": 0.5730089226672254,
+   "sd": 0.0276101482403757,
+   "runs": [
+    0.5603689298845208,
+    0.5826569490539001,
+    0.5902318282863883,
+    0.526138835053344,
+    0.6056480710579739
+   ]
+  },
+  "leakage_auc": 0.05805706716384651
+ },
+ "A1_by_known_frac": {
+  "0.01": {
+   "trees_visible": 99,
+   "leaf_columns": 2779,
+   "known_frac": 0.01,
+   "own_only": {
+    "mean": 0.5142507624940077,
+    "sd": 0.02019490031083119,
+    "runs": [
+     0.5140142785256059,
+     0.5149786257136972,
+     0.5372496511020718,
+     0.477668770228081,
+     0.5273424869005823
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.5723078296578542,
+    "sd": 0.02723326841242662,
+    "runs": [
+     0.5596313285050641,
+     0.582020227338813,
+     0.5892955342998392,
+     0.5261404586642551,
+     0.6044515994812998
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.5730089226672254,
+    "sd": 0.0276101482403757,
+    "runs": [
+     0.5603689298845208,
+     0.5826569490539001,
+     0.5902318282863883,
+     0.526138835053344,
+     0.6056480710579739
+    ]
+   },
+   "leakage_auc": 0.05805706716384651
+  },
+  "0.05": {
+   "trees_visible": 99,
+   "leaf_columns": 2779,
+   "known_frac": 0.05,
+   "own_only": {
+    "mean": 0.5388171408165298,
+    "sd": 0.006499451509022532,
+    "runs": [
+     0.5495193550446295,
+     0.5321358083456508,
+     0.5421784989324216,
+     0.5377230668426739,
+     0.5325289749172731
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.6722370708799164,
+    "sd": 0.00592111349365392,
+    "runs": [
+     0.6794128977425105,
+     0.6761608236523461,
+     0.6629729555869446,
+     0.674552085312448,
+     0.6680865921053324
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.6730351354963311,
+    "sd": 0.00586214012635285,
+    "runs": [
+     0.6799131260532502,
+     0.6771142426766673,
+     0.6642666353936422,
+     0.6757221057095042,
+     0.668159567648592
+    ]
+   },
+   "leakage_auc": 0.1334199300633866
+  }
+ },
+ "A2_train": {
+  "phase": "train",
+  "n_samples": 300000,
+  "host_split_nodes": 269,
+  "features_used": 23,
+  "features_total": 23,
+  "mean_revealed_frac_all": 0.6445944927536232,
+  "cells_revealed_frac": 0.6445944927536232,
+  "used_features_revealed_frac": 0.6445944927536232,
+  "identity_free": {
+   "split_nodes": 269,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 22,
+   "columns_with_2plus_nodes": 14,
+   "true_features_behind_nodes": 23,
+   "node_weighted_purity": 0.8736059479553904
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.0,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ },
+ "A2_infer": {
+  "phase": "infer",
+  "n_samples": 200000,
+  "host_split_nodes": 269,
+  "features_used": 23,
+  "features_total": 23,
+  "mean_revealed_frac_all": 0.9997304347826087,
+  "cells_revealed_frac": 0.9997304347826087,
+  "used_features_revealed_frac": 0.9997304347826087,
+  "identity_free": {
+   "split_nodes": 269,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 23,
+   "columns_with_2plus_nodes": 22,
+   "true_features_behind_nodes": 23,
+   "node_weighted_purity": 1.0
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.0,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ }
+}

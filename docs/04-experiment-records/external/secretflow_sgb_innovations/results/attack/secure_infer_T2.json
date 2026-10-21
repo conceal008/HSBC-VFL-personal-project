@@ -1,0 +1,9 @@
+{
+ "model": "data/processed/attack/model_T2_opt.json",
+ "trees": 134,
+ "test_rows": 21735,
+ "seconds": 140.28933649100054,
+ "auc": 0.909127658870621,
+ "max_abs_diff_vs_sgb": 2.6263830068651295e-05,
+ "auc_sgb_native": 0.9091282469740243
+}

@@ -1,0 +1,175 @@
+{
+ "name": "S5_hostcnt",
+ "model": "../../data/processed/attack/model_S5_hostcnt.json",
+ "tag": "business_hostcnt",
+ "trees": 100,
+ "A1": {
+  "trees_visible": 99,
+  "leaf_columns": 2647,
+  "known_frac": 0.01,
+  "own_only": {
+   "mean": 0.7454980017405168,
+   "sd": 0.00039182821574370815,
+   "runs": [
+    0.7455580106193277,
+    0.7455648822659271,
+    0.7452611651464854,
+    0.7461434992208419,
+    0.7449624514500017
+   ]
+  },
+  "own_plus_leaves": {
+   "mean": 0.7599442362968143,
+   "sd": 0.007390284236690844,
+   "runs": [
+    0.7708930826749224,
+    0.7656577663226687,
+    0.7540758998022119,
+    0.7508144679491038,
+    0.7582799647351646
+   ]
+  },
+  "leaves_only": {
+   "mean": 0.7594919434821866,
+   "sd": 0.007158134708395437,
+   "runs": [
+    0.7705985538435449,
+    0.7648232169501199,
+    0.7533902370588297,
+    0.7517002990767,
+    0.7569474104817384
+   ]
+  },
+  "leakage_auc": 0.014446234556297455
+ },
+ "A1_by_known_frac": {
+  "0.01": {
+   "trees_visible": 99,
+   "leaf_columns": 2647,
+   "known_frac": 0.01,
+   "own_only": {
+    "mean": 0.7454980017405168,
+    "sd": 0.00039182821574370815,
+    "runs": [
+     0.7455580106193277,
+     0.7455648822659271,
+     0.7452611651464854,
+     0.7461434992208419,
+     0.7449624514500017
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.7599442362968143,
+    "sd": 0.007390284236690844,
+    "runs": [
+     0.7708930826749224,
+     0.7656577663226687,
+     0.7540758998022119,
+     0.7508144679491038,
+     0.7582799647351646
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.7594919434821866,
+    "sd": 0.007158134708395437,
+    "runs": [
+     0.7705985538435449,
+     0.7648232169501199,
+     0.7533902370588297,
+     0.7517002990767,
+     0.7569474104817384
+    ]
+   },
+   "leakage_auc": 0.014446234556297455
+  },
+  "0.05": {
+   "trees_visible": 99,
+   "leaf_columns": 2647,
+   "known_frac": 0.05,
+   "own_only": {
+    "mean": 0.7453502508521103,
+    "sd": 0.0014116234346203099,
+    "runs": [
+     0.7460724469523836,
+     0.7434436268161758,
+     0.747565738874385,
+     0.7452629097602294,
+     0.7444065318573776
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.82093311213211,
+    "sd": 0.009757021492394123,
+    "runs": [
+     0.8266606562535983,
+     0.8272547623037819,
+     0.8075688866240907,
+     0.8321680126356605,
+     0.811013242843418
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.8211270800250213,
+    "sd": 0.009592874645270984,
+    "runs": [
+     0.8266143601055439,
+     0.8273823656372675,
+     0.8080722114264705,
+     0.832261464044592,
+     0.8113049989112329
+    ]
+   },
+   "leakage_auc": 0.07558286127999969
+  }
+ },
+ "A2_train": {
+  "phase": "train",
+  "n_samples": 78267,
+  "host_split_nodes": 516,
+  "features_used": 2,
+  "features_total": 2,
+  "mean_revealed_frac_all": 0.7614000792160169,
+  "cells_revealed_frac": 0.7614000792160169,
+  "used_features_revealed_frac": 0.7614000792160169,
+  "identity_free": {
+   "split_nodes": 516,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 80,
+   "columns_with_2plus_nodes": 2,
+   "true_features_behind_nodes": 2,
+   "node_weighted_purity": 0.9011627906976745
+  },
+  "truth": {
+   "mode": "count_zero_implies_all_zero",
+   "mean_true_revealed_frac": 0.15335965349380964,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ },
+ "A2_infer": {
+  "phase": "infer",
+  "n_samples": 21735,
+  "host_split_nodes": 516,
+  "features_used": 2,
+  "features_total": 2,
+  "mean_revealed_frac_all": 0.9985737290085116,
+  "cells_revealed_frac": 0.9985737290085116,
+  "used_features_revealed_frac": 0.9985737290085116,
+  "identity_free": {
+   "split_nodes": 516,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 10,
+   "columns_with_2plus_nodes": 10,
+   "true_features_behind_nodes": 2,
+   "node_weighted_purity": 1.0
+  },
+  "truth": {
+   "mode": "count_zero_implies_all_zero",
+   "mean_true_revealed_frac": 0.24057971014492754,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "name": "uci",
+ "rows": [
+  {
+   "tag": "uci_business",
+   "guest": 0.806638284824756,
+   "host": 0.6645075386810699,
+   "central": 0.7946527548469268,
+   "best_single": "guest",
+   "gain_proxy": -0.011985529977829201,
+   "gain_ci_lo": -0.020714102169992043,
+   "gain_ci_hi": -0.003329962580372201,
+   "guest_minus_host": 0.14213074614368604,
+   "n_boot": 1000
+  },
+  {
+   "tag": "uci_diagnostic",
+   "guest": 0.8022319743855842,
+   "host": 0.5064361084249257,
+   "central": 0.7946527548469268,
+   "best_single": "guest",
+   "gain_proxy": -0.007579219538657478,
+   "gain_ci_lo": -0.013906997884973921,
+   "gain_ci_hi": -0.0011149684193666773,
+   "guest_minus_host": 0.29579586596065854,
+   "n_boot": 1000
+  }
+ ],
+ "random": [
+  {
+   "tag": "uci_random_seed42",
+   "guest": 0.7895822768762678,
+   "host": 0.7901336000518893,
+   "central": 0.7946508384829473,
+   "best_single": "host",
+   "gain_proxy": 0.004517238431058002,
+   "gain_ci_lo": -0.004999635755337073,
+   "gain_ci_hi": 0.014803555273620164,
+   "guest_minus_host": -0.0005513231756214543,
+   "n_boot": 300
+  },
+  {
+   "tag": "uci_random_seed43",
+   "guest": 0.7835349692202463,
+   "host": 0.802703842162366,
+   "central": 0.7946527548469268,
+   "best_single": "host",
+   "gain_proxy": -0.008051087315439243,
+   "gain_ci_lo": -0.018642622205634153,
+   "gain_ci_hi": 0.0018986532704670543,
+   "guest_minus_host": -0.019168872942119664,
+   "n_boot": 300
+  },
+  {
+   "tag": "uci_random_seed44",
+   "guest": 0.7942039571442049,
+   "host": 0.6982080522666163,
+   "central": 0.7946527548469268,
+   "best_single": "guest",
+   "gain_proxy": 0.00044879770272188146,
+   "gain_ci_lo": -0.00892483358158877,
+   "gain_ci_hi": 0.009562145711493187,
+   "guest_minus_host": 0.09599590487758858,
+   "n_boot": 300
+  },
+  {
+   "tag": "uci_random_seed45",
+   "guest": 0.8035173386716354,
+   "host": 0.7886978748997594,
+   "central": 0.7946527548469268,
+   "best_single": "guest",
+   "gain_proxy": -0.008864583824708672,
+   "gain_ci_lo": -0.016781239581681814,
+   "gain_ci_hi": -0.0002929563189355503,
+   "guest_minus_host": 0.01481946377187604,
+   "n_boot": 300
+  },
+  {
+   "tag": "uci_random_seed46",
+   "guest": 0.7890338282466154,
+   "host": 0.7912487027689985,
+   "central": 0.7946539341478371,
+   "best_single": "host",
+   "gain_proxy": 0.0034052313788386357,
+   "gain_ci_lo": -0.006967891176167714,
+   "gain_ci_hi": 0.01350471196656709,
+   "guest_minus_host": -0.0022148745223831146,
+   "n_boot": 300
+  }
+ ],
+ "random_gain_min": -0.008864583824708672,
+ "random_gain_max": 0.004517238431058002,
+ "random_gain_mean": -0.0017088807255058792
+}

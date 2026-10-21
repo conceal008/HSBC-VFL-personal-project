@@ -1,0 +1,64 @@
+change_id: CL-20261021-M9-001
+timestamp: '2026-10-21T14:20:00+00:00'
+agent: Claude (Opus 5.5)
+module: M9
+type: doc
+title: 导入外部隐语SGB优化与攻防实验记录（单seed，仅作外部参考）
+what: 新建 docs/04-experiment-records/external/secretflow_sgb_innovations/：31 个扩展脚本、10 个运行队列脚本、101 份汇总指标 JSON（攻击结果删去逐特征明细；每次联邦训练元数据放 results/sgb_runs/，因 runs/ 被 .gitignore 排除）、创新点说明 INNOVATIONS.md、README 适用边界与 1 张切分扫描散点图；更新实验记录导航、M9 台账、模块状态与交接记录。未在本仓库运行任何实验。
+why: 所有者要求把在团队仓库 federated_learning_new 之上完成的隐语 SGB 扩展实验（OU 加密、细分桶与三臂调参、先验初始分数、VertiBench 式切分扫描、A1/A2 攻击复现、后验去噪标签差分隐私、SPU 安全推理）同步到本仓库。这些结果只在会话与本机，未入库即按原则一视为不存在；同时须按 §2.7 审查后才能公开。
+links:
+  branch_card: none
+  decision_record: DR-GOV-012
+  loop_step: S9.E1
+cross_border_impact: none
+cross_border_detail: 只新增文档、离线脚本副本与汇总指标；不新增跨境资产、数据流或参与方权限，不改 registry/cross_border_assets.yaml。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (Opus 5.5)
+  conclusion: 逐类审查 141 个新增外部记录文件。①数据：无原始/清洗行、逐行预测与标签、模型导出（树结构/阈值）、预处理学习参数、凭证；xlsx 未入库。②攻击 JSON 递归删除 per_feature / holders / holder_cells 字段（含逐产品持有人数等细分小群体统计），只留汇总 AUC、泄漏量与被用列比例。③IEEE-CIS 的 PSI 交集行数从文档与脚本注释中删除，不披露。④其余样本量均为公开研究数据集或抽样规模（Santander、FedAds、Orange、HSBC mock），无真实业务绝对量级、无个体可反推统计。⑤术语按 glossary 改写（主动方/被动方、时间顺序划分），「显著」改为 CI 表述。结论：符合 DR-GOV-012 §2.7 公开范围。
+downstream_affected:
+- M5
+- M7
+breaking_change: false
+migration: 无。新增独立目录，不改既有文件结构；导航只追加一行链接。
+reproducibility:
+  config: modules/m9_documentation/S9.E1_外部SGB优化攻防记录导入_步骤声明.md
+  config_hash: 10baa268438c58b1efaf40472de5f7b45f570f40630888dd0f140609c5ae9f38
+  seeds:
+  - 42
+  env_lock: environments/python.lock
+rollback: revert 本提交即可整体撤回新增目录与状态更新；不影响任何冻结结果。
+verification: 本地 ci/run_all_gates.sh 全部门禁；新增 Markdown 经门禁 5 Q6 术语检查；JSON 用脚本核验已无 per_feature/holders 字段；检索确认无 IEEE-CIS 交集行数。外部结果的数值与 Claude Docs 报告及本机 8-9月/federated_learning_new_复现与优化/secretflow_sgb_innovations/ 同源。
+step:
+  step_id: S9.E1
+  step_name: 外部隐语SGB优化与攻防记录导入
+  declaration: |
+    见 modules/m9_documentation/S9.E1_外部SGB优化攻防记录导入_步骤声明.md。
+    will_produce：外部实验记录目录（代码、队列脚本、审查后的汇总 JSON、创新点说明、适用边界、散点图）及导航/台账/状态/交接更新。
+    will_not_produce：不运行实验/PSI/攻击、不启动 VM、不改 modules/*/results 与冻结配置、不提交行数据/逐行预测/模型导出/学习参数/交集行数/xlsx、不把单 seed 结果写成本仓库结论。
+    success_criteria：导航可达；每个创新点可查到原理、脚本参数与结果 JSON；公开审查通过；术语合规；门禁通过；分支推送并开 PR。
+    risk：单 seed 不满足 ≥5 seed 结论门槛，入口标明仅作外部参考；独立复现依赖团队私有仓库与公开数据集本地副本。
+  scope:
+    files_changed: 148
+    lines_added: 23939
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 2
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 10
+    evidence:
+      D1: docs/04-experiment-records/external/secretflow_sgb_innovations/README.md:1：目录内容表与声明逐项一致；INNOVATIONS.md 七个创新点均有原理/实现路径/结果/局限
+      D2: docs/04-experiment-records/external/secretflow_sgb_innovations/results/final_eval_business.json:1 等：每个数值可回溯到 JSON；但只有单 seed、未入库逐行预测，第三方无法不重跑而复核，故 2 分
+      D3: docs/04-experiment-records/external/secretflow_sgb_innovations/README.md:47：给出复现命令与环境；但依赖团队私有仓库与公开数据集本地副本，未在本仓库实测重跑，故 2 分
+      D4: docs/04-experiment-records/external/secretflow_sgb_innovations/INNOVATIONS.md:5：新增本仓库此前没有的 SGB 路线证据（OU 5.85 倍、细分桶+调参与集中式之差 CI 含 0、VertiBench 占比与增益秩相关 +0.89、A1/A2 在 SGB 上成立）
+  revisions: 0
+  verdict: committed
+  next_step: M9 已完成第 5 步，按 §3.5 需另一 Agent 或人工随机抽查 1 步；科研实验保持暂停

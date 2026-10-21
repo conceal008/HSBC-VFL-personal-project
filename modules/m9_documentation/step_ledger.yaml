@@ -102,14 +102,39 @@ steps:
   - docs/03-handoff/HO-20261016-Codex-M9-migration-repair.md
   note: 旧证据行号/未来恢复检查/私有状态丢失及依赖权限修复；显式null一轮工程兼容修正，v2保留v3独立，不恢复科研实验。 第二工程修正为恢复后再次暂停保留有授权/已登记组件及无条件路径边界；定向21测试通过。原修正步骤比例3/4不变。
   verification: 2026-10-16完整工程门禁通过：冻结索引835fcd250372c27ad96a7230c1d6eeb9f98ad3bc，646测试、10768/11548=93.2%核心逻辑行覆盖、53/53门禁回归、M9四项100%。21项交接定向测试包含其中；16项第三方提示、旧临时目录清理权限提示和28项受限Notebook清空输出提示原样保留，不计失败或新研究结果。验收后仅补六份状态/回执文件，源码、测试、配置、Notebook、11规范正文、13草稿和冻结结果不变。科研实验仍暂停，VM未启动。
+- step_id: S9.E1
+  step_name: 外部隐语SGB优化与攻防记录导入
+  status: committed
+  score: 10
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 2
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261021-M9-001
+  committed_at: '2026-10-21T14:20:00+00:00'
+  outputs:
+  - docs/04-experiment-records/external/secretflow_sgb_innovations/README.md
+  - docs/04-experiment-records/external/secretflow_sgb_innovations/INNOVATIONS.md
+  - docs/04-experiment-records/external/secretflow_sgb_innovations/src/ext/
+  - docs/04-experiment-records/external/secretflow_sgb_innovations/results/
+  - docs/03-handoff/HO-20261021-Claude-M9-external-sgb-import.md
+  note: 外部记录导入，单 seed（42）仅作外部参考，不构成本仓库结论；未运行任何实验，冻结结果不变。攻击 JSON 删去逐特征明细，IEEE-CIS 交集行数不披露。
+  verification: 本地 ci/run_all_gates.sh；Q6 术语检查覆盖新增 Markdown；JSON 无 per_feature/holders 字段。
 current_step: null
-next_step: 保持实验暂停；后续M9第5步需独立随机回溯抽查
+next_step: 保持实验暂停；M9 已完成第 5 步（S9.E1），需另一 Agent 或人工按 §3.5 随机抽查 1 步并写 audit_log
 metrics:
-  avg_score: 11.25
+  avg_score: 11.0
   escalation_count: 0
-  revision_rate: 0.75
-  steps_used: 4
-  budget_usage: 0.4
+  revision_rate: 0.6
+  steps_used: 5
+  budget_usage: 0.5
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

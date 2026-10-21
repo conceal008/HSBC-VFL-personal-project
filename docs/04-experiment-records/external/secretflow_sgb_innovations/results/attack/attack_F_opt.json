@@ -1,0 +1,175 @@
+{
+ "name": "F_opt",
+ "model": "../../data/processed/attack/model_F_opt.json",
+ "tag": "fedads",
+ "trees": 20,
+ "A1": {
+  "trees_visible": 19,
+  "leaf_columns": 107,
+  "known_frac": 0.01,
+  "own_only": {
+   "mean": 0.5142507624940077,
+   "sd": 0.02019490031083119,
+   "runs": [
+    0.5140142785256059,
+    0.5149786257136972,
+    0.5372496511020718,
+    0.477668770228081,
+    0.5273424869005823
+   ]
+  },
+  "own_plus_leaves": {
+   "mean": 0.5680608962640047,
+   "sd": 0.02432909790614507,
+   "runs": [
+    0.5940919171541309,
+    0.5787469482322436,
+    0.564413374828362,
+    0.5231746017122854,
+    0.5798776393930014
+   ]
+  },
+  "leaves_only": {
+   "mean": 0.5737347044144505,
+   "sd": 0.027162091423539425,
+   "runs": [
+    0.6015543136633674,
+    0.581831639728116,
+    0.5704101686467062,
+    0.5234737697539272,
+    0.5914036302801352
+   ]
+  },
+  "leakage_auc": 0.05381013376999699
+ },
+ "A1_by_known_frac": {
+  "0.01": {
+   "trees_visible": 19,
+   "leaf_columns": 107,
+   "known_frac": 0.01,
+   "own_only": {
+    "mean": 0.5142507624940077,
+    "sd": 0.02019490031083119,
+    "runs": [
+     0.5140142785256059,
+     0.5149786257136972,
+     0.5372496511020718,
+     0.477668770228081,
+     0.5273424869005823
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.5680608962640047,
+    "sd": 0.02432909790614507,
+    "runs": [
+     0.5940919171541309,
+     0.5787469482322436,
+     0.564413374828362,
+     0.5231746017122854,
+     0.5798776393930014
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.5737347044144505,
+    "sd": 0.027162091423539425,
+    "runs": [
+     0.6015543136633674,
+     0.581831639728116,
+     0.5704101686467062,
+     0.5234737697539272,
+     0.5914036302801352
+    ]
+   },
+   "leakage_auc": 0.05381013376999699
+  },
+  "0.05": {
+   "trees_visible": 19,
+   "leaf_columns": 107,
+   "known_frac": 0.05,
+   "own_only": {
+    "mean": 0.5388171408165298,
+    "sd": 0.006499451509022532,
+    "runs": [
+     0.5495193550446295,
+     0.5321358083456508,
+     0.5421784989324216,
+     0.5377230668426739,
+     0.5325289749172731
+    ]
+   },
+   "own_plus_leaves": {
+    "mean": 0.6183644378271727,
+    "sd": 0.006767521518099537,
+    "runs": [
+     0.6275813253049423,
+     0.619231827748991,
+     0.6068492132000847,
+     0.6168811442591677,
+     0.6212786786226775
+    ]
+   },
+   "leaves_only": {
+    "mean": 0.6219613459598086,
+    "sd": 0.007614473250403158,
+    "runs": [
+     0.6291588886304035,
+     0.6282103500318028,
+     0.6082452909278919,
+     0.6197637344576327,
+     0.6244284657513123
+    ]
+   },
+   "leakage_auc": 0.07954729701064289
+  }
+ },
+ "A2_train": {
+  "phase": "train",
+  "n_samples": 300000,
+  "host_split_nodes": 7,
+  "features_used": 3,
+  "features_total": 23,
+  "mean_revealed_frac_all": 0.11127942028985506,
+  "cells_revealed_frac": 0.11127942028985506,
+  "used_features_revealed_frac": 0.8531422222222221,
+  "identity_free": {
+   "split_nodes": 7,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 3,
+   "columns_with_2plus_nodes": 2,
+   "true_features_behind_nodes": 3,
+   "node_weighted_purity": 1.0
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.0,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ },
+ "A2_infer": {
+  "phase": "infer",
+  "n_samples": 200000,
+  "host_split_nodes": 7,
+  "features_used": 3,
+  "features_total": 23,
+  "mean_revealed_frac_all": 0.13043478260869565,
+  "cells_revealed_frac": 0.13043478260869565,
+  "used_features_revealed_frac": 1.0,
+  "identity_free": {
+   "split_nodes": 7,
+   "rule": "overlap>=30, 100% agree, both sides>=5",
+   "anonymous_columns": 3,
+   "columns_with_2plus_nodes": 2,
+   "true_features_behind_nodes": 3,
+   "node_weighted_purity": 1.0
+  },
+  "truth": {
+   "mode": "same_columns",
+   "mean_true_revealed_frac": 0.0,
+   "holder_recall_pooled": 0.0,
+   "holder_precision_pooled": null,
+   "scope": "产品持有标记列（ind_*_ult1）"
+  }
+ }
+}

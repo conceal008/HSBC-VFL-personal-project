@@ -1,0 +1,9 @@
+{
+ "model": "data/processed/attack/model_S0_base.json",
+ "trees": 100,
+ "test_rows": 21735,
+ "seconds": 66.34828824600027,
+ "auc": 0.8990880354038249,
+ "max_abs_diff_vs_sgb": 1.7299462246600505e-05,
+ "auc_sgb_native": 0.8990864181194658
+}

@@ -1,0 +1,45 @@
+{
+ "configs": {
+  "guest": {
+   "learning_rate": 0.1,
+   "max_depth": 6,
+   "reg_lambda": 10.0,
+   "colsample_bytree": 0.7,
+   "rounds": 122,
+   "val_auc": 0.939925419008351
+  },
+  "host": {
+   "learning_rate": 0.1,
+   "max_depth": 6,
+   "reg_lambda": 1.0,
+   "colsample_bytree": 1.0,
+   "rounds": 123,
+   "val_auc": 0.7566837761479915
+  },
+  "central": {
+   "learning_rate": 0.1,
+   "max_depth": 6,
+   "reg_lambda": 10.0,
+   "colsample_bytree": 1.0,
+   "rounds": 112,
+   "val_auc": 0.9406071826557092
+  }
+ },
+ "metrics": {
+  "guest_tuned": {
+   "auroc": 0.9266151221911477,
+   "ci_lo": 0.9207253249472905,
+   "ci_hi": 0.9326526118430054
+  },
+  "host_tuned": {
+   "auroc": 0.7660122734473745,
+   "ci_lo": 0.7556869585055249,
+   "ci_hi": 0.776073510319332
+  },
+  "central_tuned": {
+   "auroc": 0.9304831025627827,
+   "ci_lo": 0.9244335152520893,
+   "ci_hi": 0.9365634933881083
+  }
+ }
+}

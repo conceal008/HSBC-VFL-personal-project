@@ -1,0 +1,9 @@
+{
+ "model": "data/processed/attack/model_F_opt_base.json",
+ "trees": 20,
+ "test_rows": 200000,
+ "seconds": 53.61301341899889,
+ "auc": 0.6501846558714287,
+ "max_abs_diff_vs_sgb": 1.6108568254152855e-06,
+ "auc_sgb_native": 0.6501846277623645
+}

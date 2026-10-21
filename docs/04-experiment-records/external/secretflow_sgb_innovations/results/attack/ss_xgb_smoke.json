@@ -1,0 +1,13 @@
+{
+ "protocol": "SEMI2K",
+ "runs": [
+  {
+   "rows": 500,
+   "trees": 1,
+   "fit_seconds": 19.48685885399982,
+   "per_tree_seconds": 19.48685885399982,
+   "predict_seconds": 6.846908341000017,
+   "test_auc": 0.6570468020039624
+  }
+ ]
+}

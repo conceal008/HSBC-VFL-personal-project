@@ -1,0 +1,42 @@
+# S0.6R · 出境机制补「关键信息基础设施运营者」前提，训练人群与试点人群分开计数
+# ---------------------------------------------------------------------------
+# 依据：DR-MX-002 · D-3。法条原文见 modules/m0_compliance/legal_references.md 一之二节（本步补正）。
+# ⚠️ 技术侧自评，未经法务复核（W-001）。是否为关键信息基础设施运营者由保护工作部门认定并通知运营者，
+#    技术侧无法判定，故两种取值都列出。
+# ---------------------------------------------------------------------------
+step_id: S0.6R
+purpose: 在 S0.6 判定矩阵上增加「是否为关键信息基础设施运营者」与「是否适用大湾区标准合同」两个维度，并对形态 A 分开计训练人群与试点人群
+seed: 42
+
+# 门槛与 S0.6 相同（configs/s0_6_route_b.yaml），逐项注明出处
+thresholds:
+  non_sensitive_exempt_below: 100000              # 第五条第（四）项（仅限非关键信息基础设施运营者）
+  non_sensitive_assessment_at_or_above: 1000000   # 第七条第（二）项
+  sensitive_assessment_at_or_above: 10000         # 第七条第（二）项；不满此数走第八条
+
+# 与 S0.6 相同的四个人数档位
+scale_points: [5000, 30000, 150000, 1200000]
+
+ciio_options: [false, true]
+gba_options: [false, true]
+
+# 三种形态与 S0.6 相同：cn → hk 方向实际提供了什么
+l3_forms:
+  - id: 形态A
+    cn_to_hk_assets: [CBA-002 标识符哈希, CBA-005 梯度]
+    cn_to_hk_sensitive: true
+  - id: 形态B
+    cn_to_hk_assets: [CBA-002 标识符哈希]
+    cn_to_hk_sensitive: false
+  - id: 形态C
+    cn_to_hk_assets: []
+    cn_to_hk_sensitive: false
+
+# 形态 A：训练人群与试点人群分开计数
+# 训练期：训练人群的 CBA-005 梯度（敏感）+ CBA-002 标识符哈希（非敏感）
+# 试点期：试点人群的 CBA-002 标识符哈希（非敏感）。推断协议在 cn→hk 是否还有承载标签信息的流动，
+#         须逐协议核对；若有，试点人群须并入敏感口径（DR-MX-002 · D-3 推翻条件）。
+form_a_split:
+  training_cohorts: [5000, 9000, 30000]   # 9000 为「不满 1 万人」的代表点
+  pilot_population: 30000                 # S0.1 的 N_eff
+  identifier_population_overlap: false    # 保守取不重叠：标识符涉及人数 = 训练人群 + 试点人群

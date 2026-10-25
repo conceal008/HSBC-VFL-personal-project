@@ -152,19 +152,38 @@ steps:
       - modules/m0_compliance/results/market_positive_ceiling.csv
       - modules/m0_compliance/tests/test_validation_power.py
       - registry/component_declarations/M0-validation_power.yaml
+  - step_id: S0.6R
+    step_name: 出境机制补关键信息基础设施运营者前提，训练人群与试点人群分开计数（S0.6 补正）
+    status: committed
+    score: 10
+    gates: {G1: pass, G2: pass, G3: pass, G4: pass}
+    dimensions: {D1: 3, D2: 2, D3: 2, D4: 3}
+    revisions: 0
+    committed_at: 2026-10-25T16:40:00+08:00
+    change_id: CL-20261025-M0-002
+    waiver_ref: W-001
+    outputs:
+      - modules/m0_compliance/legal_references.md（一之二节补正三处摘录与「决定性影响」）
+      - modules/m0_compliance/route_B.md（第三节加补正说明）
+      - modules/m0_compliance/components/export_mechanism.py（新增 is_ciio 参数与 strictest）
+      - modules/m0_compliance/configs/s0_6r_ciio_precondition.yaml
+      - modules/m0_compliance/notebooks/S0.6R_ciio_precondition.ipynb
+      - modules/m0_compliance/results/export_mechanism_matrix_ciio.csv
+      - modules/m0_compliance/results/form_a_training_vs_pilot.csv
+      - modules/m0_compliance/tests/test_export_mechanism_ciio.py
 current_step: null
 next_step: S0.9
 
 metrics:
-  avg_score: 11.6           # <10 → 复审步骤划分与执行质量（2026-10-25：(105+11)/10）
+  avg_score: 11.45          # <10 → 复审步骤划分与执行质量（2026-10-25：(105+11+10)/11）
   escalation_count: 1       # ≥3 → 该模块整体复审是否假设有误
   revision_rate: 0.0        # >0.4 → 步骤划分过粗，重新拆分
-  steps_used: 10
-  budget_usage: 1.0         # >1.5 → 触发全局复审
+  steps_used: 11
+  budget_usage: 1.1         # >1.5 → 触发全局复审（2026-10-25：S0.1P 与 S0.6R 为补算/补正步骤，S0.9 未做）
   consecutive_low_d4: 0     # 连续 2 步 D4 ≤1 → 强制暂停
   pass_threshold: 10        # 回溯抽查复评与自评差 ≥3 分时上调为 11
 
 audit:
   last_spot_check_step: null   # 每完成 5 步随机抽 1 步复评，记录见 audit_log.yaml
   spot_checks_done: 0
-  spot_checks_due: 2           # 2026-10-25 补记：已完成 10 步，按 3.5 应有 2 次抽查，均未执行；须由另一 Agent 或人工完成
+  spot_checks_due: 2           # 2026-10-25 补记：已完成 11 步，按 3.5 应有 2 次抽查，均未执行；须由另一 Agent 或人工完成

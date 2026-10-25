@@ -1,0 +1,79 @@
+change_id: CL-20261025-M6-003
+timestamp: '2026-10-25T23:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M6
+type: doc
+title: S6.P3 G3 五臂对比预注册声明（proposed，执行前声明）
+what: |
+  新增 modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md 与机器可读配置 configs/s6_p3_g3_preregistration.yaml（status proposed）：
+  唯一主对比为 Santander 上双向联邦 A 相对 L1（k=10）的配对 AUROC 差，关心尺度 0.02；九个臂（L0、L1 k=5/10/20、B_T1、B_T2、
+  A、A_secure、阴性对照 NC；B_T3 即 L1_k10）各有数据流与调参预算；三类数据（Santander 主、FedAds 次、HSBC mock 三档机制）
+  的抽样单位、开发评估集正例目标（≥700，依 S6.P1）与封存确认集；6 个训练 seed；统计全部引用 evaluation_protocol v1；
+  六条停止规则与「结果到决策」映射写在看结果之前；第九节列出执行前的冻结步骤。
+  状态类字段同步：M6 README（状态、下一步、S6.P3 一节）、step_ledger（追加 S6.P3）、registry/module_status.yaml 的 M6 条目、
+  governance 与下一阶段计划条目、任务清单 T3/T4 状态（T3 在仓库外完成：claude.ai《1030面聊一页》v1.1）。
+why: |
+  任务清单 T4。DR-MX-002 · D-5 把 L1 同等比较、单向形态候选与阴性对照排为恢复后第一批，但三者此前只有名字，
+  没有数据、seed、预算与停止规则；不先写定，恢复后的比较仍会落入「多次尝试后留下的赢家」。
+  放在 M6 而不是 M5：这是评估设计，M5 处于暂停且阶段步数已用完（DR-M5-008），执行时再由 M5 另立步骤与分支卡。
+  验证的假设：九个臂能在不违反 7/29 约束（不引入神经网络）与口径 v1 的前提下写成一个可执行的预注册——成立；
+  B_T2 在公开代理数据上的适用性无法事先保证，已写成冻结前逐数据集登记、不适用即如实报告。
+links:
+  branch_card: none
+  decision_record: DR-M6-001
+  loop_step: LOOP M6 的预注册补做（S6.P3）；执行属 M5，须 T5 授权
+cross_border_impact: none
+cross_border_detail: 只写声明，不涉及任何跨境资产的实际流动；声明中的数据流（香港→内地一次性发送、双向加密梯度）为待执行设计，执行前须按 S0.6R 另行核对。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 不含真实数据、代理数据派生数值、标识或凭证；Santander 排除名单写明只在本机构造、不入库。
+downstream_affected:
+- M5
+- M0
+breaking_change: false
+migration: 无。新增文件，不改既有接口与口径。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:73bc22427bde56f93c0cf2a52d56cbd62c43643dc9ecf2f89e800af7d3f8302a
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；不改任何既有文件的结论或结果。
+verification: |
+  逐项对照 evaluation_protocol v1：seed ≥ 6、两层重抽样 2,000 次、可检出差异取两法较大者、四类结论、Holm 校正、阴性对照、
+  封存确认集一次性使用，均无冲突。拟合数按第四节手算：Santander 调参 7 臂 × 20 = 140 次，最终 9 臂 × 6 seed = 54 次。
+  门禁 1、2、4、5、6、7 与 M9 证据链在本地逐项通过后提交；全量回归在推送前运行。
+step:
+  step_id: S6.P3
+  step_name: G3 五臂对比预注册声明
+  declaration: |
+    will_produce：预注册声明一份；机器可读预注册配置一份；状态类字段同步；变更记录。
+    回答：恢复实验后 G3 比较什么、用什么数据与 seed、每臂多少调参预算、什么时候停、每种结果意味着什么决策。
+    will_not_produce：不训练、不抽样、不读任何真实或代理数据，不运行隐私集合求交（PSI）或攻击，不生成封存确认集；
+    不改评估口径 v1；不授权恢复实验；状态保持 proposed，不自行冻结。
+    success_criteria：主对比唯一且有关心尺度；每个臂有数据流与调参预算；停止规则与决策映射先于结果写定；与口径 v1 无冲突；门禁全部通过。
+    risk：SGB 与 SS-XGB 代码不在本仓库，冻结时须补代码快照指纹；B_T2 可能不适用；700 个正例目标来自合成校准。
+  scope:
+    files_changed: 7
+    lines_added: 349
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md 第一至七节逐一对应 T4 要求的数据、seed、指标、封存确认集与停止规则"
+      D2: "modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml：主对比、九个臂、停止规则与决策映射均为机器可读字段，冻结后可逐项核对"
+      D3: "纯文档步骤，无运行；配置 sha256 存档于本条"
+      D4: "新信息有限：把已有决策落成可执行设计；新增的约束是 Santander 须按客户重新抽样，使开发评估集期望 ≥700 个按客户去重的正例（旧样本只有 7,434 位客户，是否够用须去重核对，预注册不依赖它）"
+  revisions: 0
+  verdict: committed
+  next_step: T5 所有者恢复授权；授权后按 S6.P3 第九节冻结

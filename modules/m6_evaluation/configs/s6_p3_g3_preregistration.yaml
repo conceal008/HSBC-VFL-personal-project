@@ -1,0 +1,115 @@
+# S6.P3 · G3 五臂对比预注册（机器可读部分）
+# ---------------------------------------------------------------------------
+# 状态：proposed（未冻结）。所有者授权恢复实验（任务清单 T5）后，按第九节「冻结」步骤补齐代码指纹并改为 frozen；
+# 冻结前任何一项都可以改，冻结后只能另写 DR 改，且只对之后的运行生效。
+# 本文件不授权恢复实验；不含任何真实或代理数据派生数值。
+# 评估口径：modules/m6_evaluation/evaluation_protocol.md v1（DR-M6-001）。
+# ---------------------------------------------------------------------------
+step_id: S6.P3
+purpose: 预先写定 G3 五臂对比的数据、臂、seed、调参预算、指标、统计方法、封存确认集与停止规则，供恢复实验后执行
+status: proposed
+protocol_ref: modules/m6_evaluation/evaluation_protocol.md
+protocol_version: v1
+
+# 一、主对比与关心尺度
+primary:
+  dataset: santander
+  contrast: [A, L1_k10]          # 主对比：双向联邦相对低成本替代方案
+  metric: roc_auc
+  delta_of_interest: 0.02        # 统计关心尺度（AUROC 绝对差）；业务意义另由 precision_at_k 与 S6.P2 盈亏平衡判断
+secondary_contrasts:             # 次要对比，Holm 校正，家族 = 本列表 × 每个数据集
+  - [A, L0]
+  - [L1_k10, L0]
+  - [B_T1, L1_k10]
+  - [B_T2, L1_k10]
+  - [A, B_best]                  # 单向形态代价；B_best 在开发评估前按内层验证集选定，选定规则见 arms.B_best
+  - [A_secure, A]
+  - [NC, L0]                     # 阴性对照
+  - [L1_k5, L1_k10]
+  - [L1_k20, L1_k10]
+
+# 二、臂
+arms:
+  L0:       {who_trains: mainland, model: local_gbdt, uses_counterparty: none}
+  L1_k5:    {who_trains: mainland, model: local_gbdt, uses_counterparty: k_anonymous_aggregates, k: 5}
+  L1_k10:   {who_trains: mainland, model: local_gbdt, uses_counterparty: k_anonymous_aggregates, k: 10}
+  L1_k20:   {who_trains: mainland, model: local_gbdt, uses_counterparty: k_anonymous_aggregates, k: 20}
+  B_T1:     {who_trains: mainland, model: local_gbdt, uses_counterparty: hk_random_tree_embedding_k_anonymous, k: 10, flow: hk_to_cn_once}
+  B_T2:     {who_trains: mainland, model: local_gbdt, uses_counterparty: hk_own_label_score, flow: hk_to_cn_once}
+  B_T3:     {alias_of: L1_k10}     # DR-MX-002 · D-4：L1 本身作为单向形态下界，不另跑
+  B_best:   {select_from: [B_T1, B_T2, L1_k10], rule: highest_inner_validation_auc, decided_before_dev_eval: true}
+  A:        {who_trains: both, model: secretflow_sgb, flow: two_way_encrypted_gradients}
+  A_secure: {who_trains: both, model: secretflow_ss_xgb, flow: secret_shared, config: copy_of_A}   # 不另调参，只比精度与成本
+  NC:       {who_trains: both, model: secretflow_sgb, config: copy_of_A, passive_rows: shuffled_within_aligned_customers}
+
+# 三、数据
+datasets:
+  santander:
+    role: primary
+    source: 原始 1,364.7 万行月度快照（本机）
+    unit: customer
+    sampling: 按客户抽样；排除 10/21 汇报样本与 S5 系列 santander_product 任务中出现过的客户（排除名单只在本机构造，不入库）
+    eval_positives_target: 700   # 开发评估集按客户去重的期望正例数；样本量按训练月份的正例率预先算出，不看评估月标签
+    lockbox: 最新一个观察月份 × 未进入开发集的客户
+  fedads:
+    role: secondary
+    source: 官方自然切分（本机）
+    unit: user
+    lockbox: 按时间最晚的一段，开发前划出
+  hsbc_mock:
+    role: secondary_mechanism   # 合成机制数据，只回答重合率的影响，不作业务证据
+    variants: [overlap20, overlap50, overlap80]
+    unit: customer
+    eval_positives_target: 700
+    lockbox: 同生成器另一随机种子生成，开发期间不生成
+
+# 四、随机性与调参预算
+seeds:
+  training: [11, 22, 33, 44, 55, 66]   # ≥6，满足 evaluation_protocol v1 第三节
+  split: 20261101                      # 冻结时确认；开发/内层验证/评估三分一次划定
+  tuning: 20261102
+tuning:
+  method: random_search
+  configs_per_arm: 20                  # 每臂同样的候选数，在内层验证集上选，用 tuning seed 一次
+  no_tuning_arms: [A_secure, NC, B_T3]
+  inner_validation_share: 0.2
+  dev_eval_share: 0.3
+compute_caps:
+  a_secure_datasets: [santander]       # SS-XGB 约慢 11 倍，只在主数据集上跑
+  max_wall_clock_hours_per_fit: 6
+  max_repair_rounds_per_arm: 2
+
+# 五、指标
+metrics:
+  primary: roc_auc
+  secondary: [precision_at_k, recall_at_k, lift_at_k, log_loss]
+  k_share: 0.10                        # 名单规模占评估人群 10%；业务真实触达规模给出后另版
+  cost: [wall_clock_seconds, bytes_sent, peak_memory_mb]
+  privacy_reported_separately: true    # A1/A2 攻击另按 M7 预声明，不并入本对比
+
+# 六、统计（引用 evaluation_protocol v1，不另定）
+statistics:
+  bootstrap_reps: 2000
+  cluster: customer
+  ci_level: 0.95
+  detectable_gap_method: conservative
+  multiplicity: holm
+  verdicts: [可分辨的提升, 可分辨的下降, 未达可检出规模, 在预声明尺度上无可分辨差异]
+
+# 七、停止规则
+stopping_rules:
+  - 数据流违规或安全硬门失败：立即停止全部运行，不用预测收益抵偿
+  - 阴性对照的配对差区间不含 0：该数据集所有含联邦臂的结论作废，先排查泄漏或容量差异
+  - 某臂修正超过 max_repair_rounds_per_arm 仍失败：记为失败分支保留，不再重试
+  - 开发评估之后不新增臂、不改关心尺度、k、指标或调参预算
+  - 主数据集开发评估正例数低于 eval_positives_target：不追加样本重评，主对比结论只能写「未达可检出规模」或按实际可检出差异报告
+  - 封存确认集只在决策写定后打开一次
+
+# 八、结果到决策的映射（写在看结果之前）
+decision_map:
+  A_minus_L1_gain: L3 有增量 → S0.9 在形态 A 与 B_best 之间比较；进入 G4 盈亏平衡
+  A_minus_L1_no_diff: L3 在关心尺度上没有增量 → 建议采用 L1 或不做联邦
+  A_minus_L1_underpowered: 无法判定 → 报告可检出差异，不下结论
+  B_best_minus_L1_gain: 单向形态可行 → 单向形态代价 = A − B_best
+  all_B_not_better_than_L1: DR-MX-002 · D-4 推翻条件触发 → S0.9 只在形态 A 与不做联邦之间选
+  NC_not_null: 联邦增益不能归因于信息互补，主结论作废

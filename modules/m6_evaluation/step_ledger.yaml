@@ -83,14 +83,35 @@ steps:
   - modules/m6_evaluation/tests/test_breakeven.py
   - registry/component_declarations/M6-breakeven.yaml
   - 结论：年联系人数 EVPPI 最高（约占 EVPI 37%）；不足 2 万人时任何单个参数都不改变「不做」；合规参数只在 5 万人以上进入前列
+- step_id: S6.P3
+  step_name: G3 五臂对比预注册声明（执行前声明，仅文档）
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 0
+  committed_at: '2026-10-25 23:40:00+08:00'
+  change_id: CL-20261025-M6-003
+  outputs:
+  - modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md（status proposed）
+  - modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  - 结论：唯一主对比 Santander 上 A − L1_k10、关心尺度 0.02；开发评估集期望 ≥700 正例；停止规则与决策映射先于结果写定
 current_step: null
-next_step: T4（G3 五臂对比预注册）；S6.2 起须恢复授权
+next_step: 等所有者授权（T5）后按 S6.P3 第九节冻结；S6.2 起须恢复授权
 metrics:
   avg_score: 11.0
   escalation_count: 0
   revision_rate: 0.0
-  steps_used: 3
-  budget_usage: 0.333
+  steps_used: 4
+  budget_usage: 0.444
   consecutive_low_d4: 0
   pass_threshold: 10
 audit:

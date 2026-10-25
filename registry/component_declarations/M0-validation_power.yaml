@@ -1,0 +1,23 @@
+component: validation_power
+module: M0
+path: modules/m0_compliance/components/validation_power.py
+purpose: 离线配对 AUROC 比较的正例下界、小人群双臂随机对照的可检出效应、由公开统计推出的观察窗正例上限。
+inputs:
+- 参考 AUROC
+- 待检出的配对 AUROC 差
+- 正例率
+- 两模型 AUROC 估计的相关系数
+- 显著性水平与检验功效
+- 人群规模档位
+- 公开的全市场新增投资者统计与机构份额情景
+outputs:
+- 最少正例数与折合客户数
+- 可检出的相对 / 绝对增益及正态近似可用标记
+- 每个观察窗的机构正例上限
+tests:
+- modules/m0_compliance/tests/test_validation_power.py
+cross_border_assets: []
+cross_border_note: 本组件只做公式推导，输入为显式假设与公开统计，不接触任何个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: Hanley–McNeil 近似与配对相关修正只用于定量级；实验后以真实分数的配对 bootstrap 区间为准。
+declared_at: '2026-10-25'
+declared_by: Claude (claude-opus-5-5, Claude Code)

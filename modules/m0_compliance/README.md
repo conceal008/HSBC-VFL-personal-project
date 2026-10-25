@@ -1,7 +1,7 @@
 # M0 · 业务问题定义与合规边界
 
-> 状态：🔴 **已上报（escalated）** ｜ 步数预算 **10** ｜ 已用 **9** ｜ 认领人：Claude (Opus 5)
-> 最后更新：2026-08-30 ｜ 规范位置：`docs/00-framework/` §M0 · `docs/01-loops/` LOOP M0
+> 状态：🔴 **已上报（escalated）** ｜ 步数预算 **10** ｜ 已用 **10** ｜ 认领人：Claude (claude-opus-5-5)
+> 最后更新：2026-10-25 ｜ 规范位置：`docs/00-framework/` §M0 · `docs/01-loops/` LOOP M0
 > 仓库：https://github.com/conceal008/HSBC-VFL-personal-project
 
 ## 目标
@@ -144,6 +144,21 @@ S0.3 的每条定性从此有可引用的原文底稿。
 > 本上报**不主张 VFL 无效**，也**不主张停止项目**——只说「在当前命题与假设下无法验证」。
 > 且明确：折损率全部是假设，需求方一个真实数字就可能推翻它。
 
+**S0.1P 已完成（自评 11/12，2026-10-25）**：补算 S0.1 未覆盖的三个量，产出
+[`notebooks/S0.1P_validation_power.ipynb`](notebooks/S0.1P_validation_power.ipynb) 与三张结果表
+
+> S0.1 的 N_eff ≥ 30,000 是**随机对照增益检验**的人数口径，本身成立，不改。本步补的是另外三件事：
+>
+> 1. **离线比较两个模型的 ROC曲线下面积（AUROC），精度由测试集正例数决定**，几乎不随正例率变化：
+>    参考 AUROC 0.86、两模型估计相关 0.8 时，检出配对差 0.02 约需 441 个正例，0.01 约需 1,763 个
+>    （[`offline_auc_positives.csv`](results/offline_auc_positives.csv)）。
+> 2. **S0.5 最乐观档 5,814 人只能检出约 46% 的相对增益**，达不到 DR-MX-001 · D-4 的 20%；
+>    226 人与 3 人两档的对照臂期望转化数不足 5，检验本身不成立
+>    （[`small_population_detectable_lift.csv`](results/small_population_detectable_lift.csv)）。
+> 3. **公开统计给正例数设了上限**：2026 年 1–8 月全市场跨境理财通内地新增投资者约 8,800 人，
+>    折合每个 90 日观察窗约 3,255 人；假设某机构占 20%，单窗正例上限约 651 个，进入测试集的只占其中一部分
+>    （[`market_positive_ceiling.csv`](results/market_positive_ceiling.csv)；新增投资者 ≠ 首次成功申购，所以是上限）。
+
 ## 未决问题
 
 - ~~预测命题四要素未确认~~ → S0.1 已给出，但**全部为显式假设**，需求方确认前不得作为结论引用
@@ -165,7 +180,11 @@ S0.3 的每条定性从此有可引用的原文底稿。
 
 ## 下一步
 
-**S0.3 · 定性前四类（起草）** —— 详见 `docs/01-loops/2_模块Loop执行规范_v2_步进量化版.md` 中 LOOP M0 的步骤分解表。
+~~**S0.3 · 定性前四类（起草）**~~（2026-10-25 订正：此处自 S0.3 之后未随步骤更新，S0.3–S0.8 均已完成）
+
+**S0.9 · 形态判决**——仍待需求方与项目负责人裁定 escalation_M0-001 的出路。判决前须先完成：
+S0.6R（出境机制补「关键信息基础设施运营者」前提）。
+详见 `docs/01-loops/2_模块Loop执行规范_v2_步进量化版.md` 中 LOOP M0 的步骤分解表。
 执行前必须先写步骤声明（will_produce / will_not_produce / success_criteria / risk），
 并在 `registry/module_status.yaml` 认领本模块。
 

@@ -1,0 +1,43 @@
+# S0.1P · 离线比较正例下界、小人群可检出效应与市场正例上限
+# 全部为显式假设或公开统计，需求方确认前不得作为结论使用。
+step_id: S0.1P
+purpose: 补算 S0.1 未覆盖的三个量：离线 AUROC 比较的正例下界、几千人规模下的可检出增益、观察窗内正例数上限
+
+# 检验参数（与 S0.1 一致）
+alpha: 0.05
+power: 0.80
+holdout_share: 0.50
+
+# 一、离线配对 AUROC 比较
+# AUROC 取值为量级假设：S5.X3 汇总中 HSBC mock 与 Santander 产品任务的联合模型点估计约 0.85–0.86，
+# Orange 等任务约 0.66–0.81；取两个代表档。
+reference_aucs: [0.86, 0.70]
+# 待检出的配对 AUROC 差（绝对值）
+paired_auc_mdes: [0.02, 0.01, 0.005]
+# 正例率：3.0% 为 DR-MX-001 · D-3 的显式假设；1.0% 为更稀疏的对照档
+base_rates: [0.03, 0.01]
+# 两个模型 AUROC 估计之间的相关系数（同一批测试客户）。0.8 偏保守，0.9 为对照档。
+estimate_correlations: [0.8, 0.9]
+
+# 二、小人群双臂随机对照
+primary_base_rate: 0.03            # DR-MX-001 · D-3
+# 人群规模档位：low/mid/high 为 S0.5（route_A.md）R-A 漏斗的三档估计；N_eff 为 S0.1 的可验证下界
+populations:
+  R-A_low: 3
+  R-A_mid: 226
+  R-A_high: 5814
+  S0.1_N_eff: 30000
+
+# 三、市场正例上限（公开统计）
+market_statistic:
+  name: 2026 年 1–8 月跨境理财通内地新增个人投资者
+  value: 8800
+  months_observed: 8
+  source: 中国金融信息网 2026-09-30 报道（文中称来自央行数据）
+  url: https://www.cnfin.com/gs-lb/detail/20260930/4476478_1.html
+  caveat: 「新增投资者」是首次参与该业务，不等于「首次成功申购」；是全市场全部银行的合计
+window_days: 90                    # 与 S0.1 命题的观察窗一致
+# 机构份额为情景假设，不是事实；需求方提供真实份额后作废
+institution_shares: [0.05, 0.10, 0.20]
+
+seed: 42                           # 本步无随机过程；声明以备后续复用（第 9 部分第 2 条）

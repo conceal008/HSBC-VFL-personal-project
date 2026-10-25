@@ -1,0 +1,70 @@
+change_id: CL-20261025-MX-002
+timestamp: '2026-10-25T18:30:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: MX
+type: doc
+title: S-MX.3 整理决策证据阶段任务清单 T1–T15
+what: |
+  新增 docs/03-handoff/下一阶段任务清单_20261025.md：阶段目标（形态判决、L3 相对 L1、可验证性、盈亏平衡）、
+  15 项任务按「需不需要恢复授权」「需不需要需求方输入」分组、关键路径与本机条件。
+  START_HERE 顶部加指引；registry/module_status.yaml 新增 next_phase_plan_20261025 条目并更新 governance。
+  不改代码、配置、结果与既有计划原文；experiment_pause 不变。
+why: |
+  所有者 2026-10-25 指示「整理下一阶段的任务并开始」。DR-MX-002 · D-5 改了恢复后的顺序，
+  但仓库里没有一份把「现在能做」「等授权」「等需求方」分开的清单，新 Agent 无法判断哪些可以立刻开工。
+links:
+  branch_card: none
+  decision_record: DR-MX-002
+  loop_step: 跨模块计划（S-MX.3）
+cross_border_impact: none
+cross_border_detail: 只写计划文档与状态，不涉及任何跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 只含任务描述与仓库内文件引用；不含数据、标识或凭证。
+downstream_affected:
+- M0
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: docs/03-handoff/下一阶段任务清单_20261025.md
+  config_hash: none
+  seeds: []
+  env_lock: environments/python.lock
+rollback: revert 本提交；任务清单是新文件，删除不影响其他文件。
+verification: 清单中每个任务的前置均对照 DR-MX-002、RESTART_PLAN 与 module_status 核对；本地门禁通过后提交。
+step:
+  step_id: S-MX.3
+  step_name: 整理决策证据阶段任务清单
+  declaration: |
+    will_produce：一份任务清单（目标、T1–T15、关键路径、本机条件）；START_HERE 指引；registry 状态。
+    will_not_produce：不授权恢复实验；不改 RESTART_PLAN 与 DR 原文；不改代码与结果。
+    success_criteria：每项任务都标明模块、前置、是否需授权与当前状态；授权节点只有一个且写明。
+    risk：任务清单可能被误读为恢复授权——清单首段与 T5 已写明「不授权恢复实验」。
+  scope:
+    files_changed: 4
+    lines_added: 151
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "docs/03-handoff/下一阶段任务清单_20261025.md 第二节 15 项均含模块、前置、需授权、状态四列"
+      D2: "每个前置都指向 DR-MX-002、RESTART_PLAN 或 module_status 的具体条目"
+      D3: "纯文档，新增文件，可独立回滚"
+      D4: "整理已有决策为可执行顺序，新增信息有限，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: T1（M6 S6.P1）

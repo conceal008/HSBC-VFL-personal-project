@@ -1,10 +1,11 @@
 updated_at: '2026-10-25T16:10:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S-MX.2约束复核与口径修订（DR-MX-002）；所有科研实验仍暂停
-  last_action_at: '2026-10-25T16:10:00+08:00'
+  last_action: S-MX.3整理下一阶段任务清单（T1–T15）；所有科研实验仍暂停
+  last_action_at: '2026-10-25T18:30:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261025-MX-001
+  change_id: CL-20261025-MX-002
+  previous_action_20261025a: S-MX.2约束复核与口径修订（DR-MX-002，CL-20261025-MX-001）
   previous_action_20261016: S9.H2整理迁移漏洞复核与修复（CL-20261016-M9-001，Codex，2026-10-16T01:39:33+00:00）
   previous_action_000: 新增术语与表达规范并建立权威术语表（S-GOV.4，CL-20260830-GOV-008，2026-08-30T02:15:00+08:00）
   previous_action_00: 新增结果可见性要求（S-GOV.3，CL-20260830-GOV-007，2026-08-30T01:45:00+08:00）
@@ -400,6 +401,17 @@ constraint_review_20261025:
   review_doc: docs/03-handoff/约束与步骤复核_20261025.md
   branch: gov/constraint-review-20261025
   next_step: S0.6R（M0）；所有者合并 PR 后 DR-MX-002 生效
+next_phase_plan_20261025:
+  step_id: S-MX.3
+  status: committed
+  claimed_by: null
+  claimed_at: '2026-10-25T18:30:00+08:00'
+  expires_at: '2026-10-26T18:30:00+08:00'
+  scope: 整理决策证据阶段任务 T1–T15；只写清单与状态，不授权恢复实验
+  change_id: CL-20261025-MX-002
+  plan_doc: docs/03-handoff/下一阶段任务清单_20261025.md
+  branch: m6/evaluation-protocol-v1
+  next_step: T1（M6 S6.P1 评估口径冻结与判据校准）
 experiment_pause:
   status: paused_by_user
   recorded_at: '2026-10-15T12:31:51+00:00'

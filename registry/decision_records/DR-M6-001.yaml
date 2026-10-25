@@ -1,0 +1,70 @@
+dr_id: DR-M6-001
+title: 冻结评估口径 v1；DR-MX-002 · D-2 推翻条件触发后的处理
+date: '2026-10-25T19:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+requested_by: conceal008（仓库所有者，2026-10-25 指示「整理下一阶段的任务并开始」；任务清单 T1）
+approved_by: conceal008（以合并本分支的 PR 为准；合并前本 DR 只是提议）
+module: M6
+status: active
+supersedes: null
+related_change_id: CL-20261025-M6-001
+related_step: S6.P1
+protocol_doc: modules/m6_evaluation/evaluation_protocol.md
+protocol_sha256: e1c995d654d61c1edda94922401e1f01f84d413cc566280ba5562420d81cea7a
+
+context: |
+  DR-MX-002 · D-1、D-2 把离线比较的判据改为配对差区间 + p 值，并要求每个比较声明测试集正例下界，
+  两条各留推翻条件。S6.P1 在打分层面的纯合成设定下检验了这两条（不训练模型，不使用任何数据）：
+  D-1 未触发；D-2 在 441 个正例档以 0.001 之差触发。本 DR 记录口径冻结与触发后的处理。
+  本 DR **不授权恢复任何实验**。
+
+decisions:
+
+  - key: D-1
+    question: 评估口径以哪一版为准
+    decision: |
+      冻结 modules/m6_evaluation/evaluation_protocol.md v1（sha256 见 protocol_sha256），只对冻结之后新预注册的比较生效。
+      修改须另写 DR、升版本号并存档新的 sha256。
+    rationale: |
+      Loop 规范 S6.1 要求「冻结评估口径，含 MDE 定义，哈希存档，此后修改需 DR」。本仓库的 S6.1 实际做的是指标库与条件价值曲线，
+      冻结口径一直缺位；DR-MX-002 改了判据之后，口径须落成一份可引用的冻结文件。
+    consequences:
+      - "任务清单 T4（G3 五臂对比预注册）按 v1 第三至六节写"
+    falsifier: 所有者不合并本分支的 PR → v1 不生效，DR-MX-002 · D-1、D-2 的原文继续作为临时口径。
+
+  - key: D-2
+    question: DR-MX-002 · D-2 推翻条件触发后如何处理
+    decision: |
+      按其预先写定的后果执行，不因超出量小于模拟误差而改判：
+      ① 规划所需正例改用模拟法（备择设定），结果另存 modules/m6_evaluation/results/s6p1_positives_simulated.csv，
+         替代 S0.1P offline_auc_positives.csv 的规划用途；后者不改。合成设定中检出 0.02 约需 693 个正例。
+      ② 数据到手前用 S0.1P 闭式近似粗估时，两模型估计相关取 0.7，不取 0.8。
+      ③ 正式报告的可检出差异取重抽样法与闭式近似中较大者（evaluation_protocol v1 第四节）。
+    rationale: |
+      441 个正例档的功效为 0.880，超出 [0.707, 0.879] 上限 0.001；300 次重复的蒙特卡洛标准误约 0.019，
+      超出量在模拟误差以内，但阈值是事先定的。
+      进一步检查发现：S0.1P 默认相关 0.8 偏乐观，合成设定中两个系统误差相互独立的模型相关约 0.69；
+      第二次运行误用了零效应下的配对差标准差（偏小）求所需正例，第三次运行改为备择设定。
+      重抽样标准误与真实标准差之比在备择、150 个正例档约 0.89，略低于由同一 25% 阈值换算出的下限 0.894，故 ③ 取两法较大者。
+    consequences:
+      - "modules/m0_compliance/README.md 在 S0.1P 结论旁加注订正，S0.1P 的组件、配置与结果文件不改"
+      - "按公开统计推出的单个 90 日窗正例上限约 651 个（S0.1P，机构份额 20% 的情景），已低于检出 0.02 所需"
+    falsifier: |
+      在 M2 生成器上训练模型复核（恢复实验后）时，若闭式近似（相关 0.7）与模拟法所需正例相差 ≤ 25%，
+      ① 降为可选，规划可直接用闭式近似；若重抽样标准误比值在各档都落在 [0.894, 1.118]，③ 改为只用重抽样法。
+
+  - key: D-3
+    question: DR-MX-002 · D-1 原文要求的「M2 零效应合成设定」复核如何处理
+    decision: |
+      S6.P1 的打分层面校准作为 D-1 推翻条件的检验结果，M2 生成器上训练模型的复核记为欠账，所有者授权恢复实验后补一次。
+    rationale: 在 M2 生成器上训练模型再比较属于实验，暂停期间不做；打分层面的校准直接检验判据本身的统计性质。
+    consequences:
+      - "M6 README 未决问题与 module_status 的 M6 条目记录该欠账"
+    falsifier: M2 上复核的第一类错误率 > 0.07 → DR-MX-002 · D-1 按其原文作废，回退旧判据。
+
+falsifier: |
+  本 DR 整体被推翻的条件：①所有者不合并本分支的 PR；②S6.P1 notebook 在干净检出上重跑，任一结果表与提交版本不一致；
+  ③独立复核发现 paired_eval 的两层重抽样实现与 evaluation_protocol v1 第三节描述不符。
+
+review_trigger: |
+  ①所有者授权恢复实验时（补 M2 复核）；②第一次在真实或代理数据上按 v1 做正式比较之后；③需求方给出测试集可用正例数时。

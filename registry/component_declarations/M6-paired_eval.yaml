@@ -1,0 +1,23 @@
+component: paired_eval
+module: M6
+path: modules/m6_evaluation/components/paired_eval.py
+purpose: 配对 AUROC 比较的两层重抽样（训练 seed × 客户簇）区间、p 值、可检出差异与四类结论；旧判据与 seed 级符号翻转对照；打分层面的合成校准与模拟法所需正例。
+inputs:
+- 测试集标签
+- 两个模型在各训练 seed 上的打分矩阵（同一测试客户、同一组 seed）
+- 客户簇标签（可选，默认每行一簇）
+- 重抽样次数、显著性水平、检验功效
+- 预注册的关心尺度
+- 合成校准参数（正例率、信号强度、系统误差与 seed 误差）
+outputs:
+- 配对差、95% 区间、p 值、两臂估计相关、重抽样标准误
+- 旧判据是否通过、符号翻转 p 值
+- 可检出差异（closed_form / bootstrap / conservative）与四类结论
+- 合成设定下的拒绝率、功效与所需正例数
+tests:
+- modules/m6_evaluation/tests/test_paired_eval.py
+cross_border_assets: []
+cross_border_note: 本组件只做统计计算与合成打分生成，不接触任何个人信息，不向境外传输任何数据，故无跨境资产。
+caveat: 校准结论只对打分层面的合成设定成立；真实比较以该次比较自己的重抽样结果为准。可检出差异的正式算法见 evaluation_protocol v1 第四节。
+declared_at: '2026-10-25'
+declared_by: Claude (claude-opus-5-5, Claude Code)

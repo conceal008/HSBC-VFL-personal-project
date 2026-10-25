@@ -1,0 +1,85 @@
+change_id: CL-20261025-M6-001
+timestamp: '2026-10-25T19:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M6
+type: feat
+title: S6.P1 冻结评估口径 v1，并用纯合成打分校准配对比较判据
+what: |
+  新增冻结版评估口径 modules/m6_evaluation/evaluation_protocol.md（v1，sha256 存档于本条 reproducibility 与 DR-M6-001）；
+  新增组件 components/paired_eval.py（训练 seed × 客户簇两层重抽样的配对 AUROC 区间与 p 值、三种可检出差异算法、
+  四类结论、旧判据与符号翻转对照、打分层面的合成校准与模拟法所需正例）及 22 项单元测试、组件声明 M6-paired_eval；
+  配置 configs/s6_p1_calibration.yaml；带输出的 notebook S6.P1_criterion_calibration.ipynb；
+  三张结果表 s6p1_type1_error.csv、s6p1_power_at_predicted_mde.csv、s6p1_positives_simulated.csv；
+  决策记录 DR-M6-001（口径冻结；DR-MX-002 · D-2 触发后的处理；D-1 的 M2 复核欠账）。
+  状态类字段同步：M6 README（状态、当前结论、未决问题、下一步、S6.P1 一节）、step_ledger（追加 S6.P1）、
+  registry/module_status.yaml 的 M6 条目与 governance、任务清单 T1/T2 状态、
+  项目进度总览.md 的 notebook 与组件声明计数（57→58、87→88）；M0 README 在 S0.1P 结论旁加注订正（S0.1P 文件不改）。
+why: |
+  任务清单 T1。DR-MX-002 · D-1、D-2 的推翻条件需要先检验，评估口径也须先冻结，G3 五臂对比的预注册（T4）才有依据。
+  验证的假设：①新判据在零效应下的第一类错误率 ≤ 0.07；②以 S0.1P 预测的可检出差异为真时，功效落在 [0.707, 0.879]。
+  ①成立（0.038、0.045）；②在 441 个正例档以 0.001 之差不成立（0.880），按预定后果改用模拟法：
+  检出 0.02 约需 693 个正例，S0.1P 默认相关 0.8 偏乐观（合成设定约 0.69）。
+  旧判据功效约 0.1；5 个 seed 的符号翻转功效恒为 0；6 个 seed 的符号翻转在零效应下拒绝率约 0.8。
+links:
+  branch_card: none
+  decision_record: DR-M6-001
+  loop_step: LOOP M6 S6.1「冻结评估口径」的补做（S6.P1）
+cross_border_impact: none
+cross_border_detail: 纯合成打分的统计计算，不涉及任何跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 不含真实数据、代理数据、派生统计量、标识或凭证；全部打分由程序按配置与种子生成，提交的只有生成逻辑、配置与汇总结果。
+downstream_affected:
+- M5
+- M0
+breaking_change: false
+migration: 无。新预注册的比较按 evaluation_protocol v1 写；已发布结果按发布时口径保留，不重判。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p1_calibration.yaml
+  config_hash: sha256:ba57a9fa5a31a687970c06b33dbd90157b2fa652a493b86a2309941a0c7bec49
+  protocol_hash: sha256:e1c995d654d61c1edda94922401e1f01f84d413cc566280ba5562420d81cea7a
+  seeds: [20261025]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；不改任何既有组件、配置与结果文件（M0 README 只加注）。
+verification: |
+  pytest modules/m6_evaluation/tests/test_paired_eval.py 22/22 通过，含加权 AUROC 与 sklearn 一致（含并列打分）、整数权重等价于重复样本、
+  符号翻转最小 p 值 2/2^S、保守法取两法较大者。notebook 由 nbclient 从头执行，首格打印运行指纹。
+  门禁 1、2、4、5、6、7 与 M9 证据链在本地逐项通过后提交；全量回归在推送前运行。
+step:
+  step_id: S6.P1
+  step_name: 配对比较判据的纯合成校准与评估口径 v1 冻结
+  declaration: |
+    will_produce：冻结的评估口径 v1；配对比较组件及其单元测试与组件声明；一份配置；一个带输出的 notebook；三张结果表；一份决策记录。
+    回答三个问题：新判据在零效应下的第一类错误率；以 S0.1P 预测差距为真时的功效（与旧判据、符号翻转对比）；
+    S0.1P 近似所需正例数的准确度。
+    will_not_produce：不训练任何模型，不使用任何真实或代理数据，不运行隐私集合求交（PSI）或攻击，不读封存确认集；
+    不重判任何已发布结果；不改 S0.1P 的组件、配置与结果文件。
+    success_criteria：组件全部公开函数有单测；D-1、D-2 两条推翻条件各有明确的触发与否；notebook 可从头执行、首格打印运行指纹；
+    口径文件有 sha256 存档；门禁全部通过。
+    risk：校准只在一种打分层面的合成误差结构上做，真实的两臂相关通常更高；推翻条件触发后加入的两处判据
+    （标准误比值区间、取两法较大者）是看到结果后补的——已在配置与 DR-M6-001 中注明先后，且都由 D-2 的同一阈值换算。
+  scope:
+    files_changed: 17
+    lines_added: 1437
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m6_evaluation/notebooks/S6.P1_criterion_calibration.ipynb 三段输出逐一对应声明的三个问题；evaluation_protocol.md 第七节逐项汇总"
+      D2: "modules/m6_evaluation/tests/test_paired_eval.py:39（加权 AUROC 与 sklearn 一致）、:73（符号翻转最小 p 值）"
+      D3: "配置驱动、nbclient 从头执行；但运行在提交前的工作区（指纹打印 e36a47c + 未提交标记），提交后未在干净检出上重跑，故 2 分"
+      D4: "modules/m6_evaluation/results/s6p1_positives_simulated.csv：检出 0.02 约需 693 个正例，S0.1P 发布 441；s6p1_power_at_predicted_mde.csv：旧判据功效约 0.1"
+  revisions: 0
+  verdict: committed
+  next_step: S6.P2（盈亏平衡与信息价值，任务清单 T2）

@@ -1,10 +1,11 @@
-updated_at: '2026-10-25T19:40:00+08:00'
+updated_at: '2026-10-25T20:10:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S6.P1冻结评估口径 v1 并用纯合成打分校准判据（任务清单 T1）；所有科研实验仍暂停
-  last_action_at: '2026-10-25T19:40:00+08:00'
+  last_action: S6.P2盈亏平衡与信息价值模型（任务清单 T2）；所有科研实验仍暂停
+  last_action_at: '2026-10-25T20:10:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261025-M6-001
+  change_id: CL-20261025-M6-002
+  previous_action_20261025c: S6.P1冻结评估口径 v1 并校准判据（CL-20261025-M6-001）
   previous_action_20261025b: S-MX.3整理下一阶段任务清单（T1–T15，CL-20261025-MX-002）
   previous_action_20261025a: S-MX.2约束复核与口径修订（DR-MX-002，CL-20261025-MX-001）
   previous_action_20261016: S9.H2整理迁移漏洞复核与修复（CL-20261016-M9-001，Codex，2026-10-16T01:39:33+00:00）
@@ -259,14 +260,15 @@ modules:
     claimed_at: '2026-10-25T18:40:00+08:00'
     expires_at: '2026-10-26T18:40:00+08:00'
     current_step: null
-    latest_completed_step: S6.P1
-    next_step: S6.P2（盈亏平衡与信息价值，任务清单 T2）；S6.2 起需要实验结果的步骤等恢复授权（T5）
+    latest_completed_step: S6.P2
+    next_step: T4（G3 五臂对比按 evaluation_protocol v1 预注册，只写声明）；S6.2 起需要实验结果的步骤等恢复授权（T5）
     active_branches: [m6/evaluation-protocol-v1]
     blocking_on:
     - M5 基线阶梯结果（S6.2 起）
     open_questions:
     - 🟢 **S6.P1（2026-10-25）**：评估口径 v1 已冻结（modules/m6_evaluation/evaluation_protocol.md，sha256 见 CL-20261025-M6-001）。D-1 未触发（零效应第一类错误率 0.038–0.045）；D-2 触发（441 正例功效 0.880 > 0.879），模拟法重算检出 0.02 约需 693 个正例；可检出差异取重抽样法与闭式近似较大者
     - D-1 原文要求的 M2 零效应合成设定复核属于实验，待恢复后补
+    - 🟠 **S6.P2（2026-10-25）**：显式假设下年联系人数的 EVPPI 最高（约占 EVPI 37%），不足 2 万人时任何单个参数都不改变「不做」；合规参数只在 5 万人以上进入前列——需求方问题单应先问共同客户数与可联系人数。需求方给出实际值后重跑
     - MDE 已定（DR-MX-001 · D-4）：**相对增益 20%**，本模块冻结口径时复核；小于该效应量的差异一律按「无显著差异」处理
     - 增益（uplift）为最终判据，AUC 降为诊断指标（DR-MX-001 · D-1）
     - 冻结评估口径时纳入 DR-MX-002 · D-1（配对差区间 + p 值，旧判据补报）与 D-2（测试集正例下界，S0.1P 组件）
@@ -419,7 +421,7 @@ next_phase_plan_20261025:
   change_id: CL-20261025-MX-002
   plan_doc: docs/03-handoff/下一阶段任务清单_20261025.md
   branch: m6/evaluation-protocol-v1
-  next_step: T2（M6 S6.P2 盈亏平衡与信息价值）；T1 已完成（S6.P1，CL-20261025-M6-001）
+  next_step: T3 问题单按 S6.P2 调整顺序（仓库外）、T4 G3 五臂对比预注册；T1、T2 已完成（CL-20261025-M6-001、-002）
 experiment_pause:
   status: paused_by_user
   recorded_at: '2026-10-15T12:31:51+00:00'

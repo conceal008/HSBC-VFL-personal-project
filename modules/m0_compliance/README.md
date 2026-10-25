@@ -152,6 +152,11 @@ S0.3 的每条定性从此有可引用的原文底稿。
 > 1. **离线比较两个模型的 ROC曲线下面积（AUROC），精度由测试集正例数决定**，几乎不随正例率变化：
 >    参考 AUROC 0.86、两模型估计相关 0.8 时，检出配对差 0.02 约需 441 个正例，0.01 约需 1,763 个
 >    （[`offline_auc_positives.csv`](results/offline_auc_positives.csv)）。
+>
+>    ⚠️ **2026-10-25 订正（M6 S6.P1，DR-M6-001）**：默认相关 0.8 偏乐观。打分层面的合成校准中，两个系统误差相互独立的模型
+>    估计相关约 0.69；模拟法检出 0.02 约需 693 个正例
+>    （[`s6p1_positives_simulated.csv`](../m6_evaluation/results/s6p1_positives_simulated.csv)），已高于下面第 3 条的单窗上限 651 个。
+>    规划以 [`evaluation_protocol.md`](../m6_evaluation/evaluation_protocol.md) 第五节为准；本步文件不改。
 > 2. **S0.5 最乐观档 5,814 人只能检出约 46% 的相对增益**，达不到 DR-MX-001 · D-4 的 20%；
 >    226 人与 3 人两档的对照臂期望转化数不足 5，检验本身不成立
 >    （[`small_population_detectable_lift.csv`](results/small_population_detectable_lift.csv)）。

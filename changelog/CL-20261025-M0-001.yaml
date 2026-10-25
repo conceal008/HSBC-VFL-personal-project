@@ -1,0 +1,85 @@
+change_id: CL-20261025-M0-001
+timestamp: '2026-10-25T15:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M0
+type: feat
+title: S0.1P 补算离线比较正例下界、小人群可检出效应与市场正例上限
+what: |
+  新增组件 modules/m0_compliance/components/validation_power.py（Hanley–McNeil 近似 + 配对相关修正；
+  双臂检验沿用 S0.1 的 required_n_per_arm）、配置 configs/s0_1p_validation_power.yaml、
+  13 项单元测试、带输出的 notebook S0.1P_validation_power.ipynb 和三张结果表：
+  results/offline_auc_positives.csv、small_population_detectable_lift.csv、market_positive_ceiling.csv；
+  新增组件声明 registry/component_declarations/M0-validation_power.yaml。
+  术语表新增「关键信息基础设施运营者」（本步 README 下一步首次使用，法定术语，append-only）。
+  状态类字段同步：M0 README（状态、当前结论、下一步——原「下一步」自 S0.3 起未更新，一并订正）、
+  step_ledger（追加 S0.1P、指标、补记抽查欠账）、registry/module_status.yaml 的 M0 条目、
+  项目进度总览.md 的 notebook 与组件声明计数（55→56、86→87，证据链 F2/F3 的真值随本步变化）。
+  S0.1 的组件、配置、notebook 与 mde_sample_size.csv 一律不改。
+why: |
+  2026-10-25 所有者要求复核项目约束。复核发现 S0.1 的 N_eff ≥ 30,000 是随机对照增益检验的人数口径，
+  本身成立；但项目里的离线 AUROC 比较从未换算成「需要多少正例」，几千人规模下试点能检出多大效应也没有算过。
+  验证的假设：离线比较的检出能力由正例数决定、几乎不随正例率变化；
+  S0.5 最乐观档 5,814 人检不出 DR-MX-001 · D-4 规定的 20% 相对增益。
+  两条在 notebook 中都被确认：正例率 3.0% 与 1.0% 下最少正例数相差不到 2%；5,814 人只能检出约 46%。
+links:
+  branch_card: none
+  decision_record: DR-MX-001
+  loop_step: M0 S0.1 的补算步骤（S0.1P）
+cross_border_impact: none
+cross_border_detail: 只做公式推导，输入为显式假设与一条公开新闻统计，不涉及任何跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 不含真实数据、派生统计量、标识或凭证；唯一外部数字是公开报道的全市场跨境理财通新增投资者人数，附来源链接。
+downstream_affected:
+- M5
+- M6
+breaking_change: false
+migration: 无。新增文件，不改既有接口。
+reproducibility:
+  config: modules/m0_compliance/configs/s0_1p_validation_power.yaml
+  config_hash: sha256:487fe0aae38cbea4895bc7679a398661919223a1c58c39f3d6aa7ec3b855898b
+  seeds: [42]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；S0.1 的产出未被修改。
+verification: |
+  pytest modules/m0_compliance/tests/test_validation_power.py 13/13 通过，含 Hanley–McNeil 手算值核对（300 正例、8,100 负例、AUROC 0.86 → 标准误 0.01369）
+  与 S0.1 交叉核对（30,000 人可检出相对增益 19.2% ≤ 20%）。notebook 由 nbclient 从头执行，execution_count 1→4 单调。
+  本地 ci/run_all_gates.sh 全部门禁通过后提交。
+step:
+  step_id: S0.1P
+  step_name: 离线比较正例下界、小人群可检出效应与市场正例上限
+  declaration: |
+    will_produce：一个新组件及其单元测试与组件声明；一份配置；一个带输出的 notebook；三张结果表。
+    回答三个问题：离线配对 AUROC 比较需要多少测试集正例；几千人的双臂随机对照能检出多大效应；
+    公开统计给每个 90 日观察窗的正例数设多高的上限。
+    will_not_produce：不改 S0.1 的组件、配置、notebook 与结果；不改 N_eff ≥ 30,000 的结论；
+    不使用任何真实或代理行数据；不运行任何训练、隐私集合求交（PSI）或攻击；不把份额情景写成事实。
+    success_criteria：组件全部函数有单测；30,000 人档可检出效应与 S0.1 的 20% 口径一致；
+    notebook 可从头执行、首格打印运行指纹；每张表下方有一句话结论；门禁全部通过。
+    risk：近似公式与模拟结果的偏差未在本步验证；AUROC、估计相关与机构份额都是情景假设，
+    读者可能把「上限」读成「估计」——结论段已写明两者区别。
+  scope:
+    files_changed: 14
+    lines_added: 872
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m0_compliance/notebooks/S0.1P_validation_power.ipynb 三段输出逐一对应声明的三个问题；S0.1 文件 git diff 为空"
+      D2: "modules/m0_compliance/tests/test_validation_power.py:42（手算标准误）、:84（与 S0.1 口径交叉核对）"
+      D3: "配置驱动、nbclient 从头执行；但运行在提交前的工作区（指纹打印 e320d91 + 未提交标记），提交后未在干净检出上重跑，故 2 分"
+      D4: "modules/m0_compliance/results/small_population_detectable_lift.csv:4：5,814 人只能检出 46.2% 相对增益；offline_auc_positives.csv：检出 0.02 配对差约需 441 个测试集正例"
+  revisions: 0
+  verdict: committed
+  next_step: S-MX.2（约束复核与口径修订，DR-MX-002）；M0 后续 S0.6R 补「关键信息基础设施运营者」前提

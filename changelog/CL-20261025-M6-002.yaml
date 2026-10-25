@@ -1,0 +1,80 @@
+change_id: CL-20261025-M6-002
+timestamp: '2026-10-25T20:10:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M6
+type: feat
+title: S6.P2 盈亏平衡与信息价值模型：先问哪个数
+what: |
+  新增组件 modules/m6_evaluation/components/breakeven.py（不做、L1、L3 三个选项的项目期净值蒙特卡洛模型；
+  L3 出境机制按 S0.6R 规则选取并计入安全评估不获通过的风险；盈亏平衡命中提升；EVPI 与分箱 EVPPI）及 13 项单元测试、
+  组件声明 M6-breakeven；配置 configs/s6_p2_breakeven.yaml（19 个参数逐项注明来源，全部为显式假设）；
+  带输出的 notebook S6.P2_breakeven_value_of_information.ipynb；四张结果表 s6p2_decision_summary.csv、s6p2_evppi.csv、
+  s6p2_evppi_by_contact_tier.csv、s6p2_breakeven_grid.csv。
+  状态类字段同步：M6 README、step_ledger（追加 S6.P2）、registry/module_status.yaml 的 M6 条目与 governance、
+  任务清单 T2 状态、项目进度总览.md 的 notebook 与组件声明计数（58→59、88→89）。
+why: |
+  任务清单 T2。需求方给出真实参数之前，「做不做联邦、做哪种」取决于一组未知数，须先排出哪个最值得问。
+  验证的假设：是否为关键信息基础设施运营者是最先要问的问题（DR-MX-002 · D-3 的问题单顺序）。
+  结果不支持该假设：全样本上合规相关参数的 EVPPI 都是 0；年联系人数（约占 EVPI 37%）、L3 命中提升（29%）、
+  L1 捕获比例（13%）、因果占比（9%）依次排前。合规参数只在年联系 5 万人以上时才进入前列。
+  年联系不足 2 万人时，任何单个参数都不改变「不做」的决策。
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: LOOP M6 S6.8「盈亏平衡点求解」的前置（S6.P2，不用数据）
+cross_border_impact: none
+cross_border_detail: 只对显式假设做蒙特卡洛计算，不涉及任何跨境资产；合规路径规则引用 S0.6R，属技术侧自评（W-001）。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 不含真实数据、派生统计量、标识或凭证；单客价值区间引自此前基于公开财报的测算，只用于盈亏平衡计算，不与公开数据集上的命中率差相乘。
+downstream_affected:
+- M0
+- M5
+breaking_change: false
+migration: 无。新增文件，不改既有接口。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p2_breakeven.yaml
+  config_hash: sha256:649409fccf6f77e8eb5a98770f7a1923bfd1b7eedfe5e93ea9b1ffcb897538e7
+  seeds: [20261025]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；不改任何既有组件、配置与结果文件。
+verification: |
+  pytest modules/m6_evaluation/tests/test_breakeven.py 13/13 通过，含净值公式手算核对、盈亏平衡点处净值为零、
+  S0.6R 规则五种组合、EVPPI 介于 0 与 EVPI 之间、决定性参数的 EVPPI 等于 EVPI。
+  notebook 由 nbclient 从头执行，首格打印运行指纹；不进入模型的噪声基线参数 EVPPI 为 0；两半样本 EVPPI 前 3 名一致。
+  门禁 1、2、4、5、6、7 与 M9 证据链在本地逐项通过后提交；全量回归在推送前运行。
+step:
+  step_id: S6.P2
+  step_name: 盈亏平衡与信息价值模型
+  declaration: |
+    will_produce：一个新组件及其单元测试与组件声明；一份配置；一个带输出的 notebook；四张结果表。
+    回答三个问题：现有假设下三个选项各自胜出的概率；L3 的盈亏平衡命中提升；每个未知参数的部分完全信息期望价值排序。
+    will_not_produce：不使用任何真实或代理数据；不把公开数据集上的命中率差换算成收益；不给出「联邦划算或不划算」的结论；
+    不训练任何模型，不运行隐私集合求交（PSI）或攻击。
+    success_criteria：净值公式与盈亏平衡点有手算单测；EVPPI 有噪声基线对照与两半样本稳定性检查；每格输出下方有读法；门禁全部通过。
+    risk：结论完全依赖参数分布的假设，尤其是年联系人数与成本区间；读者可能把「期望净值为负」读成「联邦不划算」——读法与结论段已写明它只是排序依据。
+  scope:
+    files_changed: 15
+    lines_added: 1170
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m6_evaluation/notebooks/S6.P2_breakeven_value_of_information.ipynb 四段输出逐一对应声明的三个问题与稳定性检查"
+      D2: "modules/m6_evaluation/tests/test_breakeven.py:76（净值手算核对）、:95（盈亏平衡点处净值为零）"
+      D3: "配置驱动、nbclient 从头执行；运行在提交前的工作区（指纹打印上一提交 + 未提交标记），提交后未在干净检出上重跑，故 2 分"
+      D4: "modules/m6_evaluation/results/s6p2_evppi.csv：合规参数 EVPPI 全为 0，与「先问是否为关键信息基础设施运营者」的假设相反；s6p2_evppi_by_contact_tier.csv：5 万人以上档合规参数才进入前列"
+  revisions: 0
+  verdict: committed
+  next_step: T3 需求方问题单按本步结果调整顺序（仓库外）；T4 G3 五臂对比预注册

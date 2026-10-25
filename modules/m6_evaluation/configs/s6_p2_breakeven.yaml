@@ -1,0 +1,117 @@
+# S6.P2 · 盈亏平衡与信息价值（EVPI / EVPPI）
+# ---------------------------------------------------------------------------
+# 全部参数都是显式假设，不含任何业务数据；不把公开数据集上的命中率差换算成收益（对外红线）。
+# 货币单位：港元。项目期内不贴现。各参数相互独立抽样。
+# 需求方或法务给出实际值后，按新值重跑；本步的作用是排出「先问哪个数」的顺序，不是给出收益结论。
+# ⚠️ 合规路径与成本为技术侧自评，未经法务复核（W-001）。
+# ---------------------------------------------------------------------------
+step_id: S6.P2
+purpose: 在显式假设的参数分布下，比较不做、L1、L3 三个选项的项目期净值，求 L3 的盈亏平衡命中提升，并按部分完全信息期望价值（EVPPI）排出待问参数的优先级
+seed: 20261025
+
+n_samples: 200000
+n_bins: 20                      # EVPPI 分箱数；伯努利参数按取值分组
+n_split_check: 2                # 把样本对半分，检查 EVPPI 排序是否稳定
+
+parameters:
+  horizon_years:                # 项目期（年）
+    dist: constant
+    value: 3
+  contacts_per_year:            # 每年按名单联系的客户数。上限受共同客户数约束（10/30 问题单第 2 问）
+    dist: loguniform
+    low: 5000
+    high: 100000
+  delta_hit_l3:                 # L3 相对本地单边模型，在联系名单上的命中率绝对提升。不来自公开数据结果
+    dist: loguniform
+    low: 0.002
+    high: 0.03
+  causal_share:                 # 多命中的客户里，没有被联系就不会购买的比例（随机分组试点测量）
+    dist: uniform
+    low: 0.1
+    high: 0.6
+  value_per_customer:           # 每个增量新客的贡献（港元）。锚定公开财报的新客 LTV 测算：普通推广约 1.0–1.4 万，混合口径约 2.0–2.2 万
+    dist: triangular
+    low: 8000
+    mode: 12000
+    high: 22000
+  l1_capture_ratio:             # L1 的命中提升占 L3 的比例。合成实验 2.1%–15.5%（众数取其中段）；L1 尚未同等认真实现，右尾放宽到 0.6
+    dist: triangular
+    low: 0.02
+    mode: 0.10
+    high: 0.60
+  is_ciio:                      # 内地侧是否为关键信息基础设施运营者。由保护工作部门认定并通知运营者，技术侧无法判定
+    dist: bernoulli
+    p: 0.5
+  gba_eligible:                 # 是否适用大湾区标准合同（内地侧签约主体注册地须在大湾区内地九市）
+    dist: bernoulli
+    p: 0.5
+  training_cohort_small:        # 形态 A 训练人群是否不满 1 万人（梯度按敏感个人信息计）
+    dist: bernoulli
+    p: 0.5
+  assessment_cost:              # 数据出境安全评估的一次性成本（外部律所、材料、内部人力）
+    dist: loguniform
+    low: 300000
+    high: 2000000
+  assessment_delay_months:      # 安全评估端到端周期。route_A.md：法定约 57 个工作日，端到端 6–12 个月为经验口径
+    dist: triangular
+    low: 6
+    mode: 9
+    high: 12
+  assessment_approved:          # 安全评估获通过的概率。纯假设；不可事先问到，EVPPI 只作参照
+    dist: bernoulli
+    p: 0.7
+  l3_prep_share:                # 评估结果出来前已投入的建设成本占比（未通过时的沉没成本）
+    dist: constant
+    value: 0.3
+  contract_cost:                # 标准合同或大湾区标准合同 + 个人信息保护影响评估的一次性成本
+    dist: loguniform
+    low: 50000
+    high: 400000
+  contract_delay_months:        # route_B.md 约 1–3 个月；route_C.md 大湾区约 1 个月
+    dist: triangular
+    low: 1
+    mode: 2
+    high: 3
+  l3_build_cost:                # 双向联邦的建设成本：双方部署、隐私集合求交、联调、安全评审
+    dist: loguniform
+    low: 1000000
+    high: 8000000
+  l3_annual_ops:                # 双向联邦的年运维：算力、专线、双方运维与模型治理
+    dist: loguniform
+    low: 300000
+    high: 2000000
+  l1_build_cost:                # L1：聚合统计管道与本地模型改造
+    dist: loguniform
+    low: 200000
+    high: 1500000
+  l1_annual_ops:
+    dist: loguniform
+    low: 50000
+    high: 400000
+  l1_compliance_cost:           # k-匿名聚合统计按不构成个人信息出境处理，只计内部合规评审；前提由法务确认
+    dist: loguniform
+    low: 20000
+    high: 200000
+  l1_delay_months:
+    dist: triangular
+    low: 1
+    mode: 2
+    high: 4
+
+# 噪声基线：一个不进入模型的参数，其 EVPPI 是分箱估计的有限样本偏差
+noise_reference:
+  dist: uniform
+  low: 0
+  high: 1
+
+# 按年联系人数分档看决策与 EVPPI（左闭右开，最后一档含上界）
+contact_tiers: [5000, 20000, 50000, 100000]
+top_k_evppi: 6
+breakeven_quantiles: [0.1, 0.25, 0.5, 0.75, 0.9]
+
+# 确定性盈亏平衡表：其余参数取中心值
+grid_contacts: [5000, 10000, 20000, 50000, 100000]
+grid_values: [10000, 14000, 22000]
+
+# 推翻条件：EVPPI 前三名在两半样本上不一致，则排序不可用，须加大 n_samples 后重跑
+top_k_stability: 3

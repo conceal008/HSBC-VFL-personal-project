@@ -1,0 +1,19 @@
+component: breakeven
+module: M6
+path: modules/m6_evaluation/components/breakeven.py
+purpose: 不做、L1、L3 三个选项的项目期净值蒙特卡洛模型；L3 的盈亏平衡命中提升；完全信息期望价值（EVPI）与部分完全信息期望价值（EVPPI）。
+inputs:
+- 每个参数的显式假设分布（年联系人数、命中提升、因果占比、单客价值、L1 捕获比例、合规前提与成本、建设与运维成本、项目期）
+- 抽样数与 EVPPI 分箱数
+outputs:
+- 每组抽样下三个选项的净值
+- 期望净值、净值为正概率、胜出概率
+- EVPI 与按 EVPPI 排序的参数表
+- 盈亏平衡命中提升（抽样分布与确定性网格）
+tests:
+- modules/m6_evaluation/tests/test_breakeven.py
+cross_border_assets: []
+cross_border_note: 本组件只对显式假设做蒙特卡洛计算，不接触任何个人信息或业务数据，不向境外传输任何数据，故无跨境资产。合规路径规则引用 S0.6R，属技术侧自评（W-001）。
+caveat: 全部输入为假设，输出是「先问哪个数」的顺序与门槛形状，不是收益结论；不得把公开数据集上的命中率差代入命中提升参数。
+declared_at: '2026-10-25'
+declared_by: Claude (claude-opus-5-5, Claude Code)

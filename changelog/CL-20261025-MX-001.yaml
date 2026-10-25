@@ -1,0 +1,89 @@
+change_id: CL-20261025-MX-001
+timestamp: '2026-10-25T16:10:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: MX
+type: decision
+title: S-MX.2 约束复核与五项口径修订（DR-MX-002）
+what: |
+  新增 registry/decision_records/DR-MX-002.yaml（五项决策：显著性判据前瞻修订、离线比较正例下界、
+  出境推演补「关键信息基础设施运营者」前提并分开计训练与试点人群、神经网络禁令下的树或线性单向形态候选、
+  恢复后第一批顺序）与 docs/03-handoff/约束与步骤复核_20261025.md（15 项逐条对照仓库原文的复核表，
+  含 3 项对仓库外判断的更正）。
+  状态类标注：项目目标与要求.md 第 8 节显著性一行按删除线 + 修订说明处理、第 17 节表后补充新待裁定事项；
+  START_HERE 与 RESTART_PLAN 顶部加指引，原文不改；registry/module_status.yaml 更新 governance、M5、M6 与新增复核条目。
+  不改任何代码、配置、notebook、结果文件、冻结报告与已发布结论；experiment_pause 不变。
+why: |
+  所有者要求复核约束与步骤并修正不合理之处。逐条核对发现四类需要改口径的问题：
+  ① 「跨 ≥5 seed 且区间不重叠」不是差异检验，且 5 个 seed 的符号翻转检验最小 p=0.0625，按 0.05 不可能通过；
+  ② 离线 AUROC 比较从未声明正例下界（S0.1P 已补算）；
+  ③ legal_references.md 的法条摘录漏掉「关键信息基础设施运营者以外的数据处理者」限定语，
+     且出境人数把训练人群与随机对照试点人群当成同一批人；
+  ④ S0.9 所需的形态 B 代价证据只有被禁的 SplitNN 结果，恢复顺序也把核心问题一（L3 相对 L1）排在最后。
+  显著性判据只前瞻适用，避免违反禁止事项第 23 条（实验后修改评估口径）。
+links:
+  branch_card: none
+  decision_record: DR-MX-002
+  loop_step: 跨模块口径决策（S-MX.2）
+cross_border_impact: requires_m0_review
+cross_border_detail: |
+  不新增、不改动任何跨境资产定性，registry/cross_border_assets.yaml 未改。
+  D-3 改变的是出境机制推演的适用前提（是否为关键信息基础设施运营者）与人数口径（训练人群与试点人群分开），
+  须由 M0 的 S0.6R 落实，并在 S0.9 判决前复核。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 只含文档、决策记录与公开法规链接；不含真实数据、派生统计量、标识、交集规模或凭证。
+downstream_affected:
+- M0
+- M3
+- M5
+- M6
+breaking_change: false
+migration: 无代码迁移。D-1、D-2 只约束合并之后新预注册的比较；已发布结果按原口径保留。
+reproducibility:
+  config: registry/decision_records/DR-MX-002.yaml
+  config_hash: sha256:80840d051635d6ff22b5f34449cb8a83df40a84880ca65b1de1d2ac8d265b947
+  seeds: []
+  env_lock: environments/python.lock
+rollback: revert 本提交；DR-MX-002 改为 superseded 并另写 DR 说明原因（已归档 DR 不删除）。
+verification: |
+  复核表 15 项的「仓库出处」逐条用 grep 对照原文；法条原文三段（第五条第（四）项、第七条第（一）（二）项、第八条）
+  对照国家网信办官网文本；全仓库 grep「关键信息基础设施」在本步之前为 0 处。
+  交接合同测试 tools/tests/test_handoff_archive.py、test_handoff_contracts.py 21/21 通过（START_HERE、RESTART_PLAN 加注后）。
+  本地 ci/run_all_gates.sh 全部门禁通过后提交。
+step:
+  step_id: S-MX.2
+  step_name: 约束与步骤复核及口径修订
+  declaration: |
+    will_produce：一份逐条对照仓库原文的复核报告；一份决策记录 DR-MX-002（每项含推翻条件）；
+    在被修订条款处加删除线与修订说明，在接手入口加指引；registry 状态同步。
+    will_not_produce：不运行任何实验、隐私集合求交（PSI）或攻击；不改代码、配置、notebook、结果与冻结报告；
+    不重判已发布结论；不改 cross_border_assets.yaml；不解除实验暂停；不替所有者裁定主线取舍与收敛判据。
+    success_criteria：每条复核结论都能指到仓库文件与位置；对仓库外判断的错误如实更正；
+    五项决策各有推翻条件；修订处保留原文；交接合同测试与全部门禁通过。
+    risk：法条读法未经法务复核；「训练人群与试点人群分开计数」依赖推断协议在 cn→hk 方向传什么，尚未逐协议核对，
+    DR 中已写为待核对项而非结论。
+  scope:
+    files_changed: 7
+    lines_added: 348
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 2
+    D3_reproducibility: 3
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "docs/03-handoff/约束与步骤复核_20261025.md 第二节 15 项，每项含出处、结论与处理；DR-MX-002.yaml decisions D-1..D-5 各含 falsifier"
+      D2: "法条原文已对照官网，但读法未经法务复核；D-1 的推翻条件（零效应合成模拟）尚未执行，故 2 分"
+      D3: "全部修订保留原文（项目目标与要求.md 第 8 节删除线；START_HERE、RESTART_PLAN 只在顶部加注），每处引用 DR-MX-002 的具体决策编号"
+      D4: "DR-MX-002.yaml D-3：全仓库此前未讨论关键信息基础设施运营者；训练人群与试点人群在 legal_references.md「决定性影响」中被视为同一人群"
+  revisions: 0
+  verdict: committed
+  next_step: S0.6R（M0）补正法条摘录并在 export_mechanism 中加入关键信息基础设施运营者前提

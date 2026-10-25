@@ -7,10 +7,13 @@ inputs:
 - 是否含敏感个人信息
 - 门槛表
 - 是否适用大湾区标准合同
+- 是否为关键信息基础设施运营者（2026-10-25，S0.6R，DR-MX-002 · D-3；默认否，与既有结果一致）
 outputs:
 - 所需机制（豁免/标准合同/安全评估/大湾区标准合同/不适用）
+- 多类资产并存时的最重机制（strictest，2026-10-25 新增）
 tests:
 - modules/m0_compliance/tests/test_compliance_components.py
+- modules/m0_compliance/tests/test_export_mechanism_ciio.py
 cross_border_assets: []
 cross_border_note: 本组件全程只处理**程序生成的合成数据**，不接触真实个人信息，不向境外传输任何数据，故无跨境资产。
 caveat: ⚠️ 本项目不设合规角色，本组件编码的法条解读**未经法务复核**（豁免 W-001）。

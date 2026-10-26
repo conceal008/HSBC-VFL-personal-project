@@ -1,0 +1,81 @@
+change_id: CL-20261026-M7-001
+timestamp: '2026-10-26T21:30:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M7
+type: exp
+title: S7.G1 B_T1 编码组合披露评估：多数香港字段可几乎确定推出
+what: |
+  新增组件 modules/m7_security/components/code_disclosure.py（编码组合等价类、按编码推断香港字段、组合级 k-匿名抑制、按 S5.G1 做法重建发布内容）、
+  单测 10 项、组件声明 M7-code_disclosure；步骤声明 S7.G1_B_T1披露评估_步骤声明.md；运行配置 configs/s7_g1_bt1_disclosure.yaml；
+  带汇总输出的运行入口 notebooks/S7.G1_bt1_disclosure.ipynb；公开汇总 results/bt1_disclosure_v1/（三张表与说明）；分支卡 BC-M7-003。
+  状态类字段同步：M7 README、step_ledger（追加 S7.G1，8/15）、registry/module_status.yaml 的 M7、M0（S0.9 输入）与 governance、项目进度总览 notebook 与声明计数。
+why: |
+  S5.G1 显示单向候选 B_T1 拿到双向联邦增益的约 92%；S0.9 形态判决若据此偏向单向形态，须先知道 B_T1 发出了什么（DR-GOV-017 · D-3）。
+  验证的假设与结果（S5.G1 的 Santander 构造切分，6 个 seed，最坏情形假设内地知道编码到特征区域的映射）：
+  ① B_T1 在编码组合层面满足 k-匿名——不成立，训练发布中约 5.4% 的行所在组合不足 10 位客户（R1）；
+  ② B_T1 发出的只是粗粒度信息——不成立，单次发布平均 16.2 个香港字段（14–20）推断 AUROC ≥ 0.99，持有者被确定推出的比例字段平均 59%；L1_k10 只有 1 个字段（R2）；
+  ③ 存在精度接近 B_T1 而披露明显更少的变体——部分成立：精度与披露同升同降；3 棵深 3 内层验证比 L1_k10 高约 0.03、可确定推出约 7 个字段（R3 候选，本步不在开发评估集上评估）。
+links:
+  branch_card: BC-M7-003
+  decision_record: DR-GOV-017
+  loop_step: M7 · G3 单向候选的披露评估（DR-GOV-017 · D-3）
+cross_border_impact: none
+cross_border_detail: 公开竞赛数据上的离线度量，不涉及任何真实跨境资产。所度量的香港→内地编码发送属设计层面，未在任何真实环境中传输。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含三组发布人群的等价类比例与中位规模、逐字段的汇总推断指标（AUROC、比例、开发评估集正例率）、
+    变体的内层验证 AUROC 与披露摘要，均为数千至近十万行的汇总；不含行数据、客户号或其散列、编码表、树结构、分段边界或逐行推断结果。
+    输入是 S5.G1 的私有数组，只在会话临时目录与本机 8-9月/G3五臂对比/；配置中只记其 sha256。
+downstream_affected:
+- M0
+- M5
+- M6
+breaking_change: false
+migration: 无。新增文件；S5.G1 的结果与判定不改。
+reproducibility:
+  config: modules/m7_security/configs/s7_g1_bt1_disclosure.yaml
+  config_hash: sha256:2aed5e958a2b453173357afd45947de1f264f0f2139b32fd54761b98182dd378
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.G1 或任何冻结文件。
+verification: |
+  复现核对：按 S5.G1 做法重建的 B_T1（seed 11）与 L1_k10，开发评估集打分与 S5.G1 已保存打分最大绝对差均为 0。
+  首格核对预注册 frozen、冻结组件与私有输入 sha256 一致。单测 10 项通过（含 one_hot_release 与 g3_arms.one_hot_codes 逐值相同）。
+  修正一轮：首次执行中逐字段表按 6 个 seed 的均值 AUROC 计「几乎确定」字段（5 个），与权衡表按单 seed 计数（15.8 个）口径不一致；
+  各 seed 的随机树选中的字段不同，单次发布的披露应按单 seed 计，改为同时报告两种口径后重跑，其余代码与数值不变。
+  notebook 由 nbclient 在 SecretFlow 环境（Python 3.10，含 xgboost）从头执行，执行顺序单调，代码 139 行。
+step:
+  step_id: S7.G1
+  step_name: B_T1 叶子编码组合披露评估
+  declaration: |
+    见 modules/m7_security/S7.G1_B_T1披露评估_步骤声明.md（写于一次单 seed 原型之后，原型未计算任何新变体的效用）。
+    will_produce：复现核对；已发布 B_T1 的组合等价类与逐字段推断，L1_k10 对照；内层验证集上的披露—效用权衡；组件、单测、声明、公开汇总。
+    will_not_produce：不改 B_T1 冻结定义；不在开发评估集上评估新变体，不用其标签；不重新调参；不下法律结论；不上传行级内容。
+    success_criteria：复现核对通过；三张表由 notebook 带输出生成；按预先写定的 R1–R3 读法给出结论；门禁全部通过。
+    risk：最坏情形假设（知道映射）；稀有字段 AUROC 不稳定；内层验证集也用于 S5.G1 调参，权衡数值偏乐观。
+  scope:
+    files_changed: 16
+    lines_added: 1060
+    routes_covered: 2
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m7_security/notebooks/S7.G1_bt1_disclosure.ipynb 的四个代码段逐项对应步骤声明 will_produce；结论按 R1–R3 给出"
+      D2: "notebook 第 2 个代码 cell：B_T1 与 L1_k10 复现最大绝对差 0；results/bt1_disclosure_v1/ 三张表均带 6 个 seed"
+      D3: "复现核对通过、指纹核对通过；但 notebook 在提交前的工作区执行（指纹打印 a48b16d + 未提交标记），输入为私有数组，故 2 分"
+      D4: "results/bt1_disclosure_v1/attribute_inference_dev_eval.csv 与 released_uniqueness.csv：此前「单向形态接近双向」被读作单向形态的优势；本步显示 B_T1 单次发布平均 16 个香港字段可几乎确定推出，精度与披露同升同降"
+  revisions: 1
+  verdict: committed
+  next_step: 所有者随 S0.9 形态判决裁定 3 棵深 3 候选是否预注册；FedAds 补充冻结（M6）在本机连接时进行

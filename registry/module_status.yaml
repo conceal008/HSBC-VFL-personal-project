@@ -1,10 +1,11 @@
 updated_at: '2026-10-26T10:40:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S-GOV.16 所有者授权恢复科研实验（DR-GOV-016）；第一批 G3 五臂对比，执行待本机目录连接
-  last_action_at: '2026-10-26T10:40:00+08:00'
+  last_action: S5.G1 G3五臂对比 Santander 第一批完成（开发证据）；实验已恢复
+  last_action_at: '2026-10-26T13:40:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261026-GOV-001
+  change_id: CL-20261026-M5-002
+  previous_action_20261026a: S-GOV.16 恢复授权（CL-20261026-GOV-001）；S5.G0 冻结（CL-20261026-M5-001）
   previous_action_20261025e: S6.P3 G3五臂对比预注册（CL-20261025-M6-003）
   previous_action_20261025d: S6.P2盈亏平衡与信息价值模型（CL-20261025-M6-002）
   previous_action_20261025c: S6.P1冻结评估口径 v1 并校准判据（CL-20261025-M6-001）
@@ -100,6 +101,7 @@ modules:
     open_questions:
     - 🟠 **S0.1P（2026-10-25）**：离线 AUROC 比较的精度由测试集正例数决定——检出配对差 0.02 约需 441 个、0.01 约需 1,763 个（AUROC 0.86、估计相关 0.8）；S0.5 最乐观档 5,814 人只能检出约 46% 相对增益；按公开统计，假设机构份额 20% 时单个 90 日窗正例上限约 651 个。N_eff ≥ 30,000 的随机对照口径不变
     - 🔴 **S0.6R（2026-10-25，DR-MX-002 · D-3）**：法条摘录漏掉「关键信息基础设施运营者以外的数据处理者」限定语，已补正。若汇丰银行（中国）为关键信息基础设施运营者，形态 A 与形态 B 均须申报数据出境安全评估，只有形态 C 不触发；非关基前提下形态 A 按训练人群计梯度人数（试点期 cn→hk 流动待逐协议核对）。须需求方回答是否为关键信息基础设施运营者，排在内地侧签约主体注册地之前
+    - 🟢 **S5.G1 对 S0.9 的输入（2026-10-26，开发证据）**：Santander 构造切分上，单向候选 B_T1（香港→内地一次性 k 粗化叶子编码）与双向 A 在 0.02 尺度上无可分辨差异（A − B_T1 = +0.004 [−0.001, 0.009]）。形态判决还需 HSBC mock 复核与 B_T1 的披露评估
     - 🔴 **M0 回溯抽查欠账**：已完成 11 步，按《维护约束 v2》3.5 应抽查 2 次，0 次执行；须由另一 Agent 或人工完成
     - S0.1 已给出预测命题，但四要素全部为显式假设（产品 P = 跨境理财通南向通合资格投资产品 / Δ = 90 日 / 转化 = 首次成功申购 / 主动方
       = 内地行），需求方确认前不得作为结论引用
@@ -222,13 +224,14 @@ modules:
     claimed_by: Claude (claude-opus-5-5, Claude Code)
     claimed_at: '2026-10-26T12:40:00+08:00'
     expires_at: '2026-10-27T12:40:00+08:00'
-    current_step: S5.G1
-    latest_completed_step: S5.G0
-    next_step: S5.G1 Santander 第一批（G3 五臂对比，按冻结的 S6.P3；DR-M5-009 阶段预算）；S5.D2 暂缓（DR-GOV-016 · D-2）
+    current_step: null
+    latest_completed_step: S5.G1
+    next_step: S5.G3 HSBC mock 三档（Santander 正例 586 < 700，DR-GOV-016 · D-2 推翻条件），再 S5.G2 SS-XGB；S5.D2 暂缓
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
     open_questions:
+    - 🟢 **S5.G1（2026-10-26，开发证据）**：Santander 构造切分上 A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0（L1 约拿到 4% 的增益）；单向候选 B_T1 约拿到 92%，A − B_T1 区间含 0；阴性对照、无损性核对通过。B_T1 的叶子编码组合可能接近唯一，须做披露评估
     - 🟠 **DR-MX-002（2026-10-25，合并后生效，不授权恢复）**：D-1 新预注册比较的显著性判据改为配对差 95% 区间不含 0（seed × 客户簇两层重抽样）并给 p 值，用符号翻转时 seed ≥ 6；D-2 每个 AUROC 比较声明测试集正例数与 S0.1P 的可检出差异；D-5 恢复后第一批为 L1 同等比较、树或线性单向形态候选、阴性对照，排在 M7 输出重评之前
     - k 已定（DR-MX-001 · D-5）：**k = 10 起步，并做 k ∈ {5, 10, 20} 敏感性**；L3 vs L1 的结论须说明在哪些
       k 下成立
@@ -431,7 +434,7 @@ experiment_pause:
   resume_authorization_record: registry/decision_records/DR-GOV-016.yaml
   instruction: 继续恢复实验，你根据最终目的自主判断上述决策
   first_batch: G3 五臂对比（modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md），先冻结后执行
-  execution_blocker: 本机目录 /Applications/总文件夹/汇丰 未连接到会话（2026-10-26 申请被会话安全检查拒绝）；连接前不能开始任何运行
+  execution_blocker_resolved: 2026-10-26 11:32 所有者已把本机目录 /Applications/总文件夹/汇丰 连接到会话
   vm_state_note: 本批不重启两台虚拟机（DR-GOV-016 · D-3）
   previous_pause:
     status: paused_by_user

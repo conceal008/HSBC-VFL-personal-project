@@ -1,0 +1,89 @@
+change_id: CL-20261026-M5-002
+timestamp: '2026-10-26T13:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.G1 G3 五臂对比 Santander 第一批：L3 相对 L1 有增量，单向候选 B_T1 拿到约 92%
+what: |
+  按冻结的 S6.P3（S5.G0，f80f74f）在 Santander 构造切分上训练并比较九个臂：L0、L1（k=5/10/20）、B_T1、B_T2、
+  A（隐语 SGB，单进程两方模拟）、集中式代理 L4、阴性对照 NC。三个带汇总输出的运行入口 notebook（数据与本地臂、SGB、配对比较）、
+  运行配置 configs/s5_g1_santander_run.yaml、公开汇总 results/g3_santander_v1/（各臂指标、对比表、运行摘要与适用边界说明）。
+  状态类字段同步：M5 README（状态、当前结论、下一步、S5.G1 一节）、step_ledger（追加 S5.G1，阶段预算 2/4）、
+  registry/module_status.yaml 的 M5、M0 条目与 governance、experiment_pause（执行阻塞已解除）、任务清单 T6–T9、项目进度总览 notebook 计数（59→62）。
+why: |
+  项目要回答的第一个问题是 L3 相对 L1 有没有增量（项目目标与要求.md 第 4 节）；S0.9 形态判决缺单向形态的树/线性证据（DR-MX-002 · D-4）。
+  验证的假设与结果（开发评估集 20,351 位客户、586 个正例）：
+  ① L3 相对 L1 有 ≥ 0.02 的增量——成立，A − L1_k10 = +0.043 [0.033, 0.053]；
+  ② L1 能拿到相当一部分联邦增益——不成立，L1 − L0 = +0.002 [−0.003, 0.007]，约 4%；
+  ③ 单向形态有明显代价——不成立，A − B_T1 = +0.004 [−0.001, 0.009]，B_T1 约拿到 92%；
+  ④ 增益来自信息互补——成立，NC − L0 = −0.004，区间含 0；⑤ SGB 与集中式无损——成立，A − L4 = −0.001，区间含 0。
+  开发评估集正例 586 低于预注册目标 700（评估月正例率 2.9%，低于训练月平均 3.8%）：按停止规则 5 未追加样本，
+  并触发 DR-GOV-016 · D-2 推翻条件，后续先做 HSBC mock（S5.G3）。
+links:
+  branch_card: BC-M5-017
+  decision_record: DR-M5-009
+  loop_step: M5 · G3 五臂对比第一批（DR-MX-002 · D-5 ①②③）
+cross_border_impact: none
+cross_border_detail: 公开竞赛数据上的离线模拟，不涉及任何真实跨境资产。所模拟的数据流（香港→内地一次性叶子编码、双向加密梯度）属设计层面，未在任何真实环境中传输。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含各组行数、客户数与正例数、调参后的超参与内层验证 AUROC、k-匿名发布的段数与叶子数、
+    开发评估集的汇总指标与配对差。不含行数据、客户号或其散列、逐行打分或标签、编码表、分段边界、模型参数。
+    样本客户数与正例数属公开竞赛数据的随机样本规模，不是交集规模或真实业务规模（维护约束 §2.7）。私有产物只在本机与会话临时目录。
+downstream_affected:
+- M0
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S6.P3 冻结记录不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_g1_santander_run.yaml
+  config_hash: sha256:09834fbb00eaf9f4a1a9083094cf297d32ae23ac7aad2d2a4ee054afb6faf318
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；冻结记录与组件（S5.G0）不受影响。
+verification: |
+  修正一次：S5.G1-3 首次执行在本批未做的 A_secure − A 对比处报 KeyError，改为跳过本批不含的臂、Holm 按完整家族计后重跑（首次执行未写出任何对比结果）。
+  三个 notebook 由 nbclient 在 SecretFlow 环境（Python 3.10）从头执行，首格核对预注册 frozen 与四个组件 sha256 一致。
+  SGB 内层验证 AUROC 0.8829 与集中式代理 0.8836 一致；开发评估集 A − L4 = −0.001 [−0.003, 0.002]，未触发冻结时新增的推翻条件。
+  对比表 10 行（主对比 1、次要 8、无损核对 1）；A_secure − A 本批未做，Holm 按完整家族 9 项计。
+  S5.G1-2 的 150 行相同 SecretFlow 警告折叠为一行说明；markdown 读法在执行后按输出填写，未改动任何代码单元或其他输出。
+  全量门禁首跑拦下两处：exp 未绑分支卡（补 BC-M5-017，三条路线与推翻条件）；g3_sgb 行覆盖 25.7%（CI 环境无 SecretFlow）。
+  后者在测试中用最小 SecretFlow 替身检验编排（两方设备、纵向分区、参数透传、打分集与 shutdown），冻结的 g3_sgb.py 一字未改，行覆盖 97.8%。
+step:
+  step_id: S5.G1
+  step_name: G3 五臂对比 Santander 第一批
+  declaration: |
+    will_produce：三个带汇总输出的运行入口 notebook；运行配置；公开汇总三张表与说明；状态同步。
+    回答：L3 相对 L1 是否有 ≥ 0.02 的增量；L1、单向候选 B_T1/B_T2 各拿到多少；阴性对照与 SGB 无损性是否成立。
+    will_not_produce：不打开封存确认集；不改冻结的预注册；不追加样本；不上传任何行数据、客户号、逐行打分或预处理状态；
+    不做 A_secure（S5.G2）与 FedAds、HSBC mock（S5.G3）；不把公开代理结果换算成汇丰收益。
+    success_criteria：首格指纹核对通过；主对比与全部次要对比按口径 v1 给出区间、p 值、可检出差异与结论；阴性对照有结论；门禁全部通过。
+    risk：构造切分中香港特征为低基数的产品持有标记，B_T1 的叶子编码几乎携带全部香港信息，其组合可能接近唯一——已在结论与 README 中标注须做披露评估；
+    正例 586 < 700，主对比仍远离 0，但次要对比的可检出差异约 0.01–0.025。
+  scope:
+    files_changed: 16
+    lines_added: 1222
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/g3_santander_v1/contrasts_dev_eval.csv 逐行对应预注册的主对比、次要对比与无损核对"
+      D2: "modules/m5_modeling/notebooks/S5.G1_3_santander_evaluation.ipynb：两层重抽样 2,000 次、四类结论、Holm 校正"
+      D3: "首格核对冻结指纹；私有输入 sha256 核对。但运行在提交前的工作区（指纹打印 f80f74f + 未提交标记），SGB 单次 55 分钟未在干净检出上重跑，故 2 分"
+      D4: "contrasts_dev_eval.csv：L1 − L0 区间含 0；A − B_T1 区间含 0——此前单向形态代价的唯一证据是 SplitNN 合成实验的约 0.045 AUROC，树方法候选在本构造切分上没有可分辨代价"
+  revisions: 1
+  verdict: committed
+  next_step: S5.G3 HSBC mock 三档；B_T1 组合披露评估另立 M7 步骤

@@ -1,0 +1,25 @@
+card_id: BC-M5-017
+status: active
+phase: g3_five_arm
+decision_record: DR-M5-009
+preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+routes:
+- id: santander_first_batch
+  purpose: Santander 构造切分上的 L0、L1（k=5/10/20）、B_T1、B_T2、A（隐语 SGB）、集中式代理 L4、阴性对照 NC
+  step: S5.G1
+  status: completed
+- id: ss_xgb_secure_tier
+  purpose: A_secure（SS-XGB）与 A 的精度与成本对比，只在 Santander
+  step: S5.G2
+  status: planned
+- id: fedads_and_hsbc_mock
+  purpose: FedAds 自然切分与 HSBC mock 重合率 20/50/80% 上重复同一比较
+  step: S5.G3
+  status: planned_next
+history:
+- 2026-10-26 S5.G0 冻结预注册（f80f74f），开发评估集标签计算之前。
+- 2026-10-26 S5.G1 完成：A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0；A − B_T1 区间含 0；NC 与无损性核对通过。开发评估集正例 586 < 700，触发 DR-GOV-016 · D-2，S5.G3 提前到 S5.G2 之前。
+falsifier: |
+  任一路线在 S6.P3 冻结后未经 DR 改动即执行 → 该路线结果作废；
+  阴性对照区间不含 0 → 该数据集含联邦臂的结论作废；
+  A 与集中式代理 L4 的配对差区间不含 0 且绝对值 > 0.005 → NC 与 A 的调参须改用 SGB 重做。

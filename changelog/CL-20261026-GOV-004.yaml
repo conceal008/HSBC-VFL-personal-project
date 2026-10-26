@@ -1,0 +1,72 @@
+change_id: CL-20261026-GOV-004
+timestamp: '2026-10-26T20:05:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: GOV
+type: fix
+title: S-GOV.19 更正 DR-GOV-017：10/21 样本并未从 S5.G1 抽样中排除
+what: |
+  registry/decision_records/DR-GOV-017.yaml · D-1 ②：删去「且被 S6.P3 的 Santander 抽样排除」，原位加勘误——
+  S5.G0 冻结时 A-2 已取消这项排除；本机 HSBC mock 文件即含这批客户号，名单本可重建；S5.G1 训练、内层验证与评估候选客户中
+  分别约 0.7%、0.9%、0.8% 属于这批样本，与 A-2 预期的约 0.8% 一致。D-1 的结论（HSBC mock 按规格不可执行）不变。
+  registry/module_status.yaml governance 同步。
+why: |
+  写 S7 披露评估的声明时重读 S6.P3 freeze 节，发现 A-2 与 DR-GOV-017 的陈述相反。决策记录里的事实错误须更正，
+  「说的和做的不一致时改实现、不改文档对齐」不适用——这里是记录写错了事实，实现（S5.G1 抽样）与 A-2 一致。
+links:
+  branch_card: none
+  decision_record: DR-GOV-017
+  loop_step: DR-GOV-017 勘误
+cross_border_impact: none
+cross_border_detail: 只更正决策记录的事实陈述，不运行任何实验，不涉及任何跨境资产的实际流动。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    新增的只有三个重叠比例（公开竞赛数据两个随机样本之间的客户重叠，不是两方交集规模）。重叠客户数、客户号与各组绝对规模只在本机核对，
+    未入库；核对时的临时客户号列表已在本机删除。
+downstream_affected:
+- M5
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:c0a4bbfc9709cfbc94b60c18530f41519cee917f1bb495c17d1d3da8079a69d0
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/python.lock
+rollback: revert 本提交即恢复原文（含错误陈述）；不影响任何结果文件。
+verification: |
+  本机只读核对：从 8-9月/数据集/HSBC_mock数据/balanced_guest.csv 取去重客户号（与 10/21 汇报样本客户数一致），
+  与 8-9月/G3五臂对比/S5.G1_santander_20261026/data/id_groups.tsv 按组求交，得各组重叠比例；命令与结果记于本机项目实时日志。
+  S6.P3 freeze 节 amendments A-2 原文：「不再排除 10/21 样本……排除名单无法完整重建；预期重叠约为全体客户的 0.8%」。
+step:
+  step_id: S-GOV.19
+  step_name: 更正 DR-GOV-017 · D-1 ② 的事实陈述
+  declaration: |
+    will_produce：DR-GOV-017 原位勘误；governance 同步；变更记录。
+    will_not_produce：不改 D-1 的结论与其他各项；不改 S6.P3、S5.G1 的任何文件；不运行实验；不把重叠客户数或客户号写入仓库。
+    success_criteria：勘误与 S6.P3 A-2 一致，重叠比例可在本机复核；门禁全部通过。
+    risk：勘误顺带暴露 A-2 的理由（名单无法重建）不成立——已在勘误里写明，影响限于约 0.8% 的客户。
+  scope:
+    files_changed: 3
+    lines_added: 81
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "registry/decision_records/DR-GOV-017.yaml D-1 ② 勘误与 modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml amendments A-2 一致"
+      D2: "勘误给出三个组的重叠比例与核对文件路径"
+      D3: "核对只能在维护者本机复现（客户号不入库），故 2 分"
+      D4: "两处新事实：DR-GOV-017 原陈述错误；A-2「排除名单无法重建」不成立，实际重叠约 0.8%"
+  revisions: 0
+  verdict: committed
+  next_step: S7.G1 B_T1 叶子编码组合披露评估

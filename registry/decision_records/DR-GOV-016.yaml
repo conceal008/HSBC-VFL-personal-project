@@ -1,0 +1,82 @@
+dr_id: DR-GOV-016
+title: 所有者授权恢复科研实验；第一批为 G3 五臂对比，执行方式与顺序由 Agent 按项目终点判据裁定
+date: '2026-10-26T10:12:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: GOV
+status: active
+related_step: S-GOV.16
+authorized_by: project_owner
+resume_research_experiments: true
+promote_paused_assets: false
+user_instruction: 继续恢复实验，你根据最终目的自主判断上述决策（所有者 conceal008，2026-10-26 10:12 +08:00；「上述决策」指上一轮列出的三项：合并 PR #13、是否授权恢复实验、是否授予本机目录访问）
+supersedes: null
+
+context: |
+  2026-10-15 起所有科研实验按所有者指示暂停（registry/module_status.yaml#experiment_pause）。
+  恢复的前置条件（RESTART_PLAN「迁移修复后的状态切换前置」，S9.H2）是：所有者明确恢复指令 + 本记录
+  （authorized_by=project_owner、resume_research_experiments=true、原指示原文）+ experiment_pause 切为 resumed_by_user 并引用本记录。
+  所有者已给出恢复指令，并把执行层面的取舍交给 Agent 按项目终点判据（盈亏平衡点已确定且业务方确认现实可达）判断。
+  本记录只登记授权与取舍，不代替任何一次运行的预注册、冻结与门禁。
+
+decisions:
+
+  - key: D-1
+    question: 是否恢复科研实验
+    decision: |
+      恢复。experiment_pause.status 由 paused_by_user 改为 resumed_by_user，resume_authorization_record 指向本记录。
+      历史暂停快照 docs/03-handoff/暂停状态.yaml 原样保留。
+    rationale: 所有者 2026-10-26 明确指示「继续恢复实验」。
+    falsifier: 所有者撤回指示或再次要求暂停 → experiment_pause 改回 paused_by_user，已登记的代码与记录保留（DR-GOV-015）。
+
+  - key: D-2
+    question: 第一批做什么，按什么顺序
+    decision: |
+      第一批只做 G3 五臂对比（modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md），先冻结、后执行：
+      ① Santander 主对比（A − L1_k10）连同阴性对照 NC 与 L0；② 同一数据集上的 B_T1、B_T2、L1_k5、L1_k20；
+      ③ A_secure；④ FedAds 与 HSBC mock 三档。每一项单独成步、单独提交。
+      S5.D2 强单方端点诊断与 M7 840 场景输出重评暂缓（DR-M5-008 额度保留，不取消）；不还原暂停草稿（promote_paused_assets=false）。
+    rationale: |
+      项目第一个问题是 L3 相对 L1 有没有增量（项目目标与要求.md 第 4 节），S0.9 形态判决与 S6.P2 的 EVPPI 都指向它：
+      命中提升与 L1 捕获比例是规模之外 EVPPI 最高的两个数，只有 G3 能在代理数据上给出它们的相对大小。
+      S5.D2 只诊断已发布的 LR 路线端点，不改变 S0.9；M7 重评不改变形态判决（DR-MX-002 · D-5）。
+      阴性对照与主对比同批，是为了在主结论出来之前先排除「容量或调参带来的增益」。
+    falsifier: |
+      Santander 主对比的开发评估集按客户去重达不到 S6.P3 第三节的正例目标且无法按规则扩充样本 → 第一批改以 HSBC mock 三档为主，
+      主对比结论按「未达可检出规模」报告；所有者另行指定顺序 → 按所有者指示执行。
+
+  - key: D-3
+    question: 在什么环境里跑
+    decision: |
+      G3 的 A、A_secure、NC 用隐语 SGB / SS-XGB 的单进程两方模拟运行（与 INNOVATIONS 的 SGB 路线同一方式），
+      本批不重启项目的两台虚拟机；墙钟与通信只作臂间相对比较，不作部署成本。
+      本地单方臂（L0、L1、B_T*）在同一环境运行，调参预算按 S6.P3 第四节。
+    rationale: |
+      G3 回答的是精度上的信息价值（L3 相对 L1），SecureBoost 类协议在分桶与随机性相同时与集中式无损，单进程模拟足以回答；
+      两台虚拟机服务于 LR 路线的隔离验收与通信实测，属于 G3 之后的工程验收。云端会话也无法启动本机的虚拟机。
+    falsifier: 评审或需求方要求跨方隔离下的精度证据 → A 与 NC 在双虚拟机环境各复测一次，结果与单进程模拟分开报告。
+
+  - key: D-4
+    question: PR #13、#14 是否合并
+    decision: |
+      合并，并把本记录放进同一个 PR：#14 已包含 #13 的三个提交，已改指向 main；本记录的提交触发 #14 在 main 目标下的 CI。
+      CI 全绿后由所有者以 Rebase and merge 一次合并 #14，#13 随后关闭并注明内容已由 #14 进入 main。
+      Agent 于 2026-10-26 尝试按授权合并 #13，被会话的自动安全检查以「未经评审合并」拒绝，故合并须由所有者在 GitHub 上完成。
+      合并 #14 即同时满足 DR-MX-002、DR-M6-001「以合并 PR 为准」的批准，以及本记录的生效。
+    rationale: main 为线性历史；分两次 rebase 合并会使 #14 中的 #13 提交与 main 上改写后的提交重复；一次合并只需所有者点击一次。
+    falsifier: CI 在 main 目标下任一门禁失败 → 不合并，先修复；所有者不合并 → 本记录与 experiment_pause 的切换都不生效。
+
+  - key: D-5
+    question: 本机目录访问
+    decision: |
+      G3 执行需要本机 /Applications/总文件夹/汇丰 下的 SGB 代码（8-9月/…/secretflow_sgb_innovations）、
+      Santander 原始数据、FedAds、HSBC mock 数据与本地实验索引。2026-10-26 本会话再次申请访问，被会话的自动安全检查拒绝；
+      在所有者通过桌面应用连接该目录（或把所需文件放进已连接的 汇丰项目 目录）之前，G3 不能开始，状态记为「已授权、待环境」。
+    rationale: 授权恢复不等于具备执行条件；把阻塞点写清楚，接手者不会误以为实验已在进行。
+    falsifier: 所有者连接目录后 → 本项解除，按 S6.P3 第九节冻结后执行。
+
+falsifier: |
+  本记录整体被推翻的条件：①所有者否认 2026-10-26 的恢复指示；②任何一次运行未经 S6.P3 冻结就开始；
+  ③运行读取了封存确认集、真实客户数据或把私有数据、派生明细上传到公开仓库。任一发生即停止全部运行并改回暂停。
+
+review_trigger: |
+  ①G3 Santander 主对比完成时；②所有者连接本机目录时；③所有者再次指示暂停时。

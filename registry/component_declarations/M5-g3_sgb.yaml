@@ -1,0 +1,16 @@
+component: g3_sgb
+module: M5
+path: modules/m5_modeling/components/g3_sgb.py
+purpose: G3 联邦臂：隐语 SGB 单进程两方模拟训练与打分（内地为标签方，OU 同态）。
+inputs:
+- 内地与香港特征矩阵、标签
+- 冻结的超参、sketch_eps、同态方案
+outputs:
+- 各打分集的预测概率与计时
+tests:
+- modules/m5_modeling/tests/test_g3_components.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所模拟的数据流性质见 S6.P3 预注册。
+caveat: 行数据、客户号、学到的预处理状态与逐行预测只存本机私有目录，不入仓库。
+declared_at: '2026-10-26'
+declared_by: Claude (claude-opus-5-5, Claude Code)

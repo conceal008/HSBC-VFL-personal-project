@@ -1,13 +1,13 @@
 # S6.P3 · G3 五臂对比预注册（机器可读部分）
 # ---------------------------------------------------------------------------
-# 状态：proposed（未冻结）。所有者授权恢复实验（任务清单 T5）后，按第九节「冻结」步骤补齐代码指纹并改为 frozen；
-# 冻结前任何一项都可以改，冻结后只能另写 DR 改，且只对之后的运行生效。
-# 本文件不授权恢复实验；不含任何真实或代理数据派生数值。
+# 状态：frozen（2026-10-26，S5.G0）。冻结前按第九节补齐了代码与环境指纹，并在 freeze.amendments 中逐条记录
+# 冻结前对 proposed 版的修改（均在打开开发评估集标签之前）；冻结后只能另写 DR 改，且只对之后的运行生效。
+# 恢复授权见 DR-GOV-016；本文件不含任何行数据或逐行结果。
 # 评估口径：modules/m6_evaluation/evaluation_protocol.md v1（DR-M6-001）。
 # ---------------------------------------------------------------------------
 step_id: S6.P3
 purpose: 预先写定 G3 五臂对比的数据、臂、seed、调参预算、指标、统计方法、封存确认集与停止规则，供恢复实验后执行
-status: proposed
+status: frozen
 protocol_ref: modules/m6_evaluation/evaluation_protocol.md
 protocol_version: v1
 
@@ -113,3 +113,62 @@ decision_map:
   B_best_minus_L1_gain: 单向形态可行 → 单向形态代价 = A − B_best
   all_B_not_better_than_L1: DR-MX-002 · D-4 推翻条件触发 → S0.9 只在形态 A 与不做联邦之间选
   NC_not_null: 联邦增益不能归因于信息互补，主结论作废
+
+# 九、冻结记录（2026-10-26，S5.G0；本节之后的字段在运行时只读）
+freeze:
+  frozen_at: '2026-10-26T12:40:00+08:00'
+  frozen_by: Claude (claude-opus-5-5, Claude Code)，按 DR-GOV-016 所有者授权
+  evidence_before_freeze: 只看过训练组的正例率（0.0378）与开发评估候选桶在 2016-03 的客户数；开发评估集标签未计算
+  santander_prep:
+    raw_file: 数据集/santander-product-recommendation/train_ver2.csv.zip
+    raw_zip_sha256: a8a185741d39fcf1c5c12033bf88c6a1bbc5bfb2cda33d0eeef64d2e88054957
+    salt: G3-2026
+    n_buckets: 10000
+    groups:
+      train: {buckets: [0, 100], feature_months: ['2015-01', '2016-01']}
+      inner_val: {buckets: [100, 200], feature_months: ['2015-11', '2016-02']}
+      dev_eval: {buckets: [1000, 1223], feature_months: ['2016-03', '2016-03']}
+      lockbox: {buckets: [5000, 5223], feature_months: ['2016-04', '2016-04'], extracted: false}
+    eval_bucket_rule: {target_positives: 700, safety: 1.1, train_rate: 0.0378, customers_per_bucket: 91.38, buckets: 223}
+    selected_rows_sha256: 85b0b058f00d9aef67d685431d34b60583a0b85519038b7eb52f6bd5563cd3e1   # 私有，本机 8-9月/G3五臂对比/
+  arm_details:
+    search_space:                     # 4 × 4 × 4 × 3 = 192 组网格，用 seeds.tuning 不放回抽 20 组
+      max_depth: [3, 4, 5, 6]
+      learning_rate: [0.05, 0.1, 0.2, 0.3]
+      num_boost_round: [50, 100, 150, 200]
+      reg_lambda: [0.1, 1.0, 10.0]
+    split_seed_note: seeds.split 不再使用，客户分组由 santander_prep 的加盐哈希决定
+    xgboost_max_bin: 33               # 与 SGB sketch_eps 0.03（约 33 桶）一致，所有 XGBoost 臂相同
+    sgb_sketch_eps: 0.03
+    sgb_he_schema: ou
+    tuning_candidates_shared: true    # 20 组候选由 tuning seed 一次抽定，所有需调参的臂相同
+    a_tuned_on: central_plaintext_proxy
+    l1_segments: {quantile_bins: {age: 5, renta: 4}, categorical: [segmento], statistics: host_feature_means, period: train}
+    b_t1: {n_trees: 10, depth: 3, k: 10, encoding: one_hot}
+    b_t2: {hk_label: next_month_ind_actividad_cliente, config: {max_depth: 4, learning_rate: 0.1, num_boost_round: 100, reg_lambda: 1.0}}
+    nc: {implementation: central_plaintext_proxy_with_A_config, shuffle_seeds: [11, 22, 33, 44, 55, 66]}
+    n_jobs: 2
+  amendments:
+    - A-1 Santander 抽样改为客户号加盐哈希分桶（见 santander_prep）；开发评估集桶数按规则算出 223，只用训练正例率与客户数
+    - A-2 不再排除 10/21 样本与 LR 路线 santander_product 的客户：前者由团队仓库脚本在已失效的云端会话生成，本机无副本，排除名单无法完整重建；预期重叠约为全体客户的 0.8% 与 5%，报告中注明
+    - A-3 XGBoost（subsample=colsample=1）与 SGB 均为确定性训练，确定性臂只拟合一次，seed 维度方差为 0，不报告其符号翻转检验；只有 B_T1（嵌入随机性）与 NC（打乱随机性）跑 6 个 seed
+    - A-4 臂 A 的超参在明文集中式代理（同一 20 组候选、max_bin 33）上按内层验证集选定，再用隐语 SGB 训练一次
+    - A-5 阴性对照 NC 用 A 的配置在明文集中式代理上实现（6 个打乱 seed），不再跑 SGB；同时报告 A（SGB）与集中式代理 L4 的配对差作为无损性核对
+    - A-6 L1 的分段由内地特征定义（年龄 5 分位 × 收入 4 分位 × 客群类别），香港返回训练期 k-匿名分段均值；明文实现需要香港知道每位客户的分段号（内地→香港），安全实现（LR 路线 L1_secure）在秘密计算内完成，本步只测精度
+    - A-7 B_T1：香港训练期特征上的 10 棵深 3 随机树嵌入，叶子内不同客户数 < 10 的并入被抑制档，独热后发给内地
+    - A-8 B_T2：香港自有标签取次月活跃度（香港侧字段派生，与主标签不同），香港用固定配置训练后只发分数
+    - A-9 A_secure（SS-XGB）不在本批，按 DR-GOV-016 · D-2 的顺序另立 S5.G2
+    - A-10 FedAds 与 HSBC mock 不在本批，另立 S5.G3
+  falsifiers_added:
+    - A（SGB）与集中式代理 L4 的配对差区间不含 0 且绝对值 > 0.005 → A-4、A-5 的代理前提不成立，NC 与 A 的调参须改用 SGB 重做
+  code_sha256:
+    modules/m5_modeling/components/g3_santander.py: 2822f556932a3b7fcad0a9be79f3bcc99fc8045966dde07ad42a6de81cfe5d62
+    modules/m5_modeling/components/g3_arms.py: c5ac4bf0c2e7bd6722a5dea5a02c213e25656c1a76108fca3d46978b698e24a7
+    modules/m5_modeling/components/g3_sgb.py: 0a42195680c3d47f1dd7d161637632ae10f59e9815c41d7b2dfeb96a26b3d725
+    modules/m6_evaluation/components/paired_eval.py: ed030f11310b98246c7a1e11801378dfaeced71dfc2d2dc35215ef788c6b6bc8
+  environment:
+    lock: environments/g3_sfenv.lock
+    lock_sha256: 03501b583520af55e0e652e90ed8e0ad6da78b29391b2654740439f8451c8a93
+    python: 3.10.20
+    secretflow_lite: 1.13.0b0
+    cores: 2

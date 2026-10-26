@@ -1,0 +1,16 @@
+component: g3_arms
+module: M5
+path: modules/m5_modeling/components/g3_arms.py
+purpose: G3 各臂：XGBoost 臂与共享候选调参、L1 内地分段与香港 k-匿名分段均值、B_T1 香港随机树嵌入 k 粗化、阴性对照打乱香港特征行。
+inputs:
+- 内地与香港特征矩阵、标签、客户号
+- 搜索空间、候选数、seed、k 值
+outputs:
+- 各臂预测分数、调参记录、k 匿名发布统计
+tests:
+- modules/m5_modeling/tests/test_g3_components.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所模拟的数据流性质见 S6.P3 预注册。
+caveat: 行数据、客户号、学到的预处理状态与逐行预测只存本机私有目录，不入仓库。
+declared_at: '2026-10-26'
+declared_by: Claude (claude-opus-5-5, Claude Code)

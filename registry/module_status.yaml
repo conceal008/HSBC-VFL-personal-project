@@ -1,10 +1,11 @@
-updated_at: '2026-10-26T18:45:00+08:00'
+updated_at: '2026-10-26T20:05:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S-GOV.18 会话交接记录（HO-20261026-Claude-M5-g3-santander）；PR #14 已合并，PR #15 rebase 到 main
-  last_action_at: '2026-10-26T18:45:00+08:00'
+  last_action: S-GOV.19 更正 DR-GOV-017 · D-1 ② 的事实陈述（10/21 样本并未从 S5.G1 抽样中排除，重叠约 0.8%）
+  last_action_at: '2026-10-26T20:05:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261026-GOV-003
+  change_id: CL-20261026-GOV-004
+  previous_action_20261026d: S-GOV.18 会话交接记录（CL-20261026-GOV-003）；PR #14 已合并，PR #15 rebase 到 main
   previous_action_20261026c: S-GOV.17 复核 DR-GOV-016（HSBC mock 按规格不可执行，第二组证据改由 FedAds；主对比加规模标注，CL-20261026-GOV-002）
   previous_action_20261026b: S5.G1 G3五臂对比 Santander 第一批完成（CL-20261026-M5-002，开发证据）
   previous_action_20261026a: S-GOV.16 恢复授权（CL-20261026-GOV-001）；S5.G0 冻结（CL-20261026-M5-001）

@@ -1,0 +1,70 @@
+change_id: CL-20261026-GOV-003
+timestamp: '2026-10-26T18:45:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: GOV
+type: doc
+title: S-GOV.18 会话交接记录：评估口径冻结、恢复授权与 G3 Santander 第一批
+what: |
+  新增 docs/03-handoff/HO-20261026-Claude-M5-g3-santander.md：补 10-25 PR #14 五步（S-MX.3、S6.P1–P3、S-GOV.16）与 10-26 三步（S5.G0、S5.G1、S-GOV.17）的交接，
+  含当前状态、判断与理由、失败尝试、PR #15 rebase 到 main 后的 SHA 对照、未解决问题与给下一个 Agent 的提醒。
+  README 与 START_HERE 顶部状态横幅由「冻结与执行待本机目录连接」更新为当前进展（原文其余部分保留）；module_status governance 同步。
+why: |
+  AGENTS.md「结束时」第 1 条要求每次会话写交接记录；PR #14 那批五步合并时没有写。#14 已由所有者合并、#15 已 rebase 到 main，
+  入口文档仍写着「本机目录未连接、不能开始任何运行」，与实际状态不符，接手者会误判。
+links:
+  branch_card: none
+  decision_record: none
+  loop_step: 维护约束 v2 · 会话结束交接（AGENTS.md 第 2 节「结束时」）
+cross_border_impact: none
+cross_border_detail: 只写交接与状态文档，不运行任何实验，不涉及任何跨境资产的实际流动。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 只引用已入库的汇总指标与提交 SHA；HSBC mock 各档绝对客户数（交集规模）未写入，交接记录只写比例与本机日志位置。
+downstream_affected:
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:c0a4bbfc9709cfbc94b60c18530f41519cee917f1bb495c17d1d3da8079a69d0
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；不影响任何结果文件。
+verification: |
+  SHA 对照逐一核对文件树相同（git rev-parse <sha>^{tree}）：f80f74f / 5520a7a、6885f5f / 290399b、0b01432 / 99e4d1b。
+  各步分数与修正轮次逐条取自对应 changelog 的 step.assessment.total 与 step.revisions。交接记录无术语表 forbidden 用语。
+step:
+  step_id: S-GOV.18
+  step_name: 会话交接记录与入口状态更新
+  declaration: |
+    will_produce：一份交接记录；README、START_HERE 状态横幅与 module_status governance 的同步；变更记录。
+    will_not_produce：不运行任何实验；不改任何结果、notebook、冻结文件或决策记录；不合并任何 PR。
+    success_criteria：交接记录覆盖 AGENTS.md 规定的各节；SHA 对照可由 git 复核；入口文档不再把已解除的阻塞写成当前状态；门禁全部通过。
+    risk：横幅引用的 DR-GOV-017 与交接记录随 PR #15 一起合并，合并前在 main 上是悬空链接——二者同在本 PR，不会单独进入 main。
+  scope:
+    files_changed: 5
+    lines_added: 139
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "docs/03-handoff/HO-20261026-Claude-M5-g3-santander.md 各节对应 AGENTS.md 第 2 节「结束时」与 HO-20261025 的结构"
+      D2: "交接记录「SHA 对照」一节三组 SHA 可用 git rev-parse <sha>^{tree} 复核"
+      D3: "纯文档步骤，无运行；revert 即撤回"
+      D4: "新信息有限：更正入口文档里已失效的「本机目录未连接、不能开始任何运行」（README.md 第 4 行、START_HERE.md 第 3 行）；补 rebase 后的 SHA 对照，使 S5.G1 notebook 打印的 f80f74f 仍可追溯"
+  revisions: 0
+  verdict: committed
+  next_step: M6 FedAds 预注册补充冻结，随后 S5.G3；所有者合并 #15、关闭 #13

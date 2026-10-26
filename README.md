@@ -1,7 +1,7 @@
 # 跨境共同客户联邦营销研究
 
 > GitHub：[conceal008/HSBC-VFL-personal-project](https://github.com/conceal008/HSBC-VFL-personal-project) ｜ **Public / main**
-> 当前状态（2026-10-26）：**所有者已授权恢复实验**（[DR-GOV-016](registry/decision_records/DR-GOV-016.yaml)）；第一批为 G3 五臂对比，冻结与执行待本机目录连接，双VM本批不重启。2026-10-15 的暂停记录保留为历史。
+> 当前状态（2026-10-26）：**所有者已授权恢复实验**（[DR-GOV-016](registry/decision_records/DR-GOV-016.yaml)）；第一批为 G3 五臂对比：Santander 第一批已完成（S5.G1，开发证据，见 PR #15 与 [DR-GOV-017](registry/decision_records/DR-GOV-017.yaml)），下一步 FedAds；双VM本批不重启。2026-10-15 的暂停记录保留为历史。
 > Agent先读[AGENTS.md](AGENTS.md)，再读[暂停与接手入口](docs/03-handoff/START_HERE.md)。接手不自动授权恢复实验。
 
 本项目研究内地与香港双方共同客户的联合营销：联邦模型相对强单方和低成本聚合统计方案，在哪些条件下有增量，以及如何约束中间信息和模型输出风险。当前证据来自公开研究代理和合成数据，尚不构成银行业务验证或生产准入。

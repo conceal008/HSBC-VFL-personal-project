@@ -1,0 +1,83 @@
+change_id: CL-20261026-GOV-002
+timestamp: '2026-10-26T14:05:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: GOV
+type: decision
+title: S-GOV.17 复核 DR-GOV-016：HSBC mock 不可执行改由 FedAds，主对比加规模标注
+what: |
+  新增 registry/decision_records/DR-GOV-017.yaml，复核 DR-GOV-016（触发条件①：G3 Santander 主对比完成）。三项取舍：
+  D-1 推翻条件ⓐ——核对本机文件后 HSBC mock 三档按预注册规格不可执行（档内重合率均为 100%、档位只改样本量；客户来自 10/21 汇报样本；
+  单月正例只有目标的约 6%–25%；无生成器可产封存段），不运行；第二组证据改由 FedAds，先由 M6 补充冻结，S5.G3 整体先于 S5.G2；
+  D-2 推翻条件ⓑ不照字面改标——主对比保留「可分辨的提升」，凡引用处同时给出规模标注（正例 586 < 700；可检出差异 0.024 > 0.02）；
+  D-3 DR-GOV-016 其余各项逐项复核（D-5 已解除；S5.G1 私有产物已写回本机并核对 sha256）；执行顺序改为 M6 FedAds 补充冻结 → S5.G3 → S5.G2。
+  registry/module_status.yaml 的 governance、M0 对 S0.9 的输入、M5 next_step、experiment_pause（review_record、connection_note）同步；
+  M5 README「下一步」与 step_ledger next_step、results/g3_santander_v1/README.md「适用边界」同步；BC-M5-017 路线拆为 FedAds 与 HSBC mock 两条并加 history。
+why: |
+  DR-GOV-016 的 review_trigger ① 已到；S5.G1 提交只落实了 D-2 推翻条件的执行顺序，没有处理「主对比按未达可检出规模报告」。
+  照字面执行会与冻结的 evaluation_protocol.md 第四节相抵：该标签只用于「区间含 0 且可检出差异 > 关心尺度」，
+  主对比区间 [0.033, 0.053] 不含 0。把冲突和处理方式写成记录、给出两条推翻条件，而不是在报告里悄悄二选一。
+  推翻条件ⓐ默认 HSBC mock 能补上第二组证据；运行前核对数据结构才发现它的正例比 Santander 第一批更少、档位也不对应重合率。
+  这一核对只用了文件的汇总计数，没有任何 G3 臂接触 HSBC mock，不构成依结果改动。
+  所有者 2026-10-26 把执行层面的取舍交给 Agent 按项目终点判据判断（DR-GOV-016 原文登记）；本记录的 D-1、D-2 均可由所有者一句话推翻。
+links:
+  branch_card: none
+  decision_record: DR-GOV-017
+  loop_step: DR-GOV-016 review_trigger ①（G3 Santander 主对比完成）
+cross_border_impact: none
+cross_border_detail: 只登记复核与报告口径，不运行任何实验，不涉及任何跨境资产的实际流动。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 只引用已公开的汇总指标（S5.G1 contrasts_dev_eval.csv）；不含数据、标识或凭证。
+downstream_affected:
+- M5
+- M6
+breaking_change: false
+migration: 无。接手者引用 Santander 主对比时须连同规模标注（DR-GOV-017 · D-2）。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:c0a4bbfc9709cfbc94b60c18530f41519cee917f1bb495c17d1d3da8079a69d0
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/python.lock
+rollback: revert 本提交即可；S5.G1 的结果文件与判定不受影响。
+verification: |
+  DR-GOV-017 · D-2 的依据逐行核对 modules/m5_modeling/results/g3_santander_v1/contrasts_dev_eval.csv：
+  区间含 0 的 6 行可检出差异 0.0058–0.0123，均 < 0.02；区间不含 0 的 4 行不适用「未达可检出规模」——没有一行的判定因正例不足而改变。
+  DR-GOV-017 · D-1 的四项事实在本机只读核对：三档内地侧、香港侧与共同客户名单的去重客户数逐档相同；三档客户数约为 10/21 汇报样本的 20% / 50% / 80%；
+  本机 HSBC_mock数据/Mock数据说明.md 写明三档为「按 20/50/80% 抽样共同客户」、数据为 Santander「切分 + 变形」而非生成；
+  M1 冻结清单（modules/m1_data_selection/configs/portfolio_freeze.yaml）对三档的 scope 写明不得把档位解释为两方重叠率。绝对客户数属交集规模，未入库。
+  门禁全量回归在推送前运行。
+step:
+  step_id: S-GOV.17
+  step_name: DR-GOV-016 复核与 D-2 推翻条件的执行方式
+  declaration: |
+    will_produce：一份复核决策记录；状态、台账、分支卡与两处 README 的同步；变更记录。
+    will_not_produce：不运行任何实验；不让任何 G3 臂接触 HSBC mock 或 FedAds；不改 S5.G1 的结果文件、notebook 或判定；不改冻结的 S6.P3 与口径 v1；
+    不打开封存确认集；不合并任何 PR；不把交集规模写入仓库。
+    success_criteria：推翻条件的两项后果都有明确处理与各自的 falsifier；D-2 的依据可由公开 CSV 逐行复核，D-1 的依据可由本机文件复核；门禁全部通过。
+    risk：两项推翻条件的后果都没有照字面执行，看起来像依结果改动——为此只保留冻结口径的判定、不新增任何更有利的表述；
+    HSBC mock 的取舍只依据运行前的数据结构核对；两项都给所有者一句话推翻的条件。
+  scope:
+    files_changed: 7
+    lines_added: 182
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "registry/decision_records/DR-GOV-017.yaml 逐项对应 DR-GOV-016 · D-2 falsifier 的ⓐⓑ两项后果与 review_trigger ①"
+      D2: "modules/m5_modeling/results/g3_santander_v1/contrasts_dev_eval.csv 的 ci_low、ci_high、detectable_gap 三列可直接复核 D-2 的依据"
+      D3: "D-2 可由公开 CSV 复核；D-1 的核对只能在维护者本机复现（汇总计数命令记于本机项目实时日志），故 2 分"
+      D4: "DR-GOV-017 · D-1：HSBC mock 三档档内重合率 100%、档位只改样本量——此前各处把它当作重合率轴（S6.P3 datasets.hsbc_mock、Mock数据说明 第四节「Δ 对重合率不敏感」）；D-2：正例不足未改变 S5.G1 任何一行判定"
+  revisions: 0
+  verdict: committed
+  next_step: M6 FedAds 预注册补充冻结（无时间列、无用户号两处缺口），随后 S5.G3；所有者合并 #14

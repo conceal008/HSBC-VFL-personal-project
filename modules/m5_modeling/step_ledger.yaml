@@ -568,7 +568,7 @@ steps:
   - modules/m5_modeling/configs/s5_g1_santander_run.yaml
   note: 主对比 A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0；A − B_T1 = +0.004 区间含 0；NC 与无损性核对通过。开发评估集正例 586 < 700（停止规则 5），触发 DR-GOV-016 · D-2 推翻条件，下一步先 S5.G3。
 current_step: null
-next_step: S5.G3 HSBC mock 三档（DR-GOV-016 · D-2 推翻条件后的顺序），再 S5.G2 SS-XGB
+next_step: M6 FedAds 预注册补充冻结后 S5.G3 FedAds，再 S5.G2 SS-XGB；HSBC mock 三档按规格不可执行，不运行（DR-GOV-017）
 metrics:
   avg_score: 10.238
   escalation_count: 3

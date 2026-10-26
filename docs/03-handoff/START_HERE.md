@@ -1,6 +1,6 @@
 # 新 Agent 接手入口：先保持暂停
 
-> **2026-10-26 恢复授权**：所有者指示「继续恢复实验，你根据最终目的自主判断上述决策」，见 [DR-GOV-016](../../registry/decision_records/DR-GOV-016.yaml)；`registry/module_status.yaml#experiment_pause` 已切为 resumed_by_user（以合并 PR #14 为准）。第一批只做 G3 五臂对比，须先按 [S6.P3 预注册](../../modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md) 第九节冻结；S5.D2 与 M7 重评暂缓；本批不重启两台虚拟机。**执行阻塞**：本机目录 `/Applications/总文件夹/汇丰` 尚未连接到云端会话，连接前不能开始任何运行。下文 2026-10-15 的暂停叙述保留为历史。
+> **2026-10-26 恢复授权**：所有者指示「继续恢复实验，你根据最终目的自主判断上述决策」，见 [DR-GOV-016](../../registry/decision_records/DR-GOV-016.yaml)；`registry/module_status.yaml#experiment_pause` 已切为 resumed_by_user（以合并 PR #14 为准）。第一批只做 G3 五臂对比，须先按 [S6.P3 预注册](../../modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md) 第九节冻结；S5.D2 与 M7 重评暂缓；本批不重启两台虚拟机。**执行阻塞**（已于 10-26 11:32 解除）：本机目录 `/Applications/总文件夹/汇丰` 已连接到云端会话。**进展（10-26）**：S5.G0 冻结、S5.G1 Santander 第一批完成（开发证据，正例 586 未达 700，引用须带规模标注），S-GOV.17 复核（[DR-GOV-017](../../registry/decision_records/DR-GOV-017.yaml)：HSBC mock 三档按规格不可执行，第二组证据改由 FedAds），见 PR #15 与 [交接记录](HO-20261026-Claude-M5-g3-santander.md)。下文 2026-10-15 的暂停叙述保留为历史。
 >
 > **2026-10-25下一阶段**：[任务清单 T1–T15](下一阶段任务清单_20261025.md)按「是否需恢复授权」分组；T5 是唯一授权节点，**仍未授权恢复实验**。
 >

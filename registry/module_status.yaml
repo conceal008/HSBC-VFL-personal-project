@@ -1,10 +1,11 @@
-updated_at: '2026-10-25T23:40:00+08:00'
+updated_at: '2026-10-26T10:40:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S6.P3 G3五臂对比预注册（任务清单 T4，状态 proposed）；所有科研实验仍暂停
-  last_action_at: '2026-10-25T23:40:00+08:00'
+  last_action: S-GOV.16 所有者授权恢复科研实验（DR-GOV-016）；第一批 G3 五臂对比，执行待本机目录连接
+  last_action_at: '2026-10-26T10:40:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261025-M6-003
+  change_id: CL-20261026-GOV-001
+  previous_action_20261025e: S6.P3 G3五臂对比预注册（CL-20261025-M6-003）
   previous_action_20261025d: S6.P2盈亏平衡与信息价值模型（CL-20261025-M6-002）
   previous_action_20261025c: S6.P1冻结评估口径 v1 并校准判据（CL-20261025-M6-001）
   previous_action_20261025b: S-MX.3整理下一阶段任务清单（T1–T15，CL-20261025-MX-002）
@@ -422,10 +423,18 @@ next_phase_plan_20261025:
   change_id: CL-20261025-MX-002
   plan_doc: docs/03-handoff/下一阶段任务清单_20261025.md
   branch: m6/evaluation-protocol-v1
-  next_step: T5 所有者恢复授权（唯一授权节点）；T1–T4 已完成（CL-20261025-M6-001、-002、-003；T3 在仓库外：claude.ai 面聊一页 v1.1）
+  next_step: T6–T9（G3 第一批）——先按 S6.P3 第九节冻结，须本机目录已连接；T1–T5 已完成（T5：DR-GOV-016，2026-10-26）
 experiment_pause:
-  status: paused_by_user
-  recorded_at: '2026-10-15T12:31:51+00:00'
-  instruction: 先暂停一切实验，整理进度、日志、GitHub及本地结构以便新Agent接手
-  resume_requires: 所有者明确要求恢复实验；本次交接不自动授权新运行
+  status: resumed_by_user
+  recorded_at: '2026-10-26T10:40:00+08:00'
+  resume_authorization_record: registry/decision_records/DR-GOV-016.yaml
+  instruction: 继续恢复实验，你根据最终目的自主判断上述决策
+  first_batch: G3 五臂对比（modules/m6_evaluation/S6.P3_G3五臂对比_预注册声明.md），先冻结后执行
+  execution_blocker: 本机目录 /Applications/总文件夹/汇丰 未连接到会话（2026-10-26 申请被会话安全检查拒绝）；连接前不能开始任何运行
+  vm_state_note: 本批不重启两台虚拟机（DR-GOV-016 · D-3）
+  previous_pause:
+    status: paused_by_user
+    recorded_at: '2026-10-15T12:31:51+00:00'
+    instruction: 先暂停一切实验，整理进度、日志、GitHub及本地结构以便新Agent接手
+    snapshot: docs/03-handoff/暂停状态.yaml
   start_here: docs/03-handoff/START_HERE.md

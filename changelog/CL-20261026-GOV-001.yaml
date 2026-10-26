@@ -1,0 +1,78 @@
+change_id: CL-20261026-GOV-001
+timestamp: '2026-10-26T10:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: GOV
+type: decision
+title: S-GOV.16 所有者授权恢复科研实验（DR-GOV-016），第一批为 G3 五臂对比
+what: |
+  新增 registry/decision_records/DR-GOV-016.yaml：authorized_by=project_owner、resume_research_experiments=true、
+  promote_paused_assets=false，并逐字记录所有者 2026-10-26 指示；五项取舍——恢复（D-1）、第一批只做 G3 且先冻结后执行，
+  S5.D2 与 M7 重评暂缓（D-2）、单进程两方模拟运行、本批不重启两台虚拟机（D-3）、PR #13/#14 由所有者一次合并 #14（D-4）、
+  本机目录未连接即不能执行（D-5）。
+  registry/module_status.yaml#experiment_pause 由 paused_by_user 切为 resumed_by_user 并引用 DR-GOV-016，原暂停记录移入 previous_pause；
+  governance 与下一阶段计划条目同步。README、START_HERE、RESTART_PLAN 顶部加注，原文保留；任务清单 T5 状态更新；
+  S6.P3 预注册声明加注授权日期，状态仍为 proposed。docs/03-handoff/暂停状态.yaml 作为历史快照不改。
+why: |
+  所有者指示「继续恢复实验，你根据最终目的自主判断上述决策」。RESTART_PLAN「状态切换前置」（S9.H2）要求恢复前在
+  registry/decision_records 登记 active 判决并切换 experiment_pause；tools/handoff_contract.py 只承认这样登记的授权。
+  取舍依据项目终点判据：G3 直接回答 L3 相对 L1 的增量与单向形态代价（S0.9、S6.P2 的 EVPPI 前列），S5.D2 与 M7 重评不改变形态判决。
+links:
+  branch_card: none
+  decision_record: DR-GOV-016
+  loop_step: 维护约束 v2 · 暂停恢复（S9.H2 状态切换前置）
+cross_border_impact: none
+cross_border_detail: 只登记授权与执行顺序，不运行任何实验，不涉及任何跨境资产的实际流动。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 不含数据、标识或凭证；所有者指示原文只是一句恢复授权。
+downstream_affected:
+- M5
+- M6
+- M7
+breaking_change: false
+migration: 无。接手者读取 experiment_pause 时会看到 resumed_by_user 与 execution_blocker；运行前仍须先冻结 S6.P3。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:73bc22427bde56f93c0cf2a52d56cbd62c43643dc9ecf2f89e800af7d3f8302a
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/python.lock
+rollback: revert 本提交即恢复为暂停状态；不影响任何结果文件。
+verification: |
+  pytest tools/tests 44/44 通过，含 test_handoff_archive 用真实 registry 状态调用 execution_mode 与 validate_archive
+  （resumed_by_user + DR-GOV-016 被接受；暂停草稿未晋升，promote_paused_assets=false 不触发晋升检查）。
+  门禁 1、2、4、5、6、7 与 M9 证据链在本地逐项通过后提交；全量回归在推送前运行。
+step:
+  step_id: S-GOV.16
+  step_name: 所有者授权恢复科研实验与第一批取舍
+  declaration: |
+    will_produce：一份恢复授权决策记录；experiment_pause 状态切换；入口文档与计划的状态同步；变更记录。
+    will_not_produce：不运行任何训练、隐私集合求交（PSI）或攻击；不启动虚拟机；不还原暂停草稿；不冻结 S6.P3（须本机代码指纹）；
+    不读封存确认集；不合并任何 PR（会话安全检查拒绝，留给所有者）。
+    success_criteria：授权记录满足 tools/handoff_contract.py 的字段要求并通过真实状态测试；DR 有整体与逐项 falsifier；
+    入口文档不再把当前状态写成「暂停」，历史暂停叙述保留；门禁全部通过。
+    risk：恢复授权后接手者可能误以为实验已在进行——experiment_pause 加了 execution_blocker 字段，START_HERE 与 README 顶部写明阻塞点。
+  scope:
+    files_changed: 8
+    lines_added: 186
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "registry/decision_records/DR-GOV-016.yaml 字段 authorized_by、resume_research_experiments、user_instruction 与 RESTART_PLAN「状态切换前置」逐项对应"
+      D2: "tools/tests/test_handoff_archive.py:54 用真实 registry 状态调用 validate_archive，44/44 通过"
+      D3: "纯治理步骤，无运行；状态切换可由 revert 撤回"
+      D4: "新信息有限：把授权与执行阻塞写成机器可读状态；新增判断是本批不需要虚拟机、阻塞点只在本机目录访问"
+  revisions: 0
+  verdict: committed
+  next_step: 所有者合并 #14 并连接本机目录；随后按 S6.P3 第九节冻结，执行 G3 Santander 主对比

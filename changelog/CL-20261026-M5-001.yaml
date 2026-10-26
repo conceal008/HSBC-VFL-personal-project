@@ -1,0 +1,75 @@
+change_id: CL-20261026-M5-001
+timestamp: '2026-10-26T12:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: decision
+title: S5.G0 冻结 G3 五臂对比预注册（S6.P3 frozen）并提交 G3 组件
+what: |
+  modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml 状态改为 frozen，新增 freeze 节：Santander 加盐哈希分组与样本量规则结果、
+  各臂实现细节与搜索空间、十条冻结前修改（A-1 至 A-10）、新增推翻条件、组件与环境指纹。
+  新增组件 modules/m5_modeling/components/g3_santander.py（流式分桶筛选、次月配对与业务切分、编码、样本量规则）、
+  g3_arms.py（XGBoost 臂与共享候选调参、L1 k-匿名分段均值、B_T1 随机树嵌入 k 粗化、阴性对照打乱）、
+  g3_sgb.py（隐语 SGB 单进程两方模拟训练与打分）；14 项单元测试；运行环境锁 environments/g3_sfenv.lock；
+  阶段预算 DR-M5-009；组件声明三份；M5 台账、模块状态、S6.P3 声明的状态同步。
+why: |
+  DR-GOV-016 把 G3 定为恢复后的第一批，须先冻结、后执行。冻结前只看过训练组正例率（0.0378）与开发评估候选桶在 2016-03 的客户数，
+  开发评估集标签未计算，封存确认集未抽取。冻结前修改的理由：团队仓库的旧 SGB 脚本与旧抽样无法在本会话取得（A-2、A-4）；
+  SGB 单次拟合约一小时，确定性臂多 seed 重复不增加信息（A-3）；L1、B_T1、B_T2 在 proposed 版只有名字，须写成可执行定义（A-6 至 A-8）。
+links:
+  branch_card: none
+  decision_record: DR-M5-009
+  loop_step: M5 · G3 五臂对比（DR-MX-002 · D-5 第一批）
+cross_border_impact: none
+cross_border_detail: 只冻结设计与提交代码；公开代理数据上的模拟，不涉及任何跨境资产的实际流动。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    提交的是代码、配置与指纹，不含行数据、客户号或学到的预处理状态。冻结记录中的训练正例率与每桶客户数来自公开竞赛数据的随机样本，
+    不是交集规模或真实业务规模；抽样文件、客户号到分组的映射只存本机私有目录。
+downstream_affected:
+- M6
+breaking_change: false
+migration: 无。新增文件；S6.P3 冻结后修改须另写 DR。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+  config_hash: sha256:c0a4bbfc9709cfbc94b60c18530f41519cee917f1bb495c17d1d3da8079a69d0
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即撤回冻结；未产生任何结果文件。
+verification: |
+  pytest modules/m5_modeling/tests/test_g3_components.py：Python 3.11 CI 环境 13 通过 1 跳过（无 xgboost），SecretFlow 3.10 环境 14 全过。
+  SGB 冒烟（合成 4,000 行、20 棵树）：测试 AUROC 0.797，与同配置集中式 XGBoost 0.794 的预测相关 0.975。
+  本机分桶与云端独立计算的三个客户号桶号一致（3497、3369、8002）。门禁在本地逐项通过后提交。
+step:
+  step_id: S5.G0
+  step_name: G3 五臂对比冻结与 G3 组件
+  declaration: |
+    will_produce：冻结的 S6.P3 预注册（含冻结前修改与指纹）；三个 G3 组件及单元测试与声明；环境锁；阶段预算 DR；状态同步。
+    will_not_produce：不计算开发评估集标签，不训练任何正式臂，不抽取封存确认集，不上传任何行数据、客户号或预处理状态。
+    success_criteria：冻结前修改逐条有理由且均在看评估标签之前；组件有单测；指纹可核对；门禁全部通过。
+    risk：冻结前修改较多（十条），读者可能怀疑事后调整——每条都写明理由，且冻结时开发评估集标签尚未计算。
+  scope:
+    files_changed: 15
+    lines_added: 938
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml freeze 节逐项对应 S6.P3 第九节要求的指纹、seed、适用性登记与样本量"
+      D2: "modules/m5_modeling/tests/test_g3_components.py：配对标签、缺月不配对、k-匿名抑制、k 粗化、分段编号一致"
+      D3: "冻结记录含代码 sha256、环境锁 sha256、原始 zip 与私有抽样文件 sha256"
+      D4: "新信息有限：确定性臂多 seed 不增加信息、旧样本排除名单无法重建两点改变了执行方式"
+  revisions: 0
+  verdict: committed
+  next_step: S5.G1 Santander 第一批

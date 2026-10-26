@@ -218,12 +218,13 @@ modules:
   M5:
     name: 建模方案与基线阶梯
     path: modules/m5_modeling
-    status: paused_by_user
-    claimed_by: null
-    claimed_at: '2026-10-15T08:44:43.647580+00:00'
-    expires_at: null
-    current_step: null
-    next_step: 先读START_HERE；等待用户恢复后核对暂停D2缺陷与原预算
+    status: in_progress
+    claimed_by: Claude (claude-opus-5-5, Claude Code)
+    claimed_at: '2026-10-26T12:40:00+08:00'
+    expires_at: '2026-10-27T12:40:00+08:00'
+    current_step: S5.G1
+    latest_completed_step: S5.G0
+    next_step: S5.G1 Santander 第一批（G3 五臂对比，按冻结的 S6.P3；DR-M5-009 阶段预算）；S5.D2 暂缓（DR-GOV-016 · D-2）
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁

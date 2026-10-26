@@ -1,6 +1,6 @@
 module: M5
 module_path: modules/m5_modeling
-total_steps_planned: 22
+total_steps_planned: 26
 steps:
 - step_id: S5.1
   step_name: 五级基线阶梯实现（L1 先于 L3 完成）
@@ -515,8 +515,35 @@ steps:
   - modules/m5_modeling/report/S5.X3_发布计数修正.md
   note: 280最终逻辑模型，270新拟合/10完整复用；九旧任务/Mock三阶段只读复用，容量一修正，原数学/配置/封存/阈值不变。新增输出攻击/PSI集成/独立确认未完成。
     发布门禁初轮624通过/1失败及M9 F2/F3由同一陈旧数量引起；修正二只更新总览状态计数，不改模型/结果/核验规则。
+- step_id: S5.G0
+  step_name: G3 五臂对比冻结（S6.P3 frozen）与 G3 组件
+  status: committed
+  phase: g3_five_arm
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 0
+  change_id: CL-20261026-M5-001
+  committed_at: '2026-10-26T12:40:00+08:00'
+  outputs:
+  - modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml（status frozen，freeze 节）
+  - modules/m5_modeling/components/g3_santander.py
+  - modules/m5_modeling/components/g3_arms.py
+  - modules/m5_modeling/components/g3_sgb.py
+  - modules/m5_modeling/tests/test_g3_components.py
+  - environments/g3_sfenv.lock
+  - registry/decision_records/DR-M5-009.yaml
+  note: 冻结前只看过训练组正例率与开发评估候选桶客户数；开发评估集标签未计算，封存确认集未抽取。私有抽样文件在本机 8-9月/G3五臂对比/。
 current_step: null
-next_step: 等待用户明确恢复；先阅读START_HERE和暂停草稿缺陷清单
+next_step: S5.G1 Santander 第一批（按冻结的 S6.P3 执行）
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -588,6 +615,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: g3_five_arm
+  decision_record: DR-M5-009
+  new_steps_authorized: 4
+  planned_steps: [S5.G0, S5.G1, S5.G2, S5.G3]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: in_progress
 - phase: post_portfolio_endpoint_diagnosis
   decision_record: DR-M5-008
   new_steps_authorized: 1

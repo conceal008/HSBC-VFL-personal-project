@@ -175,14 +175,37 @@ steps:
   - modules/m7_security/新增输出重评实验记录.md
   - modules/m7_security/notebooks/S7.P2_output_reaudit_summary.ipynb
   note: 660场景/800拟合实际完成；五seed区间条件于同源；无Bob分数/属性真值或test披露。首次测试fixture失败修正保留。 首次发布门禁因实际Notebook产出引用缺失失败，第二轮修引用，结果/代码不改。
+- step_id: S7.G1
+  step_name: B_T1 叶子编码组合披露评估
+  status: committed
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  committed_at: '2026-10-26T21:30:00+08:00'
+  change_id: CL-20261026-M7-001
+  outputs:
+  - modules/m7_security/S7.G1_B_T1披露评估_步骤声明.md
+  - modules/m7_security/notebooks/S7.G1_bt1_disclosure.ipynb
+  - modules/m7_security/results/bt1_disclosure_v1/
+  - modules/m7_security/components/code_disclosure.py
+  note: 复现 S5.G1 的 B_T1 与 L1_k10 打分逐行相同；组合层面不满足 k-匿名（约 5% 的行）；单次发布平均 16 个香港字段可几乎确定推出（L1 1 个）；精度与披露同升同降；3 棵深 3 记为另行预注册的候选。修正一轮：「几乎确定」字段数改按单次发布（单 seed）计，与权衡表一致。
 current_step: null
-next_step: 新代理模型训练后另声明输出风险评估/标签推断
+next_step: 3 棵深 3 候选是否值得在开发评估集上预注册比较，随 S0.9 形态判决一并由所有者裁定；新代理模型训练后另声明输出风险评估
 metrics:
-  avg_score: 10.857
+  avg_score: 10.875
   escalation_count: 0
   revision_rate: null
-  steps_used: 7
-  budget_usage: 0.467
+  steps_used: 8
+  budget_usage: 0.533
   consecutive_low_d4: 0
   pass_threshold: 11
   original_self_average: 11.8

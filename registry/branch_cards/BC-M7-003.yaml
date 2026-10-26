@@ -1,0 +1,22 @@
+card_id: BC-M7-003
+status: active
+phase: g3_five_arm
+decision_record: DR-GOV-017
+routes:
+- id: released_bt1_disclosure
+  purpose: S5.G1 已发布 B_T1 的组合等价类与逐字段推断（最坏情形：内地知道编码到特征区域的映射），L1_k10 分段均值作对照
+  step: S7.G1
+  status: active
+- id: inner_val_tradeoff
+  purpose: 树数、深度与组合级 k-匿名抑制的披露—效用权衡，只在内层验证集
+  step: S7.G1
+  status: active
+- id: dev_eval_candidate
+  purpose: 权衡中满足 R3 的变体在开发评估集上的比较——须另行预注册
+  step: null
+  status: not_started
+history:
+- 2026-10-26 声明写于一次单 seed 原型之后（原型只看了已发布 B_T1 的披露度量，未计算新变体效用）。
+falsifier: |
+  复现核对任一项不通过（重建的 B_T1 或 L1_k10 开发评估集打分与 S5.G1 已保存打分不一致）→ 本步全部度量作废，先查重建过程；
+  在开发评估集上评估任何新变体，或据权衡结果改写 S5.G1 的结论 → 违反声明，结果作废。

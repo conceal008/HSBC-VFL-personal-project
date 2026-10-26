@@ -1,0 +1,17 @@
+component: code_disclosure
+module: M7
+path: modules/m7_security/components/code_disclosure.py
+purpose: B_T1 叶子编码的披露度量：编码组合的等价类规模、按编码推断香港字段的能力（AUROC、确定推出比例）、组合级 k-匿名抑制，以及按 S5.G1 做法重建发布内容。
+inputs:
+- 香港侧特征矩阵与客户号（各发布人群）
+- 随机树嵌入的树数、深度、k、seed，是否做组合级抑制
+- L1 分段均值（对照）
+outputs:
+- 等价类统计、逐字段推断指标、粗化与抑制后的编码、内地收到的独热
+tests:
+- modules/m7_security/tests/test_code_disclosure.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线度量，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所度量的是 B_T1 设计中香港→内地发出内容的性质。
+caveat: 编码表、树结构、客户号与逐行推断结果只存本机或会话私有目录，不入仓库；只发布汇总比例与逐字段汇总指标。
+declared_at: '2026-10-26'
+declared_by: Claude (claude-opus-5-5, Claude Code)

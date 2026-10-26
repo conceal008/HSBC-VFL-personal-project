@@ -1,0 +1,42 @@
+# S7.G1 · B_T1 叶子编码组合披露评估的运行配置
+# ---------------------------------------------------------------------------
+# 输入是 S5.G1 的私有数组与调参记录（环境变量 G3_PRIVATE_ROOT 指向的目录：本机 8-9月/G3五臂对比/…/outputs 或会话临时目录），不入仓库。
+# B_T1 的构造与 S5.G1 完全相同（冻结的 S6.P3 freeze.arm_details.b_t1 与 g3_arms），本步只度量它发出了什么，不改冻结项。
+# 开发评估集只用于：①复现核对（只用特征，不用标签）；②发布内容的披露度量（只用香港特征，不用标签）。
+# 披露—效用权衡只在内层验证集上计算，不在开发评估集上评估任何新变体。
+# ---------------------------------------------------------------------------
+step_id: S7.G1
+purpose: 度量 B_T1 发出的叶子编码在编码组合层面的等价类规模、内地据此推断香港字段的能力，并在内层验证集上给出披露与效用的权衡
+source_run_config: modules/m5_modeling/configs/s5_g1_santander_run.yaml
+preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+private_root_env: G3_PRIVATE_ROOT
+private_inputs_sha256:
+  g3_santander_arrays.npz: d97fd16ff044d55d48244707b30169c10da0e00b06a87acd480620d6c4136177
+  g3_santander_local_scores.npz: 54c51ed85280bc206eb75e0592660df7798c47abb046d02f7887a40c1304c54c
+  g3_santander_tuning.json: cdfea9b81410c14b332e98cd9d1df88231bfdd6a3cf948b45fd531bfdb97a1a9
+
+# 复现核对：按 S5.G1 的做法重建第一个 seed 的 B_T1 开发评估集打分，与已保存打分逐行比较
+reproduce_seed_index: 0
+reproduce_tolerance: 1.0e-6
+
+# 披露度量的发布人群（S5.G1 中 B_T1 编码实际发出的三组）
+release_splits: [train, inner_val, dev_eval]
+mapping_split: train            # 推断映射只从训练发布中学（最坏情形：内地知道编码到特征区域的映射）
+l1_comparison_k: 10             # 对照：L1_k10 的分段均值作推断分数
+
+# 披露—效用权衡（内层验证集；XGBoost 配置固定为 S5.G1 调参选定的 B_T1 配置，不重新调参）
+tradeoff_variants:
+  - {name: T1_d2, n_trees: 1, depth: 2, tuple_k: false}
+  - {name: T3_d2, n_trees: 3, depth: 2, tuple_k: false}
+  - {name: T3_d3, n_trees: 3, depth: 3, tuple_k: false}
+  - {name: T10_d2, n_trees: 10, depth: 2, tuple_k: false}
+  - {name: T10_d3, n_trees: 10, depth: 3, tuple_k: false}      # = S5.G1 发布的 B_T1
+  - {name: T3_d3_tk, n_trees: 3, depth: 3, tuple_k: true}
+  - {name: T10_d3_tk, n_trees: 10, depth: 3, tuple_k: true}
+released_variant: T10_d3
+
+near_certain_auc: 0.99          # 逐字段推断 AUROC 达到此值，记为「几乎确定可推出」的字段
+
+results_dir: modules/m7_security/results/bt1_disclosure_v1
+round_share: 4
+round_auc: 4

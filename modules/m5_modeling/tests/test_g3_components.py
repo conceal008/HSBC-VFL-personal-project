@@ -172,3 +172,72 @@ def test_调参选验证集最好的配置():
 def test_SGB参数映射():
     p = SG.sgb_params({"num_boost_round": 10, "max_depth": 3, "learning_rate": 0.2, "reg_lambda": 1}, 0.03, 11)
     assert p["sketch_eps"] == 0.03 and p["objective"] == "logistic" and p["num_boost_round"] == 10
+
+
+def _install_fake_secretflow(monkeypatch):
+    """CI 环境没有 SecretFlow：用最小替身只检验 g3_sgb 的编排（设备、分区、参数、打分集与关闭），不检验密码学本身。"""
+    import types
+
+    calls = {"init": None, "params": None, "shutdown": 0}
+
+    class PYU:
+        def __init__(self, party):
+            self.party = party
+
+        def __call__(self, fn):
+            return lambda: fn()
+
+    class FedNdarray:
+        def __init__(self, partitions, partition_way):
+            self.parts = list(partitions.values())
+            self.way = partition_way
+
+    class Model:
+        def predict(self, x):
+            return np.hstack(x.parts).sum(axis=1)
+
+    class Sgb:
+        def __init__(self, heu):
+            self.heu = heu
+
+        def set_params(self, params):
+            calls["params"] = params
+
+        def fit(self, x, y):
+            assert x.way == "vertical" and len(x.parts) == 2
+            return Model()
+
+    sf = types.ModuleType("secretflow")
+    sf.init = lambda **kw: calls.__setitem__("init", kw)
+    sf.shutdown = lambda: calls.__setitem__("shutdown", calls["shutdown"] + 1)
+    sf.PYU = PYU
+    sf.HEU = lambda cfg, field: ("heu", cfg["he_parameters"]["schema"], field)
+    sf.utils = types.SimpleNamespace(testing=types.SimpleNamespace(
+        heu_config=lambda holder, others: {"he_parameters": {"schema": "paillier"}, "holder": holder}))
+    data = types.ModuleType("secretflow.data")
+    ndarray = types.ModuleType("secretflow.data.ndarray")
+    ndarray.FedNdarray = FedNdarray
+    ndarray.PartitionWay = types.SimpleNamespace(VERTICAL="vertical")
+    device = types.ModuleType("secretflow.device")
+    device.reveal = lambda v: v
+    ml = types.ModuleType("secretflow.ml")
+    boost = types.ModuleType("secretflow.ml.boost")
+    sgb_v = types.ModuleType("secretflow.ml.boost.sgb_v")
+    sgb_v.Sgb = Sgb
+    spu = types.ModuleType("spu")
+    spu.FieldType = types.SimpleNamespace(FM64="FM64")
+    for name, mod in {"secretflow": sf, "secretflow.data": data, "secretflow.data.ndarray": ndarray,
+                      "secretflow.device": device, "secretflow.ml": ml, "secretflow.ml.boost": boost,
+                      "secretflow.ml.boost.sgb_v": sgb_v, "spu": spu}.items():
+        monkeypatch.setitem(sys.modules, name, mod)
+    return calls
+
+
+def test_SGB编排用替身检验(monkeypatch):
+    calls = _install_fake_secretflow(monkeypatch)
+    xg, xh = np.ones((4, 2)), np.ones((4, 3))
+    params = SG.sgb_params({"num_boost_round": 2, "max_depth": 2, "learning_rate": 0.1, "reg_lambda": 1}, 0.05, 1)
+    scores, timing = SG.fit_and_score(xg, xh, np.array([0, 1, 0, 1]), {"eval": (xg[:2], xh[:2])}, params, "ou")
+    assert calls["init"]["parties"] == [SG.LABEL_PARTY, SG.PASSIVE_PARTY] and calls["init"]["debug_mode"] is True
+    assert calls["params"] == params and calls["shutdown"] == 1
+    assert np.allclose(scores["eval"], [5.0, 5.0]) and timing["fit_seconds"] >= 0

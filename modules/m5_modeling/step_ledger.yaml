@@ -542,8 +542,33 @@ steps:
   - environments/g3_sfenv.lock
   - registry/decision_records/DR-M5-009.yaml
   note: 冻结前只看过训练组正例率与开发评估候选桶客户数；开发评估集标签未计算，封存确认集未抽取。私有抽样文件在本机 8-9月/G3五臂对比/。
+- step_id: S5.G1
+  step_name: G3 五臂对比 Santander 第一批（L0、L1 k=5/10/20、B_T1、B_T2、A 隐语 SGB、L4、NC）
+  status: committed
+  phase: g3_five_arm
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  change_id: CL-20261026-M5-002
+  committed_at: '2026-10-26T13:40:00+08:00'
+  outputs:
+  - modules/m5_modeling/notebooks/S5.G1_1_santander_prep_local.ipynb（带汇总输出）
+  - modules/m5_modeling/notebooks/S5.G1_2_santander_sgb.ipynb（带汇总输出）
+  - modules/m5_modeling/notebooks/S5.G1_3_santander_evaluation.ipynb（带汇总输出）
+  - modules/m5_modeling/results/g3_santander_v1/
+  - modules/m5_modeling/configs/s5_g1_santander_run.yaml
+  note: 主对比 A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0；A − B_T1 = +0.004 区间含 0；NC 与无损性核对通过。开发评估集正例 586 < 700（停止规则 5），触发 DR-GOV-016 · D-2 推翻条件，下一步先 S5.G3。
 current_step: null
-next_step: S5.G1 Santander 第一批（按冻结的 S6.P3 执行）
+next_step: S5.G3 HSBC mock 三档（DR-GOV-016 · D-2 推翻条件后的顺序），再 S5.G2 SS-XGB
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -619,7 +644,7 @@ phase_budgets:
   decision_record: DR-M5-009
   new_steps_authorized: 4
   planned_steps: [S5.G0, S5.G1, S5.G2, S5.G3]
-  steps_used: 1
+  steps_used: 2
   inherit_pass_threshold: 11
   historical_quality_reset: false
   status: in_progress

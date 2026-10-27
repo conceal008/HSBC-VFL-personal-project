@@ -1,0 +1,87 @@
+change_id: CL-20261027-M5-001
+timestamp: '2026-10-27T19:20:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.G3 G3 五臂对比 FedAds：L3 相对 L1 有增量，单向 B_T1 与双向分不开
+what: |
+  按冻结的 S6.P3 与 S6.P4（540d5b9）在 FedAds 官方纵向切分上训练并比较 L0、L1（k=5/10/20）、B_T1、A（隐语 SGB，单进程两方模拟）、
+  集中式代理 L4、阴性对照 NC（B_T2 不适用）。三个带汇总输出的运行入口 notebook（数据与本地臂、SGB、配对比较）、运行配置
+  configs/s5_g3_fedads_run.yaml、公开汇总 results/g3_fedads_v1/（各臂指标、对比表、运行摘要与适用边界说明）。
+  test_g3_fedads 中的合成用户号改为短编号（门禁 1 把 19 位数字误判为疑似银行卡号；不影响冻结的组件）。
+  状态类字段同步：M5 README（状态、当前结论、S6.P4–S5.G3 一节）、step_ledger（追加 S5.G3，阶段预算 3/4）、BC-M5-017（FedAds 路线完成）、
+  registry/module_status.yaml 的 M5、M0（S0.9 输入）与 governance、项目进度总览 notebook 计数（63→66）。
+why: |
+  DR-GOV-017 把第二组证据改为 FedAds：Santander 是构造切分，香港侧被设计成信息丰富的一方，增益可能被高估（总整合 R3）；
+  FedAds 是官方自然切分，用来检验 S5.G1 的三条结论是否只在构造切分上成立。
+  验证的假设与结果（开发评估集 129,489 行、91,967 位用户、848 个正例行）：
+  ① L3 相对 L1 有增量——成立，A − L1_k10 = +0.035 [0.020, 0.050]；
+  ② L1 能拿到相当一部分联邦增益——不成立，L1_k10 − L0 = −0.010 [−0.023, 0.004]；
+  ③ 单向形态有明显代价——不成立，A − B_T1 = −0.008 [−0.017, 0.000]；
+  ④ 增益来自信息互补——成立，NC − L0 ≈ 0；⑤ SGB 与集中式无损——成立，A − L4 = +0.002。
+  联邦相对本地单边的增益在自然切分上较小：A − L0 = +0.025，Santander 为 +0.044。
+links:
+  branch_card: BC-M5-017
+  decision_record: DR-M6-002
+  loop_step: M5 · G3 五臂对比第二组证据（DR-GOV-017 · D-1）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线模拟，不涉及任何真实跨境资产。所模拟的数据流（香港→内地一次性叶子编码、双向加密梯度）属设计层面，未在任何真实环境中传输。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含各组行数、用户数与正例数、编码方式与基数、k-匿名发布的段数与叶子数、调参后的超参与内层验证 AUROC、
+    开发评估集的汇总指标与配对差。不含行数据、用户号或其散列、逐行打分或标签、编码表、分段表、模型参数。
+    样本行数与用户数属公开数据集随机样本规模，不是交集规模或真实业务规模（维护约束 §2.7）。私有产物只在本机与会话临时目录。
+downstream_affected:
+- M0
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S6.P3、S6.P4 冻结记录不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_g3_fedads_run.yaml
+  config_hash: sha256:56f1fdbd654027d042fa73c0982cb52076f875f1179f33d01b3fd4b7d01c3eb8
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；S6.P4 冻结与组件不受影响。
+verification: |
+  三个 notebook 由 nbclient 在 SecretFlow 环境（Python 3.10）从头执行，首格核对 S6.P3、S6.P4 均为 frozen、S6.P4 记录的父文件指纹与四个组件 sha256 一致、私有输入 sha256 一致。
+  三组用户两两不相交（notebook 断言）。SGB 内层验证 AUROC 0.6332，集中式代理 0.6351；开发评估集 A − L4 = +0.002 [−0.005, 0.009]，未触发无损性推翻条件。
+  修正一轮：S5.G3-3 首次执行超过后台运行 30 分钟上限被中止（未写出任何结果），加长上限后原样重跑，代码未改。
+  S5.G3-2 的 150 行相同 SecretFlow 警告折叠为一行说明；markdown 读法在执行后按输出填写，未改动任何代码单元或其他输出。
+  对比表 9 行（主对比 1、次要 7、无损核对 1）；B_T2 − L1_k10 与 A_secure − A 本数据集不做，Holm 按 9 项计。
+step:
+  step_id: S5.G3
+  step_name: G3 五臂对比 FedAds
+  declaration: |
+    will_produce：三个带汇总输出的运行入口 notebook；运行配置；公开汇总三张表与说明；状态同步。
+    回答：在官方自然切分上，L3 相对 L1 是否仍有 ≥ 0.02 的增量；L1、单向候选 B_T1 各拿到多少；阴性对照与 SGB 无损性是否成立。
+    will_not_produce：不抽取封存段；不改冻结的 S6.P3、S6.P4；不追加样本；不上传任何行数据、用户号、逐行打分或编码表；
+    不做 A_secure（S5.G2）；不把公开数据结果换算成汇丰收益。
+    success_criteria：首格指纹核对通过；主对比与全部可执行的次要对比按口径 v1 给出区间、p 值、可检出差异与结论；阴性对照有结论；门禁全部通过。
+    risk：训练规模受 SGB 耗时限制（约 15 万行），绝对 AUROC 低；被动方只有 5 个低基数列，B_T1 的编码几乎等于原样发出这些列，单向形态的结论须连同 S7.G1 一起读。
+  scope:
+    files_changed: 15
+    lines_added: 1085
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/g3_fedads_v1/contrasts_dev_eval.csv 逐行对应 S6.P3 的主对比、可执行的次要对比与无损核对（S6.P4 F-6 列出不做的两项）"
+      D2: "modules/m5_modeling/notebooks/S5.G3_3_fedads_evaluation.ipynb：两层重抽样（seed × 用户簇）2,000 次、四类结论、Holm 校正"
+      D3: "首格核对两份冻结文件与组件指纹；私有输入 sha256 核对。但运行在提交前的工作区（指纹打印 540d5b9 + 未提交标记），SGB 单次约 39 分钟未在干净检出上重跑，故 2 分"
+      D4: "contrasts_dev_eval.csv：自然切分上 L1 − L0 区间含 0、A − B_T1 区间含 0，与 S5.G1 一致；A − L0 = +0.025，比构造切分的 +0.044 小——此前对构造切分高估增益只有猜测，没有同口径的自然切分数字"
+  revisions: 1
+  verdict: committed
+  next_step: S5.G2 SS-XGB（A_secure，只在 Santander）；所有者合并 #15 后本分支改指向 main

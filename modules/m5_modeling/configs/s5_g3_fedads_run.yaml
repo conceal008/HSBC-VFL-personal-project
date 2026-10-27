@@ -1,0 +1,32 @@
+# S5.G3 · G3 五臂对比 FedAds 的运行配置
+# ---------------------------------------------------------------------------
+# 设计参数全部来自冻结的 S6.P3（modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml）与 S6.P4 增补
+# （modules/m6_evaluation/configs/s6_p4_fedads_addendum.yaml）；本文件只放运行所需的路径约定、显示精度与运行细节，不改任何冻结项。
+# 私有输入与逐行输出放在环境变量 G3_PRIVATE_ROOT 指向的目录（本机 8-9月/G3五臂对比/S5.G3_fedads_20261027/ 或会话临时目录），不入仓库。
+# ---------------------------------------------------------------------------
+step_id: S5.G3
+purpose: 按冻结的 S6.P3 与 S6.P4 在 FedAds 上训练 L0、L1（k=5/10/20）、B_T1、A（SGB）、集中式代理 L4 与阴性对照 NC，并做配对比较
+preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+addendum: modules/m6_evaluation/configs/s6_p4_fedads_addendum.yaml
+seeds: [11, 22, 33, 44, 55, 66]
+seed: 11
+
+private_root_env: G3_PRIVATE_ROOT
+selected_rows_file: g3_fedads_selected.csv.gz
+arrays_file: g3_fedads_arrays.npz
+local_scores_file: g3_fedads_local_scores.npz
+sgb_scores_file: g3_fedads_sgb_scores.npz
+tuning_file: g3_fedads_tuning.json
+timing_file: g3_fedads_sgb_timing.json
+
+l1_k_values: [5, 10, 20]
+local_arms: [L0, L1_k5, L1_k10, L1_k20, B_T1, L4]
+report_arms: [L0, L1_k5, L1_k10, L1_k20, B_T1, A, L4, NC]
+
+results_dir: modules/m5_modeling/results/g3_fedads_v1
+top_k_share: 0.10
+n_bootstrap: 2000
+alpha: 0.05
+power: 0.80
+round_auc: 4
+round_rate: 3

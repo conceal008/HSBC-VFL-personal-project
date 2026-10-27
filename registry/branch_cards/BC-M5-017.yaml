@@ -13,9 +13,9 @@ routes:
   step: S5.G2
   status: planned
 - id: fedads_natural_split
-  purpose: FedAds 官方自然切分上重复同一比较（第二组证据；须先由 M6 补充冻结）
+  purpose: FedAds 官方自然切分上重复同一比较（第二组证据；M6 补充冻结 S6.P4）
   step: S5.G3
-  status: planned_next
+  status: completed
 - id: hsbc_mock_overlap_tiers
   purpose: HSBC mock 重合率 20/50/80% 三档
   step: S5.G3
@@ -25,6 +25,7 @@ history:
 - 2026-10-26 S5.G0 冻结预注册（f80f74f），开发评估集标签计算之前。
 - 2026-10-26 S5.G1 完成：A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0；A − B_T1 区间含 0；NC 与无损性核对通过。开发评估集正例 586 < 700，触发 DR-GOV-016 · D-2，S5.G3 提前到 S5.G2 之前。
 - 2026-10-26 DR-GOV-017 复核：HSBC mock 三档按规格不可执行、不运行（核对在任何 G3 臂接触其数据之前）；第二组证据改由 FedAds；主对比保留口径 v1 判定并加规模标注。
+- 2026-10-27 S6.P4 冻结 FedAds 增补（540d5b9），开发评估集标签计算之前；S5.G3 完成：A − L1_k10 = +0.035 [0.020, 0.050]；L1 − L0 区间含 0；A − B_T1 区间含 0；NC 与无损性核对通过；开发评估集 848 个正例行。
 falsifier: |
   任一路线在 S6.P3 冻结后未经 DR 改动即执行 → 该路线结果作废；
   阴性对照区间不含 0 → 该数据集含联邦臂的结论作废；

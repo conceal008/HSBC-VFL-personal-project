@@ -1,0 +1,74 @@
+# S6.P4 · G3 五臂对比 FedAds 补充冻结（机器可读部分）
+# ---------------------------------------------------------------------------
+# 状态：frozen（2026-10-27）。S6.P3 文件不改；本文件只补 S6.P3 对 FedAds 没有写定或无法执行的部分，其余全部继承 S6.P3。
+# 冻结时已完成按用户号的行筛选（不读标签）；开发评估集的标签在冻结提交之前没有被计算或查看。
+# 决策记录：DR-M6-002；授权：DR-GOV-017 · D-1、D-3。本文件不含任何行数据或逐行结果。
+# ---------------------------------------------------------------------------
+step_id: S6.P4
+purpose: 写定 FedAds（官方纵向切分）上 G3 比较的数据分组、封存段、编码、各臂的适配与停止规则，供 S5.G3 执行
+status: frozen
+parent_preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+parent_sha256: c0a4bbfc9709cfbc94b60c18530f41519cee917f1bb495c17d1d3da8079a69d0
+decision_record: DR-M6-002
+inherits_from_parent: [primary.contrast, primary.metric, primary.delta_of_interest, secondary_contrasts, arms, seeds, tuning,
+                       freeze.arm_details.search_space, freeze.arm_details.xgboost_max_bin, freeze.arm_details.sgb_sketch_eps,
+                       freeze.arm_details.sgb_he_schema, freeze.arm_details.b_t1, freeze.arm_details.nc, freeze.arm_details.n_jobs,
+                       stopping_rules, protocol_ref]
+
+# 一、数据
+fedads_prep:
+  raw_files:
+    train: {csv: 数据集/FedAds_阿里纵向广告/sample_train_aligned.csv, zip_sha256: 97bfbe6b914ccd0adb615f6c0e8ac6263888ee2bb27cd9965522674fe8b4e537, csv_crc32: 980b4235, rows: 2598552}
+    test: {csv: 数据集/FedAds_阿里纵向广告/test.csv, zip_sha256: 80fddf6545f28bed399d2195c4147122e1bc0a92502e3c6155159bca36fb0660, csv_crc32: 030f5a20, rows: 2432490}
+  party_mapping:
+    mainland_active: 主动方 l_*（10 个商品列、6 个用户列、1 个上下文列，持转化标签）
+    hk_passive: 被动方 f_*（5 个低基数列）
+  user_column: l_u_fea_1
+  salt: G3-FEDADS-2026
+  n_buckets: 10000
+  groups:
+    train: {buckets: [0, 580], source: train}
+    inner_val: {buckets: [580, 810], source: train}
+    dev_eval: {buckets: [2000, 2535], source: test}
+    lockbox: {buckets: [5000, 5535], source: test, extracted: false}
+  eval_bucket_rule: {target_positives: 700, safety: 1.1, train_rate: 0.005923, test_rows_per_bucket: 243.249, buckets: 535, positives_unit: row}
+  selected_rows_sha256: 17f8aa6dfa232862dfa35874935c208c985841ceb85379633d8a7f26b4c4bad3   # 私有，本机 8-9月/G3五臂对比/S5.G3_fedads_20261027/
+  selected_rows_content_sha256: a843b23fc1d4f3a0059584c3487d9269117fec9cee37aeeaf7edf3465372d62a   # 解压后内容；用冻结版组件在本机重跑筛选得到相同内容（gzip 头含时间戳，文件指纹每次不同）
+
+# 二、编码与各臂的适配
+arm_details:
+  high_card_threshold: 1000          # 主动方训练组内基数超过此值的列做频数编码，其余序号编码；被动方全部序号编码
+  cluster_unit: l_u_fea_1            # 两层重抽样的客户簇 = 用户
+  l1_segments: {categorical: [l_u_fea_2, l_u_fea_3, l_u_fea_4, l_u_fea_5], statistics: hk_category_shares, period: train}
+  b_t1_host_matrix: ordinal_codes
+  b_t2: not_applicable               # FedAds 被动方没有自有标签
+  b_best_pool: [B_T1, L1_k10]
+  secondary_contrasts_skipped: [[B_T2, L1_k10], [A_secure, A]]
+  holm_family_size: 9                # 仍按 S6.P3 完整次要家族计，偏保守
+
+# 三、相对 S6.P3 的改动（均在接触开发评估集标签之前）
+amendments:
+  - F-1 封存段由「按时间最晚的一段」改为测试文件中的用户哈希桶 [5000, 5535)：数据没有时间列；本步不抽取
+  - F-2 客户簇为用户号 l_u_fea_1：训练文件前 20 万行中约 18.7 万个不同值，近乎每行一人
+  - F-3 开发评估集取自官方测试文件，且与训练、内层验证用户不相交（全部组的桶区间互不重叠）；官方切分本身允许同一用户跨文件
+  - F-4 训练与内层验证只取训练文件约 5.8% 与 2.3% 的用户（约 15 万与 6 万行）：隐语 SGB 单进程耗时与行数近似成正比（S5.G1：9.9 万行约 55 分钟）
+  - F-5 正例按行计：转化率约 0.59%，同一用户多次转化极少；同时报告有正例的用户数
+  - F-6 B_T2 不适用，B_best 只在 B_T1 与 L1_k10 中选；对应两项次要对比本数据集不做，Holm 仍按 9 项计
+  - F-7 主动方高基数列（商品与用户标识类）做训练组频数编码，不用目标编码，避免标签泄漏
+  - F-8 L1 分段由主动方 4 个低基数用户列组合而成，香港返回分段内各类别占比（被动方全为类别列，均值即占比）
+  - F-9 用户号 l_u_fea_1 只作分组与客户簇、不作特征：各组用户不相交，作特征时内层验证与开发评估组全为未见值，训练与评估分布不一致
+
+falsifiers:
+  - 开发评估集正例行 < 700 且不能按规则扩充 → 判定照口径 v1 给出，引用时带规模标注（同 DR-GOV-017 · D-2）
+  - 阴性对照 NC − L0 区间不含 0 → FedAds 上含联邦臂的结论作废
+  - A − L4 区间不含 0 且绝对值 > 0.005 → A-4、A-5 的代理前提不成立
+  - 冻结后任一项改动未另写 DR 即被执行 → 该步结果作废
+
+code_sha256:
+  modules/m5_modeling/components/g3_fedads.py: 4b447a783fa88d40eb6cad2b6bef2e8d2ef7b5f7bb20c7796400111c5917b884
+  modules/m5_modeling/components/g3_arms.py: c5ac4bf0c2e7bd6722a5dea5a02c213e25656c1a76108fca3d46978b698e24a7
+  modules/m5_modeling/components/g3_sgb.py: 0a42195680c3d47f1dd7d161637632ae10f59e9815c41d7b2dfeb96a26b3d725
+  modules/m6_evaluation/components/paired_eval.py: ed030f11310b98246c7a1e11801378dfaeced71dfc2d2dc35215ef788c6b6bc8
+environment:
+  lock: environments/g3_sfenv.lock
+  lock_sha256: 03501b583520af55e0e652e90ed8e0ad6da78b29391b2654740439f8451c8a93

@@ -1,0 +1,76 @@
+change_id: CL-20261027-M6-001
+timestamp: '2026-10-27T16:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M6
+type: decision
+title: S6.P4 G3 FedAds 补充冻结：用户哈希分组、频数编码、B_T2 不适用
+what: |
+  新增 modules/m6_evaluation/configs/s6_p4_fedads_addendum.yaml（status frozen，S6.P3 文件不改）与声明 S6.P4_FedAds补充冻结_声明.md；
+  决策记录 DR-M6-002（四项取舍：用户单位与分组、训练规模、编码、各臂适配）；组件 modules/m5_modeling/components/g3_fedads.py
+  （标准库筛选，可在本机运行；训练组编码）、单测 5 项、组件声明 M5-g3_fedads。
+  状态类字段同步：M6 step_ledger（追加 S6.P4，5/9）、registry/module_status.yaml 的 M6、M5 与 governance、项目进度总览组件声明计数（93→94）。
+why: |
+  DR-GOV-017 · D-1 把第二组证据改为 FedAds，并要求在 S5.G3 接触评估标签之前由 M6 补充冻结。S6.P3 对 FedAds 的写法有三处无法执行：
+  没有时间列可按时间划封存段；没有显式用户号；被动方没有自有标签。主动方十万级基数的标识类列，S6.P3 的编码没有规定。
+  本步只补这些，其余全部继承 S6.P3，使两个数据集的结果可以并列阅读。
+links:
+  branch_card: none
+  decision_record: DR-M6-002
+  loop_step: M6 · G3 预注册补充（DR-GOV-017 · D-1、D-3）
+cross_border_impact: none
+cross_border_detail: 只写定公开竞赛数据上的离线模拟设计，不运行训练，不涉及任何真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    提交的只有公开竞赛数据随机样本的行数（训练、内层验证、开发评估三组）、训练组正例率、文件指纹与 CRC32、桶区间与规则；
+    不含行数据、用户号或其散列、编码表。筛选结果只在本机 8-9月/G3五臂对比/S5.G3_fedads_20261027/ 与会话临时目录。
+downstream_affected:
+- M5
+breaking_change: false
+migration: 无。S6.P3 不改；S5.G3 读取 S6.P4 与 S6.P3 两份冻结文件。
+reproducibility:
+  config: modules/m6_evaluation/configs/s6_p4_fedads_addendum.yaml
+  config_hash: sha256:462b0a74e10b533292e9ae72634edd820ccae15403350ddbb616467866e8cc3d
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.G1、S7.G1 或 S6.P3。
+verification: |
+  本机文件：两个 ZIP 与 8-9月/数据集/MANIFEST.sha256 一致；展开的 CSV 与 ZIP 内文件 CRC32 一致（DR-GOV-017 · D-3 推翻条件未触发）。
+  筛选在本机以标准库运行（不读标签），三组行数 151,281 / 59,370 / 129,489；会话内核对三组用户两两不相交。
+  修正一轮：首版组件把用户号作频数编码特征，冻结前发现四组用户不相交使评估组该列全为未见值，改为只作分组与客户簇；
+  筛选函数未改，冻结版组件在本机重跑筛选，解压后内容 sha256 与首次相同（a843b23f…）。
+  开发评估集的标签在冻结提交之前没有被计算或查看；只计算了训练组的正例率与编码基数。单测 5 项通过（含分桶公式与 g3_santander 相同）。
+step:
+  step_id: S6.P4
+  step_name: G3 五臂对比 FedAds 补充冻结
+  declaration: |
+    见 modules/m6_evaluation/S6.P4_FedAds补充冻结_声明.md。
+    will_produce：FedAds 补充冻结文件、声明、DR-M6-002、筛选与编码组件及单测；状态同步。
+    will_not_produce：不训练模型；不计算开发评估集任何指标；不抽取封存段；不改 S6.P3；不上传行数据、用户号或编码表。
+    success_criteria：S6.P3 在 FedAds 上无法执行的各项都有写定的替代与推翻条件；分组用户不相交可核对；冻结先于开发评估标签；门禁全部通过。
+    risk：训练规模受 SGB 耗时限制而较小（约 15 万行），FedAds 各臂绝对 AUROC 会低于全量训练；比较是配对的，不影响臂间差的解读，报告中注明。
+  scope:
+    files_changed: 10
+    lines_added: 566
+    routes_covered: 0
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m6_evaluation/configs/s6_p4_fedads_addendum.yaml 的 amendments F-1 至 F-9 逐项对应 S6.P3 在 FedAds 上无法执行或未写定的部分"
+      D2: "registry/decision_records/DR-M6-002.yaml 四项各有 falsifier；分组不相交由 g3_fedads.validate_groups 与会话核对两处保证"
+      D3: "筛选可用冻结版组件在本机重跑得到相同内容；但原始文件只在本机，故 2 分"
+      D4: "S6.P4 amendments F-1、F-2、F-6、F-9：FedAds 无时间列、用户号即 l_u_fea_1、被动方无自有标签、用户号不能作特征——此前 S6.P3 按这些都可行写定"
+  revisions: 1
+  verdict: committed
+  next_step: S5.G3 按 S6.P4 执行 FedAds

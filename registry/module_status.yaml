@@ -1,10 +1,11 @@
-updated_at: '2026-10-26T21:30:00+08:00'
+updated_at: '2026-10-27T16:40:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S7.G1 B_T1 叶子编码组合披露评估（单次发布平均 16 个香港字段可几乎确定推出，精度与披露同升同降）
-  last_action_at: '2026-10-26T21:30:00+08:00'
+  last_action: S6.P4 G3 FedAds 补充冻结（DR-M6-002：用户哈希分组与封存段、频数编码、B_T2 不适用）
+  last_action_at: '2026-10-27T16:40:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261026-M7-001
+  change_id: CL-20261027-M6-001
+  previous_action_20261026f: S7.G1 B_T1 叶子编码组合披露评估（CL-20261026-M7-001）
   previous_action_20261026e: S-GOV.19 更正 DR-GOV-017 · D-1 ②（CL-20261026-GOV-004）
   previous_action_20261026d: S-GOV.18 会话交接记录（CL-20261026-GOV-003）；PR #14 已合并，PR #15 rebase 到 main
   previous_action_20261026c: S-GOV.17 复核 DR-GOV-016（HSBC mock 按规格不可执行，第二组证据改由 FedAds；主对比加规模标注，CL-20261026-GOV-002）
@@ -230,7 +231,7 @@ modules:
     expires_at: '2026-10-27T12:40:00+08:00'
     current_step: null
     latest_completed_step: S5.G1
-    next_step: M6 FedAds 预注册补充冻结 → S5.G3 FedAds → S5.G2 SS-XGB（DR-GOV-017；HSBC mock 三档按规格不可执行，不运行）；S5.D2 暂缓
+    next_step: S5.G3 按 S6.P4 执行 FedAds（已冻结，DR-M6-002）→ S5.G2 SS-XGB；HSBC mock 三档按规格不可执行，不运行（DR-GOV-017）；S5.D2 暂缓
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
@@ -267,12 +268,12 @@ modules:
     path: modules/m6_evaluation
     status: in_progress
     claimed_by: Claude (claude-opus-5-5, Claude Code)
-    claimed_at: '2026-10-25T18:40:00+08:00'
-    expires_at: '2026-10-26T18:40:00+08:00'
+    claimed_at: '2026-10-27T15:40:00+08:00'
+    expires_at: '2026-10-28T15:40:00+08:00'
     current_step: null
-    latest_completed_step: S6.P3
-    next_step: 等所有者授权恢复实验（T5）后，按 S6.P3 第九节冻结 G3 预注册再执行；S6.2 起需要实验结果的步骤同样等授权
-    active_branches: [m6/evaluation-protocol-v1]
+    latest_completed_step: S6.P4
+    next_step: S5.G3 按 S6.P4 执行 FedAds；S6.2 起需要实验结果的步骤待 G3 完成
+    active_branches: [m6/fedads-addendum]
     blocking_on:
     - M5 基线阶梯结果（S6.2 起）
     open_questions:

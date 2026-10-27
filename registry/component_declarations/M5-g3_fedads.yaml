@@ -1,0 +1,16 @@
+component: g3_fedads
+module: M5
+path: modules/m5_modeling/components/g3_fedads.py
+purpose: G3 五臂对比的 FedAds 部分：读取官方 CSV（单元素 JSON 列表格）、按用户号加盐哈希分组筛选（标准库，可在本机运行）、训练组频数与序号编码、被动方类别指示列、各组计数。
+inputs:
+- 官方 sample_train_aligned.csv 与 test.csv（本机）
+- 分组桶区间、盐、桶数、高基数阈值
+outputs:
+- 筛选后的私有行文件（首列为组名）、编码矩阵、各组行数与正例数
+tests:
+- modules/m5_modeling/tests/test_g3_fedads.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所模拟的数据流性质见 S6.P3 与 S6.P4。
+caveat: 行数据、用户号、编码表与逐行预测只存本机私有目录或会话临时目录，不入仓库。
+declared_at: '2026-10-27'
+declared_by: Claude (claude-opus-5-5, Claude Code)

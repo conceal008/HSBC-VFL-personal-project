@@ -567,8 +567,33 @@ steps:
   - modules/m5_modeling/results/g3_santander_v1/
   - modules/m5_modeling/configs/s5_g1_santander_run.yaml
   note: 主对比 A − L1_k10 = +0.043 [0.033, 0.053]；L1 − L0 区间含 0；A − B_T1 = +0.004 区间含 0；NC 与无损性核对通过。开发评估集正例 586 < 700（停止规则 5），触发 DR-GOV-016 · D-2 推翻条件，下一步先 S5.G3。
+- step_id: S5.G3
+  step_name: G3 五臂对比 FedAds（L0、L1 k=5/10/20、B_T1、A 隐语 SGB、L4、NC；B_T2 不适用）
+  status: committed
+  phase: g3_five_arm
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  change_id: CL-20261027-M5-001
+  committed_at: '2026-10-27T19:20:00+08:00'
+  outputs:
+  - modules/m5_modeling/notebooks/S5.G3_1_fedads_prep_local.ipynb（带汇总输出）
+  - modules/m5_modeling/notebooks/S5.G3_2_fedads_sgb.ipynb（带汇总输出）
+  - modules/m5_modeling/notebooks/S5.G3_3_fedads_evaluation.ipynb（带汇总输出）
+  - modules/m5_modeling/results/g3_fedads_v1/
+  - modules/m5_modeling/configs/s5_g3_fedads_run.yaml
+  note: 主对比 A − L1_k10 = +0.035 [0.020, 0.050]；L1 − L0 = −0.010 区间含 0；A − B_T1 = −0.008 区间含 0；NC 与无损性核对通过。开发评估集 848 个正例行（目标 700）。修正一轮：评估 notebook 首次执行被后台 30 分钟上限中止，加长上限后原样重跑。
 current_step: null
-next_step: M6 FedAds 预注册补充冻结后 S5.G3 FedAds，再 S5.G2 SS-XGB；HSBC mock 三档按规格不可执行，不运行（DR-GOV-017）
+next_step: S5.G2 SS-XGB（A_secure，只在 Santander）；HSBC mock 三档按规格不可执行，不运行（DR-GOV-017）
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -644,7 +669,7 @@ phase_budgets:
   decision_record: DR-M5-009
   new_steps_authorized: 4
   planned_steps: [S5.G0, S5.G1, S5.G2, S5.G3]
-  steps_used: 2
+  steps_used: 3
   inherit_pass_threshold: 11
   historical_quality_reset: false
   status: in_progress

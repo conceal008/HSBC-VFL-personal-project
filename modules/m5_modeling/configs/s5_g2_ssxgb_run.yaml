@@ -1,0 +1,46 @@
+# S5.G2 · G3 五臂对比 Santander 臂 A_secure（隐语 SS-XGB）的运行配置
+# ---------------------------------------------------------------------------
+# 设计参数来自冻结的预注册 modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml：A_secure 沿用 A 的配置
+# （arms.A_secure.config = copy_of_A，不调参），只在 Santander，单次拟合上限取 compute_caps.max_wall_clock_hours_per_fit。
+# 运行方式与分段续训见 DR-M5-010；本文件只放路径约定、端口、分段预算与显示精度，不改任何冻结项。
+# 私有输入、检查点与逐行打分放在环境变量 G3_PRIVATE_ROOT 指向的目录（会话临时目录，结果另存本机），不入仓库。
+# ---------------------------------------------------------------------------
+step_id: S5.G2
+purpose: 按冻结的 S6.P3 在 Santander 上训练 A_secure（SS-XGB，全程秘密分享），与 A（SGB）做配对比较并报告成本
+preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+seeds: [11, 22, 33, 44, 55, 66]
+seed: 11
+
+private_root_env: G3_PRIVATE_ROOT
+arrays_file: g3_santander_arrays.npz
+tuning_file: g3_santander_tuning.json
+sgb_scores_file: g3_santander_sgb_scores.npz
+sgb_timing_file: g3_santander_sgb_timing.json
+ckpt_dir: s5g2_ssxgb_ckpt
+ssxgb_scores_file: g3_santander_ssxgb_dev_eval.npy
+resume_check_dir: s5g2_resume_check
+
+# 运行方式（DR-M5-010 · D-1）：隐语生产模式、两个本机进程、本机回环通信
+spu_protocol: SEMI2K
+spu_field: FM128
+fed_ports: [61041, 61042]
+spu_ports: [61051, 61052]
+
+# 分段续训（DR-M5-010 · D-2）：会话后台任务单次上限 2 小时，每段预算留出余量
+chunk_budget_seconds: 6600
+tree_seconds_estimate: 160          # 首次启动（已中止，见 CL-20261028-M5-001）前 4 棵实测约 159 秒/棵；首段之后改用已训均值
+overhead_seconds_estimate: 60       # 进程启动、建链与全局准备
+replay_seconds_per_tree_estimate: 3
+
+# 续训核对（小样本）：不间断两次、续训一次、不回放对照一次
+resume_check: {n_rows: 5000, trees: 8, resume_at: 4}
+prediction_diff_tolerance: 0.001
+
+results_dir: modules/m5_modeling/results/g3_santander_ssxgb_v1
+reference_contrasts: modules/m5_modeling/results/g3_santander_v1/contrasts_dev_eval.csv
+top_k_share: 0.10
+n_bootstrap: 2000
+alpha: 0.05
+power: 0.80
+round_auc: 4
+round_rate: 3

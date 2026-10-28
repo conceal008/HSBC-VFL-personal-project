@@ -1,0 +1,16 @@
+component: g3_ssxgb
+module: M5
+path: modules/m5_modeling/components/g3_ssxgb.py
+purpose: G3 臂 A_secure：隐语 SS-XGB（训练全程秘密分享）两方训练与打分；两个本机进程各代表一方（生产模式、本机回环），逐棵存档、分段续训（载入已训练的树并回放到训练集预测份额上），成本记录（每棵耗时、回环发送字节、峰值内存）。
+inputs:
+- 两方各自的特征矩阵与内地标签（私有数组文件）
+- SS-XGB 参数（与臂 A 相同）、端口、SPU 协议与域、分段预算、单次拟合上限
+outputs:
+- 各方各自目录下的叶子权重份额与本方分裂信息、进度文件；只揭示给内地的打分文件；成本汇总
+tests:
+- modules/m5_modeling/tests/test_g3_ssxgb.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线模拟，两方是同一台机器上的两个进程，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所模拟的数据流（秘密分享份额双向交换、分数只给内地）性质见 S6.P3 与 DR-M5-010。
+caveat: 检查点（权重份额、分裂信息）、逐行打分与日志只存会话临时目录或本机私有目录，不入仓库；续训须两方取同一 stop_at，由 run_chunk 统一算定。
+declared_at: '2026-10-28'
+declared_by: Claude (claude-opus-5-5, Claude Code)

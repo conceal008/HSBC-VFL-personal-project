@@ -1,0 +1,95 @@
+change_id: CL-20261028-M5-001
+timestamp: '2026-10-29T05:00:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.G2 G3 臂 A_secure（SS-XGB）到 6 小时上限时 141 棵，同棵数精度与明文无可分辨差异
+what: |
+  按冻结的 S6.P3 在 Santander 上训练 A_secure（隐语 SS-XGB，训练全程秘密分享，配置与 A 相同、不调参）。
+  新增决策记录 DR-M5-010（运行方式、分段续训、上限计时口径、运行间波动）；组件 modules/m5_modeling/components/g3_ssxgb.py
+  （两个本机进程各代表一方、逐棵存档、续训回放、成本记录）与单测 9 项（含替身 SecretFlow 编排检验）、组件声明 M5-g3_ssxgb；
+  运行配置 configs/s5_g2_ssxgb_run.yaml；两个带汇总输出的运行入口 notebook（训练记录、续训核对与打分；精度与成本）；
+  公开汇总 results/g3_santander_ssxgb_v1/（各臂指标、描述性对比、成本、运行摘要与适用边界说明）。
+  状态类字段同步：M5 README（状态、当前结论、下一步、S5.G2 一节）、step_ledger（追加 S5.G2，G3 阶段预算 4/4、阶段完成）、
+  BC-M5-017（安全档路线 exceeded_compute_cap）、registry/module_status.yaml 的 M5、M0（S0.9 输入）与 governance、
+  项目进度总览 notebook 与组件声明计数（66→68、94→95）。
+why: |
+  S6.P3 的 H4：全程秘密分享训练的精度与成本（A_secure − A，只在 Santander，次要对比）。业务侧安全底线问题（Q2）需要知道：
+  不接受 SecureBoost 类训练期泄漏时，安全档会损失多少精度、要付多少计算与通信。
+  结果：150 棵按均值约 6.35 小时，超过预注册单次拟合上限 6 小时；按 DR-M5-010 · D-3 训到 141 棵（5.97 小时）停止，A_secure 记为未完成，
+  预注册对比不报告。描述性比较（开发评估集 20,351 位客户、586 个正例）：
+  A_secure − 同棵数明文集中式 L4_T = −0.001 [−0.004, 0.002]（可检出差异 0.006）；A_secure − A = +0.000 [−0.002, 0.003]；
+  A_secure − L1_k10 = +0.043 [0.033, 0.054]。成本：每棵树约 152 秒（SGB 约 22 秒，约 6.9 倍，运行方式不同）、两方合计通信约 32 GiB、
+  每个进程峰值内存约 3.3 GB。
+links:
+  branch_card: BC-M5-017
+  decision_record: DR-M5-010
+  loop_step: M5 · G3 五臂对比 H4 安全档（DR-M5-009 第 4 步）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线模拟，两方是同一台机器上的两个进程，不涉及任何真实跨境资产。所模拟的数据流（秘密分享份额双向交换、分数只给内地）属设计层面。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含参数（与 A 相同的公开超参）、分段记录（启动时间、棵数、耗时、退出码）、
+    每棵耗时与通信量的汇总、续训核对中各棵树根节点是否相同的布尔表与预测差异占比、开发评估集的汇总指标与配对差。
+    不含行数据、客户号或其散列、逐行打分或标签、权重份额、分裂特征与分裂值、编码表。分裂值在核对中只比较、不打印。
+    私有产物（检查点、逐行打分、日志）只在会话临时目录（本机连接恢复后转存本机 8-9月/G3五臂对比/）。
+downstream_affected:
+- M0
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S6.P3 冻结记录与已冻结组件不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_g2_ssxgb_run.yaml
+  config_hash: sha256:0ad22448d9fc43faf7380169061e9422e74a2ac167ec9af5e4b71159c0589c36
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.G1、S5.G3、S7.G1 或 S6.P3、S6.P4。
+verification: |
+  训练分 6 次启动（g3_ssxgb.run_chunk），chunks.jsonl 逐段记录组件 sha256（0f55ee4a…）与参数，S5.G2-1 断言全部一致、每次启动都有结果记录；
+  第 6 次启动按上限规则未训练（cap_reached）。两方进度一致（141 棵）。
+  续训核对在 S5.G2-1 重跑（训练集与内层验证集前 5,000 行、8 棵树，不接触开发评估集），DR-M5-010 · D-2 三条成立。
+  S5.G2-2 中集中式代理 L4 重训与 S5.G1 打分最大差 0（参照可复现）；同棵数参照 L4_T 只训 141 棵。
+  修正两轮：①10/28 20:58 首次启动的分段计划按 139 秒/棵估算，第一段会越过会话 2 小时上限，且全局准备耗时只在段末记录、中途终止会丢失，
+  于第 4 棵后中止、检查点弃用未打分（DR-M5-010 context ⑤），组件改为准备结束即记段后从第 0 棵重来；
+  ②S5.G2-1 首次执行时训练记录表读到启动行报 KeyError，改为只取结果行后重跑；随后为不打印分裂值，续训核对改为只输出根节点是否相同的布尔表，
+  两个 notebook 按序重跑（续训核对与打分各重跑一次，汇总结果在报告精度上不变）。门禁 6 R1 拦下续训核对里两处显示精度 4，
+  改为读配置 round_auc（值同为 4），该代码单元未重跑、输出不变。markdown 读法在执行后按输出填写。
+  开跑前排查时曾在开发评估集前 5,000 行上计算过小样本模型（8 棵树）的 AUROC，用于排查续训，不涉及 A_secure 的配置或任何选择；
+  A_secure 不调参，开发评估集标签在 S5.G1 已打开。
+step:
+  step_id: S5.G2
+  step_name: G3 臂 A_secure（隐语 SS-XGB，只在 Santander）的精度与成本
+  declaration: |
+    will_produce：A_secure 的训练与开发评估集打分（配置与 A 相同）；DR-M5-010；可分段续训的组件与单测；两个带汇总输出的运行入口 notebook；
+    公开汇总四张表与说明；状态同步。回答：全程秘密分享相对 SGB 的精度差与成本（耗时、通信、内存）。
+    will_not_produce：不调参；不改 S6.P3；不抽取封存段；不在超出单次拟合上限后继续训练；不上传行数据、逐行打分、权重份额或分裂信息；
+    不把公开数据结果换算成汇丰收益；不做 SS-XGB 的攻击评估（属 M7）。
+    success_criteria：首格指纹核对通过；训练按 DR-M5-010 分段、组件指纹逐段一致；续训核对三条成立；按完成与否分别报告预注册对比或描述性比较；门禁全部通过。
+    risk：2 核机器上 SS-XGB 可能超过 6 小时上限（开跑前基准约 5.8 小时，余量很小）；两臂运行方式不同，耗时只作相对量级。
+  scope:
+    files_changed: 18
+    lines_added: 1616
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/g3_santander_ssxgb_v1/run_summary.csv：trees_reached 141、within_cap False，按 DR-M5-010 · D-3 只报告 contrasts_dev_eval.csv 中注明「描述性」的三行"
+      D2: "modules/m5_modeling/notebooks/S5.G2_1_santander_ssxgb.ipynb：逐段组件指纹断言、续训核对三条断言；S5.G2_2：L4 重训与 S5.G1 打分最大差 0、两层重抽样 2,000 次"
+      D3: "训练与打分可由 g3_ssxgb.run_chunk 与 launch 重跑，但 SS-XGB 两次训练结果不完全相同（DR-M5-010 · D-4），且私有数据只在本机与会话目录，故 2 分"
+      D4: "cost_summary.csv 与 contrasts_dev_eval.csv：此前只有「SS-XGB 约慢 11 倍」一个数；本步给出同口径的精度（同棵数 −0.001 [−0.004, 0.002]）、每棵约 32 GiB 通信，以及隐语原生续训不回放的问题（DR-M5-010 context ③）"
+  revisions: 2
+  verdict: committed
+  next_step: G3 阶段预算 4/4 用完；封存确认集与 S0.9 形态决策待业务方答复；安全档若进入候选，M7 评估 SS-XGB 训练期可见的分裂信息

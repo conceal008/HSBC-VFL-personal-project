@@ -1,0 +1,19 @@
+# S5.G2R · G3 臂 A_secure（隐语 SS-XGB）超限补训到 150 棵的运行配置
+# ---------------------------------------------------------------------------
+# 所有者 2026-11-02 指示补训剩余部分（DR-M5-011）。参数、端口、SPU 协议与域、分段口径全部沿用 S5.G2 的运行配置
+# （base_config），本文件只放补训特有的路径与输出位置，不改任何冻结项。结果超出 S6.P3 单次拟合上限，单列为「超限补训」。
+# 私有输入、检查点与逐行打分放在环境变量 G3_PRIVATE_ROOT 指向的目录，不入仓库。
+# ---------------------------------------------------------------------------
+step_id: S5.G2R
+purpose: 所有者指示把 A_secure 从 141 棵续训到 150 棵（超出预注册单次拟合上限），按 S6.P3 口径报告 A_secure − A 并标注偏离
+base_config: modules/m5_modeling/configs/s5_g2_ssxgb_run.yaml
+decision_record: registry/decision_records/DR-M5-011.yaml
+seeds: [11, 22, 33, 44, 55, 66]
+seed: 11
+
+source_ckpt_dir: s5g2_ssxgb_ckpt               # S5.G2 的 141 棵检查点，只读
+ckpt_dir: s5g2r_ssxgb_ckpt_full150             # 补训目录（由 source 复制而来）
+ssxgb_scores_file: g3_santander_ssxgb150_dev_eval.npy
+override_note: owner_override_cap（DR-M5-011）
+
+results_dir: modules/m5_modeling/results/g3_santander_ssxgb_full150_v1

@@ -1,10 +1,11 @@
-updated_at: '2026-11-03T02:00:00+08:00'
+updated_at: '2026-11-03T08:00:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S5.M1 方法筛选（DR-M5-012）——文献优化方法 × 14 个公开数据集任务：I2 + I3 11 / 14 显著，M6 bagging 7 / 14，其余只在个别任务上有效或无增益；真实 SGB 复核 S5.M2 运行中
-  last_action_at: '2026-11-03T02:00:00+08:00'
+  last_action: S5.M2 真实 SGB 复核（DR-M5-012）——I2 + I3 在 UCI 与 Orange 偏好成立，M6 与 M1x 在 FedAds 成立；4 组同配置代理差超 0.005，按 D-1 降级；方法筛选阶段 2/2 完成
+  last_action_at: '2026-11-03T08:00:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261103-M5-001
+  change_id: CL-20261103-M5-002
+  previous_action_20261103: S5.M1 方法筛选，文献优化方法 × 14 个公开数据集任务（CL-20261103-M5-001，DR-M5-012）
   previous_action_20261102: S5.G2R 所有者指示超限补训 A_secure 到 150 棵（CL-20261102-M5-001，DR-M5-011）
   previous_action_20261029: S5.G2 G3 臂 A_secure，141 / 150 棵时到达 6 小时上限、记为未完成（CL-20261028-M5-001，DR-M5-010）
   previous_action_20261027b: S5.G3 G3 五臂对比 FedAds（CL-20261027-M5-001）
@@ -234,13 +235,14 @@ modules:
     claimed_by: Claude (claude-opus-5-5, Claude Code)
     claimed_at: '2026-11-02T20:38:00+08:00'
     expires_at: '2026-11-04T02:00:00+08:00'
-    current_step: S5.M2
-    latest_completed_step: S5.M1
-    next_step: S5.M2 真实 SGB 复核（运行中，DR-M5-012 · D-5）；之后组合选择改为交叉验证；第二批（M7 LR 求解器、M8 增量学习器、Orange 大版）先报所有者；封存确认集只在 S0.9 形态决策写定后打开一次（待业务方答复）；S5.D2 暂缓
+    current_step: null
+    latest_completed_step: S5.M2
+    next_step: 方法筛选阶段 2/2 用完（DR-M5-012）；待所有者决定：组合选择改为交叉验证、mock 重合 80 的 M6 真实 SGB 复核（约 4.5 小时）、第二批（M7 LR 求解器、M8 增量学习器、Orange 大版）；封存确认集只在 S0.9 形态决策写定后打开一次（待业务方答复）；S5.D2 暂缓
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
     open_questions:
+    - 🟢 **S5.M2（2026-11-03，开发证据，真实 SGB 单次拟合）**：同配置下 9 / 13 与代理差 ≤ 0.005，超出的 4 组（UCI / Orange 偏好原版参数、mock 重合 80 / COIL2000 优化版）SGB 高约 0.006，按 D-1 降级；SGB 上 I2 + I3 在 UCI +0.010 [+0.001, +0.019]、Orange 偏好 +0.036 [+0.017, +0.057]，FedAds 上 M6 +0.011 [+0.006, +0.017]、M1x +0.013 [+0.005, +0.021]；COIL2000 上 M6 与 Santander G3 / UCI 上 M1 不显著；mock 重合 80 的 M6 推迟（DR-M5-012）
     - 🟢 **S5.M1（2026-11-03，开发证据，明文代理筛选）**：14 个公开数据集任务上，I2 细分桶 + 三臂同等调参（配 I3）11 / 14 显著（+0.005 ~ +0.048），M6 bagging 7 / 14（+0.004 ~ +0.010，无变差）；优化版联邦相对同等调参的内地单边 10 / 14（原版参数 7 / 14）；只在个别任务有效：I3（FedAds +0.026）、M1x 非共同客户（FedAds +0.009）、M1（Santander 交易 +0.008，另 5 个变差）；M4、M5 无增益；单一验证集选组合不可靠（DR-M5-012）
     - 🟢 **S5.G2R（2026-11-02，开发证据，超限补训）**：所有者指示把 A_secure 续训到 150 棵（累计 6.44 小时，超出预注册上限，DR-M5-011）；A_secure − A = +0.000 [−0.002, 0.003]，Holm p = 1.0，无可分辨差异；相对 L1_k10 +0.043 [0.033, 0.054]
     - 🟢 **S5.G2（2026-10-29，开发证据，描述性）**：A_secure（SS-XGB）150 棵按均值约 6.35 小时，超过单次拟合上限 6 小时，训到 141 棵停止、记为未完成；同棵数下与明文集中式 L4_T 差 −0.001 [−0.004, 0.002]，相对 L1_k10 +0.043 [0.033, 0.054]；每棵树约 152 秒（SGB 约 22 秒）、两方合计通信约 32 GiB（DR-M5-010）

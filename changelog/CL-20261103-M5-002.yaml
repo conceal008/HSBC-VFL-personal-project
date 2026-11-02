@@ -1,0 +1,111 @@
+change_id: CL-20261103-M5-002
+timestamp: '2026-11-03T08:00:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M2 真实 SGB 复核：I2 + I3 在 UCI 与 Orange 偏好成立，M6 与 M1x 在 FedAds 成立，4 组代理差超容差降级
+what: |
+  用真实隐语 SGB 复核 S5.M1 的代理结论（DR-M5-012 · D-1 / D-5），方法筛选阶段第 2 步。
+  隐语 secretflow-lite 1.13.0b0，debug 单进程两方模拟，OU；配置全部沿用 S5.M1 在验证集上选定的配置，每个（任务，方法）拟合一次（seed 11）。
+  范围：UCI（原版、优化版、M1）、Orange 偏好（原版、优化版）、Santander G3（优化版、M1）、mock 重合 80（优化版）、
+  FedAds（优化版、M6、M1x）、COIL2000（优化版、M6）。
+  新增：
+  - 组件 method_screen_sgb 与单测（M1 / M1x 通过替换标签方的初始预测实现，推理时加回；M6 成员逐个存档可续跑）；
+  - 运行配置 configs/s5_m2_sgb_confirm.yaml（含未执行项与原因）；
+  - 带汇总输出的运行入口 notebook S5.M2_1；
+  - 公开汇总 results/method_screen_sgb_v1/；
+  - 组件声明 M5-method_screen_sgb。
+  状态类字段同步：
+  - DR-M5-012 追加 S5.M2 复核；BC-M5-018 的 sgb_confirmation 路线完成，新增推迟路线 sgb_mock80_bagging；
+  - step_ledger（追加 S5.M2，阶段预算 2/2 用完）；
+  - registry/module_status.yaml 的 M5 与 governance；
+  - M5 README；
+  - 项目进度总览（notebook 72 → 73、带输出 44 → 45；组件声明 97 → 98）。
+why: |
+  S5.M1 用明文代理筛选，DR-M5-012 · D-1 规定选出的方法要在真实 SGB 上复核，同配置下差的绝对值 > 0.005 则降级。
+  结果（单次拟合；区间只含测试集抽样；开发证据）：
+  - 代理与 SGB：13 组里 9 组在 0.005 以内；超出的 4 组（UCI / Orange 偏好的原版参数，mock 重合 80 / COIL2000 的优化版）SGB 高约 0.006，按 D-1 降级；
+  - I2 + I3：UCI +0.010 [+0.001, +0.019]、Orange 偏好 +0.036 [+0.017, +0.057]，成立，幅度小于代理（+0.018 / +0.044）；
+  - FedAds：M6 +0.011 [+0.006, +0.017]、M1x +0.013 [+0.005, +0.021]，成立；
+  - COIL2000 上 M6 +0.003 [−0.003, +0.009]，区间含 0；M1 在 Santander G3 与 UCI 不显著。
+  未执行：Orange 流失（已有 SGB 证据）；mock 重合 80 的 M6（约 4.5 小时，推迟）。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-012
+  loop_step: M5 · 方法筛选阶段 S5.M2（DR-M5-012 · D-5）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线单进程模拟，不涉及任何真实跨境资产；M1 / M1x 只改标签方本地的初始预测，香港侧收到的消息形态不变。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开超参（棵数、深度、分桶）与代码 / 配置指纹；
+    - SGB 与代理的测试 AUROC、差与区间、p 值；
+    - 拟合秒数与仓库组件复现的逐行差最大值、不同的行数与总行数（公开测试集的行数）。
+    不含行数据、样本号或其散列、逐行分数或标签、模型权重、学到的编码状态。
+    逐行打分与私有矩阵只在会话临时目录（另转存本机）。
+downstream_affected:
+- M0
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S5.M1 的公开汇总与结论表不改，降级写在 DR-M5-012 复核与 results/method_screen_sgb_v1。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
+  config_hash: sha256:d35149bb61562762da1a04bb97dac2b9d26b1f502ba3a33b847d507dedc3ea7c
+  seeds: [11]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 及其他步骤。
+verification: |
+  - 运行由会话脚本逐段执行，两段代码指纹（00:20 与 02:56；后者只加了 M6 成员存档）记录在 notebook 第一格。
+  - 仓库组件在 UCI 上重跑真实 SGB 的 M1 与优化版：优化版逐行打分逐位相同；M1 约一半的行在 float32 末位不同（最大差约 6e-8），测试 AUROC 完全相同（S5.M2-1 断言：逐行差 ≤ 1e-6 且 AUROC 相同）。
+  - 全部 13 组的 SGB 与代理 AUROC 由存档打分在 notebook 中重算，与运行时记录一致（差 < 1e-4）。
+  - 单测用 SecretFlow 替身检验参数映射、逐样本初始预测的注入与恢复、推理时加回、M6 成员续跑与配对评估。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M2
+  step_name: 真实隐语 SGB 复核 S5.M1 的代理结论
+  declaration: |
+    will_produce：
+    - 6 个任务、13 个（任务，方法）的真实 SGB 结果与同配置代理比较；
+    - SGB 上的方法配对差；
+    - 组件与单测、运行配置、带汇总输出的 notebook、公开汇总；
+    - DR-M5-012 复核与状态同步。
+    will_not_produce：
+    - 不调参、不做任何选择（配置全部取自 S5.M1）；
+    - 不打开封存确认集；
+    - 不提交行数据、逐行打分、模型或学到的编码；
+    - 不换算成汇丰效果。
+    success_criteria：
+    - 每个运行的（任务，方法）给出 SGB 与代理的差与区间，并按 D-1 判定；
+    - 仓库组件复现运行时打分；
+    - 未执行项与原因如实记录；
+    - 门禁全部通过。
+    risk：
+    - 单次拟合不含训练随机性：已在 README 与 notebook 写明；
+    - 末位浮点差异来源未定位：如实记录，不影响 AUROC。
+  scope:
+    files_changed: 15
+    lines_added: 1008
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/method_screen_sgb_v1/sgb_vs_proxy.csv：13 个（任务，方法）都有 SGB 与代理的差、区间与是否在容差内；sgb_contrasts.csv 给出 7 项配对差与区间"
+      D2: "modules/m5_modeling/notebooks/S5.M2_1_sgb_confirmation.ipynb：仓库组件重跑 2 次真实 SGB，AUROC 与运行时完全相同；13 组数字由存档打分在 notebook 中重算并断言与运行时一致"
+      D3: "组件与配置可重跑，但私有矩阵与逐行打分只在本机与会话目录，且整批由会话脚本运行（仓库组件只在 UCI 上复现 2 个方法），故 2 分"
+      D4: "sgb_vs_proxy.csv：4 组代理差超容差，触发 DR-M5-012 · D-1 降级；sgb_contrasts.csv：确认 I2 + I3、M6、M1x 在 SGB 上的增益，否定 COIL2000 上 M6 的代理结论"
+  revisions: 1
+  verdict: committed
+  next_step: 阶段预算 2/2 用完；交叉验证选组合、mock 重合 80 的 M6 与第二批先报所有者

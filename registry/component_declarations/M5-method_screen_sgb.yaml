@@ -1,0 +1,17 @@
+component: method_screen_sgb
+module: M5
+path: modules/m5_modeling/components/method_screen_sgb.py
+purpose: S5.M2 真实 SGB 复核：用隐语 SGB（debug_mode 单进程两方模拟，OU）按 S5.M1 在验证集上选定的配置重训原版参数、优化版（I2 + I3）、M1 / M1x（标签方本地逐样本初始预测，推理时加回）与 M6（6 个 SGB 概率平均，成员逐个存档可续跑），与同配置代理逐方法比较，并在同一批测试集 bootstrap 上给出 SGB 内部的方法配对差。
+inputs:
+- S5.M1 的私有两方矩阵（MS_PRIVATE_ROOT）与每个数据集的结果 JSON（MS_RUN_DIR，含选定配置与 6 seed 代理结果）
+- 配置 modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml（运行范围、未执行项、对比对、代理容差）与 S5.M1 的基础配置
+outputs:
+- 每个（数据集，方法）的 SGB 测试集打分（私有目录 MS_SGB_DIR，不入仓库）与汇总：SGB / 代理 AUROC、差与区间、拟合秒数
+- 公开汇总 modules/m5_modeling/results/method_screen_sgb_v1/（sgb_vs_proxy.csv、sgb_contrasts.csv）
+tests:
+- modules/m5_modeling/tests/test_method_screen_sgb.py
+cross_border_assets: []
+cross_border_note: 公开数据上的离线单进程模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。M1 / M1x 只改标签方本地的初始预测，香港侧收到的仍是梯度密文，消息形态与协议不变；所模拟的数据流性质见 S6.P3 与 INNOVATIONS。
+caveat: debug_mode 下打分直接取回，只用于离线评估；每个（数据集，方法）只拟合一次（seed 11），区间只含测试集抽样、不含训练随机性。逐行打分只存会话临时目录或本机私有目录，不入仓库。
+declared_at: '2026-11-03'
+declared_by: Claude (claude-opus-5-5, Claude Code)

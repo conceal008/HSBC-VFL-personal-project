@@ -1,0 +1,37 @@
+# S5.M2 · 用真实隐语 SGB 复核 S5.M1 的代理结论（DR-M5-012 · D-1 / D-5）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；每个（数据集，方法）拟合一次（seed 11）。
+# 方法配置全部取自 S5.M1 的结果 JSON（验证集上选定），不再调参。私有输入与逐行打分在 MS_PRIVATE_ROOT / MS_RUN_DIR / MS_SGB_DIR。
+# ---------------------------------------------------------------------------
+step_id: S5.M2
+purpose: 真实 SGB 复核 S5.M1 的代理结论——I2 + I3、M6、M1、M1x 在 SGB 上是否成立，代理与 SGB 的差是否在 0.005 以内
+decision_record: registry/decision_records/DR-M5-012.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+sgb_dir_env: MS_SGB_DIR
+proxy_tolerance: 0.005          # DR-M5-012 · D-1：同配置下 |SGB − 代理| 超过此值，该数据集代理结论降级为「待 SGB 确认」
+round_auc: 4
+results_dir: modules/m5_modeling/results/method_screen_sgb_v1
+
+runs:                           # 实际执行顺序与范围（含中止与推迟，如实记录）
+  - {dataset: uci_bank, methods: [F_def, F_opt_p, F_M1]}
+  - {dataset: orange_appetency, methods: [F_def, F_opt_p]}
+  - {dataset: santander_g3, methods: [F_opt_p, F_M1]}
+  - {dataset: mock_overlap80, methods: [F_opt_p]}
+  - {dataset: fedads, methods: [F_opt_p, F_M6, F_M1x]}
+  - {dataset: coil2000, methods: [F_opt_p, F_M6]}
+not_run:
+  - dataset: orange_churn
+    methods: [F_def, F_opt_p]
+    reason: "已有 INNOVATIONS 的真实 SGB 证据（+0.0325 [+0.0205, +0.0457]）；为省时间在启动约 20 秒后停掉，无输出"
+  - dataset: mock_overlap80
+    methods: [F_M6]
+    reason: "每个成员约 45 分钟（6 个约 4.5 小时）；M6 改在 FedAds 与 COIL2000 上复核；两次启动均在第 1 个成员完成前停掉，无输出"
+pairs:
+  - [F_opt_p, F_def]
+  - [F_M1, F_opt_p]
+  - [F_M1x, F_opt_p]
+  - [F_M6, F_opt_p]
+repro_check:                    # notebook 中用仓库组件重跑并与运行时打分逐位比较
+  - {dataset: uci_bank, methods: [F_M1, F_opt_p]}

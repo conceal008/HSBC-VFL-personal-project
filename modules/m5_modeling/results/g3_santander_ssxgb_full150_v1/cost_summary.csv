@@ -1,0 +1,3 @@
+arm,mode,trees,fit_seconds,seconds_per_tree,fit_hours,lo_gib_per_tree,peak_rss_mb,resume_overhead_seconds,within_cap
+A,单进程模拟（debug_mode，无网络）,150,3324.9956270710004,22.16663751380667,0.9236098964086112,,,,True
+A_secure,两进程生产模式，本机回环（分段续训）,150,23171.727591539995,154.47818394359996,6.436590997649999,32.145220840362214,3346.21484375,1321.4737939340039,False

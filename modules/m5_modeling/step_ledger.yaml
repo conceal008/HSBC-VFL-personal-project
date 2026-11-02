@@ -685,7 +685,7 @@ steps:
     D2: 3
     D3: 2
     D4: 3
-  revisions: 1
+  revisions: 2
   change_id: CL-20261103-M5-002
   committed_at: '2026-11-03T08:00:00+08:00'
   outputs:
@@ -694,7 +694,7 @@ steps:
   - modules/m5_modeling/results/method_screen_sgb_v1/
   - modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
   - registry/decision_records/DR-M5-012.yaml（review_20261103_s5m2）
-  note: 隐语 SGB（debug 单进程两方模拟，OU）按 S5.M1 选定配置单次拟合 6 个任务、13 个（任务，方法）。同配置下 9 / 13 与代理差 ≤ 0.005；超出的 4 组（UCI / Orange 偏好原版参数、mock 重合 80 / COIL2000 优化版）SGB 高约 0.006，按 D-1 降级。SGB 上 I2 + I3 在 UCI +0.010 [+0.001, +0.019]、Orange 偏好 +0.036 [+0.017, +0.057]；FedAds 上 M6 +0.011 [+0.006, +0.017]、M1x +0.013 [+0.005, +0.021]；COIL2000 上 M6 +0.003（区间含 0）；M1 在 Santander G3 与 UCI 不显著。Orange 流失未跑（已有 SGB 证据），mock 重合 80 的 M6 推迟。一次修正：仓库组件复现的断言由「逐位相同」放宽为「逐行差 ≤ 1e-6 且 AUROC 相同」（M1 在 float32 末位不同），另修 YAML 引号。
+  note: 隐语 SGB（debug 单进程两方模拟，OU）按 S5.M1 选定配置单次拟合 6 个任务、13 个（任务，方法）。同配置下 9 / 13 与代理差 ≤ 0.005；超出的 4 组（UCI / Orange 偏好原版参数、mock 重合 80 / COIL2000 优化版）SGB 高约 0.006，按 D-1 降级。SGB 上 I2 + I3 在 UCI +0.010 [+0.001, +0.019]、Orange 偏好 +0.036 [+0.017, +0.057]；FedAds 上 M6 +0.011 [+0.006, +0.017]、M1x +0.013 [+0.005, +0.021]；COIL2000 上 M6 +0.003（区间含 0）；M1 在 Santander G3 与 UCI 不显著。Orange 流失未跑（已有 SGB 证据），mock 重合 80 的 M6 推迟。一次修正：仓库组件复现的断言由「逐位相同」放宽为「逐行差 ≤ 1e-6 且 AUROC 相同」（M1 在 float32 末位不同），另修 YAML 引号；第二次修正：门禁 2 拦下 changelog 只记 1 个 seed，补记单次拟合理由与 seeds_note（CL-20261103-M5-003，单独提交）。
 current_step: null
 next_step: 方法筛选阶段预算 2/2 用完。待所有者决定：组合选择改为交叉验证、mock 重合 80 的 M6 真实 SGB 复核（约 4.5 小时，可续跑）、第二批（M7 / M8 / Orange 大版）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:

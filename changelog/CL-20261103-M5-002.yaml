@@ -3,7 +3,7 @@ timestamp: '2026-11-03T08:00:00+08:00'
 agent: Claude (claude-opus-5-5, Claude Code)
 module: M5
 type: exp
-title: S5.M2 真实 SGB 复核：I2 + I3 在 UCI 与 Orange 偏好成立，M6 与 M1x 在 FedAds 成立，4 组代理差超容差降级
+title: S5.M2 真实 SGB 复核：I2 + I3、M6、M1x 成立，4 组代理差超容差降级
 what: |
   用真实隐语 SGB 复核 S5.M1 的代理结论（DR-M5-012 · D-1 / D-5），方法筛选阶段第 2 步。
   隐语 secretflow-lite 1.13.0b0，debug 单进程两方模拟，OU；配置全部沿用 S5.M1 在验证集上选定的配置，每个（任务，方法）拟合一次（seed 11）。
@@ -55,7 +55,11 @@ migration: 无。新增文件；S5.M1 的公开汇总与结论表不改，降级
 reproducibility:
   config: modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
   config_hash: sha256:d35149bb61562762da1a04bb97dac2b9d26b1f502ba3a33b847d507dedc3ea7c
-  seeds: [11]
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: |
+    这 6 个 seed 是对照列（S5.M1 代理）的 seed。真实 SGB 每个单方法只拟合 seed 11；M6 的 6 个成员用 seed 1100–1105。
+    多 seed 的 SGB 拟合约每轮 3.8 小时（6 轮约 23 小时，另加 M6），超出计算预算，故只拟合一次。
+    配对区间的 seed 维度方差按 0 计，区间偏窄（DR-M5-012 · review_20261103_s5m2；先例 DR-M5-010 对 A_secure 的同样处理）。
   env_lock: environments/g3_sfenv.lock
 rollback: revert 本提交即可；不影响 S5.M1 及其他步骤。
 verification: |
@@ -106,6 +110,6 @@ step:
       D2: "modules/m5_modeling/notebooks/S5.M2_1_sgb_confirmation.ipynb：仓库组件重跑 2 次真实 SGB，AUROC 与运行时完全相同；13 组数字由存档打分在 notebook 中重算并断言与运行时一致"
       D3: "组件与配置可重跑，但私有矩阵与逐行打分只在本机与会话目录，且整批由会话脚本运行（仓库组件只在 UCI 上复现 2 个方法），故 2 分"
       D4: "sgb_vs_proxy.csv：4 组代理差超容差，触发 DR-M5-012 · D-1 降级；sgb_contrasts.csv：确认 I2 + I3、M6、M1x 在 SGB 上的增益，否定 COIL2000 上 M6 的代理结论"
-  revisions: 1
+  revisions: 2
   verdict: committed
   next_step: 阶段预算 2/2 用完；交叉验证选组合、mock 重合 80 的 M6 与第二批先报所有者

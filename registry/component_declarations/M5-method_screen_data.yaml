@@ -1,0 +1,17 @@
+component: method_screen_data
+module: M5
+path: modules/m5_modeling/components/method_screen_data.py
+purpose: S5.M1 方法筛选的数据准备：把 14 个公开数据集任务落成统一的两方矩阵（tune / final 两个视图，标签依赖编码在各视图 fit 行上单独拟合），角色切分沿用 secretflow_sgb_innovations 的 make_*_tags / prepare_external 与 M1 external_freeze；FedAds 与 mock 重合档附带非共同客户的内地行。
+inputs:
+- 原始公开数据（MS_RAW_ROOT：HSBC mock、FedAds 抽样与非对齐抽样、Orange 小版、UCI、HomeCredit、COIL2000、Santander 交易、IEEE 第 1 块）
+- Santander G3 的 S5.G1 私有数组
+- 配置 s5_m1_method_screen.yaml 的 prep 段（切分 seed、比例、日期）
+outputs:
+- 每个数据集一个私有 npz（两方矩阵、标签、测试簇号）与一个元信息 JSON（行数、正例数、列名、切分说明）
+tests:
+- modules/m5_modeling/tests/test_method_screen.py
+cross_border_assets: []
+cross_border_note: 只处理公开数据集，矩阵写入本机私有目录，不入仓库、不跨境。
+caveat: 输出含逐行数据，只能放私有目录；仓库只收聚合指标。
+declared_at: '2026-11-02'
+declared_by: Claude (claude-opus-5-5, Claude Code)

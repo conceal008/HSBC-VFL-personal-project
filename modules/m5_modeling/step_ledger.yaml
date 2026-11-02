@@ -643,8 +643,35 @@ steps:
   - modules/m5_modeling/configs/s5_g2r_ssxgb_full150.yaml
   - registry/decision_records/DR-M5-011.yaml
   note: 所有者 2026-11-02 指示把 A_secure 从 141 棵续训到 150 棵（超出预注册单次拟合上限，累计 6.44 小时）；S5.G2 的预注册结论不改。A_secure − A = +0.000 [−0.002, 0.003]，Holm p = 1.0，无可分辨差异；A_secure − L4 = −0.001；A_secure − L1_k10 = +0.043 [0.033, 0.054]。补训段每棵约 187 秒，为 S5.G2 均值的 1.23 倍（作废线 1.5）。
-current_step: null
-next_step: G3 阶段预算 5/5 已用完（含所有者指示的 S5.G2R 补训）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；HSBC mock 三档按规格不可执行（DR-GOV-017）；S5.D2 暂缓
+- step_id: S5.M1
+  step_name: 方法筛选：文献优化方法 × 14 个公开数据集任务（明文代理，DR-M5-012）
+  status: committed
+  phase: method_screen
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261103-M5-001
+  committed_at: '2026-11-03T02:00:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/method_screen.py
+  - modules/m5_modeling/components/method_screen_data.py
+  - modules/m5_modeling/notebooks/S5.M1_1_method_screen_run.ipynb（带汇总输出）
+  - modules/m5_modeling/notebooks/S5.M1_2_method_screen_summary.ipynb（带汇总输出）
+  - modules/m5_modeling/results/method_screen_v1/
+  - modules/m5_modeling/configs/s5_m1_method_screen.yaml
+  - registry/decision_records/DR-M5-012.yaml
+  note: 所有者 2026-11-02 指示补做文献优化方法在全部数据集上的实验。14 个任务（6 seed，两层 bootstrap）：I2 + I3 11 / 14 显著（+0.005 ~ +0.048）；M6 bagging 7 / 14（+0.004 ~ +0.010，无变差）；优化版联邦相对同等调参的内地单边 10 / 14（原版参数 7 / 14）；I3 只在 FedAds（+0.026）；M1x 只在 FedAds（+0.009）；M1 1 增 5 降；M4、M5 无增益；验证集选定组合 3 / 14 优于优化版、2 / 14 变差。仓库组件在 3 个数据集上逐位复现运行结果。代理结论待 S5.M2 真实 SGB 复核。
+current_step: S5.M2
+next_step: S5.M2 真实 SGB 复核（运行中）；之后组合选择改为交叉验证、第二批（M7 / M8 / Orange 大版）先报所有者；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -716,6 +743,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen
+  decision_record: DR-M5-012
+  new_steps_authorized: 2        # S5.M1 代理筛选 + S5.M2 真实 SGB 复核（所有者 2026-11-02 指示）
+  planned_steps: [S5.M1, S5.M2]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: active
 - phase: g3_five_arm
   decision_record: DR-M5-009
   new_steps_authorized: 5        # DR-M5-009 的 4 步 + DR-M5-011 的 1 步（S5.G2R）

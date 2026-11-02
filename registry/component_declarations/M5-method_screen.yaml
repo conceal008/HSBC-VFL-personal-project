@@ -1,0 +1,16 @@
+component: method_screen
+module: M5
+path: modules/m5_modeling/components/method_screen.py
+purpose: S5.M1 方法筛选：在明文直方图 GBDT 代理（与隐语 SGB 同分桶同超参等价）上逐数据集评估文献优化方法——I2 细分桶与调参分解、I3 先验初始分数、M4 行采样、M1 / M1x 逐样本先验、M6 bagging、M2 分数融合与蒸馏、I6 后验去噪标签 DP、M5 匹配置信度加权；配置与组合只按验证集选，测试集每个方法评一次，两层 bootstrap 给配对差区间。
+inputs:
+- 各数据集 tune / final 两个视图的两方特征矩阵与内地标签（私有 npz），可选非共同客户的内地行
+- 配置 modules/m5_modeling/configs/s5_m1_method_screen.yaml（网格、分桶、seed、bootstrap 次数等）
+outputs:
+- 每个数据集一个结果 JSON：选定配置、验证集候选与选择、各方法测试 AUROC（6 seed）、配对差与区间、Holm p、相对计算量
+tests:
+- modules/m5_modeling/tests/test_method_screen.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线明文模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产；所模拟的数据流（香港只收梯度密文、分数只给内地）性质见 S6.P3 与 INNOVATIONS。
+caveat: 代理结论需真实 SGB 复核（S5.M2，DR-M5-012 · D-1）；逐行分数与私有矩阵只存会话临时目录或本机私有目录，不入仓库。
+declared_at: '2026-11-02'
+declared_by: Claude (claude-opus-5-5, Claude Code)

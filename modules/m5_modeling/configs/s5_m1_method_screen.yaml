@@ -1,0 +1,74 @@
+# S5.M1 · 方法筛选：文献优化方法在全部公开数据集上的明文代理筛选（DR-M5-012）
+# ---------------------------------------------------------------------------
+# 引擎：明文直方图 GBDT（XGBoost hist）代理；与隐语 SGB 同分桶、同超参时数学等价（INNOVATIONS 创新点 2 / 4）。
+# 选择只看各数据集 tune 视图的验证集；final 视图的测试集每个方法评一次。
+# 私有输入（两方矩阵 npz）与逐行分数放在环境变量 MS_PRIVATE_ROOT 指向的目录，不入仓库；原始数据目录由 MS_RAW_ROOT 指定。
+# ---------------------------------------------------------------------------
+step_id: S5.M1
+purpose: 文献优化方法（I2 / I3 / I6 / M1 / M2 / M4 / M5 / M6）在 14 个公开数据集任务上的增益、组合与缺口
+decision_record: registry/decision_records/DR-M5-012.yaml
+seeds: [11, 22, 33, 44, 55, 66]
+seed: 11
+private_root_env: MS_PRIVATE_ROOT
+raw_root_env: MS_RAW_ROOT
+run_dir_env: MS_RUN_DIR          # S5.M1 运行输出（每个数据集一个 JSON，只含聚合指标）与启动指纹
+repro_check: [coil2000, mock_overlap20, uci_bank]   # 仓库组件逐位复现运行结果的数据集（覆盖有 / 无非共同客户两种路径）
+results_dir: modules/m5_modeling/results/method_screen_v1
+round_auc: 4
+
+screen:
+  grid:                       # 与原 tune_proxy 相同的 48 组
+    lr: [0.3, 0.1]
+    depth: [3, 4, 5, 6]
+    lam: [0.1, 1.0, 10.0]
+    col: [1.0, 0.7]
+  default_cfg: {lr: 0.3, depth: 5, lam: 0.1, col: 1.0, sub: 1.0, rounds: 100}   # 隐语 SGB 经典默认
+  bins_default: 10            # sketch_eps 0.1
+  bins_fine: 33               # sketch_eps 0.03
+  max_rounds: 300
+  early_stop: 20
+  tol: 0.001                  # 验证 AUC 距最优不超过此值者取成本最小
+  sub_grid: [0.5, 0.7]        # M4 行采样
+  m4_top: 8
+  folds: 5                    # M1 交叉拟合、M2 教师折外
+  fuse_w: [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0]
+  student_alpha: [1.0, 0.75, 0.5, 0.25, 0.0]
+  dp_eps: [1.0, 2.0, 4.0]
+  mismatch: [0.05, 0.10]
+  conf_auc: 0.9               # 模拟匹配置信分数区分错配的 AUC
+  bag: 6
+  bag_sub: 0.8
+  n_boot: 1000
+  boot_seed: 20261102
+  nthread: 2
+  eps_p: 0.0001
+
+datasets:                     # 运行顺序
+  - santander_g3
+  - mock_balanced
+  - mock_overlap20
+  - mock_overlap50
+  - mock_overlap80
+  - uci_bank
+  - orange_churn
+  - orange_upsell
+  - orange_appetency
+  - fedads
+  - homecredit
+  - santander_tx
+  - ieee_part0
+  - coil2000
+
+prep:
+  split_seed: 42              # 分层测试集与原始变量随机对半
+  test_frac: 0.2
+  val_frac: 0.2               # 训练内分层验证，seed = split_seed + 1
+  mock_test_start: '2016-02-01'
+  mock_val_months: 3
+  fedads_val_seed: 20261022   # 同原 make_fedads_tags
+  fedads_extra_val_seed: 20261102
+  fedads_extra_file: unaligned_p03.csv
+  homecredit_rows: 100000
+  santander_tx_frac: 0.25
+  ieee_val_start: 0.6
+  ieee_test_start: 0.8

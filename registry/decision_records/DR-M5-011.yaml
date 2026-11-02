@@ -1,0 +1,56 @@
+dr_id: DR-M5-011
+title: 所有者指示补训 A_secure（SS-XGB）剩余 9 棵：超出预注册单次拟合上限，结果单列为「超限补训」
+date: '2026-11-02T15:35:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+status: active
+supersedes: null
+requested_by: conceal008（所有者 2026-11-02 指示「继续重新训练之前剩余的部分」）
+related_step: S5.G2R
+related_change_id: CL-20261102-M5-001
+preregistration: modules/m6_evaluation/configs/s6_p3_g3_preregistration.yaml
+amends: DR-M5-009（G3 阶段预算）；不改 DR-M5-010
+
+context: |
+  S5.G2 按 DR-M5-010 · D-3 在拟合墙钟 21,491 秒（5.97 小时）、141 / 150 棵时停止，A_secure 记为「超出单次拟合上限、未完成」，
+  预注册的 A_secure − A 未报告，只做了描述性比较（同棵数明文集中式 −0.001 [−0.004, 0.002]）。
+  所有者 2026-11-02 要求把剩余部分训完。该指示在 141 棵的描述性结果公开之后作出；A_secure 不调参，配置与 A 相同，训满 150 棵不涉及任何选择。
+  检查点（141 棵，两方各自的权重份额与分裂信息）完好，组件 g3_ssxgb（sha256 0f55ee4a…）不改。
+
+decisions:
+
+  - key: D-1
+    question: 怎么补训
+    decision: |
+      复制 141 棵检查点到新目录 s5g2r_ssxgb_ckpt_full150（S5.G2 的目录保持原样，使已提交的 S5.G2 notebook 可复现），
+      用同一组件 g3_ssxgb.launch 从第 141 棵续训到 150 棵（续训回放与 S5.G2 相同），不经 run_chunk 的上限检查；
+      启动与结果写入新目录的 chunks.jsonl，标注 owner_override_cap。参数、端口、SPU 协议与域全部沿用 S5.G2。
+    rationale: 只差 9 棵（约 25 分钟），续训机制已在 S5.G2 核对过；新目录避免改写已提交步骤的输入。
+    falsifier: 补训段平均每棵树耗时超过 S5.G2 全程均值（152.4 秒）的 1.5 倍，或两方进度不一致 → 补训作废，只保留 S5.G2 的 141 棵结果。
+
+  - key: D-2
+    question: 结果如何定性与报告
+    decision: |
+      S5.G2 的预注册结论（在 6 小时上限内未完成）不改。150 棵结果单列为「超限补训」：按 S6.P3 口径计算 A_secure − A
+      （Holm 按完整次要家族 9 项，S5.G1 的 8 项加本项）并报告，同时标注「超出预注册单次拟合上限，所有者指示补训」；
+      另报 A_secure − L4（同为 150 棵）与 A_secure − L1_k10（描述性）。拟合墙钟按 DR-M5-010 · D-3 口径累加 150 棵报告。
+      DR-M5-010 · D-4 仍适用：判定为「可分辨」但差值绝对值小于 0.005 时降级为「不能排除运行间波动」。
+    rationale: 预注册的上限是资源约束，不是统计约束；补训后的对比按原口径计算可读，但必须让读者看到偏离。
+    falsifier: 有人在报告中把补训结果写成「预注册内完成」→ 更正为本 DR 的定性。
+
+  - key: D-3
+    question: 步骤预算
+    decision: G3 阶段（DR-M5-009）在原 4 步之外另授权 1 步 S5.G2R，阶段预算 5/5，通过线沿用 11。
+    rationale: 所有者指示即授权；补训单独成步、单独提交，可独立回滚。
+    falsifier: 所有者撤回指示 → 本步结果作废，阶段预算回到 4/4。
+
+falsifier: |
+  本记录整体被推翻的条件：①补训使用了与 S5.G2 不同的组件、参数或数据；②S5.G2 的 141 棵检查点目录在补训中被改写。
+
+review_trigger: |
+  S5.G2R 完成时。
+
+review_20261102: |
+  S5.G2R 完成时复核：D-1 推翻条件未触发——补训 9 棵每棵平均 186.8 秒，为 S5.G2 前 141 棵均值 152.3 秒的 1.23 倍（作废线 1.5）；
+  两方进度一致（150 棵）；S5.G2 的 141 棵检查点目录在补训前后未被改写（补训目录中的 chunks_s5g2.jsonl 与原目录逐字节相同，notebook 断言）。
+  D-2 按定性报告：A_secure − A = +0.000 [−0.002, 0.003]，Holm p = 1.0，标注超限补训；D-4 降级条件不适用（结论为无可分辨差异）。

@@ -1,0 +1,43 @@
+change_id: CL-20261103-M5-007
+timestamp: '2026-11-03T15:40:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: doc
+title: 发布《优化方法与数据集：增益与组合报告》v1.2 到实验记录目录
+what: |
+  按所有者 2026-11-03 15:23 指示「将相关实验结果和结论报告一起整理到本地文件夹以及 github 上」：
+  - 新增 docs/04-experiment-records/reports/优化方法与数据集_增益与组合报告_v1.2.md（与 claude.ai 项目文档同版）；
+  - docs/04-experiment-records/README.md 增加一条索引。
+  报告汇总 S5.M1（代理筛选，14 个任务）、S5.M2（真实 SGB 复核）、S5.M3（交叉验证选组合）的结论，以及本批之前已有的方法 × 数据集结果；
+  结果真值仍在 modules/m5_modeling/results/method_screen_v1、method_screen_sgb_v1、method_screen_cv_v1。
+  入库版本把「标签方」统一为术语表的「主动方」，私有运行输出只写存放位置、不写会话路径。
+why: |
+  所有者要求报告与结果同时进入仓库与本机。报告是汇总叙述，新建独立文件（AGENTS 第 12 条），既有文件只加索引。
+  S5.M4（mock 重合 80 的 M6 真实 SGB）仍在运行，报告标为 v1.2，完成后另发 v1.3。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-013
+  loop_step: M5 · 方法筛选报告发布
+cross_border_impact: none
+cross_border_detail: 只发布公开数据上的汇总叙述，不涉及任何跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐段审查：报告只含公开数据集的汇总指标（AUROC、配对差、区间、p、计算量、拟合秒数、测试集规模与正例数）、方法出处与文件路径。
+    不含行数据、样本号或其散列、逐行分数、模型、凭证或团队成员姓名；合规相关表述带 W-001 免责（技术侧自评，未经法务复核）。
+    报告多处写明「开发证据，不代表汇丰效果，不换算成命中率或收益」。
+downstream_affected:
+- M6
+- M9
+breaking_change: false
+migration: 无。新增文件，既有文件只加一条索引。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m3_cv_combo.yaml
+  config_hash: sha256:6841f6884602749c7e49ad425d1984b486fdbdea52b2ffdd636c734e07a3cf11
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可。
+verification: |
+  - 报告中的数字取自三份 results 目录的 CSV 与 README；FedAds 交叉验证增益按 0.00649 写作 +0.006。
+  - 术语检查（门禁 5 · Q6）本地 0 命中。

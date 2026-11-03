@@ -1,10 +1,11 @@
-updated_at: '2026-11-04T03:30:00+08:00'
+updated_at: '2026-11-04T03:56:00+08:00'
 repo: https://github.com/conceal008/HSBC-VFL-personal-project
 governance:
-  last_action: S5.M5 Orange 大版三任务 + M3 两方特征预筛（DR-M5-014）——I2 + I3 与优化版联邦的增益在大版上成立，原版联邦三任务都无增益；交叉验证 1 优于、0 劣于；预筛在流失、追加销售上不损失精度，偏好上不能排除；S5.M6 运行中
-  last_action_at: '2026-11-04T03:30:00+08:00'
+  last_action: S5.M6 M8 增量学习器（DR-M5-014 · D-4）——Hillstrom、Criteo 上 12 项预先写定的对比 Holm 后 0 项显著：按增量排序没有显著优于按响应排序，联邦特征没有显著改善增量排序；方法筛选第三阶段 2 / 2 完成；M7 待所有者定
+  last_action_at: '2026-11-04T03:56:00+08:00'
   by: Claude (claude-opus-5-5, Claude Code)
-  change_id: CL-20261104-M5-001
+  change_id: CL-20261104-M5-002
+  previous_action_20261104: S5.M5 Orange 大版三任务 + M3 两方特征预筛（CL-20261104-M5-001，DR-M5-014；PR #21）
   previous_action_20261103d: S5.M4 mock 重合 80 上 M6 的真实 SGB 复核（CL-20261103-M5-008，DR-M5-013；PR #21）
   previous_action_20261103c: S5.M3 交叉验证选组合（CL-20261103-M5-005，DR-M5-013；PR #20，已合并进 m5/method-screen）
   previous_action_20261103b: S5.M2 真实 SGB 复核（CL-20261103-M5-002，DR-M5-012；PR #19）
@@ -238,13 +239,14 @@ modules:
     claimed_by: Claude (claude-opus-5-5, Claude Code)
     claimed_at: '2026-11-03T14:00:00+08:00'
     expires_at: '2026-11-05T03:30:00+08:00'
-    current_step: S5.M6
-    latest_completed_step: S5.M5
-    next_step: S5.M6 M8 增量学习器（Hillstrom 已完成，Criteo 运行中，DR-M5-014 · D-4）；M7 不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集只在 S0.9 形态决策写定后打开一次（待业务方答复）；S5.D2 暂缓
+    current_step: null
+    latest_completed_step: S5.M6
+    next_step: 方法筛选第三阶段 2 / 2 用完（DR-M5-014）；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集只在 S0.9 形态决策写定后打开一次（待业务方答复）；S5.D2 暂缓
     blocking_on:
     - M4 特征集（正式业务阶梯）
     - 真实客户 PSI 仍须 P4 与 S0.9 放行；本轮预对齐功能训练按 DR-M5-001 独立验收，不据此解除业务门禁
     open_questions:
+    - 🟢 **S5.M6（2026-11-04，开发证据，明文代理）**：M8 增量学习器（S / T / X / R 与响应模型）在 Hillstrom、Criteo 上，12 项预先写定的对比 Holm 后 0 项显著：按增量排序没有显著优于按响应排序（0 / 8），联邦特征没有显著改善增量排序（0 / 4）；conversion 事件少、Criteo 上增量与响应排序高度重合、验证集选学习器不稳；报告写为「已做、未见明显增益」（DR-M5-014）
     - 🟢 **S5.M5（2026-11-04，开发证据，明文代理）**：Orange 大版三任务先做 M3 两方特征预筛（每方 300 列）：I2 + I3 在流失 +0.036、追加销售 +0.011 显著，偏好 +0.025 名义；原版联邦三任务都不优于内地单边，优化版三个都优于；M6 只在偏好上刚好成立（+0.005）；交叉验证 1 优于、0 劣于；预筛在流失、追加销售上不损失精度，偏好上不能排除（DR-M5-014）
     - 🟢 **S5.M4（2026-11-03，开发证据，真实 SGB 单次拟合）**：mock 重合 80 上 M6（6 个 SGB）与同配置代理差 +0.0013 [−0.0019, +0.0042]，在容差内；SGB 上 M6 − 优化版 +0.0036 [+0.0001, +0.0068]，p = 0.038（代理 +0.0092），幅度约为代理的 4 成；合计拟合 23,733 秒（DR-M5-013）
     - 🟢 **S5.M3（2026-11-03，开发证据，明文代理）**：组合选择改为训练集交叉验证（行独立分层 5 折、Santander G3 按客户、mock 按月份滚动外推），R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2）；13 / 14 选了带 M6 的组合；新增显著 Santander G3 +0.004、HomeCredit +0.004、FedAds +0.006（DR-M5-013）

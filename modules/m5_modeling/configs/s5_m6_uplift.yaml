@@ -1,0 +1,51 @@
+# S5.M6 · M8 增量（uplift）学习器：S / T / X / R 与响应模型，只用内地特征 vs 联邦特征（DR-M5-014 · D-4）
+# ---------------------------------------------------------------------------
+# 两方字段归属沿用 M1 已冻结配置（configs/hillstrom_preparation.yaml、external_freeze.yaml 的 criteo_uplift）；处理变量与结果只由主动方持有。
+# 选择只看验证集；测试集评一次。原始数据在 MS_RAW_ROOT；运行输出（只含聚合指标）在 MS_UPLIFT_DIR。
+# ---------------------------------------------------------------------------
+step_id: S5.M6
+purpose: 增量学习器能否比「谁会买」的响应模型更好地找出「因营销才买」的客户；联邦特征对增量排序有无帮助
+decision_record: registry/decision_records/DR-M5-014.yaml
+seed: 11                        # 基模型 seed；无行 / 列采样，拟合确定
+seeds: [11]
+raw_root_env: MS_RAW_ROOT
+run_dir_env: MS_UPLIFT_DIR
+results_dir: modules/m5_modeling/results/uplift_screen_v1
+round_qini: 5
+bins: 33                        # 同 S5.M1 的细分桶（SGB sketch_eps 0.03）
+nthread: 2
+grid:                           # 每个（数据集，结果，特征集）按 S 学习器结果模型的验证对数损失选一个，四种学习器共用
+  lr: 0.05
+  lam: 1.0
+  depth: [3, 5]
+  rounds: [100, 300]
+r_folds: 5                      # R 学习器交叉拟合 m(x)
+fold_seed: 11
+top_frac: 0.3                   # 前 30% 人群的增量
+n_boot: 1000
+boot_seed: 20261102
+
+datasets:
+  hillstrom:
+    path: 数据集/Hillstrom_邮件营销实验/hillstrom_email_marketing.csv
+    guest: {features: [recency, history, mens, womens], categorical: []}
+    host: {features: [zip_code, newbie, channel], categorical: [zip_code, channel]}
+    treatment: segment          # 收到任一邮件（Mens / Womens）= 1，No E-Mail = 0
+    outcomes: [visit, conversion]
+    strata_outcome: conversion  # 冻结配置：按（三个随机组 × conversion）分层
+    fracs: [0.6, 0.2, 0.2]
+    split_seed: 20260927
+  criteo:
+    path: 数据集/Criteo_Uplift_v2.1_纠偏版/criteo-uplift-v2.1.csv.gz
+    guest: {features: [f0, f2, f4, f6, f8, f10]}
+    host: {features: [f1, f3, f5, f7, f9, f11]}
+    treatment: treatment
+    outcomes: [visit, conversion]
+    strata_outcome: visit
+    fracs: [0.6, 0.2, 0.2]
+    split_seed: 20261103
+    sample_seed: 20261103
+    sample_frac: 0.0714285714   # 伯努利抽样 1 / 14（约 100 万行）
+    read_chunk: 1000000
+repro_dataset: hillstrom        # notebook 从原始文件重跑的数据集（Criteo 约 1 小时，不重跑）
+repro_tol: 1.0e-12

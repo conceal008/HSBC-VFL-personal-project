@@ -1,0 +1,106 @@
+change_id: CL-20261104-M5-002
+timestamp: '2026-11-04T03:56:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M6 M8 增量学习器：12 项预先写定的对比 Holm 后 0 项显著，按增量排序没有显著优于按响应排序，联邦特征没有显著改善增量排序
+what: |
+  方法筛选第三阶段（第二批，DR-M5-014）第 2 步。Hillstrom 邮件营销（64,000 行）与 Criteo Uplift v2.1（1 / 14 伯努利抽样，约 100 万行）两个公开随机试验，
+  结果 visit 与 conversion；两方字段归属沿用 M1 冻结配置，处理变量与结果只由主动方持有。
+  - S / T / X / R 四种增量学习器与响应模型（只用处理组拟合），XGBoost 基模型无行 / 列采样，拟合确定；
+  - 特征集：只用内地特征 vs 联邦（两方全部特征）；基模型配置按验证对数损失、学习器按验证 Qini 选，测试集评一次；
+  - Qini 系数与前 30% 人群增量，测试行 bootstrap 1,000 次；三项对比预先写定，每个数据集 × 结果内 Holm。
+  新增：
+  - 组件 uplift_screen 与单测、组件声明 M5-uplift_screen；
+  - 运行配置 configs/s5_m6_uplift.yaml；
+  - 带汇总输出的运行入口 notebook S5.M6_1（从原始文件重跑 Hillstrom 并核对）；
+  - 公开汇总 results/uplift_screen_v1/；
+  - DR-M5-014 复核段 review_20261104_s5m6。
+  状态类字段同步：BC-M5-018（uplift_learners 完成）、step_ledger（追加 S5.M6，第三阶段 2 / 2 完成）、registry/module_status.yaml 的 M5 与 governance、
+  M5 README、项目进度总览（notebook 76 → 77、带输出 48 → 49；组件声明 100 → 101）。
+why: |
+  报告列为第二批的 M8 增量学习器此前没有做。M8 回答「营销带来多少增量」，不是提升 AUROC 的方法；所有者要求只要在个别数据集上有明显增益就写进报告。
+  结果（开发证据）：
+  - 12 项预先写定的对比经 Holm 后 0 项显著。按增量排序没有显著优于按响应排序（0 / 8）；联邦特征没有显著改善增量排序（0 / 4）。
+  - 名义显著 2 项都在 Hillstrom、方向相反：visit 联邦 − 内地 −0.0020 [−0.0040, −0.0001]（联邦一侧验证集选了测试上最低的 T）、conversion +0.00036 [+0.000004, +0.00076]。
+  - Criteo 上响应模型与最好的增量学习器几乎一样；conversion 事件少（测试 117 / 566 个）。
+  - 报告写为「已做、未见明显增益」，并写明原因。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-014
+  loop_step: M5 · 方法筛选第三阶段 S5.M6（DR-M5-014 · D-4）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线明文模拟，不涉及任何真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置与 sha256 前缀、启动时间；
+    - 每个数据集 × 结果 × 切分的行数、处理组人数与两组结果数（公开试验的划分规模）、两方特征列数；
+    - 选定的基模型配置与学习器、验证与测试 Qini、前 30% 人群增量、配对差、区间、p 与 Holm p。
+    不含行数据、样本号或其散列、逐行分数或标签、模型。逐行打分只在会话临时目录。
+downstream_affected:
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S5.M1 – S5.M5 的结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m6_uplift.yaml
+  config_hash: sha256:89936dd48a9099305dc36c21b8b1fa0c95b2dd84909212d48bcb5963f653f379
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: |
+    S5.M6 的基模型无行 / 列采样、R 学习器交叉拟合折固定（seed 11），拟合是确定的，只拟合一次（DR-M5-014 · D-4，同 S5.M1 对确定性方法的处理）；
+    区间只来自测试行 bootstrap（1,000 次，seed 20261102）。所列 6 个 seed 为方法筛选统一口径，本步只用 seed 11。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 – S5.M5。
+verification: |
+  - DR-M5-014 在任何拟合之前写定；组件、配置与单测的 sha256 在启动时记入启动指纹，Criteo 启动前重新核对相同，运行中未改代码。
+  - notebook 第一格断言运行时组件与配置与当前仓库逐字节相同；第三格从原始文件重跑 Hillstrom 全部流程，测试 Qini 最大差 0（≤ 1e-12），学习器选择相同。
+  - 单测用合成数据与 xgboost 替身检验：分层切分比例与可重复；已知增量下 Qini 的理论量级、全部并列等于随机线、前 30% 人群增量与 bootstrap 配对区间；
+    已知增量信号下 T / X 学习器优于响应模型；单个结果编排的三项对比与 Holm；两个数据读取器与命令行入口。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M6
+  step_name: M8 增量学习器
+  declaration: |
+    will_produce：
+    - Hillstrom、Criteo 两个结果上四种增量学习器与响应模型、两个特征集的验证选择与测试评估，三项预先写定的对比；
+    - 组件与单测、组件声明、运行配置、带汇总输出的 notebook、公开汇总与 DR 复核；
+    - 状态同步。
+    will_not_produce：
+    - 不在测试集上做任何选择；不做真实 SGB 复核；
+    - 不提交行数据、逐行分数或模型；
+    - 不外推银行理财产品的实际增量，不换算成汇丰效果。
+    success_criteria：
+    - 2 个数据集 × 2 个结果全部完成；
+    - notebook 从原始文件复现 Hillstrom；
+    - 按 DR-M5-014 · D-4 给出三项对比；
+    - 门禁全部通过。
+    risk：
+    - conversion 事件少：已写入 README 与 notebook 的读法；
+    - 单次确定性拟合不含训练随机性：已写入边界。
+  scope:
+    files_changed: 18
+    lines_added: 1318
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/uplift_screen_v1/contrasts.csv 与 test.csv：4 个数据集 × 结果的三项对比与十个模型的测试 Qini 都有差值、区间与 p"
+      D2: "modules/m5_modeling/notebooks/S5.M6_1_uplift_learners.ipynb：断言组件逐字节相同；从原始文件重跑 Hillstrom，测试 Qini 与学习器选择相同"
+      D3: "组件与配置可重跑，但原始数据只在本机与会话目录，notebook 只重跑 Hillstrom（Criteo 约 1.5 小时），故 2 分"
+      D4: "contrasts.csv：关闭报告第二批的 M8 缺口——按增量排序没有显著优于按响应排序、联邦特征没有显著改善增量排序，并给出原因"
+  revisions: 0
+  verdict: committed
+  next_step: 方法筛选第三阶段 2 / 2 完成；M7 待所有者定

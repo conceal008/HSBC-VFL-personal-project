@@ -14,7 +14,7 @@
 
 - 达到 DR-M5-013 · D-4 事先写定的「交叉验证更好」判据：劣于的少于 2 个，优于的不少于 3 个。
 - S5.M1 变差的两个任务（Orange 流失、Orange 偏好）都是单一验证集上 M1 与最优并列、按「最省」被选中；交叉验证改选 P+M6 或 P，变为不显著。
-- R1 新增显著的任务：Santander G3（M1+M6）+0.004、HomeCredit（P+M6）+0.004、FedAds（P+M6）+0.007。R2 在 FedAds 选 M1x+M6，+0.010。
+- R1 新增显著的任务：Santander G3（M1+M6）+0.004、HomeCredit（P+M6）+0.004、FedAds（P+M6）+0.006。R2 在 FedAds 选 M1x+M6，+0.010。
 - R1 在 13 / 14 个任务上选了带 M6 的组合，只有 UCI 选 M1：「I2 + I3 + M6」是跨任务最稳的默认组合，M1 / M1x 按任务取舍。
 
 「优于 / 劣于」= 配对差 95% 区间整体在 0 以上 / 以下（两层 bootstrap：测试客户簇 × 6 个 seed，1,000 次）；数据集内 4 项对比的 Holm p 见 `test_contrasts.csv`。

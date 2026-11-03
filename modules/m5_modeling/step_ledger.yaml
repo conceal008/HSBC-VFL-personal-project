@@ -710,7 +710,7 @@ steps:
     D2: 3
     D3: 2
     D4: 3
-  revisions: 0
+  revisions: 1
   change_id: CL-20261103-M5-005
   committed_at: '2026-11-03T15:30:00+08:00'
   outputs:
@@ -719,7 +719,7 @@ steps:
   - modules/m5_modeling/results/method_screen_cv_v1/
   - modules/m5_modeling/configs/s5_m3_cv_combo.yaml
   - registry/decision_records/DR-M5-013.yaml
-  note: 所有者 2026-11-03 14:00 回复「继续」，新开方法筛选第二阶段。候选与配置沿用 S5.M1，只换选择方式；折按数据结构（行独立分层 5 折、Santander G3 按客户 5 折、mock 按月份滚动外推 3 折）。交叉验证 R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2），达到事先写定的「更好」判据；R2 7 / 0；13 / 14 选了带 M6 的组合。执行期修过一次加载错误（mock 月份为 object 数组），修正前完成的 6 个任务不受影响；按提交后口径不计修正轮次。
+  note: 所有者 2026-11-03 14:00 回复「继续」，新开方法筛选第二阶段。候选与配置沿用 S5.M1，只换选择方式；折按数据结构（行独立分层 5 折、Santander G3 按客户 5 折、mock 按月份滚动外推 3 折）。交叉验证 R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2），达到事先写定的「更好」判据；R2 7 / 0；13 / 14 选了带 M6 的组合。执行期修过一次加载错误（mock 月份为 object 数组），修正前完成的 6 个任务不受影响；按提交后口径不计修正轮次。修正第 1 轮：提交后自查发现 FedAds R1 增益 +0.00649 被写成 +0.007，四处更正为 +0.006（CL-20261103-M5-006）。
 current_step: S5.M4
 next_step: S5.M4 mock 重合 80 的 M6 真实 SGB 复核（运行中，DR-M5-013 · D-5）；之后第二批（M7 / M8 / Orange 大版）先报所有者；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:

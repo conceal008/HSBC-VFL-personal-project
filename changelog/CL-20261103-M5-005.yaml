@@ -22,7 +22,7 @@ why: |
   S5.M1 用单一验证集选组合：3 / 14 优于优化版、2 / 14 劣于，劣于的两个都是 M1 在验证集上与最优并列、按「最省」被选中（DR-M5-012 复核）。
   结果（6 seed，两层 bootstrap；开发证据）：
   - 交叉验证 R1：6 / 14 优于、0 / 14 劣于；R2：7 / 14 优于、0 / 14 劣于。达到事先写定的「更好」判据（DR-M5-013 · D-4）。
-  - Orange 流失 / 偏好由劣于变为不显著；新增显著 Santander G3（M1+M6）+0.004、HomeCredit（P+M6）+0.004、FedAds（P+M6）+0.007。
+  - Orange 流失 / 偏好由劣于变为不显著；新增显著 Santander G3（M1+M6）+0.004、HomeCredit（P+M6）+0.004、FedAds（P+M6）+0.006。
   - R1 在 13 / 14 个任务上选了带 M6 的组合。
 links:
   branch_card: BC-M5-018
@@ -99,6 +99,6 @@ step:
       D2: "modules/m5_modeling/notebooks/S5.M3_1_cv_combo_selection.ipynb：两个任务从头重跑与批量结果逐项相同；14 个任务的汇总由结果 JSON 在 notebook 中生成"
       D3: "组件与配置可重跑，但私有矩阵、分组信息与原始数据只在本机与会话目录，故 2 分"
       D4: "tally.csv：解决 DR-M5-012 复核留下的未决问题——交叉验证 R1 0 / 14 劣于（单一验证集 2 / 14），优于由 3 增到 6"
-  revisions: 0
+  revisions: 1
   verdict: committed
   next_step: S5.M4 mock 重合 80 的 M6 真实 SGB 复核（运行中）

@@ -744,8 +744,33 @@ steps:
   - modules/m5_modeling/configs/s5_m4_sgb_m6_mock80.yaml
   - registry/decision_records/DR-M5-013.yaml（review_20261103_s5m4）
   note: 仓库组件 method_screen_sgb 在 mock 重合 80 上拟合 6 个 SGB（行采样 0.8，seed 1100–1105），分 4 段后台续跑，合计 23,733 秒。M6 的 SGB 0.9142 与同配置代理 0.9128 差 +0.0013 [−0.0019, +0.0042]，在 0.005 以内，D-5 推翻条件未触发。SGB 上 M6 − 优化版 +0.0036 [+0.0001, +0.0068]，p = 0.038（代理 6 seed +0.0092）：成立但幅度约为代理的 4 成，原因是 SGB 优化版本身比代理高 0.006（S5.M2）。第 3 段在成员 4 存档后手动停止（离上限只剩 11 分钟），第 4 段续跑最后一个成员，不影响结果。方法筛选第二阶段 2 / 2 完成。
-current_step: S5.M5
-next_step: 第二批（所有者 2026-11-03 19:39 回复「继续」）：S5.M5 Orange 大版 + M3 预筛、S5.M6 M8 增量学习器运行中（DR-M5-014，随 S5.M5 提交）；M7 不在本阶段；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M5
+  step_name: Orange 大版三任务 + M3 两方特征预筛（明文代理，DR-M5-014）
+  status: committed
+  phase: method_screen_3
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261104-M5-001
+  committed_at: '2026-11-04T03:30:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/method_screen_large.py
+  - modules/m5_modeling/notebooks/S5.M5_1_orange_large_prescreen.ipynb（带汇总输出）
+  - modules/m5_modeling/results/method_screen_large_v1/
+  - modules/m5_modeling/configs/s5_m5_orange_large.yaml
+  - registry/decision_records/DR-M5-014.yaml
+  note: 所有者 2026-11-03 19:39 回复「继续」，开方法筛选第三阶段（第二批）。Orange 大版（50,000 行 × 15,000 个变量）先做 M3 两方特征预筛（每方 300 个编码列），再走 S5.M1 全流程与 S5.M3 交叉验证。I2 + I3 在流失 +0.036、追加销售 +0.011 显著，偏好 +0.025 名义；原版联邦三个任务都不优于内地单边，优化版三个都优于。M6 只在偏好上刚好成立；M1 在流失上变差；交叉验证 1 优于、0 劣于。预筛在流失、追加销售上不损失精度，偏好上不能排除（178 个测试正例，不同 k 之间不单调）。运行中前 4 次启动在写出结果之前中止（内存上限 2 次、手动停止 1 次、2 小时上限 1 次），只改读取与存放方式，按提交后口径不计修正轮次。
+current_step: S5.M6
+next_step: S5.M6 M8 增量学习器（Hillstrom 已完成，Criteo 运行中，DR-M5-014 · D-4）；M7 不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -817,6 +842,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen_3
+  decision_record: DR-M5-014
+  new_steps_authorized: 2        # S5.M5 Orange 大版 + M3 预筛、S5.M6 M8 增量学习器（所有者 2026-11-03 19:39 回复「继续」）
+  planned_steps: [S5.M5, S5.M6]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: active
 - phase: method_screen_2
   decision_record: DR-M5-013
   new_steps_authorized: 2        # S5.M3 交叉验证选组合 + S5.M4 mock 重合 80 的 M6 真实 SGB（所有者 2026-11-03 回复「继续」）

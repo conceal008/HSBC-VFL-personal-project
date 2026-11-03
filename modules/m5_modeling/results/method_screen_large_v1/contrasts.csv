@@ -1,0 +1,22 @@
+task,contrast,diff,ci_low,ci_high,p,p_holm,a_auroc
+orange_large_churn,F_opt_p − F_def,0.03592,0.02291,0.04988,0.00000,0.00000,0.75447
+orange_large_churn,F_def − G_t,0.00527,-0.01077,0.02128,0.50200,1.00000,0.71856
+orange_large_churn,F_opt_p − G_t,0.04119,0.02904,0.05364,0.00000,0.00000,0.75447
+orange_large_churn,F_M4 − F_opt_p,0.00000,0.00000,0.00000,1.00000,1.00000,0.75447
+orange_large_churn,F_M1 − F_opt_p,-0.00723,-0.01451,-0.00036,0.04200,0.79800,0.74724
+orange_large_churn,F_M6 − F_opt_p,0.00002,-0.00262,0.00281,0.96000,1.00000,0.75449
+orange_large_churn,COMBO − F_opt_p,-0.00723,-0.01509,0.00002,0.05200,0.83200,0.74724
+orange_large_upsell,F_opt_p − F_def,0.01087,0.00385,0.01724,0.00000,0.00000,0.91455
+orange_large_upsell,F_def − G_t,0.00635,-0.00011,0.01353,0.06600,1.00000,0.90368
+orange_large_upsell,F_opt_p − G_t,0.01722,0.01191,0.02198,0.00000,0.00000,0.91455
+orange_large_upsell,F_M4 − F_opt_p,0.00000,-0.00245,0.00237,0.95000,1.00000,0.91455
+orange_large_upsell,F_M1 − F_opt_p,-0.00419,-0.00866,0.00106,0.09400,1.00000,0.91036
+orange_large_upsell,F_M6 − F_opt_p,-0.00003,-0.00229,0.00217,0.98200,1.00000,0.91452
+orange_large_upsell,COMBO − F_opt_p,-0.00419,-0.00876,0.00075,0.10000,1.00000,0.91036
+orange_large_appetency,F_opt_p − F_def,0.02504,0.00027,0.05004,0.04800,0.86400,0.86875
+orange_large_appetency,F_def − G_t,-0.00728,-0.03434,0.01794,0.56000,1.00000,0.84371
+orange_large_appetency,F_opt_p − G_t,0.01776,0.00412,0.03335,0.00600,0.15000,0.86875
+orange_large_appetency,F_M4 − F_opt_p,-0.00420,-0.01318,0.00412,0.35000,1.00000,0.86455
+orange_large_appetency,F_M1 − F_opt_p,-0.00011,-0.01131,0.00987,0.96400,1.00000,0.86863
+orange_large_appetency,F_M6 − F_opt_p,0.00466,0.00003,0.00928,0.05000,0.86400,0.87341
+orange_large_appetency,COMBO − F_opt_p,-0.00011,-0.01137,0.01046,0.97000,1.00000,0.86863

@@ -1,0 +1,4 @@
+选择方式,优于优化版,劣于优化版,不显著,优于的任务
+S5.M1 单一验证集,3,2,9,mock_overlap80、mock_balanced、santander_tx
+交叉验证 R1（主规则）,6,0,8,santander_g3、mock_overlap80、mock_balanced、santander_tx、homecredit、fedads
+交叉验证 R2（一倍标准误内取最省）,7,0,7,santander_g3、mock_overlap50、mock_overlap80、mock_balanced、santander_tx、homecredit、fedads

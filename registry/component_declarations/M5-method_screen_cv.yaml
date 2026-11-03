@@ -1,0 +1,18 @@
+component: method_screen_cv
+module: M5
+path: modules/m5_modeling/components/method_screen_cv.py
+purpose: S5.M3 交叉验证选组合：候选与配置沿用 S5.M1（P、P_M4、M1、P+M6、M1+M6、P_M4+M6，有非共同客户时加 M1x、M1x+M6），在全部训练集上按数据结构分折（行独立分层、按客户分组、按月份滚动外推）做交叉验证；R1 取平均 AUROC 最高，R2 取一倍标准误内计算量最小；选出的组合在测试集上评一次（6 seed，两层 bootstrap，数据集内 Holm）。
+inputs:
+- S5.M1 的私有两方矩阵（MS_PRIVATE_ROOT）与每个数据集的结果 JSON（MS_RUN_DIR，含选定配置）
+- 分组信息：mock 训练行的客户号与月份从原始数据重建（MS_RAW_ROOT），Santander G3 训练行客户号取自 S5.G1 私有数组（MS_G3_ARRAYS）；均用标签逐行核对行顺序
+- 配置 modules/m5_modeling/configs/s5_m3_cv_combo.yaml 与 S5.M1 的基础配置
+outputs:
+- 每个数据集一个结果 JSON（MS_CV_DIR）：各候选逐折 AUROC、计算量、两个规则的选择、测试 AUROC（6 seed）、配对差、区间、p 与 Holm p
+- 公开汇总 modules/m5_modeling/results/method_screen_cv_v1/
+tests:
+- modules/m5_modeling/tests/test_method_screen_cv.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线明文模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 交叉验证只用于在已选定配置的候选之间选择，不重新调参；各任务的测试集在以往步骤中已评过，结果为开发证据。分组信息与逐行打分只存会话临时目录或本机私有目录，不入仓库。
+declared_at: '2026-11-03'
+declared_by: Claude (claude-opus-5-5, Claude Code)

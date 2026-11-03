@@ -20,3 +20,5 @@
 当前日志：[v12迁移查漏修复](logbooks/实验方法与运行日志_v12.md)；v11是上轮暂停归档。
 
 2026-11-03：[优化方法与数据集：增益与组合报告 v1.2](reports/优化方法与数据集_增益与组合报告_v1.2.md)——文献优化方法 × 14 个公开数据集任务的代理筛选（S5.M1）、真实 SGB 复核（S5.M2）与交叉验证选组合（S5.M3）；结果真值在 `modules/m5_modeling/results/method_screen_v1/`、`method_screen_sgb_v1/`、`method_screen_cv_v1/`。开发证据，不代表汇丰效果。
+
+2026-11-04：[优化方法与数据集：增益与组合报告 v1.4](reports/优化方法与数据集_增益与组合报告_v1.4.md)——在 v1.2 基础上加入 mock 重合 80 的 M6 真实 SGB（S5.M4）、Orange 大版三任务 + M3 两方特征预筛（S5.M5）与 M8 增量学习器（S5.M6）；新增结果在 `modules/m5_modeling/results/method_screen_sgb_m6_mock80_v1/`、`method_screen_large_v1/`、`uplift_screen_v1/`。交接见 [HO-20261104](../03-handoff/HO-20261104-Claude-M5-method-screen.md)。开发证据，不代表汇丰效果。

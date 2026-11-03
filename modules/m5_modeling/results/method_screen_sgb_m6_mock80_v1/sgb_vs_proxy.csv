@@ -1,0 +1,3 @@
+dataset,method,trees,depth,bins,sgb_auroc,proxy_auroc,proxy_6seed_auroc,sgb_minus_proxy,ci_low,ci_high,within_tolerance,fit_seconds
+mock_overlap80,F_opt_p,83,6,33,0.91060,0.90440,0.90440,0.00620,0.00105,0.01163,False,3094.10000
+mock_overlap80,F_M6,83,6,33,0.91415,0.91284,0.91360,0.00131,-0.00188,0.00417,True,23732.90000

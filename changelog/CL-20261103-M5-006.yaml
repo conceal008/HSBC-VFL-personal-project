@@ -1,0 +1,38 @@
+change_id: CL-20261103-M5-006
+timestamp: '2026-11-03T15:50:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: doc
+title: S5.M3 更正舍入：FedAds R1 增益 +0.00649 写作 +0.006
+what: |
+  S5.M3 提交（CL-20261103-M5-005）后自查：FedAds 上交叉验证 R1（P+M6）相对优化版的测试差为 +0.00649，四处文字误写为 +0.007，更正为 +0.006：
+  - results/method_screen_cv_v1/README.md；
+  - notebook S5.M3_1 的读法 markdown（只改 markdown，未改代码单元或输出）；
+  - CL-20261103-M5-005 的 why；
+  - registry/module_status.yaml 的 M5 未决问题条目。
+  同时把 S5.M3 的修正轮次记为 1（step_ledger 与 CL-20261103-M5-005）。
+why: |
+  数字须与 test_contrasts.csv 一致（0.00649 → +0.006）。上一提交未推送；修正单独提交，不改写历史。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-013
+  loop_step: M5 · 方法筛选第二阶段 S5.M3 的文档更正
+cross_border_impact: none
+cross_border_detail: 只改说明文字，不涉及任何跨境资产。
+sensitive_review:
+  triggered: false
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 只改说明文字与元数据，不新增任何数据、分数或结果。
+downstream_affected:
+- M6
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m3_cv_combo.yaml
+  config_hash: sha256:6841f6884602749c7e49ad425d1984b486fdbdea52b2ffdd636c734e07a3cf11
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可（会恢复错误的 +0.007）。
+verification: |
+  - 与 results/method_screen_cv_v1/test_contrasts.csv 的 fedads「CV_R1 − P」行（0.00649）核对。
+  - changelog schema 本地通过。

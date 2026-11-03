@@ -101,6 +101,6 @@ step:
       D2: "modules/m5_modeling/notebooks/S5.M6_1_uplift_learners.ipynb：断言组件逐字节相同；从原始文件重跑 Hillstrom，测试 Qini 与学习器选择相同"
       D3: "组件与配置可重跑，但原始数据只在本机与会话目录，notebook 只重跑 Hillstrom（Criteo 约 1.5 小时），故 2 分"
       D4: "contrasts.csv：关闭报告第二批的 M8 缺口——按增量排序没有显著优于按响应排序、联邦特征没有显著改善增量排序，并给出原因"
-  revisions: 0
+  revisions: 1
   verdict: committed
   next_step: 方法筛选第三阶段 2 / 2 完成；M7 待所有者定

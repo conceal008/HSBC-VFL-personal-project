@@ -1,0 +1,37 @@
+change_id: CL-20261104-M5-003
+timestamp: '2026-11-04T04:10:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: chore
+title: S5.M6 门禁 6 修正：notebook 汇总格的字面 100 改为百分数格式化，重跑 S5.M6-1
+what: |
+  完整门禁的门禁 6 · R1（硬编码魔数）拦下 notebook S5.M6-1 汇总格中 `m6["top_frac"] * 100`（把 0.3 换算成 30% 打印）：
+  - 改为 `format(m6["top_frac"], ".0%")`，打印内容不变；
+  - 重跑 S5.M6-1：Hillstrom 从原始文件重跑的测试 Qini 最大差仍为 0、学习器选择相同；results/uplift_screen_v1 的五张 CSV 逐字节未变。
+  修正轮次按提交后计数：S5.M6 记 1 轮，CL-20261104-M5-002 与 step_ledger 同步。
+why: |
+  门禁 6 要求参数来自配置或模块级常量；百分数换算的 100 也会被扫描。行为不变，只消除写死的数字。
+  同一次完整门禁的门禁 5 失败是运行环境问题（后台命令用了未装 pytest 的系统 Python），不是代码问题，本条在装有依赖的环境中重跑完整门禁。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-014
+  loop_step: M5 · 方法筛选第三阶段 S5.M6 的门禁修正
+cross_border_impact: none
+cross_border_detail: 只改 notebook 中一行打印语句，不涉及任何跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 重跑后的 notebook 输出与上一版相同（只有运行时间与 git 短哈希不同），只含汇总数字；不含行数据、样本号、逐行打分或模型。
+downstream_affected:
+- M6
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m6_uplift.yaml
+  config_hash: sha256:89936dd48a9099305dc36c21b8b1fa0c95b2dd84909212d48bcb5963f653f379
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可（会使门禁 6 重新拦截）。
+verification: |
+  - 门禁 6 单独重跑通过；S5.M6 单测 5 项通过。
+  - S5.M6-1 重跑：复现结果相同；results/uplift_screen_v1 的 CSV 未变（git 无差异）。

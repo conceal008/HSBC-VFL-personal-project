@@ -784,7 +784,7 @@ steps:
     D2: 3
     D3: 2
     D4: 3
-  revisions: 0
+  revisions: 1
   change_id: CL-20261104-M5-002
   committed_at: '2026-11-04T03:56:00+08:00'
   outputs:
@@ -793,7 +793,7 @@ steps:
   - modules/m5_modeling/results/uplift_screen_v1/
   - modules/m5_modeling/configs/s5_m6_uplift.yaml
   - registry/decision_records/DR-M5-014.yaml（review_20261104_s5m6）
-  note: Hillstrom（64,000 行）与 Criteo Uplift（1 / 14 抽样，约 100 万行），结果 visit 与 conversion，两方字段归属沿用 M1 冻结配置。基模型配置按验证对数损失、学习器按验证 Qini 选定，测试集评一次。12 项预先写定的对比经 Holm 后 0 项显著：按增量排序没有显著优于按响应排序（0 / 8），联邦特征没有显著改善增量排序（0 / 4）；名义显著 2 项（Hillstrom visit 联邦 − 内地 −0.0020、conversion +0.00036）方向相反。Hillstrom visit 联邦一侧验证集选了测试上最低的 T。M8 写为「已做、未见明显增益」。运行中未改代码（Criteo 启动时重新核对 sha256）。方法筛选第三阶段 2 / 2 完成。
+  note: Hillstrom（64,000 行）与 Criteo Uplift（1 / 14 抽样，约 100 万行），结果 visit 与 conversion，两方字段归属沿用 M1 冻结配置。基模型配置按验证对数损失、学习器按验证 Qini 选定，测试集评一次。12 项预先写定的对比经 Holm 后 0 项显著：按增量排序没有显著优于按响应排序（0 / 8），联邦特征没有显著改善增量排序（0 / 4）；名义显著 2 项（Hillstrom visit 联邦 − 内地 −0.0020、conversion +0.00036）方向相反。Hillstrom visit 联邦一侧验证集选了测试上最低的 T。M8 写为「已做、未见明显增益」。运行中未改代码（Criteo 启动时重新核对 sha256）。修正 1 轮：门禁 6 R1 拦下 notebook 汇总格中把比例换算成百分数的字面 100，改为百分数格式化并重跑 S5.M6-1，汇总数字与 results 未变（CL-20261104-M5-003）。方法筛选第三阶段 2 / 2 完成。
 current_step: null
 next_step: 方法筛选第三阶段 2 / 2 用完（DR-M5-014）；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:

@@ -1,0 +1,36 @@
+label,不显著,变差,增益,增益数据集,其中 Holm p < 0.05
+I2 只细分桶,10,1,3,"mock_balanced, orange_upsell, santander_tx","orange_upsell, santander_tx"
+I2 只调参,5,0,9,"mock_balanced, uci_bank, orange_churn, orange_upsell, orange_appetency, homecredit, santander_tx, ieee_part0, coil2000","mock_balanced, uci_bank, orange_churn, orange_upsell, orange_appetency, homecredit, santander_tx"
+I2 细分桶 + 调参,4,0,10,"mock_balanced, mock_overlap80, uci_bank, orange_churn, orange_upsell, orange_appetency, homecredit, santander_tx, ieee_part0, coil2000","mock_balanced, uci_bank, orange_churn, orange_upsell, orange_appetency, homecredit, santander_tx"
+I3 先验初始分数,11,1,2,"santander_g3, fedads",fedads
+I2 + I3 合计,3,0,11,"santander_g3, mock_balanced, uci_bank, orange_churn, orange_upsell, orange_appetency, fedads, homecredit, santander_tx, ieee_part0, coil2000","mock_balanced, uci_bank, orange_churn, orange_upsell, orange_appetency, fedads, homecredit, santander_tx"
+原版联邦 − 内地单边,5,2,7,"santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, homecredit, santander_tx","santander_g3, mock_balanced, mock_overlap50, mock_overlap80, homecredit"
+优化版联邦 − 内地单边,4,0,10,"santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, orange_appetency, fedads, homecredit, santander_tx","santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, orange_appetency, fedads, homecredit, santander_tx"
+M4 行采样调参,14,0,0,,
+M1 逐样本先验,8,5,1,santander_tx,santander_tx
+M6 bagging,7,0,7,"mock_balanced, mock_overlap50, mock_overlap80, fedads, homecredit, santander_tx, coil2000","mock_balanced, mock_overlap50, mock_overlap80, fedads, homecredit, santander_tx, coil2000"
+M2 分数融合 − 优化版,11,2,1,santander_tx,santander_tx
+M2 分数融合 − 内地单边,4,0,10,"santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, orange_appetency, fedads, homecredit, santander_tx","santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, orange_appetency, fedads, homecredit, santander_tx"
+M2 蒸馏学生 − 内地单边,13,0,1,mock_balanced,
+验证集选定组合 − 优化版,9,2,3,"mock_balanced, mock_overlap80, santander_tx","mock_balanced, mock_overlap80, santander_tx"
+验证集选定组合 − 内地单边,3,0,11,"santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, fedads, homecredit, santander_tx, ieee_part0, coil2000","santander_g3, mock_balanced, mock_overlap20, mock_overlap50, mock_overlap80, orange_churn, fedads, homecredit, santander_tx"
+验证集选定组合 − 原版联邦,2,0,12,"santander_g3, mock_balanced, mock_overlap80, uci_bank, orange_churn, orange_upsell, orange_appetency, fedads, homecredit, santander_tx, ieee_part0, coil2000","santander_g3, mock_balanced, mock_overlap80, uci_bank, orange_upsell, fedads, homecredit, santander_tx"
+I6 软 − 硬（ε=1）,5,3,6,"uci_bank, orange_churn, orange_upsell, orange_appetency, ieee_part0, coil2000","uci_bank, orange_upsell, ieee_part0"
+I6 软标签联邦 − 内地单边（ε=1）,1,13,0,,
+硬 RR 联邦 − 内地单边（ε=1）,2,11,1,homecredit,
+I6 软 − 硬（ε=2）,7,3,4,"mock_overlap80, orange_upsell, orange_appetency, fedads",orange_upsell
+I6 软标签联邦 − 内地单边（ε=2）,2,9,3,"santander_g3, homecredit, santander_tx","santander_g3, homecredit, santander_tx"
+硬 RR 联邦 − 内地单边（ε=2）,2,9,3,"santander_g3, homecredit, santander_tx","santander_g3, homecredit, santander_tx"
+I6 软 − 硬（ε=4）,13,1,0,,
+I6 软标签联邦 − 内地单边（ε=4）,6,0,8,"santander_g3, mock_balanced, mock_overlap50, mock_overlap80, orange_churn, homecredit, santander_tx, coil2000","santander_g3, mock_balanced, mock_overlap50, mock_overlap80, orange_churn, homecredit, santander_tx"
+硬 RR 联邦 − 内地单边（ε=4）,4,1,9,"santander_g3, mock_balanced, mock_overlap50, mock_overlap80, orange_churn, orange_appetency, homecredit, santander_tx, coil2000","santander_g3, mock_balanced, orange_churn, homecredit, santander_tx"
+错配 5% 的退化,14,0,0,,
+M5 置信度加权（错配 5%）,13,1,0,,
+M5 剔除低置信（错配 5%）,14,0,0,,
+错配 10% 的退化,12,2,0,,
+M5 置信度加权（错配 10%）,14,0,0,,
+M5 剔除低置信（错配 10%）,14,0,0,,
+M1x 逐样本先验（含非共同客户）,3,0,1,fedads,
+M1x − 内地单边（含非共同客户）,0,0,4,"mock_overlap20, mock_overlap50, mock_overlap80, fedads","mock_overlap20, mock_overlap50, mock_overlap80, fedads"
+内地单边加非共同客户,3,0,1,fedads,
+M2 蒸馏学生（含非共同客户）− 内地单边（含）,4,0,0,,

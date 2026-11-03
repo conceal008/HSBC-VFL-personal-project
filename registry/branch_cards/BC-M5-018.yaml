@@ -1,0 +1,34 @@
+card_id: BC-M5-018
+status: active
+phase: method_screen
+decision_record: DR-M5-012
+preregistration: null（筛选阶段，口径见 DR-M5-012 · D-2 / D-4 与 evaluation_protocol v1）
+routes:
+- id: proxy_screen_14_tasks
+  purpose: 文献优化方法（I2 / I3 / I6 / M1 / M1x / M2 / M4 / M5 / M6）在 14 个公开数据集任务上的明文代理筛选与验证集组合选择
+  step: S5.M1
+  status: completed
+- id: sgb_confirmation
+  purpose: 用真实隐语 SGB 复核代理结论（I2 + I3 收益最大的 Orange 偏好 / 流失与 UCI、M6 bagging 在 mock 重合 80、M1 在 Santander G3 与 UCI）
+  step: S5.M2
+  status: completed
+- id: sgb_mock80_bagging
+  purpose: mock 重合 80 上 M6 的真实 SGB 复核（6 个成员约 4.5 小时，成员逐个存档可续跑）
+  step: S5.M4
+  status: running
+- id: cv_combo_selection
+  purpose: 组合选择改为训练集交叉验证（单一验证集分不开 0.005 量级差距）
+  step: S5.M3
+  status: completed
+- id: second_batch
+  purpose: M7 LR 求解器修复（14 任务）、M8 增量学习器（Criteo / Hillstrom）、Orange 大版树轨道
+  step: null
+  status: awaiting_owner
+history:
+- 2026-11-02 20:38 所有者指示盘点并补做文献优化方法在全部数据集上的实验；21:05:40 代码冻结并整批启动（DR-M5-012）。
+- 2026-11-03 S5.M1 完成 14 个任务：I2 + I3 11 / 14 显著（+0.005 ~ +0.048），M6 7 / 14（+0.004 ~ +0.010，无变差），优化版联邦相对内地单边 10 / 14（原版参数 7 / 14）；M1 5 / 14 变差；M4、M5 无增益；验证集选定组合 3 / 14 优于优化版、2 / 14 变差。仓库组件在 3 个数据集上逐位复现运行结果。
+- 2026-11-03 S5.M2 真实 SGB 复核：13 组同配置比较 9 组在 0.005 以内，超出的 4 组（UCI / Orange 偏好原版参数、mock 重合 80 / COIL2000 优化版）SGB 高约 0.006，按 D-1 降级；I2 + I3 在 UCI（+0.010）与 Orange 偏好（+0.036）成立，M6（+0.011）与 M1x（+0.013）在 FedAds 成立，COIL2000 上 M6 不显著，M1 不显著。mock 重合 80 的 M6 推迟。
+- 2026-11-03 14:00 所有者回复「继续」，新开方法筛选第二阶段（DR-M5-013）：S5.M3 交叉验证选组合完成——R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2），13 / 14 选了带 M6 的组合；S5.M4 mock 重合 80 的 M6 真实 SGB 运行中。
+falsifier: |
+  真实 SGB 与代理在同配置下 AUROC 差的绝对值 > 0.005 → 该数据集的代理结论降级为「待 SGB 确认」（DR-M5-012 · D-1）；
+  发现任何选择读了测试集 → 该数据集结果作废重跑（D-2）。

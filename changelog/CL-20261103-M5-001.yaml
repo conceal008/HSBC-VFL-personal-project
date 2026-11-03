@@ -1,0 +1,112 @@
+change_id: CL-20261103-M5-001
+timestamp: '2026-11-03T02:00:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M1 方法筛选：文献优化方法 × 14 个公开数据集任务，I2 + I3 与 M6 普遍有效
+what: |
+  按所有者 2026-11-02 指示，在 14 个公开数据集任务上补做文献优化方法的实验：
+  Santander G3、HSBC mock 四档、FedAds、Orange 小版三任务、UCI、HomeCredit、COIL2000、Santander 交易、IEEE 第 1 块。
+  方法：I2 分解、I3、M4、M1 / M1x、M6、M2 融合与蒸馏、I6（ε = 1 / 2 / 4）、M5（错配 5% / 10%）。
+  新增：
+  - 决策记录 DR-M5-012（新开方法筛选阶段，2 步）与分支卡 BC-M5-018；
+  - 组件 method_screen / method_screen_data 与单测；
+  - 运行配置 configs/s5_m1_method_screen.yaml；
+  - 两个带汇总输出的运行入口 notebook；
+  - 公开汇总 results/method_screen_v1/。
+  状态类字段同步：
+  - M5 README；
+  - step_ledger（追加 S5.M1，新阶段预算 1/2）；
+  - registry/module_status.yaml 的 M5 与 governance；
+  - 项目进度总览（notebook 70 → 72、带输出 42 → 44；组件声明 95 → 97）。
+why: |
+  盘点显示，已有的 7 项 SGB 创新只在 1–4 个数据集上做过，候选 M1–M8 一个都没执行。所有者要求先列缺口、再立即补做，
+  并把在个别数据集上有明显增益的方法写进报告。
+  结果（6 seed，两层 bootstrap；开发证据）：
+  - I2 + I3 在 11 / 14 上显著（+0.005 ~ +0.048）；M6 bagging 在其上 7 / 14 显著（+0.004 ~ +0.010，无变差）；
+  - 优化版联邦相对同等调参的内地单边 10 / 14 显著，原版参数只有 7 / 14；
+  - 只在个别任务上有效：I3（FedAds +0.026）、M1x（FedAds +0.009）、M1（Santander 交易 +0.008，另 5 个变差）；
+  - M4、M5 无增益；
+  - 单一验证集选组合不可靠：3 / 14 优于优化版，2 / 14 变差。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-012
+  loop_step: M5 · 方法筛选阶段 S5.M1（DR-M5-012 · D-5）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线明文模拟，不涉及任何真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开超参与选定配置；
+    - 各数据集的行数、正例数与列数（列名为公开数据集字段名）；
+    - 验证 / 测试 AUROC 与配对差、区间、p 值；
+    - 计算量代理。
+    不含行数据、样本号或其散列、逐行分数或标签、模型权重、学到的编码状态。
+    私有矩阵（npz）、逐行分数与日志只在会话临时目录（另转存本机）。
+downstream_affected:
+- M0
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；已冻结的 S6.P3 与 G3 结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+  config_hash: sha256:761bae66da90db70c6fac9a6f9a703424c04975a5a6635b8497e528ee69e3a7e
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 G3 及其他步骤。
+verification: |
+  - 运行代码在 2026-11-02 21:05:40 冻结并记录 sha256（prep 221bc073…，screen 56929574…），整批结束时一致。
+  - 仓库组件在 COIL2000、mock 重合 20、UCI 上从原始文件重跑，S5.M1-1 断言以下各项完全相同：私有矩阵逐位相同；全部方法的测试 AUROC、区间与 p 值相同；选定配置与组合相同。
+  - 单测用 xgboost 替身检验编排、选择规则、AUROC（与 sklearn 一致）、后验软标签、Holm 与两层 bootstrap；另检验 14 个任务全部数据加载器。
+  - markdown 读法在执行后按输出填写，未改动代码单元或输出。
+step:
+  step_id: S5.M1
+  step_name: 方法筛选：文献优化方法 × 14 个公开数据集任务
+  declaration: |
+    will_produce：
+    - 14 个任务上的方法筛选结果与验证集组合选择；
+    - DR-M5-012 与 BC-M5-018；
+    - 两个组件与单测；
+    - 两个带汇总输出的运行入口 notebook；
+    - 公开汇总四张表与说明；
+    - 状态同步。
+    will_not_produce：
+    - 不在测试集上做任何选择；
+    - 不打开封存确认集；
+    - 不提交行数据、逐行分数、模型或学到的编码；
+    - 不把代理结论写成 SGB 结论，也不换算成汇丰效果。
+    success_criteria：
+    - 14 / 14 个任务完成；
+    - 仓库组件逐位复现运行结果；
+    - 每项对比给出区间、p 与 Holm p；
+    - 门禁全部通过。
+    risk：
+    - 代理与 SGB 的差异：由 S5.M2 复核；
+    - 组合选择噪声：已在报告与 DR 复核中写明，下一轮改交叉验证。
+  scope:
+    files_changed: 20
+    lines_added: 3882
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/method_screen_v1/contrasts.csv：14 个任务、每项对比都有差值、区间、p 与 Holm p；method_summary.csv 给出每个方法的增益任务数"
+      D2: "modules/m5_modeling/notebooks/S5.M1_1_method_screen_run.ipynb：仓库组件在 3 个数据集上逐位复现（矩阵、全部测试 AUROC、区间与 p、配置与选择）"
+      D3: "组件与配置可重跑，但原始公开数据与私有矩阵只在本机与会话目录，且整批由冻结的会话代码运行（仓库组件逐位复现 3 个数据集），故 2 分"
+      D4: "contrasts.csv：此前 I2 只在 4 个数据集上做过、M1–M6 一个未做；本步给出 14 个任务上的增益矩阵，确定 I2 + I3 与 M6 普遍有效、M4 / M5 无效"
+  revisions: 1
+  verdict: committed
+  next_step: S5.M2 真实 SGB 复核（运行中）；之后组合选择改为交叉验证；第二批先报所有者

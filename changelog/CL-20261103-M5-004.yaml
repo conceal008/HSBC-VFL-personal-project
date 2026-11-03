@@ -1,0 +1,40 @@
+change_id: CL-20261103-M5-004
+timestamp: '2026-11-03T11:20:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: chore
+title: S5.M2 门禁 6 修正：去掉文档串与单测中的字面 seed，重跑 S5.M2-1
+what: |
+  完整门禁的门禁 6 · R2（种子来自配置）拦下两处字面 seed：
+  - components/method_screen_sgb.py 文档串写了「seed = 11 × 100 + j」，改为「成员 seed 为 tune_seed × 100 + j」；
+  - tests/test_method_screen_sgb.py 的显式 seed 由字面 7 改为 P.tune_seed + 1。
+  组件指纹变了，故重跑 notebook S5.M2-1：两次真实 SGB 复现与全部汇总数字不变，results 的两张 CSV 逐字节未变。
+  修正轮次口径更正（不改任何数字）：按《Loop 执行规范 v2》阶段四，修正轮次只计提交后的轮次，执行期调试不计——
+  S5.M2 为 2（CL-20261103-M5-003 与本条），S5.M1 由 0 更正为 1（门禁 6 R1 那一轮）。step_ledger 与 CL-20261103-M5-001 同步。
+why: |
+  门禁 6 要求种子只从配置读入；文档串里的算式与单测里的字面量都会被扫描。行为不变，只消除写死的数字。
+  轮次口径：此前 S5.M2 把提交前的 notebook 调试记为第 1 轮，S5.M1 却没记它提交后的门禁修正，两步口径不一致；统一为提交后计数。
+  所有者 2026-11-03 11:07 在看过升级说明后指示「继续」。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-012
+  loop_step: M5 · 方法筛选阶段 S5.M2 的门禁修正
+cross_border_impact: none
+cross_border_detail: 只改文档串、单测与 notebook 指纹，不涉及任何跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: 重跑后的 notebook 输出与上一版相同（只有组件指纹与运行时间不同），只含汇总数字；不含行数据、样本号、逐行打分或模型。
+downstream_affected:
+- M6
+breaking_change: false
+migration: 无。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
+  config_hash: sha256:d35149bb61562762da1a04bb97dac2b9d26b1f502ba3a33b847d507dedc3ea7c
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可（会使门禁 6 重新拦截）。
+verification: |
+  - 门禁 6 的种子扫描在两文件上无命中；S5.M2 单测 3 项通过。
+  - S5.M2-1 重跑：UCI 上 M1 与优化版的复现结果与上一版相同；sgb_vs_proxy.csv、sgb_contrasts.csv 未变（git 无差异）。

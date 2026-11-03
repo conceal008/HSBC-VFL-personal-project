@@ -695,8 +695,33 @@ steps:
   - modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
   - registry/decision_records/DR-M5-012.yaml（review_20261103_s5m2）
   note: 隐语 SGB（debug 单进程两方模拟，OU）按 S5.M1 选定配置单次拟合 6 个任务、13 个（任务，方法）。同配置下 9 / 13 与代理差 ≤ 0.005；超出的 4 组（UCI / Orange 偏好原版参数、mock 重合 80 / COIL2000 优化版）SGB 高约 0.006，按 D-1 降级。SGB 上 I2 + I3 在 UCI +0.010 [+0.001, +0.019]、Orange 偏好 +0.036 [+0.017, +0.057]；FedAds 上 M6 +0.011 [+0.006, +0.017]、M1x +0.013 [+0.005, +0.021]；COIL2000 上 M6 +0.003（区间含 0）；M1 在 Santander G3 与 UCI 不显著。Orange 流失未跑（已有 SGB 证据），mock 重合 80 的 M6 推迟。执行期（提交前）：仓库组件复现的断言由「逐位相同」放宽为「逐行差 ≤ 1e-6 且 AUROC 相同」（M1 在 float32 末位不同），另修 YAML 引号；按《Loop 执行规范 v2》阶段四，修正轮次只计提交后的轮次，执行期调试不计（2026-11-03 口径更正，原把它记为第 1 轮）。修正第 1 轮：门禁 2 拦下 changelog 只记 1 个 seed，补记单次拟合理由与 seeds_note（CL-20261103-M5-003）；第 2 轮：门禁 6 拦下组件文档串与单测中的字面 seed，改为由配置推出并重跑 S5.M2-1，结果不变（CL-20261103-M5-004）。
-current_step: null
-next_step: 方法筛选阶段预算 2/2 用完。待所有者决定：组合选择改为交叉验证、mock 重合 80 的 M6 真实 SGB 复核（约 4.5 小时，可续跑）、第二批（M7 / M8 / Orange 大版）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M3
+  step_name: 组合选择改为训练集交叉验证（14 个任务，明文代理，DR-M5-013）
+  status: committed
+  phase: method_screen_2
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261103-M5-005
+  committed_at: '2026-11-03T15:30:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/method_screen_cv.py
+  - modules/m5_modeling/notebooks/S5.M3_1_cv_combo_selection.ipynb（带汇总输出）
+  - modules/m5_modeling/results/method_screen_cv_v1/
+  - modules/m5_modeling/configs/s5_m3_cv_combo.yaml
+  - registry/decision_records/DR-M5-013.yaml
+  note: 所有者 2026-11-03 14:00 回复「继续」，新开方法筛选第二阶段。候选与配置沿用 S5.M1，只换选择方式；折按数据结构（行独立分层 5 折、Santander G3 按客户 5 折、mock 按月份滚动外推 3 折）。交叉验证 R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2），达到事先写定的「更好」判据；R2 7 / 0；13 / 14 选了带 M6 的组合。执行期修过一次加载错误（mock 月份为 object 数组），修正前完成的 6 个任务不受影响；按提交后口径不计修正轮次。
+current_step: S5.M4
+next_step: S5.M4 mock 重合 80 的 M6 真实 SGB 复核（运行中，DR-M5-013 · D-5）；之后第二批（M7 / M8 / Orange 大版）先报所有者；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -768,6 +793,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen_2
+  decision_record: DR-M5-013
+  new_steps_authorized: 2        # S5.M3 交叉验证选组合 + S5.M4 mock 重合 80 的 M6 真实 SGB（所有者 2026-11-03 回复「继续」）
+  planned_steps: [S5.M3, S5.M4]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: active
 - phase: method_screen
   decision_record: DR-M5-012
   new_steps_authorized: 2        # S5.M1 代理筛选 + S5.M2 真实 SGB 复核（所有者 2026-11-02 指示）

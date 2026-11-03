@@ -1,0 +1,104 @@
+change_id: CL-20261103-M5-005
+timestamp: '2026-11-03T15:30:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M3 交叉验证选组合：6 / 14 优于优化版、0 / 14 劣于，13 / 14 选了带 M6 的组合
+what: |
+  所有者 2026-11-03 14:00 回复「继续」，新开方法筛选第二阶段（DR-M5-013，2 步）。本条为第 1 步：组合选择改为训练集交叉验证。
+  - 候选与各候选的配置沿用 S5.M1，只换选择方式；交叉验证只用全部训练集，测试集不参与选择。
+  - 折按数据结构：行独立的 9 个任务分层 5 折；Santander G3 按客户分组 5 折；mock 四档按月份滚动外推 3 折。
+  - R1：平均 AUROC 最高；R2：一倍标准误内取计算量最小。选出的组合在测试集上评一次（6 seed，两层 bootstrap，Holm）。
+  新增：
+  - 决策记录 DR-M5-013（含 S5.M3 复核）；
+  - 组件 method_screen_cv 与单测；
+  - 运行配置 configs/s5_m3_cv_combo.yaml；
+  - 带汇总输出的运行入口 notebook S5.M3_1；
+  - 公开汇总 results/method_screen_cv_v1/；
+  - 组件声明 M5-method_screen_cv。
+  状态类字段同步：BC-M5-018（cv_combo_selection 完成，sgb_mock80_bagging 运行中）、step_ledger（追加 S5.M3，新阶段预算 1/2）、
+  registry/module_status.yaml 的 M5 与 governance、M5 README、项目进度总览（notebook 73 → 74、带输出 45 → 46；组件声明 98 → 99）。
+why: |
+  S5.M1 用单一验证集选组合：3 / 14 优于优化版、2 / 14 劣于，劣于的两个都是 M1 在验证集上与最优并列、按「最省」被选中（DR-M5-012 复核）。
+  结果（6 seed，两层 bootstrap；开发证据）：
+  - 交叉验证 R1：6 / 14 优于、0 / 14 劣于；R2：7 / 14 优于、0 / 14 劣于。达到事先写定的「更好」判据（DR-M5-013 · D-4）。
+  - Orange 流失 / 偏好由劣于变为不显著；新增显著 Santander G3（M1+M6）+0.004、HomeCredit（P+M6）+0.004、FedAds（P+M6）+0.007。
+  - R1 在 13 / 14 个任务上选了带 M6 的组合。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-013
+  loop_step: M5 · 方法筛选第二阶段 S5.M3（DR-M5-013 · D-1）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线明文模拟，不涉及任何真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置、候选名与计算量代理；
+    - 各折的行数与正例数（公开数据集的划分规模）；
+    - 交叉验证与测试 AUROC、配对差、区间、p 与 Holm p。
+    不含行数据、样本号或其散列、客户号、月份明细、逐行分数或标签、模型。分组信息（客户号、月份）与逐行打分只在会话临时目录（另转存本机）。
+downstream_affected:
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S5.M1 / S5.M2 的结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m3_cv_combo.yaml
+  config_hash: sha256:6841f6884602749c7e49ad425d1984b486fdbdea52b2ffdd636c734e07a3cf11
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: 交叉验证内训练 seed 为 11（M6 成员 1100–1105）；测试集评估用全部 6 个 seed。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1、S5.M2。
+verification: |
+  - DR-M5-013 在启动前写定；运行代码、配置与 DR 的 sha256 在 14:10:05 记入启动指纹；14:18 的加载修正与新 sha256 追加在同一文件。
+  - S5.M3-1 用仓库组件从头重跑 UCI 与 COIL2000：交叉验证分数、选择、测试 AUROC 与配对差和批量运行完全相同（断言）。
+  - 测试集上 P 与 M1 在 seed 11 的 AUROC 与 S5.M2 记录的同配置代理相同，候选定义与 S5.M1 一致。
+  - 单测用 xgboost 替身检验候选与计算量、三种折方案（分层平衡、分组不重叠、时间只用更早月份）、两个选择规则、编排与分组重建。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M3
+  step_name: 组合选择改为训练集交叉验证
+  declaration: |
+    will_produce：
+    - 14 个任务上交叉验证的候选分数、两个规则的选择与测试评估；
+    - DR-M5-013、组件与单测、运行配置、带汇总输出的 notebook、公开汇总；
+    - 状态同步。
+    will_not_produce：
+    - 不重新调参、不新增候选；
+    - 不在测试集上做任何选择；
+    - 不提交行数据、客户号、月份明细、逐行分数或模型；
+    - 不换算成汇丰效果。
+    success_criteria：
+    - 14 / 14 个任务完成；
+    - 仓库组件复现批量结果；
+    - 按 DR-M5-013 · D-4 给出判定；
+    - 门禁全部通过。
+    risk：
+    - 配置仍来自单一验证集：已写入 README 与 notebook 的边界；
+    - mock 滚动外推前几折训练月份少：已写入边界。
+  scope:
+    files_changed: 17
+    lines_added: 1347
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/method_screen_cv_v1/choices.csv 与 test_contrasts.csv：14 个任务都有两个规则的选择、测试 AUROC 与 4 项配对差（区间、p、Holm p）"
+      D2: "modules/m5_modeling/notebooks/S5.M3_1_cv_combo_selection.ipynb：两个任务从头重跑与批量结果逐项相同；14 个任务的汇总由结果 JSON 在 notebook 中生成"
+      D3: "组件与配置可重跑，但私有矩阵、分组信息与原始数据只在本机与会话目录，故 2 分"
+      D4: "tally.csv：解决 DR-M5-012 复核留下的未决问题——交叉验证 R1 0 / 14 劣于（单一验证集 2 / 14），优于由 3 增到 6"
+  revisions: 0
+  verdict: committed
+  next_step: S5.M4 mock 重合 80 的 M6 真实 SGB 复核（运行中）

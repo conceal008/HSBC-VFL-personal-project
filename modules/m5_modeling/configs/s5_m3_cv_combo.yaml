@@ -1,0 +1,48 @@
+# S5.M3 · 组合选择改为训练集交叉验证（DR-M5-013 · D-2 / D-3 / D-4）
+# ---------------------------------------------------------------------------
+# 候选与各候选的配置沿用 S5.M1（结果 JSON 中验证集选定的配置），不再调参；只换「怎么在候选之间选」。
+# 交叉验证只用 final 视图的训练行（= 全部训练集），测试集不参与任何选择。私有矩阵与运行输出在 MS_PRIVATE_ROOT / MS_RUN_DIR / MS_CV_DIR。
+# ---------------------------------------------------------------------------
+step_id: S5.M3
+purpose: 组合选择改为训练集交叉验证——单一验证集分不开 0.005 量级差距、并列取最省偏向 M1（DR-M5-012 复核）
+decision_record: registry/decision_records/DR-M5-013.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11                        # 交叉验证内的训练 seed（= S5.M1 tune seed）
+seeds: [11, 22, 33, 44, 55, 66] # 测试集评估的 seed（= S5.M1）
+cv_dir_env: MS_CV_DIR
+g3_arrays_env: MS_G3_ARRAYS      # Santander G3 的 S5.G1 私有数组（训练行客户号）
+results_dir: modules/m5_modeling/results/method_screen_cv_v1
+round_auc: 4
+
+cv:
+  k_row: 5                      # 行独立任务：分层 5 折
+  k_group: 5                    # Santander G3：按客户分组 5 折
+  fold_seed: 11
+  time_blocks:                  # mock 四档：滚动外推，每折验证 2 个月，训练只用更早的月份（训练窗口 2015-01 ~ 2016-01）
+  - ['2015-08-28', '2015-09-28']
+  - ['2015-10-28', '2015-11-28']
+  - ['2015-12-28', '2016-01-28']
+  se_mult: 1.0                  # R2：配对差 ≥ −1 倍标准误的候选中取计算量最小
+
+fold_scheme:                    # 未列出的任务按 row
+  santander_g3: group
+  mock_balanced: time
+  mock_overlap20: time
+  mock_overlap50: time
+  mock_overlap80: time
+
+datasets:                       # 运行顺序（先跑小的）
+- uci_bank
+- coil2000
+- orange_churn
+- orange_upsell
+- orange_appetency
+- santander_g3
+- mock_overlap20
+- mock_overlap50
+- mock_overlap80
+- mock_balanced
+- ieee_part0
+- santander_tx
+- homecredit
+- fedads

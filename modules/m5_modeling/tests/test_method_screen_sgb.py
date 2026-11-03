@@ -126,9 +126,10 @@ def test_逐样本初始预测注入后恢复(fake_sf):
     cfg = {"rounds": 3, "depth": 2, "lr": 0.3, "lam": 1.0, "col": 1.0}
     mf, me = np.arange(30, dtype=float), np.full(8, 2.0)
     orig = _ModelBuilder.init_pred
-    p, t = SG.run_sgb(P, xg, xh, y, eg, eh, cfg, P.bins_fine, 0.0, mf, me, seed=7)
+    alt_seed = P.tune_seed + 1                                                # 显式传入的 seed 应覆盖默认值
+    p, t = SG.run_sgb(P, xg, xh, y, eg, eh, cfg, P.bins_fine, 0.0, mf, me, seed=alt_seed)
     assert np.allclose(_Sgb.calls[-1]["init"], mf) and _ModelBuilder.init_pred is orig
-    assert _Sgb.calls[-1]["params"]["seed"] == 7 and p.shape == (8,) and t >= 0
+    assert _Sgb.calls[-1]["params"]["seed"] == alt_seed and p.shape == (8,) and t >= 0
     p0, _ = SG.run_sgb(P, xg, xh, y, eg, eh, cfg, P.bins_fine, 0.0)
     assert np.allclose(_Sgb.calls[-1]["init"], 0) and np.all(p > p0)        # 推理时加回了本地 logit
 

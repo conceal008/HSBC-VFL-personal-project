@@ -107,6 +107,6 @@ step:
       D2: "modules/m5_modeling/notebooks/S5.M1_1_method_screen_run.ipynb：仓库组件在 3 个数据集上逐位复现（矩阵、全部测试 AUROC、区间与 p、配置与选择）"
       D3: "组件与配置可重跑，但原始公开数据与私有矩阵只在本机与会话目录，且整批由冻结的会话代码运行（仓库组件逐位复现 3 个数据集），故 2 分"
       D4: "contrasts.csv：此前 I2 只在 4 个数据集上做过、M1–M6 一个未做；本步给出 14 个任务上的增益矩阵，确定 I2 + I3 与 M6 普遍有效、M4 / M5 无效"
-  revisions: 0
+  revisions: 1
   verdict: committed
   next_step: S5.M2 真实 SGB 复核（运行中）；之后组合选择改为交叉验证；第二批先报所有者

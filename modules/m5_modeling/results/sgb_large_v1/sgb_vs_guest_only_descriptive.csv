@@ -1,0 +1,3 @@
+dataset,method,sgb_auroc,guest_only_proxy_6seed_auroc,sgb_minus_guest_only_proxy
+orange_large_churn,F_opt_p,0.75260,0.71329,0.03931
+orange_large_churn,F_def,0.71728,0.71329,0.00400

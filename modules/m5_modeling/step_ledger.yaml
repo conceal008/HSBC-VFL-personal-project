@@ -819,8 +819,33 @@ steps:
   - modules/m5_modeling/configs/s5_m7_sgb_cost.yaml
   - registry/decision_records/DR-M5-015.yaml（review_20261104_s5m7）
   note: 只替换隐语 1.13 `GradientEncryptor.cache_to_workers`，主动方收到自己明文梯度的 HEU 明文对象，被动方消息不变（SecureBoost 原设计）。6 个任务完整拟合与 S5.M2 存档逐位一致（不同 0 行）；ABBA 前 10 棵树两方合计计算每棵树省 29% ~ 43%，全在主动方（分桶求和约 1 / 12、主动方解密约 0）。Orange 大版流失每方 100 / 300 / 1000 列省 42% ~ 48%；外推到全部清洗后列原版约 1,730 秒 / 棵（外推，不实测），预筛加明文直方图约为其 1 / 41。耗时是单进程两方模拟的合计计算时间，不是部署墙钟。运行中未改代码（三段启动指纹相同）。D-6 估算两个方法都在 7,000 秒以内，S5.M8 启动。修正 1 轮（提交前）：门禁 5 Q3 拦下组件行覆盖 62.6%，补 5 个单测（组件未改，覆盖 99.0%）；门禁 6 R1 拦下 notebook 的字面 3，改为从配置读取并重跑 S5.M7-1，汇总未变。
-current_step: S5.M8
-next_step: S5.M8 Orange 大版流失的真实 SGB 复核（优化版联邦运行中，原版联邦随后，DR-M5-015 · D-6）；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M8
+  step_name: Orange 大版流失的真实 SGB 复核（原版联邦与优化版联邦，主动方明文直方图版本；DR-M5-015 · D-6）
+  status: committed
+  phase: method_screen_4
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261104-M5-006
+  committed_at: '2026-11-04T17:53:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_large_confirm.py
+  - modules/m5_modeling/notebooks/S5.M8_1_orange_large_sgb.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_large_v1/
+  - modules/m5_modeling/configs/s5_m8_orange_large_sgb.yaml
+  - registry/decision_records/DR-M5-015.yaml（review_20261104_s5m8）
+  note: S5.M5 主分析的同一输入（每方 300 列），配置全部取自 S5.M5 结果，各拟合一次（seed 11）。SGB 与同配置代理之差：优化版联邦 −0.0019 [−0.0058, +0.0023]、原版联邦 −0.0013 [−0.0162, +0.0144]，都在 0.005 以内；SGB 上 I2 + I3 +0.0353 [+0.0222, +0.0483]，p < 0.001（代理 6 seed +0.0359）。只作描述：优化版联邦 SGB − 内地单边代理 +0.039。拟合 6,301 秒（与门禁争用 CPU）与 4,692 秒；原版启动前在 CPU 空闲时试训前 2 / 4 棵，外推 5,129 秒，在单段上限内。组件在仓库副本中启动，三段启动指纹与提交文件逐字节相同。方法筛选第四阶段 2 / 2 完成。
+current_step: null
+next_step: 方法筛选第四阶段 2 / 2 用完（DR-M5-015）；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -896,10 +921,10 @@ phase_budgets:
   decision_record: DR-M5-015
   new_steps_authorized: 2        # S5.M7 M3 后半（主动方明文直方图）与 SGB 开销、S5.M8 Orange 大版真实 SGB（有条件）；所有者 2026-11-04 10:35 回复「继续」
   planned_steps: [S5.M7, S5.M8]
-  steps_used: 1
+  steps_used: 2
   inherit_pass_threshold: 11
   historical_quality_reset: false
-  status: active
+  status: completed
 - phase: method_screen_3
   decision_record: DR-M5-014
   new_steps_authorized: 2        # S5.M5 Orange 大版 + M3 预筛、S5.M6 M8 增量学习器（所有者 2026-11-03 19:39 回复「继续」）

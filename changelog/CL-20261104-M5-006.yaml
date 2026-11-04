@@ -1,0 +1,106 @@
+change_id: CL-20261104-M5-006
+timestamp: '2026-11-04T17:53:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M8 Orange 大版流失的真实 SGB 复核——两个方法与同配置代理之差都在 0.005 以内，SGB 上 I2 + I3 +0.0353 [+0.0222, +0.0483]
+what: |
+  方法筛选第四阶段（DR-M5-015）第 2 步，D-6 的前提（S5.M7 判定「逐位一致」）成立后做。
+  - 输入：S5.M5 主分析的同一私有输入（Orange 大版流失，每方前 300 个编码列，fit 40,000 行、测试 10,000 行、正例 734）；配置全部取自 S5.M5 结果 JSON，不再调参。
+  - 用主动方明文直方图版本（与原版逐位一致，只是更快）各拟合一次（seed 11）原版联邦 F_def（隐语默认、10 桶、初始分数 0.5）与优化版联邦 F_opt_p（选定配置、33 桶、先验初始分数）。
+  - 与同配置代理比较、SGB 内部对比 F_opt_p − F_def，口径同 S5.M2（method_screen_sgb.evaluate，测试行 bootstrap 1,000 次）；「联邦 SGB − 内地单边代理」只作描述。
+  - D-6 时长估算先写入运行输出；两个方法各一个后台段，打分分别存档，最后一段做对比。组件在仓库副本（会话临时目录）中启动，提交前核对与启动指纹逐字节相同。
+  新增：
+  - 组件 sgb_large_confirm 与单测、组件声明 M5-sgb_large_confirm；
+  - 运行配置 configs/s5_m8_orange_large_sgb.yaml；
+  - 带汇总输出的运行入口 notebook S5.M8_1（重拟合同配置代理、从存档打分重算 AUROC 与 bootstrap 对比并核对）；
+  - 公开汇总 results/sgb_large_v1/；
+  - DR-M5-015 复核段 review_20261104_s5m8。
+  状态类字段同步：BC-M5-018（orange_large_sgb 完成）、step_ledger（追加 S5.M8，第四阶段 2 / 2 完成）、registry/module_status.yaml 的 M5 与 governance、
+  M5 README、项目进度总览（notebook 78 → 79、带输出 50 → 51；组件声明 102 → 103）。
+why: |
+  Orange 大版是 17 个任务里唯一没有任何真实 SGB 证据的数据集（DR-M5-015 · D-6）。报告 v1.4 把它记为「单次 SGB 远超会话时限、未跑」；
+  S5.M7 的预筛加明文直方图使每方 300 列的单次拟合进入单段时限。流失是三任务中正例最多、I2 + I3 增益最大的一个。
+  结果（开发证据）：
+  - SGB 与同配置代理：优化版联邦 0.7526 / 0.7545，差 −0.0019 [−0.0058, +0.0023]；原版联邦 0.7173 / 0.7186，差 −0.0013 [−0.0162, +0.0144]。两者都在 0.005 以内，代理结论不降级。
+  - SGB 上 I2 + I3（F_opt_p − F_def）+0.0353 [+0.0222, +0.0483]，p < 0.001；S5.M5 代理（6 seed）+0.0359 [+0.0229, +0.0499]，几乎相同。
+  - 只作描述：优化版联邦 SGB 比内地单边代理（6 seed，0.7133）高 0.039，原版联邦只高 0.004，与 S5.M5「不做 I2 + I3，联邦看不出增益」一致。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-015
+  loop_step: M5 · 方法筛选第四阶段 S5.M8（DR-M5-015 · D-6）
+cross_border_impact: none
+cross_border_detail: 公开数据上的单进程两方模拟，不涉及任何真实跨境资产；被动方收到的消息与原实现相同。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置与 sha256 前缀、启动时间；
+    - fit / 测试行数与测试正例数、每方列数（公开数据集的切分规模，S5.M5 已公开）；
+    - 两个方法的配置（深度、棵数、分桶）、估计与实际拟合秒数、SGB 与代理的测试 AUROC、配对差、区间与 p。
+    不含行数据、样本号或其散列、逐行分数或标签、列清单或列排序、模型或密钥。逐行打分只在会话临时目录。
+downstream_affected:
+- M6
+- M9
+breaking_change: false
+migration: 无。新增文件；S5.M1 – S5.M7 的方法、配置与结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m8_orange_large_sgb.yaml
+  config_hash: sha256:6631b47341b5eb5185ef2d2293c8814ac6adfdfc94f637f6a5bec4343bc7a377
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: |
+    每个 SGB 拟合一次（seed 11，同 S5.M2）：两个方法合计约 3 小时，多 seed 超出会话预算；区间只含测试行抽样（1,000 次，seed 20261102）。
+    所列 6 个 seed 只用于读取 S5.M5 的代理结果（6 seed 均值与对比）。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 – S5.M7。
+verification: |
+  - DR-M5-015 在任何运行之前写定；组件、依赖组件、配置与决策记录的 sha256 在三段启动时（优化版、原版、对比）记入启动指纹，三段相同，与提交文件逐字节相同。
+  - notebook 第一格断言运行时组件与配置与当前仓库逐字节相同；第三格用仓库组件重拟合同配置代理（seed 11），从存档打分重算测试 AUROC 与 bootstrap 对比，与批量运行相同（差 ≤ 1e-12）。
+  - 单测用替身检验：时长估算按层数与棵数；估计超过上限的方法不拟合；两个方法都在明文直方图上下文里拟合、退出后恢复；已存档不重拟合；对比只在 SGB 内部与同配置代理之间；
+    命令行入口单个方法与对比两种模式。组件行覆盖 98.5%。
+  - 原版联邦启动前在 CPU 空闲时试训前 2 / 4 棵（只用 fit 行与训练配置，不看测试打分），外推 5,129 秒，在单段上限内；这是本记录未写的额外检查，不改变 D-6 的判定，已写入 DR 复核。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M8
+  step_name: Orange 大版流失的真实 SGB 复核
+  declaration: |
+    will_produce：
+    - Orange 大版流失上原版联邦与优化版联邦的真实 SGB 测试 AUROC、与同配置代理之差、SGB 内部对比 I2 + I3；
+    - 组件与单测、组件声明、运行配置、带汇总输出的 notebook、公开汇总与 DR 复核；
+    - 状态同步。
+    will_not_produce：
+    - 不调参、不改配置或棵数，不在测试集上做任何选择；
+    - 不做追加销售与偏好的 SGB 复核；
+    - 不提交行数据、逐行分数、列清单或模型；不换算成汇丰效果。
+    success_criteria：
+    - 两个方法都在单段时限内完成拟合（或按 D-6 如实记录不做）；
+    - notebook 用仓库组件核对对比结果；
+    - 门禁全部通过。
+    risk：
+    - 单次拟合不含训练随机性：已写入 README 与 notebook 边界；
+    - 原版联邦时长接近单段上限：启动前试训外推，在上限内才拟合。
+  scope:
+    files_changed: 16
+    lines_added: 871
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/sgb_large_v1/sgb_vs_proxy.csv 与 sgb_contrasts.csv：两个方法与代理之差、I2 + I3 的 SGB 对比都有区间与 p"
+      D2: "modules/m5_modeling/notebooks/S5.M8_1_orange_large_sgb.ipynb：断言组件逐字节相同；重拟合代理并从存档打分重算对比，与批量运行相同"
+      D3: "组件与配置可重跑，但私有输入只在本机与会话目录，notebook 不重拟合 SGB（两个方法合计约 3 小时），故 2 分"
+      D4: "sgb_contrasts.csv：关闭报告 v1.4 中 Orange 大版没有真实 SGB 证据的缺口——I2 + I3 在 SGB 上成立，代理结论不降级"
+  revisions: 0
+  verdict: committed
+  next_step: 方法筛选第四阶段 2 / 2 完成；报告升版 v1.5；M7 待所有者定

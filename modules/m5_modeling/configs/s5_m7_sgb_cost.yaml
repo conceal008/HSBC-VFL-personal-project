@@ -1,0 +1,25 @@
+# S5.M7 · 主动方明文直方图（候选文档 M3 后半）的逐位一致与真实 SGB 开销；预筛列数的 SGB 单树开销（DR-M5-015 · D-2 ~ D-5）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；配置全部取自 S5.M1 / S5.M5 的结果 JSON（验证集上选定），不再调参。
+# 私有输入与逐行打分在 MS_PRIVATE_ROOT / MS_RUN_DIR / MS_SGB_DIR / MS_LARGE_DIR / MS_COST_DIR。
+# ---------------------------------------------------------------------------
+step_id: S5.M7
+purpose: 主动方明文直方图与原版是否逐位一致、省多少计算；Orange 大版上每方 k 列的 SGB 单树开销
+decision_record: registry/decision_records/DR-M5-015.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+large_config: modules/m5_modeling/configs/s5_m5_orange_large.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: 每个 SGB 拟合用 seed 11（同 S5.M2）；seeds 只为与基础配置一致，本步不做多 seed
+sgb_dir_env: MS_SGB_DIR           # S5.M2 存档的测试打分（D-3 的比较对象）
+large_dir_env: MS_LARGE_DIR       # S5.M5 的结果 JSON（Orange 大版选定配置）
+cost_dir_env: MS_COST_DIR         # 本步的私有输出
+method: F_opt_p
+exact_tasks: [uci_bank, fedads, coil2000, santander_g3, orange_appetency, mock_overlap80]   # D-3：完整拟合，与 S5.M2 存档比较
+timing_tasks: [uci_bank, fedads, coil2000, santander_g3, orange_appetency, mock_overlap80]  # D-4：ABBA，前 timing_trees 棵
+timing_trees: 10
+large_task: orange_large_churn
+k_cost: [100, 300, 1000]          # D-5：每方列数；k 之间交替先后
+k_cost_trees: 5
+round_sec: 2
+results_dir: modules/m5_modeling/results/sgb_cost_v1

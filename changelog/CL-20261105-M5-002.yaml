@@ -1,0 +1,107 @@
+change_id: CL-20261105-M5-002
+timestamp: '2026-11-05T21:51:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M10 主动方明文直方图在两进程生产模式下的墙钟——每棵树省 31% ~ 41%，与单进程合计计算的节省基本相同
+what: |
+  方法筛选第五阶段（DR-M5-016）第 2 步。
+  - 可行性：合成数据（5,000 行 × 两方各 20 列，不涉及项目数据）上，在会话容器内起两个本地进程各自一方（sf.init(cluster_config, ray_mode=False) 生产模式，本机回环），
+    sgb_v 能拟合，明文替换在两个进程里同样开启后两种版本打分逐位相同。
+  - 正式计时：UCI Bank、Santander G3、mock 重合 80、Orange 大版流失（每方 300 列），S5.M1 / S5.M5 选定的优化版联邦配置；
+    每个任务先做一次 2 棵树的预热，再按原版、明文、明文、原版各训前 10 棵（大版 5 棵）；记录两方训练墙钟、总墙钟与回环发送字节，四次打分须两两逐位相同。
+  - 每个进程只读自己那一方的特征（标签只在内地进程）；按方拆出的私有输入副本用完即删。
+  新增：
+  - 组件 sgb_wallclock 与单测、组件声明 M5-sgb_wallclock；
+  - 运行配置 configs/s5_m10_wallclock.yaml；
+  - 带汇总输出的运行入口 notebook S5.M10_1（用仓库组件在 UCI Bank 上重起两进程、原版与明文各 2 棵并核对逐位一致）；
+  - 公开汇总 results/sgb_wallclock_v1/；
+  - DR-M5-016 复核段 review_20261105_s5m10。
+  状态类字段同步：BC-M5-018（plaintext_wallclock 完成）、step_ledger（追加 S5.M10，第五阶段 2 / 2 完成）、registry/module_status.yaml 的 M5 与 governance、
+  M5 README、项目进度总览（notebook 80 → 81、带输出 52 → 53；组件声明 104 → 105）。
+why: |
+  S5.M7 测的是单进程模拟中两方计算串行相加的「合计计算时间」，部署中两方并行时墙钟能省多少是交接里列出的开放问题。
+  结果（开发证据，容器 2 核、本机回环）：
+  - 每棵树墙钟（原版 → 明文）：UCI Bank 2.98 → 1.79 秒（省 40%，S5.M7 单进程 40%）；Santander G3 22.4 → 15.3 秒（31%，29%）；
+    mock 重合 80 22.0 → 14.7 秒（33%，32%）；Orange 大版流失 47.5 → 28.0 秒（41%，43%）。两方并行时的墙钟节省与合计计算的节省基本相同。
+  - 两种版本的回环发送字节平均相差不到 2%，与同一版本两次之间的波动同量级，与「被动方收到的消息不变」一致；四次打分两两逐位相同。
+  - 两进程的原版墙钟比单进程合计计算时间短（Orange 大版流失 47.5 对 73.1 秒），两方仍有部分计算重叠。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-016
+  loop_step: M5 · 方法筛选第五阶段 S5.M10（DR-M5-016 · D-7）
+cross_border_impact: none
+cross_border_detail: 公开数据上会话容器内两个本地进程的模拟，只走本机回环，不涉及任何真实跨境资产；被动方收到的消息与原实现相同。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置与 sha256 前缀；每个任务的两方列数、训练行数（公开数据集的切分规模）、计时棵数；
+    - 每次运行的两方训练墙钟、总墙钟、回环发送字节，节省比例与范围，打分是否逐位相同。
+    不含行数据、样本号或其散列、逐行分数或标签、梯度、模型或密钥。测试打分只在会话临时目录。
+downstream_affected:
+- M6
+- M7
+- M8
+breaking_change: false
+migration: 无。新增文件；S5.M1 – S5.M9 的方法、配置与结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m10_wallclock.yaml
+  config_hash: sha256:3cc7a74dc131ee31ec0da957b65a8d5f518d3506735e2f0a22e17770d28849dc
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: |
+    每次拟合用 seed 11（同 S5.M7）；比较的是同一配置的两种实现，不做多 seed。所列 6 个 seed 为方法筛选统一口径。
+    耗时的波动用 ABBA 两对的范围表示。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 – S5.M9。
+verification: |
+  - DR-M5-016 · D-7 在任何计时之前写定；组件、依赖组件与配置的 sha256 在启动时记入启动指纹，与提交文件逐字节相同。
+  - notebook 第一格断言运行时组件与配置与当前仓库逐字节相同；第三格用仓库组件在 UCI Bank 上重起两进程、原版与明文各训前 2 棵，测试打分逐位相同。
+  - 单测用替身检验：集群配置；按方拆输入（初始分数取先验、不接受逐样本先验）；内地写出打分；两进程启动、退出码检查、计时与回环字节；
+    预热 + ABBA 编排与汇总；命令行入口的续跑、私有输入清理与子进程入口。组件行覆盖 77.5%（每方进程主体需要 SecretFlow，CI 不覆盖）。
+  - 运行期间会话内没有门禁或其他重计算。markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M10
+  step_name: 主动方明文直方图在两进程生产模式下的墙钟
+  declaration: |
+    will_produce：
+    - 4 个任务在两进程生产模式下两种实现的每棵树墙钟、节省比例与范围、回环发送字节，与 S5.M7 单进程合计节省的对照；
+    - 组件与单测、组件声明、运行配置、带汇总输出的 notebook、公开汇总与 DR 复核；
+    - 状态同步。
+    will_not_produce：
+    - 不改隐语源码，不改 S5.M1 – S5.M9 的方法、配置或结果；
+    - 不提交行数据、逐行分数、梯度或模型；
+    - 不把本机回环的墙钟说成跨境部署时长，不换算成汇丰环境的时长或收益。
+    success_criteria：
+    - 合成数据可行性通过（否则如实记录不做）；
+    - 4 个任务都完成 ABBA 计时且四次打分逐位相同；
+    - notebook 用仓库组件复现 UCI Bank 的逐位一致；
+    - 门禁全部通过。
+    risk：
+    - 计时受容器负载影响：运行期间不跑其他重计算，ABBA 抵消顺序效应，报告两对范围；
+    - 本机回环没有跨境延迟：已写入 README、notebook 与报告的边界。
+  scope:
+    files_changed: 15
+    lines_added: 963
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 3
+    D4_information_gain: 2
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/sgb_wallclock_v1/wallclock.csv 与 wallclock_runs.csv：4 个任务的墙钟、节省与范围、回环字节、逐位一致都有"
+      D2: "modules/m5_modeling/notebooks/S5.M10_1_plaintext_histogram_wallclock.ipynb：断言组件逐字节相同；在 UCI Bank 上重起两进程并核对逐位一致"
+      D3: "notebook 能在会话容器内从私有输入重起两进程复现（UCI 约 1 分钟），组件与配置可重跑全部 4 个任务（约 1 小时），故 3 分"
+      D4: "wallclock.csv：回答 S5.M7 留下的「两方并行时墙钟能省多少」——与合计节省基本相同；但只在本机回环上，信息增益有限，故 2 分"
+  revisions: 0
+  verdict: committed
+  next_step: 方法筛选第五阶段 2 / 2 完成；报告升版 v1.7；M7 待所有者定

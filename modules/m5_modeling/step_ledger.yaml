@@ -869,8 +869,33 @@ steps:
   - modules/m5_modeling/configs/s5_m9_sgb_i2i3.yaml
   - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m9）
   note: 配置取自 S5.M1 / S5.M5 结果，各拟合一次（seed 11），4 个任务复用 S5.M2 的优化版联邦打分；24 次新拟合前 2 棵原版与明文逐位一致，外推与实际之比 0.86 ~ 1.09，分 8 段合计约 10.3 小时。SGB 上 I2 + I3 12 / 14 成立（14 个任务内 Holm 后 9），不成立的是 mock 重合 50 与 IEEE 第 1 块；与代理结论一致 11 / 14（mock 重合 20、80 仅 SGB 成立，IEEE 仅代理成立）。合并 S5.M2 / S5.M8 的 3 个任务，17 个中 15 个成立。28 个配置中 7 个与代理之差超出 0.005（原版 5、优化版 2），按 DR-M5-012 · D-1 降级；原版参数下超差方向不一致。运行中未改代码。
-current_step: S5.M10
-next_step: S5.M10 两进程生产模式下主动方明文直方图的墙钟（DR-M5-016 · D-7，先做合成数据可行性检查）；报告升版；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M10
+  step_name: 主动方明文直方图在两进程生产模式下的墙钟（DR-M5-016 · D-7）
+  status: committed
+  phase: method_screen_5
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 0
+  change_id: CL-20261105-M5-002
+  committed_at: '2026-11-05T21:51:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_wallclock.py
+  - modules/m5_modeling/notebooks/S5.M10_1_plaintext_histogram_wallclock.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_wallclock_v1/
+  - modules/m5_modeling/configs/s5_m10_wallclock.yaml
+  - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m10）
+  note: 合成数据可行性检查通过后，在会话容器内起两个本地进程各自一方（生产模式、本机回环），UCI、Santander G3、mock 重合 80、Orange 大版流失（每方 300 列）各预热一次再按 ABBA 计时（前 10 棵，大版 5 棵）。每棵树墙钟省 40% / 31% / 33% / 41%，与 S5.M7 单进程合计计算的节省（40% / 29% / 32% / 43%）基本相同；回环发送字节平均相差不到 2%（与同版本两次之间的波动同量级），四次打分逐位相同。容器 2 核、本机回环，不代表跨境网络。方法筛选第五阶段 2 / 2 完成。
+current_step: null
+next_step: 方法筛选第五阶段 2 / 2 用完（DR-M5-016）；报告升版 v1.7；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -946,10 +971,10 @@ phase_budgets:
   decision_record: DR-M5-016
   new_steps_authorized: 2        # S5.M9 其余 14 个任务的 I2 + I3 真实 SGB、S5.M10 两进程墙钟（有条件）；所有者 2026-11-05 08:45 回复「继续」
   planned_steps: [S5.M9, S5.M10]
-  steps_used: 1
+  steps_used: 2
   inherit_pass_threshold: 11
   historical_quality_reset: false
-  status: active
+  status: completed
 - phase: method_screen_4
   decision_record: DR-M5-015
   new_steps_authorized: 2        # S5.M7 M3 后半（主动方明文直方图）与 SGB 开销、S5.M8 Orange 大版真实 SGB（有条件）；所有者 2026-11-04 10:35 回复「继续」

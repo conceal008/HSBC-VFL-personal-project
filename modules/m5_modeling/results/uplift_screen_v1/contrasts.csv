@@ -1,0 +1,13 @@
+dataset,outcome,contrast,a,b,diff,ci_low,ci_high,p,p_holm
+hillstrom,visit,联邦选定 − 内地选定,fed:T,main:X,-0.002000,-0.003976,-0.000111,0.038000,0.114000
+hillstrom,visit,联邦选定 − 联邦响应模型,fed:T,fed:response,-0.000937,-0.003711,0.001785,0.514000,0.514000
+hillstrom,visit,内地选定 − 内地响应模型,main:X,main:response,0.001604,-0.000415,0.003582,0.158000,0.316000
+hillstrom,conversion,联邦选定 − 内地选定,fed:R,main:R,0.000359,0.000004,0.000758,0.048000,0.144000
+hillstrom,conversion,联邦选定 − 联邦响应模型,fed:R,fed:response,0.000449,-0.000260,0.001309,0.242000,0.484000
+hillstrom,conversion,内地选定 − 内地响应模型,main:R,main:response,0.000225,-0.000429,0.000950,0.518000,0.518000
+criteo,visit,联邦选定 − 内地选定,fed:S,main:S,0.000125,-0.000179,0.000410,0.408000,0.816000
+criteo,visit,联邦选定 − 联邦响应模型,fed:S,fed:response,0.000234,-0.000116,0.000592,0.216000,0.648000
+criteo,visit,内地选定 − 内地响应模型,main:S,main:response,0.000095,-0.000262,0.000433,0.588000,0.816000
+criteo,conversion,联邦选定 − 内地选定,fed:R,main:X,-0.000026,-0.000217,0.000188,0.760000,0.760000
+criteo,conversion,联邦选定 − 联邦响应模型,fed:R,fed:response,-0.000188,-0.000411,0.000053,0.106000,0.318000
+criteo,conversion,内地选定 − 内地响应模型,main:X,main:response,-0.000165,-0.000357,0.000041,0.126000,0.318000

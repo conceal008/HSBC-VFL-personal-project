@@ -1,0 +1,23 @@
+# S5.M4 · mock 重合 80 上 M6（6 模型 bagging）的真实隐语 SGB 复核（DR-M5-013 · D-5）
+# ---------------------------------------------------------------------------
+# 补齐 S5.M2 唯一推迟的一项。实现与 S5.M2 相同（仓库组件 method_screen_sgb）：secretflow-lite 1.13.0b0，debug 单进程两方模拟，OU。
+# M6 = 6 个 SGB（行采样 0.8，成员 seed = tune seed × 100 + j）的概率平均；树数、深度、分桶沿用 S5.M1 优化版，不再调参。
+# 成员逐个存档、可续跑（会话后台任务每段约 2 小时）；与 S5.M2 已有的同任务 SGB 优化版打分配对。
+# ---------------------------------------------------------------------------
+step_id: S5.M4
+purpose: mock 重合 80 上 M6 的真实 SGB 复核——M6 − 优化版在 SGB 上是否成立，SGB 与同配置代理的差是否在 0.005 以内
+decision_record: registry/decision_records/DR-M5-013.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+s5m2_config: modules/m5_modeling/configs/s5_m2_sgb_confirm.yaml
+s5m2_results: modules/m5_modeling/results/method_screen_sgb_v1
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+sgb_dir_env: MS_SGB_DIR
+proxy_tolerance: 0.005          # DR-M5-012 · D-1 / DR-M5-013 · D-5：同配置下 |SGB − 代理| 超过此值，该任务 M6 的代理结论以 SGB 为准
+round_auc: 4
+results_dir: modules/m5_modeling/results/method_screen_sgb_m6_mock80_v1
+dataset: mock_overlap80
+methods: [F_opt_p, F_M6]        # F_opt_p 为 S5.M2 已拟合的优化版（不重跑），F_M6 为本步新拟合
+pairs:
+  - [F_M6, F_opt_p]
+runtime_fingerprint: sgb_m6_mock80_fingerprint.txt   # 在 MS_SGB_DIR 下；记录驱动脚本与组件的 sha256 及各段启动时间

@@ -1,0 +1,2 @@
+dataset,contrast,sgb_diff,sgb_ci_low,sgb_ci_high,sgb_p,proxy_6seed_diff,proxy_6seed_ci_low,proxy_6seed_ci_high
+orange_large_churn,F_opt_p − F_def,0.03532,0.02220,0.04827,0.00000,0.03592,0.02291,0.04988

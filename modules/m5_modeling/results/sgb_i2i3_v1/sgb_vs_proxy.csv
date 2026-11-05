@@ -1,0 +1,29 @@
+dataset,method,sgb_auroc,proxy_auroc,sgb_minus_proxy,ci_low,ci_high,within_tolerance,source
+coil2000,F_def,0.68276,0.69666,-0.01391,-0.03086,0.00425,False,S5.M9
+coil2000,F_opt_p,0.73306,0.72748,0.00558,0.00199,0.00942,False,S5.M2 存档
+mock_overlap20,F_def,0.89318,0.89280,0.00038,-0.01223,0.01246,True,S5.M9
+mock_overlap20,F_opt_p,0.90690,0.90263,0.00428,-0.00775,0.01544,True,S5.M9
+orange_churn,F_def,0.70027,0.70994,-0.00968,-0.02363,0.00430,False,S5.M9
+orange_churn,F_opt_p,0.73113,0.73050,0.00064,-0.00451,0.00543,True,S5.M9
+orange_upsell,F_def,0.83351,0.83409,-0.00057,-0.01007,0.00905,True,S5.M9
+orange_upsell,F_opt_p,0.86667,0.86635,0.00033,-0.00320,0.00398,True,S5.M9
+mock_overlap50,F_def,0.90074,0.90551,-0.00478,-0.01025,0.00101,True,S5.M9
+mock_overlap50,F_opt_p,0.90491,0.90595,-0.00104,-0.00720,0.00531,True,S5.M9
+santander_tx,F_def,0.81462,0.81175,0.00287,-0.00866,0.01467,True,S5.M9
+santander_tx,F_opt_p,0.85856,0.85977,-0.00121,-0.00664,0.00345,True,S5.M9
+ieee_part0,F_def,0.93129,0.92233,0.00896,-0.00285,0.02092,False,S5.M9
+ieee_part0,F_opt_p,0.94092,0.93970,0.00122,-0.00441,0.00709,True,S5.M9
+mock_balanced,F_def,0.89153,0.89067,0.00086,-0.00333,0.00507,True,S5.M9
+mock_balanced,F_opt_p,0.90151,0.89949,0.00202,-0.00270,0.00642,True,S5.M9
+mock_overlap80,F_def,0.90309,0.90290,0.00019,-0.00421,0.00463,True,S5.M9
+mock_overlap80,F_opt_p,0.91060,0.90440,0.00620,0.00105,0.01163,False,S5.M2 存档
+fedads,F_def,0.62101,0.62107,-0.00006,-0.01175,0.01142,True,S5.M9
+fedads,F_opt_p,0.64135,0.64404,-0.00268,-0.00937,0.00359,True,S5.M2 存档
+santander_g3,F_def,0.86939,0.86971,-0.00031,-0.00443,0.00393,True,S5.M9
+santander_g3,F_opt_p,0.87538,0.87633,-0.00095,-0.00376,0.00177,True,S5.M2 存档
+homecredit,F_def,0.73045,0.73578,-0.00533,-0.01215,0.00169,False,S5.M9
+homecredit,F_opt_p,0.75187,0.75093,0.00094,-0.00118,0.00320,True,S5.M9
+orange_large_upsell,F_def,0.89796,0.90368,-0.00572,-0.01262,0.00077,False,S5.M9
+orange_large_upsell,F_opt_p,0.91406,0.91382,0.00025,-0.00305,0.00347,True,S5.M9
+orange_large_appetency,F_def,0.84463,0.84371,0.00092,-0.02180,0.02343,True,S5.M9
+orange_large_appetency,F_opt_p,0.86803,0.86959,-0.00156,-0.01176,0.00854,True,S5.M9

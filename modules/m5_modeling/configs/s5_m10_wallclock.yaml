@@ -1,0 +1,25 @@
+# S5.M10 · 主动方明文直方图在两进程生产模式下的墙钟（DR-M5-016 · D-7）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，两个本地进程各自一方（sf.init(cluster_config, ray_mode=False)，本机回环），OU；
+# 配置取自 S5.M1（MS_RUN_DIR）/ S5.M5（MS_LARGE_DIR）的结果 JSON（优化版联邦），不再调参；私有输入在 MS_PRIVATE_ROOT。
+# 按方拆出的输入副本、打分与计时只写 MS_M10_DIR（会话临时目录），输入副本用完即删；只提交汇总。
+# ---------------------------------------------------------------------------
+step_id: S5.M10
+purpose: 两进程并行时主动方明文直方图省多少墙钟（对照 S5.M7 单进程两方合计计算的节省）
+decision_record: registry/decision_records/DR-M5-016.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: 每次拟合用 seed 11（同 S5.M7）；比较的是同一配置的两种实现，不做多 seed
+method: F_opt_p
+large_dir_env: MS_LARGE_DIR       # S5.M5 的结果 JSON（large: true 的任务）
+out_dir_env: MS_M10_DIR           # 本步的私有输出
+fed_ports: [62141, 62142]         # 两个进程的本机回环端口（内地、香港）
+tasks:                            # D-7：S5.M7 计时过的任务
+  - {name: uci_bank}
+  - {name: santander_g3}
+  - {name: mock_overlap80}
+  - {name: orange_large_churn, large: true, trees: 5}
+timing_trees: 10
+round_sec: 2
+results_dir: modules/m5_modeling/results/sgb_wallclock_v1

@@ -1,0 +1,42 @@
+change_id: CL-20261104-M5-004
+timestamp: '2026-11-04T05:27:27+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: doc
+title: 发布《优化方法与数据集：增益与组合报告》v1.4，新增方法筛选交接记录 HO-20261104
+what: |
+  - 新增 docs/04-experiment-records/reports/优化方法与数据集_增益与组合报告_v1.4.md（与 claude.ai 项目文档同版）：
+    在 v1.2 基础上加入 S5.M4（§3.8，mock 重合 80 的 M6 真实 SGB）、S5.M5（§3.9，Orange 大版 + M3 两方特征预筛）、S5.M6（§3.10，M8 增量学习器），
+    更新结论先行、方法清单（新增 M3 行，M7 / M8 状态）、组合分层（新增特征层）与缺口清单。v1.3 只发到 claude.ai 项目与本机，内容已全部并入 v1.4。
+  - docs/04-experiment-records/README.md 增加一条索引。
+  - 新增交接记录 docs/03-handoff/HO-20261104-Claude-M5-method-screen.md（AGENTS 要求会话结束时写交接），覆盖 S5.M1 – S5.M6。
+why: |
+  所有者 2026-11-03 15:23 要求把实验结果与结论报告整理到本机与 GitHub；第二批（S5.M5、S5.M6）完成后报告升版。
+  报告是汇总叙述，新建独立文件（AGENTS 第 12 条），既有文件只加索引；v1.2 保留不改。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-014
+  loop_step: M5 · 方法筛选报告发布与交接
+cross_border_impact: none
+cross_border_detail: 只发布公开数据上的汇总叙述，不涉及任何跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐段审查：报告与交接只含公开数据集的汇总指标（AUROC、Qini、配对差、区间、p、计算量、拟合秒数、测试集规模与正例 / 事件数）、方法出处与文件路径。
+    不含行数据、样本号或其散列、逐行分数、列排序、模型、凭证或团队成员姓名；合规相关表述带 W-001 免责（技术侧自评，未经法务复核）。
+    报告多处写明「开发证据，不代表汇丰效果，不换算成命中率或收益」；M8 写明不能外推银行理财产品的实际增量。
+downstream_affected:
+- M6
+- M9
+breaking_change: false
+migration: 无。新增文件，既有文件只加一条索引。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m6_uplift.yaml
+  config_hash: sha256:89936dd48a9099305dc36c21b8b1fa0c95b2dd84909212d48bcb5963f653f379
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可。
+verification: |
+  - 报告中的数字取自 modules/m5_modeling/results/ 下六个目录的 CSV 与 README；17 个任务的合计按 S5.M1 的 14 个任务加 Orange 大版 3 个任务、以配对差区间不含 0 计（与 §3.3 同口径）。
+  - 术语检查（门禁 5 · Q6）本地 0 命中；报告不含会话路径。

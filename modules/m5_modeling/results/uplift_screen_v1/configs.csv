@@ -1,0 +1,9 @@
+dataset,outcome,features,lr,depth,lam,rounds,choice
+hillstrom,visit,main,0.05,3,1.0,100,X
+hillstrom,visit,fed,0.05,3,1.0,300,T
+hillstrom,conversion,main,0.05,3,1.0,100,R
+hillstrom,conversion,fed,0.05,3,1.0,100,R
+criteo,visit,main,0.05,5,1.0,300,S
+criteo,visit,fed,0.05,5,1.0,300,S
+criteo,conversion,main,0.05,3,1.0,300,X
+criteo,conversion,fed,0.05,3,1.0,300,R

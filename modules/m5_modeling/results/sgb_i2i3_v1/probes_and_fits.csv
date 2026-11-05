@@ -1,0 +1,29 @@
+dataset,method,source,depth,trees,identical_first_two_trees,projected_seconds,fit_seconds,verdict
+coil2000,F_def,本步拟合,5.0,100.0,True,391.7,361.8,ok
+coil2000,F_opt_p,S5.M2 存档,,,,,,—
+mock_overlap20,F_def,本步拟合,5.0,100.0,True,299.2,272.4,ok
+mock_overlap20,F_opt_p,本步拟合,5.0,52.0,True,273.0,256.1,ok
+orange_churn,F_def,本步拟合,5.0,100.0,True,1058.9,1042.0,ok
+orange_churn,F_opt_p,本步拟合,4.0,57.0,True,755.8,750.1,ok
+orange_upsell,F_def,本步拟合,5.0,100.0,True,1124.9,1064.4,ok
+orange_upsell,F_opt_p,本步拟合,6.0,51.0,True,1363.2,1444.9,ok
+mock_overlap50,F_def,本步拟合,5.0,100.0,True,458.0,409.1,ok
+mock_overlap50,F_opt_p,本步拟合,6.0,62.0,True,671.5,649.9,ok
+santander_tx,F_def,本步拟合,5.0,100.0,True,1626.3,1553.8,ok
+santander_tx,F_opt_p,本步拟合,3.0,297.0,True,3493.7,3637.6,ok
+ieee_part0,F_def,本步拟合,5.0,100.0,True,1170.0,1156.1,ok
+ieee_part0,F_opt_p,本步拟合,4.0,168.0,True,1890.1,1950.0,ok
+mock_balanced,F_def,本步拟合,5.0,100.0,True,675.3,609.2,ok
+mock_balanced,F_opt_p,本步拟合,6.0,88.0,True,1501.6,1442.9,ok
+mock_overlap80,F_def,本步拟合,5.0,100.0,True,589.1,531.0,ok
+mock_overlap80,F_opt_p,S5.M2 存档,,,,,,—
+fedads,F_def,本步拟合,5.0,100.0,True,2188.5,1901.1,ok
+fedads,F_opt_p,S5.M2 存档,,,,,,—
+santander_g3,F_def,本步拟合,5.0,100.0,True,989.7,948.5,ok
+santander_g3,F_opt_p,S5.M2 存档,,,,,,—
+homecredit,F_def,本步拟合,5.0,100.0,True,955.9,818.0,ok
+homecredit,F_opt_p,本步拟合,3.0,252.0,True,1660.4,1774.0,ok
+orange_large_upsell,F_def,本步拟合,5.0,100.0,True,4440.0,4319.1,ok
+orange_large_upsell,F_opt_p,本步拟合,5.0,51.0,True,3475.6,3583.8,ok
+orange_large_appetency,F_def,本步拟合,5.0,100.0,True,4056.1,4426.8,ok
+orange_large_appetency,F_opt_p,本步拟合,4.0,57.0,True,2180.7,2312.5,ok

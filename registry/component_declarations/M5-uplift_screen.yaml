@@ -1,0 +1,17 @@
+component: uplift_screen
+module: M5
+path: modules/m5_modeling/components/uplift_screen.py
+purpose: S5.M6 M8 增量（uplift）学习器筛选：在公开随机试验（Hillstrom、Criteo Uplift）上按冻结的两方字段归属构造只用内地特征与联邦特征两个特征集，拟合 S / T / X / R 四种增量学习器与只用处理组拟合的响应模型（XGBoost 基模型，无行 / 列采样，拟合确定）；基模型配置按验证对数损失选、学习器按验证 Qini 选，测试集评一次；Qini 系数（并列感知）与前 30% 人群增量，测试行 bootstrap 区间与三项预先写定的配对对比（Holm）。
+inputs:
+- Hillstrom 邮件营销试验 CSV、Criteo Uplift v2.1 压缩 CSV（MS_RAW_ROOT，sha256 与本机 MANIFEST 一致）
+- 配置 modules/m5_modeling/configs/s5_m6_uplift.yaml
+outputs:
+- 运行输出（MS_UPLIFT_DIR）：每个数据集的结果 JSON（只含聚合指标：切分规模、配置、验证与测试 Qini、对比）
+- 公开汇总 modules/m5_modeling/results/uplift_screen_v1/
+tests:
+- modules/m5_modeling/tests/test_uplift_screen.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线明文模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 公开零售邮件与广告随机试验，不能外推银行理财产品的实际增量；处理变量与结果只由主动方持有，联邦特征集在明文代理中直接拼接两方特征，未在真实 SGB 上实现。逐行打分只存会话临时目录，不入仓库。
+declared_at: '2026-11-04'
+declared_by: Claude (claude-opus-5-5, Claude Code)

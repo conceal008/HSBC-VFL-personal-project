@@ -1,0 +1,7 @@
+task,trees,rows,rows_different,max_abs_diff,test_auroc_s5m2,test_auroc_plain,verdict,fit_seconds_plain_full
+uci_bank,34,8238,0,0,0.805389,0.805389,逐位一致,98.2
+fedads,14,200000,0,0,0.641351,0.641351,逐位一致,334
+coil2000,59,4000,0,0,0.73306,0.73306,逐位一致,290.1
+santander_g3,33,20351,0,0,0.875382,0.875382,逐位一致,826.4
+orange_appetency,72,10000,0,0,0.847585,0.847585,逐位一致,927.5
+mock_overlap80,83,17391,0,0,0.910601,0.910601,逐位一致,1884.3

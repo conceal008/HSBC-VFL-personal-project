@@ -1,0 +1,13 @@
+task,a,b,a_pick,diff,ci_low,ci_high,p,p_holm
+orange_large_churn,CV_R1,P,P+M6,0.00002,-0.00282,0.00280,0.98000,1.00000
+orange_large_churn,CV_R2,P,P+M6,0.00002,-0.00271,0.00281,0.97200,1.00000
+orange_large_churn,CV_R1,G_t,P+M6,0.04121,0.02934,0.05283,0.00000,0.00000
+orange_large_churn,CV_R2,G_t,P+M6,0.04121,0.02940,0.05283,0.00000,0.00000
+orange_large_upsell,CV_R1,P,M1+M6,-0.00434,-0.00865,0.00056,0.07800,0.14800
+orange_large_upsell,CV_R2,P,M1+M6,-0.00434,-0.00863,0.00016,0.07400,0.14800
+orange_large_upsell,CV_R1,G_t,M1+M6,0.01289,0.00865,0.01734,0.00000,0.00000
+orange_large_upsell,CV_R2,G_t,M1+M6,0.01289,0.00887,0.01720,0.00000,0.00000
+orange_large_appetency,CV_R1,P,P+M6,0.00466,0.00020,0.00967,0.04600,0.08800
+orange_large_appetency,CV_R2,P,P+M6,0.00466,0.00009,0.00946,0.04400,0.08800
+orange_large_appetency,CV_R1,G_t,P+M6,0.02242,0.00895,0.03670,0.00200,0.00800
+orange_large_appetency,CV_R2,G_t,P+M6,0.02242,0.00896,0.03685,0.00200,0.00800

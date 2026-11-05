@@ -1,0 +1,24 @@
+# S5.M8 · Orange 大版流失的真实 SGB 复核（DR-M5-015 · D-6，有条件：S5.M7 的 D-3 判定「逐位一致」后才做）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；用主动方明文直方图版本拟合（S5.M7 已证与原版逐位相同）。
+# 输入：S5.M5 主分析的私有输入（每方前 300 个编码列，final 视图，MS_PRIVATE_ROOT）与结果 JSON（MS_LARGE_DIR）；配置全部取自其中，不再调参。
+# 逐行打分只写 MS_M8_DIR（会话临时目录），只提交汇总。
+# ---------------------------------------------------------------------------
+step_id: S5.M8
+purpose: Orange 大版流失上原版联邦与优化版联邦的真实 SGB 测试 AUROC、与同配置代理之差、SGB 内部对比
+decision_record: registry/decision_records/DR-M5-015.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+large_config: modules/m5_modeling/configs/s5_m5_orange_large.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: 每个 SGB 拟合用 seed 11（同 S5.M2）；6 个 seed 只用于读取 S5.M5 的代理结果，本步不做多 seed 的 SGB
+task: orange_large_churn
+methods: [F_opt_p, F_def]       # 运行顺序：先优化版（估计约 3,900 秒），再原版（估计约 6,950 秒），各一个后台段
+large_dir_env: MS_LARGE_DIR     # S5.M5 的结果 JSON（选定配置、代理结果）
+out_dir_env: MS_M8_DIR          # 本步的私有输出（逐行打分、每个方法的拟合信息）
+sec_per_tree_ref: 41.72         # D-6 估算用：S5.M7 · D-5 每方 300 列、明文版本的每棵树秒数（深度 3）
+depth_ref: 3
+time_cap_sec: 7000              # D-6：单次拟合估计超过此值的不做
+proxy_tol: 0.005                # DR-M5-012 · D-1：SGB 与同配置代理之差的容差
+results_dir: modules/m5_modeling/results/sgb_large_v1
+round_auc: 4

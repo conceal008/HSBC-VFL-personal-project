@@ -1,0 +1,7 @@
+task,trees,cols_guest,cols_host,guest_share,sec_per_tree_base,sec_per_tree_plain,saving,saving_low,saving_high,preds_identical
+uci_bank,10,12,7,0.6316,4.8439,2.9028,0.4007,0.3620,0.4366,True
+fedads,10,22,23,0.4889,34.3882,23.4165,0.3191,0.2677,0.3692,True
+coil2000,10,42,43,0.4941,6.9385,4.2625,0.3857,0.3762,0.3951,True
+santander_g3,10,19,25,0.4318,31.4908,22.5123,0.2851,0.2813,0.2889,True
+orange_appetency,10,80,67,0.5442,22.5760,12.7802,0.4339,0.4062,0.4600,True
+mock_overlap80,10,20,25,0.4444,34.0124,23.2821,0.3155,0.3078,0.3233,True

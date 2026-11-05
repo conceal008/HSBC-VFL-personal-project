@@ -1,0 +1,4 @@
+task,s5m1_choice,cv_r1,cv_r2,P_test,R1_test,R2_test
+orange_large_churn,M1,P+M6,P+M6,0.75447,0.75449,0.75449
+orange_large_upsell,M1,M1+M6,M1+M6,0.91455,0.91021,0.91021
+orange_large_appetency,M1,P+M6,P+M6,0.86875,0.87341,0.87341

@@ -720,8 +720,182 @@ steps:
   - modules/m5_modeling/configs/s5_m3_cv_combo.yaml
   - registry/decision_records/DR-M5-013.yaml
   note: 所有者 2026-11-03 14:00 回复「继续」，新开方法筛选第二阶段。候选与配置沿用 S5.M1，只换选择方式；折按数据结构（行独立分层 5 折、Santander G3 按客户 5 折、mock 按月份滚动外推 3 折）。交叉验证 R1 6 / 14 优于优化版、0 / 14 劣于（S5.M1 单一验证集 3 / 2），达到事先写定的「更好」判据；R2 7 / 0；13 / 14 选了带 M6 的组合。执行期修过一次加载错误（mock 月份为 object 数组），修正前完成的 6 个任务不受影响；按提交后口径不计修正轮次。修正第 1 轮：提交后自查发现 FedAds R1 增益 +0.00649 被写成 +0.007，四处更正为 +0.006（CL-20261103-M5-006）。
-current_step: S5.M4
-next_step: S5.M4 mock 重合 80 的 M6 真实 SGB 复核（运行中，DR-M5-013 · D-5）；之后第二批（M7 / M8 / Orange 大版）先报所有者；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M4
+  step_name: mock 重合 80 上 M6 的真实 SGB 复核（DR-M5-013 · D-5）
+  status: committed
+  phase: method_screen_2
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261103-M5-008
+  committed_at: '2026-11-03T22:40:00+08:00'
+  outputs:
+  - modules/m5_modeling/notebooks/S5.M4_1_sgb_m6_mock80.ipynb（带汇总输出）
+  - modules/m5_modeling/results/method_screen_sgb_m6_mock80_v1/
+  - modules/m5_modeling/configs/s5_m4_sgb_m6_mock80.yaml
+  - registry/decision_records/DR-M5-013.yaml（review_20261103_s5m4）
+  note: 仓库组件 method_screen_sgb 在 mock 重合 80 上拟合 6 个 SGB（行采样 0.8，seed 1100–1105），分 4 段后台续跑，合计 23,733 秒。M6 的 SGB 0.9142 与同配置代理 0.9128 差 +0.0013 [−0.0019, +0.0042]，在 0.005 以内，D-5 推翻条件未触发。SGB 上 M6 − 优化版 +0.0036 [+0.0001, +0.0068]，p = 0.038（代理 6 seed +0.0092）：成立但幅度约为代理的 4 成，原因是 SGB 优化版本身比代理高 0.006（S5.M2）。第 3 段在成员 4 存档后手动停止（离上限只剩 11 分钟），第 4 段续跑最后一个成员，不影响结果。方法筛选第二阶段 2 / 2 完成。
+- step_id: S5.M5
+  step_name: Orange 大版三任务 + M3 两方特征预筛（明文代理，DR-M5-014）
+  status: committed
+  phase: method_screen_3
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261104-M5-001
+  committed_at: '2026-11-04T03:30:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/method_screen_large.py
+  - modules/m5_modeling/notebooks/S5.M5_1_orange_large_prescreen.ipynb（带汇总输出）
+  - modules/m5_modeling/results/method_screen_large_v1/
+  - modules/m5_modeling/configs/s5_m5_orange_large.yaml
+  - registry/decision_records/DR-M5-014.yaml
+  note: 所有者 2026-11-03 19:39 回复「继续」，开方法筛选第三阶段（第二批）。Orange 大版（50,000 行 × 15,000 个变量）先做 M3 两方特征预筛（每方 300 个编码列），再走 S5.M1 全流程与 S5.M3 交叉验证。I2 + I3 在流失 +0.036、追加销售 +0.011 显著，偏好 +0.025 名义；原版联邦三个任务都不优于内地单边，优化版三个都优于。M6 只在偏好上刚好成立；M1 在流失上变差；交叉验证 1 优于、0 劣于。预筛在流失、追加销售上不损失精度，偏好上不能排除（178 个测试正例，不同 k 之间不单调）。运行中前 4 次启动在写出结果之前中止（内存上限 2 次、手动停止 1 次、2 小时上限 1 次），只改读取与存放方式，按提交后口径不计修正轮次。
+- step_id: S5.M6
+  step_name: M8 增量学习器（S / T / X / R 与响应模型，只用内地特征 vs 联邦特征；明文代理，DR-M5-014）
+  status: committed
+  phase: method_screen_3
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  change_id: CL-20261104-M5-002
+  committed_at: '2026-11-04T03:56:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/uplift_screen.py
+  - modules/m5_modeling/notebooks/S5.M6_1_uplift_learners.ipynb（带汇总输出）
+  - modules/m5_modeling/results/uplift_screen_v1/
+  - modules/m5_modeling/configs/s5_m6_uplift.yaml
+  - registry/decision_records/DR-M5-014.yaml（review_20261104_s5m6）
+  note: Hillstrom（64,000 行）与 Criteo Uplift（1 / 14 抽样，约 100 万行），结果 visit 与 conversion，两方字段归属沿用 M1 冻结配置。基模型配置按验证对数损失、学习器按验证 Qini 选定，测试集评一次。12 项预先写定的对比经 Holm 后 0 项显著：按增量排序没有显著优于按响应排序（0 / 8），联邦特征没有显著改善增量排序（0 / 4）；名义显著 2 项（Hillstrom visit 联邦 − 内地 −0.0020、conversion +0.00036）方向相反。Hillstrom visit 联邦一侧验证集选了测试上最低的 T。M8 写为「已做、未见明显增益」。运行中未改代码（Criteo 启动时重新核对 sha256）。修正 1 轮：门禁 6 R1 拦下 notebook 汇总格中把比例换算成百分数的字面 100，改为百分数格式化并重跑 S5.M6-1，汇总数字与 results 未变（CL-20261104-M5-003）。方法筛选第三阶段 2 / 2 完成。
+- step_id: S5.M7
+  step_name: M3 后半——主动方明文直方图的逐位一致与真实 SGB 开销；Orange 大版每方 k 列的 SGB 单树开销（DR-M5-015）
+  status: committed
+  phase: method_screen_4
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 1
+  change_id: CL-20261104-M5-005
+  committed_at: '2026-11-04T14:28:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_cost_screen.py
+  - modules/m5_modeling/notebooks/S5.M7_1_plaintext_label_holder_histogram.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_cost_v1/
+  - modules/m5_modeling/configs/s5_m7_sgb_cost.yaml
+  - registry/decision_records/DR-M5-015.yaml（review_20261104_s5m7）
+  note: 只替换隐语 1.13 `GradientEncryptor.cache_to_workers`，主动方收到自己明文梯度的 HEU 明文对象，被动方消息不变（SecureBoost 原设计）。6 个任务完整拟合与 S5.M2 存档逐位一致（不同 0 行）；ABBA 前 10 棵树两方合计计算每棵树省 29% ~ 43%，全在主动方（分桶求和约 1 / 12、主动方解密约 0）。Orange 大版流失每方 100 / 300 / 1000 列省 42% ~ 48%；外推到全部清洗后列原版约 1,730 秒 / 棵（外推，不实测），预筛加明文直方图约为其 1 / 41。耗时是单进程两方模拟的合计计算时间，不是部署墙钟。运行中未改代码（三段启动指纹相同）。D-6 估算两个方法都在 7,000 秒以内，S5.M8 启动。修正 1 轮（提交前）：门禁 5 Q3 拦下组件行覆盖 62.6%，补 5 个单测（组件未改，覆盖 99.0%）；门禁 6 R1 拦下 notebook 的字面 3，改为从配置读取并重跑 S5.M7-1，汇总未变。
+- step_id: S5.M8
+  step_name: Orange 大版流失的真实 SGB 复核（原版联邦与优化版联邦，主动方明文直方图版本；DR-M5-015 · D-6）
+  status: committed
+  phase: method_screen_4
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261104-M5-006
+  committed_at: '2026-11-04T17:53:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_large_confirm.py
+  - modules/m5_modeling/notebooks/S5.M8_1_orange_large_sgb.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_large_v1/
+  - modules/m5_modeling/configs/s5_m8_orange_large_sgb.yaml
+  - registry/decision_records/DR-M5-015.yaml（review_20261104_s5m8）
+  note: S5.M5 主分析的同一输入（每方 300 列），配置全部取自 S5.M5 结果，各拟合一次（seed 11）。SGB 与同配置代理之差：优化版联邦 −0.0019 [−0.0058, +0.0023]、原版联邦 −0.0013 [−0.0162, +0.0144]，都在 0.005 以内；SGB 上 I2 + I3 +0.0353 [+0.0222, +0.0483]，p < 0.001（代理 6 seed +0.0359）。只作描述：优化版联邦 SGB − 内地单边代理 +0.039。拟合 6,301 秒（与门禁争用 CPU）与 4,692 秒；原版启动前在 CPU 空闲时试训前 2 / 4 棵，外推 5,129 秒，在单段上限内。组件在仓库副本中启动，三段启动指纹与提交文件逐字节相同。方法筛选第四阶段 2 / 2 完成。
+- step_id: S5.M9
+  step_name: I2 + I3 在其余 14 个任务上的真实 SGB 复核（原版联邦与优化版联邦，主动方明文直方图版本；DR-M5-016）
+  status: committed
+  phase: method_screen_5
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261105-M5-001
+  committed_at: '2026-11-05T20:12:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_i2i3_confirm.py
+  - modules/m5_modeling/notebooks/S5.M9_1_sgb_i2i3_all_tasks.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_i2i3_v1/
+  - modules/m5_modeling/configs/s5_m9_sgb_i2i3.yaml
+  - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m9）
+  note: 配置取自 S5.M1 / S5.M5 结果，各拟合一次（seed 11），4 个任务复用 S5.M2 的优化版联邦打分；24 次新拟合前 2 棵原版与明文逐位一致，外推与实际之比 0.86 ~ 1.09，分 8 段合计约 10.3 小时。SGB 上 I2 + I3 12 / 14 成立（14 个任务内 Holm 后 9），不成立的是 mock 重合 50 与 IEEE 第 1 块；与代理结论一致 11 / 14（mock 重合 20、80 仅 SGB 成立，IEEE 仅代理成立）。合并 S5.M2 / S5.M8 的 3 个任务，17 个中 15 个成立。28 个配置中 7 个与代理之差超出 0.005（原版 5、优化版 2），按 DR-M5-012 · D-1 降级；原版参数下超差方向不一致。运行中未改代码。
+- step_id: S5.M10
+  step_name: 主动方明文直方图在两进程生产模式下的墙钟（DR-M5-016 · D-7）
+  status: committed
+  phase: method_screen_5
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 3
+    D4: 2
+  revisions: 0
+  change_id: CL-20261105-M5-002
+  committed_at: '2026-11-05T21:51:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_wallclock.py
+  - modules/m5_modeling/notebooks/S5.M10_1_plaintext_histogram_wallclock.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_wallclock_v1/
+  - modules/m5_modeling/configs/s5_m10_wallclock.yaml
+  - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m10）
+  note: 合成数据可行性检查通过后，在会话容器内起两个本地进程各自一方（生产模式、本机回环），UCI、Santander G3、mock 重合 80、Orange 大版流失（每方 300 列）各预热一次再按 ABBA 计时（前 10 棵，大版 5 棵）。每棵树墙钟省 40% / 31% / 33% / 41%，与 S5.M7 单进程合计计算的节省（40% / 29% / 32% / 43%）基本相同；回环发送字节平均相差不到 2%（与同版本两次之间的波动同量级），四次打分逐位相同。容器 2 核、本机回环，不代表跨境网络。方法筛选第五阶段 2 / 2 完成。
+current_step: null
+next_step: 方法筛选第五阶段 2 / 2 用完（DR-M5-016）；报告升版 v1.7；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -793,14 +967,38 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen_5
+  decision_record: DR-M5-016
+  new_steps_authorized: 2        # S5.M9 其余 14 个任务的 I2 + I3 真实 SGB、S5.M10 两进程墙钟（有条件）；所有者 2026-11-05 08:45 回复「继续」
+  planned_steps: [S5.M9, S5.M10]
+  steps_used: 2
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: completed
+- phase: method_screen_4
+  decision_record: DR-M5-015
+  new_steps_authorized: 2        # S5.M7 M3 后半（主动方明文直方图）与 SGB 开销、S5.M8 Orange 大版真实 SGB（有条件）；所有者 2026-11-04 10:35 回复「继续」
+  planned_steps: [S5.M7, S5.M8]
+  steps_used: 2
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: completed
+- phase: method_screen_3
+  decision_record: DR-M5-014
+  new_steps_authorized: 2        # S5.M5 Orange 大版 + M3 预筛、S5.M6 M8 增量学习器（所有者 2026-11-03 19:39 回复「继续」）
+  planned_steps: [S5.M5, S5.M6]
+  steps_used: 2
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: completed
 - phase: method_screen_2
   decision_record: DR-M5-013
   new_steps_authorized: 2        # S5.M3 交叉验证选组合 + S5.M4 mock 重合 80 的 M6 真实 SGB（所有者 2026-11-03 回复「继续」）
   planned_steps: [S5.M3, S5.M4]
-  steps_used: 1
+  steps_used: 2
   inherit_pass_threshold: 11
   historical_quality_reset: false
-  status: active
+  status: completed
 - phase: method_screen
   decision_record: DR-M5-012
   new_steps_authorized: 2        # S5.M1 代理筛选 + S5.M2 真实 SGB 复核（所有者 2026-11-02 指示）

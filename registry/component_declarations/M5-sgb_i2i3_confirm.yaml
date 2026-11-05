@@ -1,0 +1,18 @@
+component: sgb_i2i3_confirm
+module: M5
+path: modules/m5_modeling/components/sgb_i2i3_confirm.py
+purpose: S5.M9 I2 + I3 在其余 14 个任务上的真实 SGB 复核（DR-M5-016 · D-2 ~ D-5）：每个任务原版联邦与优化版联邦各一次 SGB（配置取自 S5.M1 / S5.M5 结果，seed 11），已有 S5.M2 存档的复用其优化版联邦；新拟合用主动方明文直方图版本，正式拟合前抽查前 2 棵原版与明文逐位相同，并按明文前 2 / 4 棵外推全部棵数，超过上限的不做；分段运行、可续跑；与同配置代理比较、SGB 上的 I2 + I3，口径同 S5.M2（method_screen_sgb.evaluate），全部任务完成后做跨任务 Holm 与一致性汇总。
+inputs:
+- S5.M1 / S5.M5 的私有输入矩阵与结果 JSON（MS_PRIVATE_ROOT、MS_RUN_DIR、MS_LARGE_DIR）
+- S5.M2 存档的优化版联邦 SGB 测试打分（MS_SGB_DIR）
+- 配置 modules/m5_modeling/configs/s5_m9_sgb_i2i3.yaml
+outputs:
+- 运行输出（MS_M9_DIR）：每个（任务，方法）的抽查与拟合信息、每个任务的对比 JSON 与全部任务的汇总（只含聚合指标），逐行打分与启动指纹
+- 公开汇总 modules/m5_modeling/results/sgb_i2i3_v1/
+tests:
+- modules/m5_modeling/tests/test_sgb_i2i3_confirm.py
+cross_border_assets: []
+cross_border_note: 公开数据上的离线单进程两方模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 每个（任务，方法）单次拟合，区间不含训练随机性；耗时为会话容器上单进程两方模拟的合计计算时间。明文直方图只是实验代码里的替换，用于正式联调需在隐语上游或项目封装层实现并经安全评审（技术侧自评，未经法务复核，W-001）。逐行打分只存会话临时目录，不入仓库。
+declared_at: '2026-11-05'
+declared_by: Claude (claude-opus-5-5, Claude Code)

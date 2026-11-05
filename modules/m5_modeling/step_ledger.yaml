@@ -844,8 +844,33 @@ steps:
   - modules/m5_modeling/configs/s5_m8_orange_large_sgb.yaml
   - registry/decision_records/DR-M5-015.yaml（review_20261104_s5m8）
   note: S5.M5 主分析的同一输入（每方 300 列），配置全部取自 S5.M5 结果，各拟合一次（seed 11）。SGB 与同配置代理之差：优化版联邦 −0.0019 [−0.0058, +0.0023]、原版联邦 −0.0013 [−0.0162, +0.0144]，都在 0.005 以内；SGB 上 I2 + I3 +0.0353 [+0.0222, +0.0483]，p < 0.001（代理 6 seed +0.0359）。只作描述：优化版联邦 SGB − 内地单边代理 +0.039。拟合 6,301 秒（与门禁争用 CPU）与 4,692 秒；原版启动前在 CPU 空闲时试训前 2 / 4 棵，外推 5,129 秒，在单段上限内。组件在仓库副本中启动，三段启动指纹与提交文件逐字节相同。方法筛选第四阶段 2 / 2 完成。
-current_step: null
-next_step: 方法筛选第四阶段 2 / 2 用完（DR-M5-015）；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M9
+  step_name: I2 + I3 在其余 14 个任务上的真实 SGB 复核（原版联邦与优化版联邦，主动方明文直方图版本；DR-M5-016）
+  status: committed
+  phase: method_screen_5
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261105-M5-001
+  committed_at: '2026-11-05T20:12:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_i2i3_confirm.py
+  - modules/m5_modeling/notebooks/S5.M9_1_sgb_i2i3_all_tasks.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_i2i3_v1/
+  - modules/m5_modeling/configs/s5_m9_sgb_i2i3.yaml
+  - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m9）
+  note: 配置取自 S5.M1 / S5.M5 结果，各拟合一次（seed 11），4 个任务复用 S5.M2 的优化版联邦打分；24 次新拟合前 2 棵原版与明文逐位一致，外推与实际之比 0.86 ~ 1.09，分 8 段合计约 10.3 小时。SGB 上 I2 + I3 12 / 14 成立（14 个任务内 Holm 后 9），不成立的是 mock 重合 50 与 IEEE 第 1 块；与代理结论一致 11 / 14（mock 重合 20、80 仅 SGB 成立，IEEE 仅代理成立）。合并 S5.M2 / S5.M8 的 3 个任务，17 个中 15 个成立。28 个配置中 7 个与代理之差超出 0.005（原版 5、优化版 2），按 DR-M5-012 · D-1 降级；原版参数下超差方向不一致。运行中未改代码。
+current_step: S5.M10
+next_step: S5.M10 两进程生产模式下主动方明文直方图的墙钟（DR-M5-016 · D-7，先做合成数据可行性检查）；报告升版；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -917,6 +942,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen_5
+  decision_record: DR-M5-016
+  new_steps_authorized: 2        # S5.M9 其余 14 个任务的 I2 + I3 真实 SGB、S5.M10 两进程墙钟（有条件）；所有者 2026-11-05 08:45 回复「继续」
+  planned_steps: [S5.M9, S5.M10]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: active
 - phase: method_screen_4
   decision_record: DR-M5-015
   new_steps_authorized: 2        # S5.M7 M3 后半（主动方明文直方图）与 SGB 开销、S5.M8 Orange 大版真实 SGB（有条件）；所有者 2026-11-04 10:35 回复「继续」

@@ -1,0 +1,18 @@
+component: sgb_m6_more
+module: M5
+path: modules/m5_modeling/components/sgb_m6_more.py
+purpose: S5.M11 M6 在其余 4 个代理显著任务上的真实 SGB 复核（DR-M5-017 · D-2 ~ D-3）：M6 = 6 个 SGB 成员的概率平均（优化版联邦配置、行采样 0.8、成员 seed 1100 ~ 1105，同 S5.M2 / S5.M4），用主动方明文直方图版本拟合；每个任务第一个成员前抽查前 2 棵原版与明文逐位相同并外推单个成员秒数，超过上限的不做；成员逐个存档、分段续跑；与 S5.M9 的优化版联邦 SGB 打分比较，口径同 S5.M2（method_screen_sgb.evaluate），并做跨任务汇总。
+inputs:
+- S5.M1 的私有输入矩阵与结果 JSON（MS_PRIVATE_ROOT、MS_RUN_DIR）
+- S5.M9 存档的优化版联邦 SGB 测试打分（MS_M9_DIR）
+- 配置 modules/m5_modeling/configs/s5_m11_sgb_m6.yaml
+outputs:
+- 运行输出（MS_M11_DIR）：每个任务的抽查、成员拟合信息与对比 JSON、全部任务的汇总（只含聚合指标），成员打分与启动指纹
+- 公开汇总 modules/m5_modeling/results/sgb_m6_more_v1/
+tests:
+- modules/m5_modeling/tests/test_sgb_m6_more.py
+cross_border_assets: []
+cross_border_note: 公开数据上的离线单进程两方模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 每个成员单次拟合，对照的优化版联邦为 seed 11 单次拟合，区间只含测试集抽样；耗时为会话容器上单进程两方模拟的合计计算时间。明文直方图只是实验代码里的替换，用于正式联调需在隐语上游或项目封装层实现并经安全评审（技术侧自评，未经法务复核，W-001）。成员打分只存会话临时目录，不入仓库。
+declared_at: '2026-11-07'
+declared_by: Claude (claude-opus-5-5, Claude Code)

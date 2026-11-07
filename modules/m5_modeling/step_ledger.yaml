@@ -894,8 +894,33 @@ steps:
   - modules/m5_modeling/configs/s5_m10_wallclock.yaml
   - registry/decision_records/DR-M5-016.yaml（review_20261105_s5m10）
   note: 合成数据可行性检查通过后，在会话容器内起两个本地进程各自一方（生产模式、本机回环），UCI、Santander G3、mock 重合 80、Orange 大版流失（每方 300 列）各预热一次再按 ABBA 计时（前 10 棵，大版 5 棵）。每棵树墙钟省 40% / 31% / 33% / 41%，与 S5.M7 单进程合计计算的节省（40% / 29% / 32% / 43%）基本相同；回环发送字节平均相差不到 2%（与同版本两次之间的波动同量级），四次打分逐位相同。容器 2 核、本机回环，不代表跨境网络。方法筛选第五阶段 2 / 2 完成。
-current_step: null
-next_step: 方法筛选第五阶段 2 / 2 用完（DR-M5-016）；报告升版 v1.7；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
+- step_id: S5.M11
+  step_name: M6 在其余 4 个代理显著任务上的真实 SGB 复核（DR-M5-017 · D-2 ~ D-3）
+  status: committed
+  phase: method_screen_6
+  score: 11
+  gates:
+    G1: pass
+    G2: pass
+    G3: pass
+    G4: pass
+  dimensions:
+    D1: 3
+    D2: 3
+    D3: 2
+    D4: 3
+  revisions: 0
+  change_id: CL-20261108-M5-001
+  committed_at: '2026-11-08T00:55:00+08:00'
+  outputs:
+  - modules/m5_modeling/components/sgb_m6_more.py
+  - modules/m5_modeling/notebooks/S5.M11_1_sgb_m6_more.ipynb（带汇总输出）
+  - modules/m5_modeling/results/sgb_m6_more_v1/
+  - modules/m5_modeling/configs/s5_m11_sgb_m6.yaml
+  - registry/decision_records/DR-M5-017.yaml（review_20261108_s5m11）
+  note: M6 = 6 个 SGB 成员（优化版联邦配置、行采样 0.8、seed 1100 ~ 1105）的概率平均，明文直方图版本，对照为 S5.M9 存档的优化版联邦（seed 11）。4 个任务第一个成员前的前 2 棵原版与明文逐位一致，外推与实际之比 0.90 ~ 1.13，分 6 段、24 个成员合计约 9.5 小时。SGB 上 M6 − 优化版联邦：mock 重合 50 +0.0097、mock 平衡 +0.0046、HomeCredit +0.0038、Santander 交易 +0.0116，4 / 4 成立、与代理一致 4 / 4，SGB − 代理都在 0.005 以内。合并 S5.M2 / S5.M4 的 3 个任务，7 个代理显著任务中 6 个成立（COIL2000 不显著）。运行中未改代码。
+current_step: S5.M12
+next_step: S5.M12 列采样配置的 SGB 训练随机性（DR-M5-017 · D-4 ~ D-5：9 个任务的优化版联邦再拟合 5 个 seed，先做原版联邦的确定性核对）；之后报告升版 v1.8；M7 LR 求解器不在本阶段（需本机双虚拟机，保留与否待所有者定）；封存确认集与 S0.9 形态决策待业务方答复（G4 盈亏平衡）；S5.D2 暂缓
 metrics:
   avg_score: 10.238
   escalation_count: 3
@@ -967,6 +992,14 @@ quality_snapshot_before_D2:
   revised_steps: 14
   last_step_revisions: 2
 phase_budgets:
+- phase: method_screen_6
+  decision_record: DR-M5-017
+  new_steps_authorized: 2        # S5.M11 M6 在其余 4 个代理显著任务上的真实 SGB、S5.M12 列采样配置的 SGB 多 seed；所有者 2026-11-07 15:04 回复「继续」
+  planned_steps: [S5.M11, S5.M12]
+  steps_used: 1
+  inherit_pass_threshold: 11
+  historical_quality_reset: false
+  status: active
 - phase: method_screen_5
   decision_record: DR-M5-016
   new_steps_authorized: 2        # S5.M9 其余 14 个任务的 I2 + I3 真实 SGB、S5.M10 两进程墙钟（有条件）；所有者 2026-11-05 08:45 回复「继续」

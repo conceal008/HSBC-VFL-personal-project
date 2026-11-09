@@ -1,0 +1,4 @@
+task,k_per_party,cols_guest,cols_host,trees,sec_per_tree_base,sec_per_tree_plain,saving,preds_identical
+orange_large_churn,100,100,100,5,24.9593,14.5908,0.4154,True
+orange_large_churn,300,300,300,5,73.0913,41.7198,0.4292,True
+orange_large_churn,1000,1000,872,5,241.6537,126.8482,0.4751,True

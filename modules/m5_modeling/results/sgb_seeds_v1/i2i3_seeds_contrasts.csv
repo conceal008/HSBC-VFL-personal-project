@@ -1,0 +1,10 @@
+dataset,contrast,diff_6seed,ci_low_6seed,ci_high_6seed,p_6seed,opt_seed_sd,def_seed_sd,diff_seed11,ci_low_seed11,ci_high_seed11,holds_6seed,holds_seed11,same_conclusion,proxy_6seed_diff,proxy_6seed_ci_low,proxy_6seed_ci_high
+uci_bank,F_opt_p − F_def,0.01118,0.00273,0.01960,0.01000,0.00095,0.00010,0.01024,0.00090,0.01912,True,True,True,0.01811,0.01007,0.02564
+mock_overlap20,F_opt_p − F_def,0.00622,-0.00558,0.01774,0.29000,0.00459,0.00016,0.01373,0.00285,0.02489,False,True,False,0.00808,-0.00496,0.02202
+fedads,F_opt_p − F_def,0.02303,0.01120,0.03529,0.00000,0.00225,0.00000,0.02035,0.00750,0.03303,True,True,True,0.02347,0.01085,0.03645
+mock_overlap50,F_opt_p − F_def,0.00508,-0.00169,0.01173,0.15400,0.00211,0.00000,0.00417,-0.00345,0.01145,False,False,True,0.00057,-0.00709,0.00752
+santander_g3,F_opt_p − F_def,0.00527,-0.00038,0.01072,0.06400,0.00113,0.00002,0.00599,0.00024,0.01189,False,True,False,0.00513,0.00015,0.01010
+orange_upsell,F_opt_p − F_def,0.03280,0.02328,0.04274,0.00000,0.00106,0.00028,0.03316,0.02309,0.04300,True,True,True,0.03267,0.02325,0.04183
+ieee_part0,F_opt_p − F_def,0.00707,-0.00520,0.02023,0.25800,0.00173,0.00002,0.00963,-0.00253,0.02290,False,False,True,0.01641,0.00289,0.03008
+orange_large_appetency,F_opt_p − F_def,0.02195,0.00223,0.04327,0.02600,0.00264,0.00020,0.02340,0.00340,0.04674,True,True,True,0.02504,0.00027,0.05004
+orange_large_upsell,F_opt_p − F_def,0.01434,0.00740,0.02121,0.00000,0.00133,0.00020,0.01611,0.00845,0.02353,True,True,True,0.01087,0.00385,0.01724

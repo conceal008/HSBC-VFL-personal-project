@@ -1,0 +1,17 @@
+task,order,kind,trees,fit_seconds_neidi,fit_seconds_hk,launch_wall_seconds,loopback_tx_bytes
+uci_bank,1,base,10,30.41,30.42,34.24,97204715
+uci_bank,2,plain,10,18.16,18.17,22.44,97204386
+uci_bank,3,plain,10,17.59,17.60,21.67,100265591
+uci_bank,4,base,10,29.11,29.12,33.39,97213314
+santander_g3,1,base,10,227.76,227.79,232.02,591897851
+santander_g3,2,plain,10,152.57,152.61,157.18,594397918
+santander_g3,3,plain,10,154.28,154.31,159.41,591191315
+santander_g3,4,base,10,219.39,219.41,224.52,590472868
+mock_overlap80,1,base,10,220.43,220.43,224.93,368277661
+mock_overlap80,2,plain,10,145.25,145.27,149.18,371009463
+mock_overlap80,3,plain,10,149.75,149.75,154.44,371071149
+mock_overlap80,4,base,10,219.90,219.92,224.82,368269806
+orange_large_churn,1,base,5,240.51,240.52,244.63,127401465
+orange_large_churn,2,plain,5,145.64,145.66,150.09,127096387
+orange_large_churn,3,plain,5,134.49,134.50,139.22,127282292
+orange_large_churn,4,base,5,234.03,234.02,238.19,126915196

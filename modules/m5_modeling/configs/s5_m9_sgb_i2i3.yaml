@@ -1,0 +1,38 @@
+# S5.M9 · I2 + I3 在其余 14 个任务上的真实 SGB 复核（DR-M5-016 · D-2 ~ D-5）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；新拟合用主动方明文直方图版本（S5.M7），前 2 棵逐位抽查。
+# 配置全部取自 S5.M1（MS_RUN_DIR）/ S5.M5（MS_LARGE_DIR）的结果 JSON，不再调参；私有输入在 MS_PRIVATE_ROOT。
+# 复用的优化版联邦打分在 MS_SGB_DIR（S5.M2 存档）；本步的逐行打分、抽查与对比只写 MS_M9_DIR（会话临时目录），只提交汇总。
+# ---------------------------------------------------------------------------
+step_id: S5.M9
+purpose: 其余 14 个任务上原版联邦与优化版联邦的真实 SGB，与同配置代理之差、SGB 上的 I2 + I3（优化版 − 原版）
+decision_record: registry/decision_records/DR-M5-016.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: 每个 SGB 拟合用 seed 11（同 S5.M2）；6 个 seed 只用于读取 S5.M1 / S5.M5 的代理结果，本步不做多 seed 的 SGB
+sgb_dir_env: MS_SGB_DIR         # S5.M2 存档的优化版联邦打分（reuse_opt 的任务复用）
+large_dir_env: MS_LARGE_DIR     # S5.M5 的结果 JSON（large: true 的任务）
+out_dir_env: MS_M9_DIR          # 本步的私有输出
+tasks:                          # D-2：运行顺序按预计开销从小到大
+  - {name: coil2000, reuse_opt: true}
+  - {name: mock_overlap20}
+  - {name: orange_churn}
+  - {name: orange_upsell}
+  - {name: mock_overlap50}
+  - {name: santander_tx}
+  - {name: ieee_part0}
+  - {name: mock_balanced}
+  - {name: mock_overlap80, reuse_opt: true}
+  - {name: fedads, reuse_opt: true}
+  - {name: santander_g3, reuse_opt: true}
+  - {name: homecredit}
+  - {name: orange_large_upsell, large: true}
+  - {name: orange_large_appetency, large: true}
+time_cap_sec: 7000              # D-4：外推超过此值的拟合不做
+segment_budget_sec: 6800        # D-4：一段内只在「已用 + 外推 × 余量 ≤ 预算」时开始下一个拟合
+segment_margin: 1.1
+min_probe_budget_sec: 900       # 一段剩余不足此值时不再开始新的抽查
+proxy_tol: 0.005                # DR-M5-012 · D-1
+results_dir: modules/m5_modeling/results/sgb_i2i3_v1
+round_auc: 4

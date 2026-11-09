@@ -1,0 +1,23 @@
+# S5.M11 · M6 在其余 4 个代理显著任务上的真实 SGB 复核（DR-M5-017 · D-2 ~ D-3）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；主动方明文直方图版本（S5.M7），第一个成员前抽查前 2 棵逐位一致。
+# 配置取自 S5.M1 结果 JSON（MS_RUN_DIR）的优化版联邦，行采样 0.8，成员 seed 1100 ~ 1105；私有输入在 MS_PRIVATE_ROOT。
+# 对照的优化版联邦打分为 S5.M9 存档（MS_M9_DIR）；本步的成员打分、抽查与对比只写 MS_M11_DIR（会话临时目录），只提交汇总。
+# ---------------------------------------------------------------------------
+step_id: S5.M11
+purpose: M6 在 mock 平衡、mock 重合 50、HomeCredit、Santander 交易上的真实 SGB，与同配置代理之差、SGB 上的 M6 − 优化版联邦
+decision_record: registry/decision_records/DR-M5-017.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: M6 的 6 个成员 seed 为 1100 ~ 1105（method_screen_sgb.bag_seeds，同 S5.M2 / S5.M4）；对照的优化版联邦为 seed 11 单次拟合（不含行采样时为确定性拟合）；6 个 seed 只用于读取 S5.M1 的代理结果
+opt_dir_env: MS_M9_DIR          # S5.M9 存档的优化版联邦 SGB 打分（seed 11）
+out_dir_env: MS_M11_DIR         # 本步的私有输出
+tasks: [mock_overlap50, mock_balanced, homecredit, santander_tx]   # 按预计开销从小到大
+time_cap_sec: 7000              # 单个成员外推超过此值的任务不做
+segment_budget_sec: 6800
+segment_margin: 1.1
+min_probe_budget_sec: 900
+proxy_tol: 0.005                # DR-M5-012 · D-1
+results_dir: modules/m5_modeling/results/sgb_m6_more_v1
+round_auc: 4

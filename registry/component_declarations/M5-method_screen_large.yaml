@@ -1,0 +1,18 @@
+component: method_screen_large
+module: M5
+path: modules/m5_modeling/components/method_screen_large.py
+purpose: S5.M5 Orange KDD Cup 2009 大版（15,000 个变量）的两方矩阵与 M3 两方特征预筛：两遍读取（先去掉全部行上全缺失或常数的数值变量）、按列存放的磁盘映射；清洗与编码同小版，删列与缺失指示只在 tune 视图 fit 行上判定；内地按本方 XGBoost 总增益、香港按自己特征在联邦预拟合中被选为分裂的次数各取前 k 列；产出可直接交给 method_screen.Screen 的私有矩阵，并在主分析配置下评估 k 的敏感性。
+inputs:
+- Orange 大版训练集 5 个分块与三个标签文件（MS_RAW_ROOT，sha256 与本机 MANIFEST 一致）
+- 配置 modules/m5_modeling/configs/s5_m5_orange_large.yaml、S5.M1 的基础配置与 S5.M3 的交叉验证配置
+outputs:
+- 私有两方矩阵（MS_PRIVATE_ROOT）：每个任务的主分析 npz / json（每方前 k 列）与敏感性矩阵（final 视图全部清洗后列，未压缩 .npy）
+- 运行输出（MS_LARGE_DIR）：每个任务的 S5.M1 结果 JSON、敏感性 JSON 与交叉验证 JSON（只含聚合指标）
+- 公开汇总 modules/m5_modeling/results/method_screen_large_v1/
+tests:
+- modules/m5_modeling/tests/test_method_screen_large.py
+cross_border_assets: []
+cross_border_note: 公开代理数据上的离线明文模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 大版官方测试集不完整，测试集在训练集内构造（同小版口径）；预筛只读 tune 视图 fit 行（训练去掉验证）的特征与标签。香港侧预筛依据的是被动方本来就保存的「自己哪些列被选为分裂」，不让主动方多知道香港列的身份。矩阵与逐行打分只存会话临时目录或本机私有目录，不入仓库。
+declared_at: '2026-11-04'
+declared_by: Claude (claude-opus-5-5, Claude Code)

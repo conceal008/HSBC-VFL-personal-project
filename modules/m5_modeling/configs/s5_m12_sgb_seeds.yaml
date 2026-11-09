@@ -1,0 +1,36 @@
+# S5.M12 · 列采样配置的 SGB 训练随机性（DR-M5-017 · D-4 ~ D-5、D-8）
+# ---------------------------------------------------------------------------
+# 隐语 secretflow-lite 1.13.0b0，debug_mode 单进程两方模拟，OU；主动方明文直方图版本（S5.M7），每个（任务，方法）第一个新 seed 前抽查前 2 棵逐位一致。
+# D-8：原版联邦的确定性核对未通过（seed 经被动方分桶洗牌影响拟合），原版联邦也拟合 5 个新 seed；先做全部任务的优化版联邦，再做原版联邦。
+# 配置取自 S5.M1（MS_RUN_DIR）/ S5.M5（MS_LARGE_DIR）结果 JSON 的优化版联邦与 S5.M1 的原版联邦，只换 seed；seed 11 的打分为 S5.M9（MS_M9_DIR）/ S5.M2（MS_SGB_DIR）存档。
+# 本步的打分、抽查与对比只写 MS_M12_DIR（会话临时目录），只提交汇总。
+# ---------------------------------------------------------------------------
+step_id: S5.M12
+purpose: 优化版联邦列采样 < 1 的 9 个任务上，SGB 的 I2 + I3 改用 6 个 seed（两层 bootstrap），与 seed 11 单次结论对照；原版联邦先做确定性核对，未通过则也用 6 个 seed（D-8）
+decision_record: registry/decision_records/DR-M5-017.yaml
+base_config: modules/m5_modeling/configs/s5_m1_method_screen.yaml
+seed: 11
+seeds: [11, 22, 33, 44, 55, 66]
+seeds_note: 优化版联邦用全部 6 个 seed（seed 11 为已存档的单次拟合，本步新拟合 22 / 33 / 44 / 55 / 66）；原版联邦列、行采样都为 1，但 seed 还经被动方分桶洗牌影响增益并列时的切点选择，确定性核对未通过，按 D-4 / D-8 也用同样 6 个 seed
+m9_dir_env: MS_M9_DIR           # S5.M9 存档（含复用的 S5.M2 优化版联邦打分副本）
+sgb_dir_env: MS_SGB_DIR         # S5.M2 存档（UCI）
+large_dir_env: MS_LARGE_DIR     # S5.M5 的结果 JSON（large: true 的任务）
+out_dir_env: MS_M12_DIR         # 本步的私有输出
+determinism_task: uci_bank      # D-4：原版联邦换 seed 22 再拟合一次；不逐位相同则原版联邦也拟合新 seed
+determinism_budget_sec: 900
+tasks:                          # D-4：按配置判定（列采样 0.7），按预计开销从小到大
+  - {name: uci_bank}
+  - {name: mock_overlap20}
+  - {name: fedads}
+  - {name: mock_overlap50}
+  - {name: santander_g3}
+  - {name: orange_upsell}
+  - {name: ieee_part0}
+  - {name: orange_large_appetency, large: true}
+  - {name: orange_large_upsell, large: true}
+time_cap_sec: 7000
+segment_budget_sec: 6800
+segment_margin: 1.1
+min_probe_budget_sec: 900
+results_dir: modules/m5_modeling/results/sgb_seeds_v1
+round_auc: 4

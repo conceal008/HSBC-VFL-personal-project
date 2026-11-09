@@ -1,0 +1,13 @@
+dataset,outcome,part,rows,treated,events_treated,events_control,rate_treated,rate_control
+hillstrom,visit,train,38399,25616,4228,1306,0.16505,0.10217
+hillstrom,visit,val,12800,8539,1423,482,0.16665,0.11312
+hillstrom,visit,test,12801,8539,1481,474,0.17344,0.11122
+hillstrom,conversion,train,38399,25616,273,73,0.01066,0.00571
+hillstrom,conversion,val,12800,8539,91,24,0.01066,0.00563
+hillstrom,conversion,test,12801,8539,92,25,0.01077,0.00587
+criteo,visit,train,599600,509814,24896,3379,0.04883,0.03763
+criteo,visit,val,199866,169938,8299,1126,0.04884,0.03762
+criteo,visit,test,199868,169938,8299,1127,0.04884,0.03765
+criteo,conversion,train,599600,509814,1567,189,0.00307,0.00211
+criteo,conversion,val,199866,169938,535,72,0.00315,0.00241
+criteo,conversion,test,199868,169938,510,56,0.00300,0.00187

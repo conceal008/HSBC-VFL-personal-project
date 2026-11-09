@@ -1,0 +1,9 @@
+dataset,method,sgb_auroc,proxy_auroc,sgb_minus_proxy,ci_low,ci_high,within_tolerance
+mock_overlap50,F_M6,0.91461,0.91263,0.00198,-0.00133,0.00539,True
+mock_overlap50,F_opt_p,0.90491,0.90595,-0.00104,-0.00720,0.00531,True
+mock_balanced,F_M6,0.90611,0.90568,0.00043,-0.00238,0.00323,True
+mock_balanced,F_opt_p,0.90151,0.89949,0.00202,-0.00270,0.00642,True
+homecredit,F_M6,0.75572,0.75430,0.00142,-0.00023,0.00313,True
+homecredit,F_opt_p,0.75187,0.75093,0.00094,-0.00118,0.00320,True
+santander_tx,F_M6,0.87013,0.86999,0.00014,-0.00351,0.00345,True
+santander_tx,F_opt_p,0.85856,0.85977,-0.00121,-0.00664,0.00345,True

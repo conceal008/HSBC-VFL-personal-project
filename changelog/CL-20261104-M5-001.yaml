@@ -1,0 +1,107 @@
+change_id: CL-20261104-M5-001
+timestamp: '2026-11-04T03:30:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M5 Orange 大版三任务 + M3 两方特征预筛：I2 + I3 与优化版联邦的增益成立，预筛在两个任务上不损失精度
+what: |
+  所有者 2026-11-03 19:39 回复「继续」，开方法筛选第三阶段（第二批，DR-M5-014，2 步）。本条为第 1 步：Orange KDD Cup 2009 大版三任务。
+  - 两遍读取 50,000 行 × 15,000 个变量（先去掉全部行上全缺失或常数的数值变量），原始数值矩阵按列存放于磁盘映射；
+  - M3 两方特征预筛只读 tune 视图 fit 行：内地按本方 XGBoost 总增益、香港按自己特征在联邦预拟合中被选为分裂的次数，各取前 300 个编码列；
+  - 之后走 S5.M1 全流程与 S5.M3 交叉验证选组合；敏感性比较 k = 100 / 300 / 1000 / 全部。
+  新增：
+  - 决策记录 DR-M5-014（含 S5.M5 复核）；
+  - 组件 method_screen_large 与单测、组件声明 M5-method_screen_large；
+  - 运行配置 configs/s5_m5_orange_large.yaml；
+  - 带汇总输出的运行入口 notebook S5.M5_1；
+  - 公开汇总 results/method_screen_large_v1/。
+  状态类字段同步：BC-M5-018（第二批拆为三条路线：orange_large_prescreen 完成、uplift_learners 运行中、lr_solver_m7 待所有者）、
+  step_ledger（追加 S5.M5，新阶段 method_screen_3 预算 1 / 2）、registry/module_status.yaml 的 M5 与 governance、M5 README、
+  项目进度总览（notebook 75 → 76、带输出 47 → 48；组件声明 99 → 100）。
+why: |
+  报告列为第二批的 Orange 大版（15,000 列）此前没有做，原因是三臂同等调参在全部列上不可行，需要先做候选文档 M3 的特征预筛。
+  结果（测试 6 seed，两层 bootstrap；开发证据）：
+  - I2 + I3 在流失 +0.036、追加销售 +0.011 显著，偏好 +0.025（区间下界 +0.0003，Holm 0.86）；原版联邦三个任务都不优于内地单边，优化版三个都优于。
+  - M6 只在偏好上刚好成立（+0.005）；M1 在流失上变差（−0.007）；M4 无增益。
+  - 单一验证集三个任务都选 M1；交叉验证 R1 1 优于（偏好 P+M6）、0 劣于。
+  - 预筛「不损失精度」（D-3）在流失、追加销售上成立，偏好上不能排除（全部列 − 300 列 = +0.0050 [−0.0007, +0.0110]）。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-014
+  loop_step: M5 · 方法筛选第三阶段 S5.M5（DR-M5-014 · D-1 ~ D-3）
+cross_border_impact: none
+cross_border_detail: 公开数据上的离线明文模拟，不涉及任何真实跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置与 sha256 前缀、运行分段时间；
+    - 三个任务的行数、正例数（公开数据集的划分规模）、两方原始变量数、清洗后编码列数与预筛保留列数；
+    - 测试 AUROC、配对差、区间、p 与 Holm p；交叉验证选择。
+    不含行数据、样本号或其散列、逐行分数或标签、模型、预筛的列排序或列名清单（列名只在私有 json）。
+    私有矩阵、列排序与逐行打分只在会话临时目录（另转存本机）。
+downstream_affected:
+- M6
+- M7
+breaking_change: false
+migration: 无。新增文件；S5.M1 – S5.M4 的结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m5_orange_large.yaml
+  config_hash: sha256:fd06cd6811df5b197c611ff0d5ba62243bba98e288e2667760e8ef2d4ce6cfc3
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: 预筛模型、交叉验证内训练与调参用 seed 11（M6 成员 1100–1105）；测试集评估用全部 6 个 seed。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 – S5.M4。
+verification: |
+  - DR-M5-014 在任何数据读取之前写定；组件、配置与 DR 的 sha256 在每次启动时记入启动指纹（共 4 次改动，均在写出任何结果之前，原因如实记录）。
+  - notebook 第一格断言运行时组件与配置与当前仓库逐字节相同；第三格从原始分块重做流失任务的预筛，两方列清单与批量运行相同，
+    并用私有矩阵与批量运行选定的配置重算优化版联邦测试 AUROC，与批量运行相同（差 < 1e-9）。
+  - 单测用合成数据与 xgboost 替身检验：分块读取与磁盘映射、全缺失 / 常数列预先去掉不改变结果、列清单与预筛只读 tune 视图 fit 行
+    （改验证与测试行的标签和特征，结果不变）、敏感性矩阵的按行块组装与主分析矩阵一致。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M5
+  step_name: Orange 大版三任务 + M3 两方特征预筛
+  declaration: |
+    will_produce：
+    - Orange 大版三任务的 M3 两方预筛、S5.M1 全流程与 S5.M3 交叉验证结果、预筛列数敏感性；
+    - DR-M5-014、组件与单测、组件声明、运行配置、带汇总输出的 notebook、公开汇总；
+    - 状态同步。
+    will_not_produce：
+    - 不改 S5.M1 的候选、基础配置与统计口径；不在测试集上做任何选择；
+    - 不做真实 SGB 复核；
+    - 不提交行数据、列排序、逐行分数或模型；
+    - 不换算成汇丰效果。
+    success_criteria：
+    - 3 / 3 个任务完成；
+    - notebook 从原始数据复现一个任务的预筛；
+    - 按 DR-M5-014 · D-3 给出预筛判定；
+    - 门禁全部通过。
+    risk：
+    - 测试集在训练集内构造：已写入 README 与 notebook 的边界；
+    - 偏好任务测试正例少（178）：已写入读法。
+  scope:
+    files_changed: 18
+    lines_added: 1629
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/method_screen_large_v1/contrasts.csv、cv_contrasts.csv 与 sensitivity.csv：三个任务的 7 项方法对比、交叉验证选择与 k 的敏感性都有差值、区间与 p"
+      D2: "modules/m5_modeling/notebooks/S5.M5_1_orange_large_prescreen.ipynb：从原始分块重做预筛，两方列清单相同；优化版联邦测试 AUROC 重算相同"
+      D3: "组件与配置可重跑，但原始数据、私有矩阵只在本机与会话目录，且全流程约 3 小时，notebook 只复现一个任务的预筛与一项指标，故 2 分"
+      D4: "contrasts.csv：三个新任务上「不做 I2 + I3 看不出联邦增益」再次成立；sensitivity.csv：M3 预筛在两个任务上不损失精度、偏好上不能排除"
+  revisions: 0
+  verdict: committed
+  next_step: S5.M6 M8 增量学习器（Hillstrom 已完成，Criteo 运行中）

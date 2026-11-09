@@ -1,0 +1,118 @@
+change_id: CL-20261104-M5-005
+timestamp: '2026-11-04T14:28:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: exp
+title: S5.M7 M3 后半——主动方明文直方图与原版逐位一致，两方合计计算每棵树省 29% ~ 43%；Orange 大版预筛加明文直方图约为全部列原版的 1 / 41（外推）
+what: |
+  方法筛选第四阶段（DR-M5-015）第 1 步。隐语 secretflow-lite 1.13.0b0 `sgb_v`，debug_mode 单进程两方模拟，OU；配置全部取自 S5.M1 / S5.M5 的结果，不再调参。
+  - 实现：只替换 `GradientEncryptor.cache_to_workers`。被动方收到同一份梯度密文；主动方收到自己明文梯度的 HEU 明文对象（隐语 label_holder_feature_only 分支的做法），
+    即 SecureBoost 原设计。不改隐语源码。
+  - D-3 逐位比较：S5.M2 的 6 个任务优化版联邦（seed 11）用明文版本完整拟合，测试集逐行打分与 S5.M2 存档比较。
+  - D-4 计时：每个任务 2 棵树预热，再按 ABBA 顺序各拟合前 10 棵树，记录两方合计计算时间与两方分项（分桶求和、取回 / 解密）。
+  - D-5 单树开销：Orange 大版流失（S5.M5 选定的优化版联邦配置，深度 3），每方 k = 100 / 300 / 1000 列各 5 棵树，原版与明文各一次；线性外推到全部清洗后列。
+  新增：
+  - 组件 sgb_cost_screen 与单测、组件声明 M5-sgb_cost_screen；
+  - 运行配置 configs/s5_m7_sgb_cost.yaml；
+  - 带汇总输出的运行入口 notebook S5.M7_1（用仓库组件在 UCI Bank 上重跑逐位比较并核对）；
+  - 公开汇总 results/sgb_cost_v1/；
+  - 决策记录 DR-M5-015（第四阶段，2 步）与复核段 review_20261104_s5m7。
+  状态类字段同步：BC-M5-018（新增 plaintext_label_holder_histogram 完成、orange_large_sgb 进行中）、step_ledger（追加 S5.M7，新增第四阶段预算 1 / 2）、
+  registry/module_status.yaml 的 M5 与 governance、M5 README、项目进度总览（notebook 77 → 78、带输出 49 → 50；组件声明 101 → 102）。
+why: |
+  所有者 2026-11-04 10:35 回复「继续」。报告 v1.4 缺口清单中，候选文档 M3 只做了前半（两方特征预筛，S5.M5），后半「主动方明文直方图」没做；
+  Orange 大版也没有任何真实 SGB 开销数据。两项都只用公开数据，可在会话容器内完成。
+  结果（开发证据）：
+  - 6 个任务全部逐位一致（不同 0 行，最大差 0，测试 AUROC 相同），判定「逐位一致」，按 D-6 做 S5.M8。
+  - 每棵树两方合计计算时间省 29% ~ 43%（ABBA 两对范围 27% ~ 46%）；省下的全在主动方（主动方分桶求和约 1 / 12，主动方解密约 0），被动方不变。
+  - Orange 大版流失每方 100 / 300 / 1000 列：原版 25.0 / 73.1 / 241.7 秒 / 棵，明文 14.6 / 41.7 / 126.8 秒 / 棵，省 42% ~ 48%；
+    外推到全部清洗后列（13,295 列）原版约 1,730 秒 / 棵（外推，不实测），预筛到每方 300 列约为其 1 / 24，再加明文直方图约 1 / 41。
+  - 这是开销上的改进，不改变任何 AUROC 结论；耗时是单进程模拟的合计计算时间，不是部署墙钟。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-015
+  loop_step: M5 · 方法筛选第四阶段 S5.M7（DR-M5-015 · D-2 ~ D-5）
+cross_border_impact: none
+cross_border_detail: 公开数据上的单进程两方模拟，不涉及任何真实跨境资产；被动方收到的消息与原实现相同。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐文件审查：notebook 输出与 results 只含以下内容——
+    - 公开配置与 sha256 前缀、启动时间；
+    - 每个任务两方列数、完整与计时棵数、测试行数（公开数据集的切分规模）；
+    - 逐位比较的不同行数、最大差、两边测试 AUROC、判定与拟合秒数；每次拟合与两方分项的秒数、节省比例；每方 k 列的单树秒数与外推直线。
+    不含行数据、样本号或其散列、逐行分数或标签、梯度、模型或密钥。逐行打分只在会话临时目录。
+    协议安全性表述带 W-001 免责（技术侧自评，未经法务复核）。
+downstream_affected:
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 无。新增文件；S5.M1 – S5.M6 的方法、配置与结果不改。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m7_sgb_cost.yaml
+  config_hash: sha256:94dcd565530f68d17a40d2130d54e0b090ff22db0d7f03db325a0ff3bbaedef4
+  seeds: [11, 22, 33, 44, 55, 66]
+  seeds_note: |
+    每个 SGB 拟合用 seed 11（同 S5.M2），隐语 SGB 在同配置下拟合确定；本步比较的是同一配置的两种实现，不做多 seed。
+    所列 6 个 seed 为方法筛选统一口径。耗时的波动用 ABBA 两对的范围表示。
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可；不影响 S5.M1 – S5.M6。
+verification: |
+  - DR-M5-015 在任何运行之前写定；组件、依赖组件与配置的 sha256 在三段启动时记入启动指纹，三段相同，运行中未改代码。
+  - notebook 第一格断言运行时组件与配置与当前仓库逐字节相同；第三格用仓库组件在 UCI Bank 上重跑明文版本完整拟合，与 S5.M2 存档逐位一致，与批量运行判定相同。
+  - 组件里的 confirm_large 是启动前为 S5.M8 预写的入口，本步没有调用；S5.M8 需要与 S5.M2 同一套 bootstrap 对比，另写组件。
+    组件已在启动指纹中，按「运行后不改代码」保留原样，在组件声明中写明。
+  - 单测用替身检验：只把主动方那一份换成明文、被动方不变、退出后恢复；分项计时不改返回值并按方累加；逐位判定三档；ABBA 编排与汇总；线性外推；
+    大版按 k 取列与 S5.M5 一致；完整拟合比较与大版单树开销编排；单次拟合截棵数与上下文；任务输入顺序；大版复核入口；启动指纹；
+    命令行入口三个部分与续跑。组件行覆盖 99.0%。
+  - 修正 1 轮（提交前）：
+    - 门禁 5 Q3 拦下组件行覆盖 62.6%（单次拟合、任务输入、大版复核入口、启动指纹与命令行入口没有单测），补 5 个单测；组件本身未改，与启动指纹相同。
+    - 门禁 6 R1 拦下 notebook 第 2 个代码格的字面 3（列占比的小数位），改为从配置读取，重跑 S5.M7-1，汇总数字与 results 未变。
+  - markdown 读法在执行后按输出填写。
+step:
+  step_id: S5.M7
+  step_name: M3 后半——主动方明文直方图与 SGB 开销
+  declaration: |
+    will_produce：
+    - 6 个任务明文版本与原版的逐位比较、两方合计计算时间与分项、Orange 大版每方 k 列的单树开销与外推；
+    - 组件与单测、组件声明、运行配置、带汇总输出的 notebook、公开汇总、决策记录与复核；
+    - 状态同步。
+    will_not_produce：
+    - 不改隐语源码，不改 S5.M1 – S5.M6 的方法、配置或结果；
+    - 不提交行数据、逐行分数、梯度或模型；
+    - 不把单进程模拟的合计计算时间说成部署墙钟，不换算成汇丰环境的时长或收益。
+    success_criteria：
+    - 6 个任务都给出 D-3 判定；
+    - 6 个任务都完成 ABBA 计时且各次打分相同；
+    - k = 100 / 300 / 1000 都完成；
+    - notebook 用仓库组件复现 UCI Bank 的逐位比较；
+    - 门禁全部通过。
+    risk：
+    - 计时受容器负载影响：运行期间不跑其他重计算，ABBA 抵消顺序效应，报告两对范围；
+    - 全部清洗后列的单树秒数是外推：已在 README、notebook 与报告中标明。
+  scope:
+    files_changed: 18
+    lines_added: 1484
+    routes_covered: 1
+  gates:
+    G1_data_compliance: pass
+    G2_cross_border: pass
+    G3_scope: pass
+    G4_redline: pass
+  assessment:
+    D1_contract: 3
+    D2_verifiability: 3
+    D3_reproducibility: 2
+    D4_information_gain: 3
+    total: 11
+    evidence:
+      D1: "modules/m5_modeling/results/sgb_cost_v1/exact.csv、timing.csv 与 k_cost.csv：6 个任务的判定、计时与节省范围，k 三档与外推都有"
+      D2: "modules/m5_modeling/notebooks/S5.M7_1_plaintext_label_holder_histogram.ipynb：断言组件逐字节相同；用仓库组件在 UCI Bank 上重跑，与 S5.M2 存档逐位一致"
+      D3: "组件与配置可重跑，但私有输入只在本机与会话目录、notebook 只重跑 UCI Bank（6 个任务完整拟合合计约 73 分钟），耗时依赖机器，故 2 分"
+      D4: "exact.csv 与 k_cost.csv：关闭报告 v1.4 的 M3 后半缺口——结果不变、主动方计算省一半左右，给出 Orange 大版的真实 SGB 单树开销"
+  revisions: 1
+  verdict: committed
+  next_step: S5.M8 Orange 大版流失的真实 SGB 复核（DR-M5-015 · D-6）

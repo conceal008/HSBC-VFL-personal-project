@@ -1,0 +1,49 @@
+change_id: CL-20261109-M5-002
+timestamp: '2026-11-09T10:30:00+08:00'
+agent: Claude (claude-opus-5-5, Claude Code)
+module: M5
+type: doc
+title: 发布《优化方法与数据集：增益与组合报告》v1.8，新增第六阶段交接记录 HO-20261109，更正 S5.M11 汇总中单次拟合不含随机性的说法
+what: |
+  - 新增 docs/04-experiment-records/reports/优化方法与数据集_增益与组合报告_v1.8.md（与 claude.ai 项目文档同版）：
+    在 v1.7 基础上加入 S5.M11（§3.15，M6 在其余 4 个代理显著任务上的真实 SGB，7 个中 6 个成立）与 S5.M12（§3.16，列采样配置的 SGB 多 seed）；
+    I2 + I3 的真实 SGB 结论改用 6 seed 口径（17 个任务 15 → 13 个成立，mock 重合 20 与 Santander G3 由成立变为不显著），
+    结论先行新增第 9 条（单次结论要计入训练随机性），更新第 1、7、8 条、已验证组合、缺口清单与口径；
+    按 DR-M5-017 · D-8 更正「列、行采样都为 1 时单次拟合不含随机性」，并改正 §5.2 中已过时的「Orange 流失的 SGB 复核：未跑」（S5.M9 已做）。
+  - docs/04-experiment-records/README.md 增加一条索引。
+  - modules/m5_modeling/results/sgb_m6_more_v1/README.md 的适用边界增加一条更正（D-8），不改数字。
+  - 新增交接记录 docs/03-handoff/HO-20261109-Claude-M5-method-screen-6.md（AGENTS 要求会话结束时写交接），覆盖 S5.M11 – S5.M12。
+why: |
+  所有者 2026-11-03 15:23 要求把实验结果与结论报告整理到本机与 GitHub；第六阶段（S5.M11、S5.M12）完成后报告升版（DR-M5-017 · D-6）。
+  报告是汇总叙述，新建独立文件（AGENTS 第 12 条），既有文件只加索引或更正说明；v1.7 保留不改。
+  S5.M11 的配置与 notebook 已记入启动指纹，不改；更正只写在汇总 README 与 DR-M5-017 · D-8。
+links:
+  branch_card: BC-M5-018
+  decision_record: DR-M5-017
+  loop_step: M5 · 方法筛选报告发布与交接
+cross_border_impact: none
+cross_border_detail: 只发布公开数据上的汇总叙述，不涉及任何跨境资产。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Claude (claude-opus-5-5, Claude Code)
+  conclusion: |
+    逐段审查：报告、更正与交接只含公开数据集的汇总指标（AUROC、配对差、区间、p、seed 标准差、拟合秒数、测试集规模与正例数）、方法出处与文件路径。
+    不含行数据、样本号或其散列、逐行分数、列清单或列排序、模型、凭证或团队成员姓名；合规与安全相关表述带 W-001 免责（技术侧自评，未经法务复核）。
+    报告写明耗时的口径（单进程合计计算），「开发证据，不代表汇丰效果，不换算成命中率或收益」。
+downstream_affected:
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 无。新增文件，既有文件只加一条索引与一条更正说明。
+reproducibility:
+  config: modules/m5_modeling/configs/s5_m12_sgb_seeds.yaml
+  config_hash: sha256:ed4e94f6c875170ce7d1713d42163c8454f284d187da3f955175a7003fe5d588
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交即可。
+verification: |
+  - 报告新增数字取自 modules/m5_modeling/results/sgb_m6_more_v1/、sgb_seeds_v1/、sgb_i2i3_v1/ 与 method_screen_sgb_v1/ 的 CSV 与 README；
+    17 个任务 13 / 17 为 i2i3_sgb_all17_seeds.csv 的 sgb_holds 计数，与代理一致 14 / 17 为 sgb_holds 与 proxy_holds 相同的计数。
+  - §3.16 中以单次优化版联邦为对照的换算（M6、M1、M1x）只作描述：用 seed_spread.csv 的 6 seed 平均替换 seed 11 的 AUROC，没有重算区间。
+  - 术语检查（门禁 5 · Q6）在全部门禁中通过；报告不含会话路径。

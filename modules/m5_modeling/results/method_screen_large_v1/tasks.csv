@@ -1,0 +1,4 @@
+task,fit_rows,fit_pos,test_rows,test_pos,vars_guest,vars_host,clean_guest,clean_host,nonzero_guest,nonzero_host,kept_guest,kept_host
+orange_large_churn,40000,2938,10000,734,7500,7500,6655,6640,1088,872,300,300
+orange_large_upsell,40000,2946,10000,736,7500,7500,6662,6646,967,710,300,300
+orange_large_appetency,40000,712,10000,178,7500,7500,6655,6646,913,701,300,300

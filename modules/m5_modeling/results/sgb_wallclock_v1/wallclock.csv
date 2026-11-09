@@ -1,0 +1,5 @@
+task,trees,cols_guest,cols_host,wall_per_tree_base,wall_per_tree_plain,saving_wall,saving_low,saving_high,saving_s5m7_single_process,loopback_mb_base,loopback_mb_plain,preds_identical
+uci_bank,10,12,7,2.9761,1.7877,0.3993,0.3761,0.4215,0.4007,97.2090,98.7350,True
+santander_g3,10,19,25,22.3578,15.3424,0.3138,0.3046,0.3226,0.2851,591.1854,592.7946,True
+mock_overlap80,10,20,25,22.0168,14.7499,0.3301,0.3207,0.3395,0.3155,368.2737,371.0403,True
+orange_large_churn,5,300,300,47.4540,28.0130,0.4097,0.3777,0.4408,0.4292,127.1583,127.1893,True

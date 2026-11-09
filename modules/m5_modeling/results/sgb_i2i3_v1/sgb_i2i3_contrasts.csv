@@ -1,0 +1,15 @@
+dataset,contrast,sgb_diff,sgb_ci_low,sgb_ci_high,sgb_p,sgb_p_holm_14,proxy_6seed_diff,proxy_6seed_ci_low,proxy_6seed_ci_high,sgb_holds,proxy_holds,agree
+coil2000,F_opt_p − F_def,0.05030,0.02065,0.07702,0.00000,0.00000,0.03081,0.00321,0.05701,True,True,True
+mock_overlap20,F_opt_p − F_def,0.01373,0.00285,0.02489,0.01800,0.09000,0.00808,-0.00496,0.02202,True,False,False
+orange_churn,F_opt_p − F_def,0.03087,0.01806,0.04379,0.00000,0.00000,0.02055,0.00869,0.03443,True,True,True
+orange_upsell,F_opt_p − F_def,0.03316,0.02309,0.04300,0.00000,0.00000,0.03267,0.02325,0.04183,True,True,True
+mock_overlap50,F_opt_p − F_def,0.00417,-0.00345,0.01145,0.30400,0.30400,0.00057,-0.00709,0.00752,False,False,True
+santander_tx,F_opt_p − F_def,0.04393,0.03331,0.05345,0.00000,0.00000,0.04801,0.03805,0.05779,True,True,True
+ieee_part0,F_opt_p − F_def,0.00963,-0.00253,0.02290,0.11800,0.23600,0.01641,0.00289,0.03008,False,True,False
+mock_balanced,F_opt_p − F_def,0.00998,0.00430,0.01553,0.00000,0.00000,0.00881,0.00325,0.01462,True,True,True
+mock_overlap80,F_opt_p − F_def,0.00751,0.00250,0.01276,0.00600,0.03600,0.00150,-0.00410,0.00735,True,False,False
+fedads,F_opt_p − F_def,0.02035,0.00750,0.03303,0.00200,0.01400,0.02347,0.01085,0.03645,True,True,True
+santander_g3,F_opt_p − F_def,0.00599,0.00024,0.01189,0.04400,0.13200,0.00513,0.00015,0.01010,True,True,True
+homecredit,F_opt_p − F_def,0.02142,0.01472,0.02798,0.00000,0.00000,0.01515,0.00826,0.02162,True,True,True
+orange_large_upsell,F_opt_p − F_def,0.01611,0.00845,0.02353,0.00000,0.00000,0.01087,0.00385,0.01724,True,True,True
+orange_large_appetency,F_opt_p − F_def,0.02340,0.00340,0.04674,0.02200,0.09000,0.02504,0.00027,0.05004,True,True,True

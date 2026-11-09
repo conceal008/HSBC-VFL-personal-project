@@ -1,0 +1,18 @@
+component: sgb_cost_screen
+module: M5
+path: modules/m5_modeling/components/sgb_cost_screen.py
+purpose: S5.M7 / S5.M8 候选文档 M3 后半「主动方明文直方图」与预筛列数的真实 SGB 开销：在实验代码里替换隐语 1.13 sgb_v 的 GradientEncryptor.cache_to_workers，被动方仍收到同一份梯度密文、主动方改用自己明文梯度的 HEU 明文对象（不改隐语源码）；完整拟合与 S5.M2 存档的测试打分逐行比较，ABBA 顺序计时（两方分桶求和、取回秒数分开记录），Orange 大版上每方 k 列的单树开销与线性外推。组件里的 confirm_large 是启动前为 S5.M8 预写的入口，没有被调用：S5.M8 需要与 S5.M2 同一套测试行 bootstrap 对比，改用 sgb_large_confirm（复用本组件的明文直方图替换）。
+inputs:
+- S5.M1 / S5.M5 的私有输入矩阵与结果 JSON（MS_PRIVATE_ROOT、MS_RUN_DIR、MS_LARGE_DIR）
+- S5.M2 存档的真实 SGB 测试打分（MS_SGB_DIR）
+- 配置 modules/m5_modeling/configs/s5_m7_sgb_cost.yaml
+outputs:
+- 运行输出（MS_COST_DIR）：每个任务的结果 JSON（只含聚合指标：逐行比较的不同行数与最大差、拟合秒数、两方分项秒数）与启动指纹
+- 公开汇总 modules/m5_modeling/results/sgb_cost_v1/
+tests:
+- modules/m5_modeling/tests/test_sgb_cost_screen.py
+cross_border_assets: []
+cross_border_note: 公开数据上的离线单进程两方模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 耗时为会话容器上 debug_mode 单进程顺序执行的两方合计计算时间，不代表真实部署的墙钟时长；明文直方图只是实验代码里的替换，用于正式联调需在隐语上游或项目封装层实现并经安全评审（技术侧自评，未经法务复核，W-001）。逐行打分只存会话临时目录，不入仓库。
+declared_at: '2026-11-04'
+declared_by: Claude (claude-opus-5-5, Claude Code)

@@ -1,0 +1,2 @@
+dataset,contrast,sgb_diff,sgb_ci_low,sgb_ci_high,sgb_p,proxy_6seed_diff,proxy_6seed_ci_low,proxy_6seed_ci_high
+mock_overlap80,F_M6 − F_opt_p,0.00355,0.00015,0.00678,0.03800,0.00920,0.00586,0.01284

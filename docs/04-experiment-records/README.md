@@ -26,3 +26,5 @@
 2026-11-04：[优化方法与数据集：增益与组合报告 v1.5](reports/优化方法与数据集_增益与组合报告_v1.5.md)——在 v1.4 基础上加入 M3 后半主动方明文直方图与真实 SGB 开销（S5.M7）、Orange 大版流失的真实 SGB 复核（S5.M8）；新增结果在 `modules/m5_modeling/results/sgb_cost_v1/`、`sgb_large_v1/`。交接见 [HO-20261104-…-method-screen-4](../03-handoff/HO-20261104-Claude-M5-method-screen-4.md)。开发证据，不代表汇丰效果。
 
 2026-11-05：[优化方法与数据集：增益与组合报告 v1.7](reports/优化方法与数据集_增益与组合报告_v1.7.md)——在 v1.5 基础上加入其余 14 个任务的 I2 + I3 真实 SGB 复核（S5.M9，17 个任务中 15 个成立）与明文直方图的两进程墙钟（S5.M10）；新增结果在 `modules/m5_modeling/results/sgb_i2i3_v1/`、`sgb_wallclock_v1/`。交接见 [HO-20261105-…-method-screen-5](../03-handoff/HO-20261105-Claude-M5-method-screen-5.md)。开发证据，不代表汇丰效果。
+
+2026-11-09：[优化方法与数据集：增益与组合报告 v1.8](reports/优化方法与数据集_增益与组合报告_v1.8.md)——在 v1.7 基础上加入 M6 在其余 4 个代理显著任务上的真实 SGB（S5.M11，7 个中 6 个成立）与列采样配置的 SGB 多 seed（S5.M12，I2 + I3 改用 6 seed 后 17 个任务中 13 个成立），并更正单次拟合「不含随机性」的说法；新增结果在 `modules/m5_modeling/results/sgb_m6_more_v1/`、`sgb_seeds_v1/`。交接见 [HO-20261109-…-method-screen-6](../03-handoff/HO-20261109-Claude-M5-method-screen-6.md)。开发证据，不代表汇丰效果。

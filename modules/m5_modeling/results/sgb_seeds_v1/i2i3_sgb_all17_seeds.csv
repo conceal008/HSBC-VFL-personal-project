@@ -1,0 +1,18 @@
+dataset,basis,sgb_diff,sgb_ci_low,sgb_ci_high,sgb_holds,committed_seed11_diff,committed_seed11_holds,proxy_6seed_diff,proxy_holds
+coil2000,seed 11 单次（S5.M9）,0.05030,0.02065,0.07702,True,0.05030,True,0.03081,True
+mock_overlap20,6 seed（S5.M12）,0.00622,-0.00558,0.01774,False,0.01373,True,0.00808,False
+orange_churn,seed 11 单次（S5.M9）,0.03087,0.01806,0.04379,True,0.03087,True,0.02055,True
+orange_upsell,6 seed（S5.M12）,0.03280,0.02328,0.04274,True,0.03316,True,0.03267,True
+mock_overlap50,6 seed（S5.M12）,0.00508,-0.00169,0.01173,False,0.00417,False,0.00057,False
+santander_tx,seed 11 单次（S5.M9）,0.04393,0.03331,0.05345,True,0.04393,True,0.04801,True
+ieee_part0,6 seed（S5.M12）,0.00707,-0.00520,0.02023,False,0.00963,False,0.01641,True
+mock_balanced,seed 11 单次（S5.M9）,0.00998,0.00430,0.01553,True,0.00998,True,0.00881,True
+mock_overlap80,seed 11 单次（S5.M9）,0.00751,0.00250,0.01276,True,0.00751,True,0.00150,False
+fedads,6 seed（S5.M12）,0.02303,0.01120,0.03529,True,0.02035,True,0.02347,True
+santander_g3,6 seed（S5.M12）,0.00527,-0.00038,0.01072,False,0.00599,True,0.00513,True
+homecredit,seed 11 单次（S5.M9）,0.02142,0.01472,0.02798,True,0.02142,True,0.01515,True
+orange_large_upsell,6 seed（S5.M12）,0.01434,0.00740,0.02121,True,0.01611,True,0.01087,True
+orange_large_appetency,6 seed（S5.M12）,0.02195,0.00223,0.04327,True,0.02340,True,0.02504,True
+uci_bank,6 seed（S5.M12）,0.01118,0.00273,0.01960,True,0.01024,True,0.01811,True
+orange_appetency,seed 11 单次（已提交（S5.M2 / S5.M8））,0.03602,0.01681,0.05655,True,0.03602,True,0.04448,True
+orange_large_churn,seed 11 单次（已提交（S5.M2 / S5.M8））,0.03532,0.02220,0.04827,True,0.03532,True,0.03592,True

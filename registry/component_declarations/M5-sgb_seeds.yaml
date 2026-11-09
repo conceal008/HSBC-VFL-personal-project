@@ -1,0 +1,18 @@
+component: sgb_seeds
+module: M5
+path: modules/m5_modeling/components/sgb_seeds.py
+purpose: S5.M12 列采样配置的 SGB 训练随机性（DR-M5-017 · D-4 ~ D-5、D-8）：优化版联邦列采样 < 1 的 9 个任务（按配置判定）再拟合 seed 22 / 33 / 44 / 55 / 66，与已存档的 seed 11 合成 6 个 seed，用主动方明文直方图版本；每个任务第一个新 seed 前抽查前 2 棵原版与明文逐位相同并外推，超过上限的不做；先做原版联邦的确定性核对（换 seed 再拟合与 seed 11 逐位比较，不同则原版联邦也拟合 5 个新 seed，D-8）；先做全部任务的优化版联邦、再做原版联邦；I2 + I3 改用两层 bootstrap（测试客户簇 × 两个方法的 seed），与 seed 11 单次结论对照；每个 seed 分别存档、分段续跑。
+inputs:
+- S5.M1 / S5.M5 的私有输入矩阵与结果 JSON（MS_PRIVATE_ROOT、MS_RUN_DIR、MS_LARGE_DIR）
+- S5.M9 / S5.M2 存档的 seed 11 原版联邦与优化版联邦 SGB 测试打分（MS_M9_DIR、MS_SGB_DIR）
+- 配置 modules/m5_modeling/configs/s5_m12_sgb_seeds.yaml
+outputs:
+- 运行输出（MS_M12_DIR）：确定性核对、每个任务的抽查、每个 seed 的拟合信息与对比 JSON、全部任务的汇总（只含聚合指标），新 seed 打分与启动指纹
+- 公开汇总 modules/m5_modeling/results/sgb_seeds_v1/
+tests:
+- modules/m5_modeling/tests/test_sgb_seeds.py
+cross_border_assets: []
+cross_border_note: 公开数据上的离线单进程两方模拟，不接触真实个人信息、不向境外传输任何数据，故无跨境资产。
+caveat: 原版联邦是否多 seed 取决于确定性核对（2026-11-08 未通过，按 D-8 用 6 个 seed）；耗时为会话容器上单进程两方模拟的合计计算时间。明文直方图只是实验代码里的替换，用于正式联调需在隐语上游或项目封装层实现并经安全评审（技术侧自评，未经法务复核，W-001）。新 seed 打分只存会话临时目录，不入仓库。
+declared_at: '2026-11-08'
+declared_by: Claude (claude-opus-5-5, Claude Code)

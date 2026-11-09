@@ -1,0 +1,2 @@
+task,method,seed,identical,max_abs_diff,n_rows_differ,fit_seconds
+uci_bank,F_def,22,False,0.14634,9,151.10000

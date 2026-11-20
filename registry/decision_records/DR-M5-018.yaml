@@ -1,0 +1,46 @@
+dr_id: DR-M5-018
+title: 归档第三阶段跨数据集验证结果、汇报报告与未重构复现脚本快照
+date: '2026-11-20T16:45:00+08:00'
+agent: Antigravity (Gemini 4 Neon)
+module: M5
+status: active
+supersedes: null
+requested_by: conceal008（所有者 2026-11-20 明确要求将第三阶段方法、代码与数据结果上传至 GitHub，并选定「结果入 modules/results + 脚本以复现快照入 docs/04-experiment-records + 写 DR 如实声明未按门禁 5/6 重构」）
+related_step: M5 · 第三阶段跨数据集验证归档
+related_change_id: CL-20261120-M5-001
+
+context: |
+  第三阶段在维护者本机完成了 7 个公开数据集、9 组冻结实验（128 条可追溯指标）与 90+ 次真实 SecretFlow 1.14.0b0 SGB
+  同态加密复核（覆盖 X2 高频第三方与四方联邦、X1/X1+ 本地因果图与时序速度、M1x 非对齐样本利用、X3 营销期望价值排序、
+  C2 种子客群 Lookalike 跨 5 数据集证伪、I1+M3/I2+I3/M6/I6 真实 SGB 复核），并产出两份完整报告。
+  所有者要求将相关方法、代码与数据结果上传至 GitHub。经预检，原样实验脚本含约 567 处未提成常量的字面量与 17 处函数默认种子，
+  若直接放入 modules/ 将违反门禁 5（测试覆盖与组件声明）与门禁 6（R1/R2）；但若不上传脚本则读者无法核对全部计算细节。
+
+decisions:
+  - key: D-1
+    question: 第三阶段脚本、结果与报告在仓库中的存放位置与合规边界
+    decision: |
+      1. 冻结汇总结果（10 份 JSON + 1 份 128 行 CSV 总表 + README）存入白名单目录 modules/m5_modeling/results/stage3_cross_dataset_v1/；
+         严格排除本地 _cache/ 下的 .parquet / .npz 派生缓存文件（按 L-禁止不入库）。
+      2. 两份报告存入 docs/04-experiment-records/reports/（按术语表修正禁用词并改为仓库相对路径）。
+      3. 原样复现脚本（13 个 .py + run_all.sh）与冻结配置 stage3_config.json 作为「复现快照」存入
+         docs/04-experiment-records/stage3_cross_dataset_snapshot/，并在 README 中如实声明其未按门禁 5/6 重构，
+         不作为 modules/ 下的正式生产组件使用。
+    rationale: |
+      兼顾原则一（知识与代码入库可追溯）、原则二（数据永不入库）与门禁 1/5/6 的刚性约束——
+      既不弱化 modules/ 门禁、也不强行在未重跑逐位核对的情况下草率改写已冻结实验脚本。
+    falsifier: |
+      若后续将快照中的任一脚本直接复制进 modules/ 或 platform/ 而未经门禁 5/6 重构与逐位一致复核，或快照中混入任何原始行数据/缓存文件 → 本归档方式作废并须立即回滚清理。
+
+  - key: D-2
+    question: 分支与合并策略
+    decision: |
+      在基于 origin/main 创建的独立分支 m5/stage3-cross-dataset 上提交并推送，推送前必须通过 bash ci/run_all_gates.sh 全部 9 项门禁检查；
+      不直接强推 main，保留完整 PR 审查与独立回滚粒度。
+    rationale: 遵守维护约束 v2 §1.1 分支保护与门禁不可绕过原则。
+    falsifier: 任一 CI 门禁未通过即推送 → 违反维护约束，提交无效。
+
+falsifier: |
+  本决策整体被推翻的条件：①仓库中发现第三阶段任何原始行数据、_cache 派生文件或凭证；②快照脚本被未经重构地当作正式模块组件引用；③报告中的任一数字无法在 modules/m5_modeling/results/stage3_cross_dataset_v1/ 中溯源。
+
+review_trigger: 后续排期将第三阶段核心组件（如 X1+ 时序特征、M1x 校准融合、4 方 M3）正式重构迁入 modules/m5_modeling/components/ 时。

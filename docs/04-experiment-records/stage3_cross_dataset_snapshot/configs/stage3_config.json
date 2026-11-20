@@ -1,0 +1,46 @@
+{
+  "stage": "第三阶段_创新方法跨数据集验证",
+  "created_date": "2026-11-19",
+  "protocol_version": "v1.0",
+  "benchmark_baseline_decision": "2026-07-29 会议纪要（仅线性/树模型，排除 FATE 与神经网络，严格剔除未来信息与 UCI duration）",
+  "seeds": [11, 22, 33, 44, 55, 66],
+  "split_seed": 2026,
+  "bootstrap_iters": 1000,
+  "bootstrap_seed": 20261119,
+  "alpha": 0.05,
+  "datasets": {
+    "home_credit_dir": "/Applications/总文件夹/汇丰/8-9月/数据集/HomeCredit_DefaultRisk/解压",
+    "ieee_cis_dir": "/Applications/总文件夹/汇丰/汇丰项目6-7月/全量数据集",
+    "santander_csv": "/Applications/总文件夹/汇丰/8-9月/数据集/santander-product-recommendation/解压/train_ver2.csv",
+    "hillstrom_csv": "/Applications/总文件夹/汇丰/8-9月/数据集/Hillstrom_邮件营销实验/hillstrom_email_marketing.csv",
+    "coil2000_dir": "/Applications/总文件夹/汇丰/8-9月/数据集/COIL2000_保险营销/解压",
+    "uci_bank_csv": "/Applications/总文件夹/汇丰/8-9月/数据集/UCI_BankMarketing/解压/bank-additional/bank-additional-full.csv",
+    "orange_small_dir": "/Applications/总文件夹/汇丰/8-9月/数据集/Orange_KDDCup2009/解压/小版",
+    "orange_labels_dir": "/Applications/总文件夹/汇丰/8-9月/数据集/Orange_KDDCup2009"
+  },
+  "engines": {
+    "proxy_python": "/opt/anaconda3/bin/python3",
+    "secretflow_python": "/Applications/总文件夹/汇丰/8-9月/隐语_SecretFlow/.venv/bin/python",
+    "proxy_model": "sklearn.ensemble.HistGradientBoostingClassifier (max_bins=33)",
+    "real_vfl_model": "SecretFlow 1.14.0b0 SGB (HEU OU/Paillier 2048-bit, FM64, sketch_eps=0.03)"
+  },
+  "financial_assumptions": {
+    "hillstrom": {
+      "value_source": "真实观测字段 spend（美元）",
+      "email_contact_cost_usd": 0.50,
+      "tag": "spend为真实观测金额；触达成本0.50美元为【假设】"
+    },
+    "santander": {
+      "value_source": "真实客户年收入 renta 标准化分位数加权 × 单位新产品年化净值【假设】",
+      "base_product_value_eur": 120.0,
+      "contact_cost_eur": 8.0,
+      "tag": "renta为真实字段；120欧元基值与8欧元触达成本为【假设】"
+    },
+    "coil2000": {
+      "value_source": "原表购买力档位 MKOOPKLA 与现有保单贡献档位 P* 加权保费价值【假设】",
+      "base_caravan_commission_eur": 150.0,
+      "contact_cost_eur": 12.0,
+      "tag": "保费佣金基值与触达成本均为【假设】"
+    }
+  }
+}

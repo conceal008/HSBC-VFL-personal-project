@@ -18,3 +18,10 @@
 2026-10-16：[迁移漏洞修复报告](迁移漏洞复核与修复报告.md)、[只读兼容清单v2](compatibility_manifest_v2.json)。旧根日志现保留原文行号和尾部导航；原H1“仅导航”是历史。当前仍暂停，状态索引/权限/恢复依赖补充见新HO。
 
 当前日志：[v12迁移查漏修复](logbooks/实验方法与运行日志_v12.md)；v11是上轮暂停归档。
+
+## 第三阶段跨数据集验证与汇报归档（2026-11-20，DR-M5-018）
+
+- 成果汇报（理论机制 + 128 条跨数据集实证 + 10 页 PPT 提纲）：[第三阶段成果汇报_理论机制与跨数据集实证报告_v1.0.md](reports/第三阶段成果汇报_理论机制与跨数据集实证报告_v1.0.md)
+- 实验详单（Exp1–Exp6 代理与真实 SecretFlow 1.14 SGB 复核）：[第三阶段_创新方法跨数据集验证报告_v1.0.md](reports/第三阶段_创新方法跨数据集验证报告_v1.0.md)
+- 冻结汇总结果（128 条 CSV/JSON 总表）：[stage3_cross_dataset_v1](../../modules/m5_modeling/results/stage3_cross_dataset_v1/README.md)
+- 复现脚本与配置快照（未重构存档）：[stage3_cross_dataset_snapshot](stage3_cross_dataset_snapshot/README.md)

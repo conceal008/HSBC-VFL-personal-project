@@ -1,0 +1,287 @@
+{
+  "experiment": "Exp2_X1Plus_Real_SecretFlow_SGB_Confirm",
+  "created_at": "2026-11-19 22:27:50",
+  "engine": "SecretFlow 1.14.0b0 SGB (HEU OU 2048-bit + M3, FM64, sketch_eps=0.03, prior base_score)",
+  "note": "单次拟合真实 SGB 复核（seed=11，40棵树，depth=4，lr=0.1，reg_lambda=5.0），区间为测试集配对抽样 95% CI",
+  "home_credit_sgb": {
+    "arms": {
+      "F3_pay_static": {
+        "parties": [
+          "neidi",
+          "hk",
+          "pay"
+        ],
+        "party_dims": [
+          133,
+          11,
+          41
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.395,
+        "fit_sec": 179.017,
+        "pred_sec": 0.264,
+        "metrics": {
+          "auc": 0.7276375562600759,
+          "pr_auc": 0.21618010672558657,
+          "ks": 0.34249426162208807,
+          "brier": 0.0694435797880523,
+          "top5_lift": 3.71900826446281
+        }
+      },
+      "F3_pay_plus_x1v": {
+        "parties": [
+          "neidi",
+          "hk",
+          "pay"
+        ],
+        "party_dims": [
+          133,
+          11,
+          71
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.377,
+        "fit_sec": 187.585,
+        "pred_sec": 0.191,
+        "metrics": {
+          "auc": 0.7324477552903949,
+          "pr_auc": 0.21716956626916967,
+          "ks": 0.34283886395100055,
+          "brier": 0.06912552025714344,
+          "top5_lift": 3.6776859504132235
+        }
+      }
+    },
+    "contrast": {
+      "delta_auc": 0.0048101990303189845,
+      "ci95_low": -0.0009689432193596081,
+      "ci95_high": 0.01050531481739543,
+      "p_test_boot": 0.12387612387612387
+    }
+  },
+  "santander_sgb": {
+    "arms": {
+      "F0_static": {
+        "parties": [
+          "neidi",
+          "hk_dep"
+        ],
+        "party_dims": [
+          27,
+          15
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -3.4864582618070625,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.321,
+        "fit_sec": 45.107,
+        "pred_sec": 0.177,
+        "metrics": {
+          "auc": 0.8655961062480717,
+          "pr_auc": 0.18948854799728895,
+          "ks": 0.6079338792665734,
+          "brier": 0.026329592313487853,
+          "top5_lift": 6.97986577181208
+        }
+      },
+      "F0_plus_x1v_both": {
+        "parties": [
+          "neidi",
+          "hk_dep"
+        ],
+        "party_dims": [
+          33,
+          26
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -3.4864582618070625,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.603,
+        "fit_sec": 65.863,
+        "pred_sec": 0.108,
+        "metrics": {
+          "auc": 0.9046498404120648,
+          "pr_auc": 0.3619676453353924,
+          "ks": 0.6753841662758249,
+          "brier": 0.02250763211945437,
+          "top5_lift": 10.46979865771812
+        }
+      }
+    },
+    "contrast": {
+      "delta_auc": 0.03905373416399305,
+      "ci95_low": 0.02161074490155617,
+      "ci95_high": 0.05643978570988755,
+      "p_test_boot": 0.001998001998001998
+    }
+  },
+  "ieee_w3_sgb": {
+    "arms": {
+      "F0_2party": {
+        "parties": [
+          "neidi_tx",
+          "hk_id"
+        ],
+        "party_dims": [
+          60,
+          57
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.5451942785088972,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.222,
+        "fit_sec": 153.79,
+        "pred_sec": 0.17,
+        "metrics": {
+          "auc": 0.8969739692752101,
+          "pr_auc": 0.6445850582250381,
+          "ks": 0.6582457983193277,
+          "brier": 0.05011058692666363,
+          "top5_lift": 8.75
+        }
+      },
+      "F_x1_full": {
+        "parties": [
+          "neidi_tx",
+          "hk_id"
+        ],
+        "party_dims": [
+          89,
+          61
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.5451942785088972,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.424,
+        "fit_sec": 118.195,
+        "pred_sec": 0.201,
+        "metrics": {
+          "auc": 0.9071014968487395,
+          "pr_auc": 0.658849652341663,
+          "ks": 0.6607142857142857,
+          "brier": 0.04916950772263281,
+          "top5_lift": 8.75
+        }
+      }
+    },
+    "contrast": {
+      "delta_auc": 0.010127527573529416,
+      "ci95_low": 0.005103393456430713,
+      "ci95_high": 0.01578252625962631,
+      "p_test_boot": 0.001998001998001998
+    }
+  },
+  "total_elapsed_sec": 760.74
+}

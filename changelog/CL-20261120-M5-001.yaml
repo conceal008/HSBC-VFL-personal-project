@@ -1,0 +1,51 @@
+change_id: CL-20261120-M5-001
+timestamp: '2026-11-20T16:50:00+08:00'
+agent: Antigravity (Gemini 4 Neon)
+module: M5
+type: doc
+title: 归档第三阶段跨数据集验证报告、128条汇总结果与复现脚本快照（DR-M5-018）
+what: |
+  - 新增 modules/m5_modeling/results/stage3_cross_dataset_v1/：包含 128 条汇总总表（stage3_master_summary.csv/.json）、
+    Exp1–Exp6 共 9 份公开研究数据集代理与真实 SecretFlow 1.14.0b0 SGB 汇总 JSON 及 README.md；严格排除 _cache/ 派生缓存。
+  - 新增两份报告至 docs/04-experiment-records/reports/：
+    1) 第三阶段成果汇报_理论机制与跨数据集实证报告_v1.0.md（六大理论机制推导、128 条跨数据集实证、四道上线门禁与 10 页汇报提纲）；
+    2) 第三阶段_创新方法跨数据集验证报告_v1.0.md（Exp1–Exp6 实验详单）。
+  - 新增复现脚本快照 docs/04-experiment-records/stage3_cross_dataset_snapshot/（13 个 .py 脚本、run_all.sh、stage3_config.json 及 README），
+    如实声明未按门禁 5/6 重构。
+  - 新增决策记录 registry/decision_records/DR-M5-018.yaml 与交接记录 docs/03-handoff/HO-20261120-Antigravity-M5-stage3-cross-dataset.md，
+    并在 docs/04-experiment-records/README.md 追加索引。
+why: |
+  所有者 2026-11-20 明确要求将第三阶段跨数据集验证的方法、代码与结果上传至 GitHub 仓库，
+  并确认采用「冻结汇总入 modules/results + 原样脚本作复现快照入 docs/04-experiment-records + 写 DR-M5-018 声明」的合规路径，
+  以在遵守数据永不入库与既有门禁的前提下实现完整可追溯性。
+links:
+  branch_card: none
+  decision_record: DR-M5-018
+  loop_step: M5 · 第三阶段跨数据集验证归档与汇报发布
+cross_border_impact: none
+cross_border_detail: 仅归档公开研究数据集的汇总指标、理论汇报文档与本地复现快照，不涉及任何跨境资产或真实机构数据。
+sensitive_review:
+  triggered: true
+  checklist_passed: true
+  reviewer: Antigravity (Gemini 4 Neon)
+  conclusion: |
+    按 DR-GOV-012 逐文件审查：modules/m5_modeling/results/stage3_cross_dataset_v1/ 仅含公开研究数据集的汇总指标
+    （AUROC、PR-AUC、KS、Brier、Top-K 捕获价值与净收益、配对差、95% CI、Holm 校正 p 值、拟合耗时与测试集样本量/正例率）；
+    不含任何原始或清洗行数据、样本标识或其散列、逐行预测分数、特征分箱边界、模型权重或凭证。
+    本地 _cache/ 下的 .parquet/.npz 派生缓存严格未入库。报告已标明构造切分与金额假设（【假设】），
+    不代表汇丰真实客群效果，合规相关表述附 W-001 技术侧自评免责。
+downstream_affected:
+- M6
+- M7
+- M9
+breaking_change: false
+migration: 无。全部为新增文件，仅在 docs/04-experiment-records/README.md 追加第三阶段索引。
+reproducibility:
+  config: docs/04-experiment-records/stage3_cross_dataset_snapshot/configs/stage3_config.json
+  config_hash: sha256:feace06f06bca0830cb8394245b35a18a2e17c89127330def8bf544876e9b552
+  seeds: [11, 22, 33, 44, 55, 66]
+  env_lock: environments/g3_sfenv.lock
+rollback: revert 本提交或删除分支 m5/stage3-cross-dataset 即可，不影响 main 与既有模块。
+verification: |
+  - 报告内全部指标经由 aggregate_results.py 从 modules/m5_modeling/results/stage3_cross_dataset_v1/exp*.json 自动汇总至 stage3_master_summary.csv（128 行）。
+  - 提交前运行 bash ci/run_all_gates.sh 验证全部 9 项门禁（数据合规扫描、步骤与元数据、changelog schema、合规一致性、代码质量与术语规范 Q6、可复现性、端到端冒烟、M9 证据链与 53 项门禁回归测试）全部通过。

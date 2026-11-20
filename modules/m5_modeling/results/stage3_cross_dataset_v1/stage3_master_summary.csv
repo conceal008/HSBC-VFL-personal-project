@@ -1,0 +1,129 @@
+﻿exp,method,dataset,engine,contrast,metric,base_val,new_val,delta,ci95,p_val,p_type,sig,source_file
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F0_2party - L0_neidi,ROC-AUC,0.6856,0.7357,0.0501,"[+0.0390, +0.0608]",0.016,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F3_bureau - F0_2party,ROC-AUC,0.7357,0.7396,0.0039,"[+0.0009, +0.0070]",0.036,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F3_pay_new - F0_2party,ROC-AUC,0.7357,0.7575,0.0218,"[+0.0159, +0.0272]",0.016,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F4_all_4party - F0_2party,ROC-AUC,0.7357,0.7602,0.0245,"[+0.0185, +0.0304]",0.016,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F4_all_4party - F3_bureau,ROC-AUC,0.7396,0.7602,0.0206,"[+0.0150, +0.0260]",0.016,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F4_all_4party - F3_pay_new,ROC-AUC,0.7575,0.7602,0.0027,"[+0.0002, +0.0051]",0.0839,p_holm,False,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F3_pay_cov70 - F0_2party,ROC-AUC,0.7357,0.7499,0.0142,"[+0.0096, +0.0186]",0.016,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,Home Credit (100k),"HGB代理(6-seed,33桶)",F3_pay_cov40 - F0_2party,ROC-AUC,0.7357,0.7393,0.0036,"[-0.0007, +0.0074]",0.0899,p_holm,False,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"Santander (60k, 构造三方)","HGB代理(6-seed,33桶)",F0_2party - L0_neidi,ROC-AUC,0.8383,0.8754,0.0371,"[+0.0268, +0.0468]",0.008,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"Santander (60k, 构造三方)","HGB代理(6-seed,33桶)",F2_neidi_third - L0_neidi,ROC-AUC,0.8383,0.8441,0.0057,"[+0.0008, +0.0110]",0.02,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"Santander (60k, 构造三方)","HGB代理(6-seed,33桶)",F3_3party - F0_2party,ROC-AUC,0.8754,0.8834,0.008,"[+0.0035, +0.0125]",0.008,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"Santander (60k, 构造三方)","HGB代理(6-seed,33桶)",F3_3party - L0_neidi,ROC-AUC,0.8383,0.8834,0.0451,"[+0.0345, +0.0554]",0.008,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"UCI Bank 无duration (41k, 构造三方)","HGB代理(6-seed,33桶)",F0_2party - L0_client,ROC-AUC,0.6685,0.7799,0.1114,"[+0.0954, +0.1291]",0.006,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"UCI Bank 无duration (41k, 构造三方)","HGB代理(6-seed,33桶)",F3_3party_macro - F0_2party,ROC-AUC,0.7799,0.8093,0.0294,"[+0.0204, +0.0390]",0.006,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2,X2 多方/第三方扩展,"UCI Bank 无duration (41k, 构造三方)","HGB代理(6-seed,33桶)",F3_3party_macro - L0_client,ROC-AUC,0.6685,0.8093,0.1408,"[+0.1229, +0.1593]",0.006,p_holm,True,results/exp1_x2_multiparty.json
+Exp1_X2_SGB,X2 多方/第三方扩展,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F3_bureau - F0_2party,ROC-AUC,0.7098,0.7125,0.0027,"[-0.0038, +0.0094]",0.3836,p_test_boot,False,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F3_pay_new - F0_2party,ROC-AUC,0.7098,0.7276,0.0179,"[+0.0069, +0.0282]",0.004,p_test_boot,True,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F4_all - F0_2party,ROC-AUC,0.7098,0.7282,0.0184,"[+0.0073, +0.0296]",0.004,p_test_boot,True,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F4_all - F3_bureau,ROC-AUC,0.7125,0.7282,0.0156,"[+0.0050, +0.0262]",0.012,p_test_boot,True,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F4_all - F3_pay_new,ROC-AUC,0.7276,0.7282,0.0005,"[-0.0050, +0.0061]",0.8212,p_test_boot,False,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,"Santander (10k/5k, 构造三方)",真实 SecretFlow 1.14 SGB (OU),F3_3party - F0_2party,ROC-AUC,0.8656,0.8674,0.0018,"[-0.0058, +0.0096]",0.6394,p_test_boot,False,results/exp1_x2_sgb_real.json
+Exp1_X2_SGB,X2 多方/第三方扩展,"UCI Bank (10k/5k, 构造三方)",真实 SecretFlow 1.14 SGB (OU),F3_3party - F0_2party,ROC-AUC,0.7711,0.7996,0.0285,"[+0.0147, +0.0425]",0.002,p_test_boot,True,results/exp1_x2_sgb_real.json
+Exp2_X1+,X1+ 因果时序速度,Home Credit (100k),"HGB代理(6-seed,33桶)",F0_plus_x1v - F0_2party,ROC-AUC,0.7357,0.7501,0.0144,"[+0.0095, +0.0191]",0.008,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,Home Credit (100k),"HGB代理(6-seed,33桶)",F3_pay_plus_x1v - F3_pay_static,ROC-AUC,0.7575,0.7561,-0.0014,"[-0.0043, +0.0017]",0.7992,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,Home Credit (100k),"HGB代理(6-seed,33桶)",F4_plus_x1v - F4_static,ROC-AUC,0.7602,0.7594,-0.0007,"[-0.0036, +0.0017]",0.7992,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,Home Credit (100k),"HGB代理(6-seed,33桶)",F4_plus_x1v - F0_2party,ROC-AUC,0.7357,0.7594,0.0238,"[+0.0172, +0.0298]",0.008,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,"Santander (60k, 7月历史)","HGB代理(6-seed,33桶)",L0_x1v - L0_static,ROC-AUC,0.8383,0.8399,0.0016,"[-0.0040, +0.0078]",0.6693,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,"Santander (60k, 7月历史)","HGB代理(6-seed,33桶)",F0_x1v_both - F0_static,ROC-AUC,0.8754,0.9142,0.0387,"[+0.0291, +0.0498]",0.01,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,"Santander (60k, 7月历史)","HGB代理(6-seed,33桶)",F3_x1v_all - F3_static,ROC-AUC,0.8834,0.9238,0.0404,"[+0.0311, +0.0509]",0.01,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,"Santander (60k, 7月历史)","HGB代理(6-seed,33桶)",F0_x1v_both - L0_x1v,ROC-AUC,0.8399,0.9142,0.0743,"[+0.0621, +0.0866]",0.01,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+,X1+ 因果时序速度,"Santander (60k, 7月历史)","HGB代理(6-seed,33桶)",F3_x1v_all - F0_static,ROC-AUC,0.8754,0.9238,0.0484,"[+0.0388, +0.0601]",0.01,p_holm,True,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W1_55_70,"HGB代理(6-seed,card1簇Boot)",F0 - L0,ROC-AUC,0.9192,0.9269,0.0077,"[-0.0002, +0.0209]",0.3596,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W1_55_70,"HGB代理(6-seed,card1簇Boot)",F_x1_graph - F0,ROC-AUC,0.9269,0.9203,-0.0066,"[-0.0229, +0.0032]",0.7033,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W1_55_70,"HGB代理(6-seed,card1簇Boot)",F_x1plus_vel - F0,ROC-AUC,0.9269,0.9232,-0.0037,"[-0.0117, +0.0017]",0.7033,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W1_55_70,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F0,ROC-AUC,0.9269,0.9207,-0.0062,"[-0.0187, +0.0018]",0.7033,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W1_55_70,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F_x1_graph,ROC-AUC,0.9203,0.9207,0.0004,"[-0.0026, +0.0050]",0.985,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W2_70_85,"HGB代理(6-seed,card1簇Boot)",F0 - L0,ROC-AUC,0.9336,0.9358,0.0021,"[-0.0022, +0.0071]",0.6673,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W2_70_85,"HGB代理(6-seed,card1簇Boot)",F_x1_graph - F0,ROC-AUC,0.9358,0.9341,-0.0017,"[-0.0044, +0.0006]",0.5594,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W2_70_85,"HGB代理(6-seed,card1簇Boot)",F_x1plus_vel - F0,ROC-AUC,0.9358,0.9332,-0.0026,"[-0.0052, +0.0001]",0.3197,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W2_70_85,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F0,ROC-AUC,0.9358,0.9338,-0.0019,"[-0.0045, +0.0007]",0.5594,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W2_70_85,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F_x1_graph,ROC-AUC,0.9341,0.9338,-0.0003,"[-0.0024, +0.0020]",0.8292,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W3_85_100,"HGB代理(6-seed,card1簇Boot)",F0 - L0,ROC-AUC,0.9187,0.9272,0.0085,"[-0.0018, +0.0241]",0.6414,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W3_85_100,"HGB代理(6-seed,card1簇Boot)",F_x1_graph - F0,ROC-AUC,0.9272,0.9223,-0.0049,"[-0.0132, +0.0008]",0.6394,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W3_85_100,"HGB代理(6-seed,card1簇Boot)",F_x1plus_vel - F0,ROC-AUC,0.9272,0.9288,0.0016,"[-0.0028, +0.0069]",1.0,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W3_85_100,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F0,ROC-AUC,0.9272,0.9259,-0.0013,"[-0.0083, +0.0032]",1.0,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_IEEE,X1图 + X1+速度(滚动窗),IEEE-CIS W3_85_100,"HGB代理(6-seed,card1簇Boot)",F_x1_full - F_x1_graph,ROC-AUC,0.9223,0.9259,0.0036,"[-0.0012, +0.0116]",0.6394,p_holm,False,results/exp2_x1plus_temporal_graph.json
+Exp2_X1+_SGB,X1/X1+ 因果图与时序速度,Home Credit (12k/6k),真实 SecretFlow 1.14 SGB (OU),F3_pay_plus_x1v - F3_pay_static,ROC-AUC,0.7276,0.7324,0.0048,"[-0.0010, +0.0105]",0.1239,p_test_boot,False,results/exp2_x1plus_sgb_real.json
+Exp2_X1+_SGB,X1/X1+ 因果图与时序速度,Santander (10k/5k),真实 SecretFlow 1.14 SGB (OU),F0_plus_x1v_both - F0_static,ROC-AUC,0.8656,0.9046,0.0391,"[+0.0216, +0.0564]",0.002,p_test_boot,True,results/exp2_x1plus_sgb_real.json
+Exp2_X1+_SGB,X1/X1+ 因果图与时序速度,IEEE-CIS W3 (12k/6k),真实 SecretFlow 1.14 SGB (OU),F_x1_full - F0_2party,ROC-AUC,0.897,0.9071,0.0101,"[+0.0051, +0.0158]",0.002,p_test_boot,True,results/exp2_x1plus_sgb_real.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",L0_plus_unaligned - L0_aligned,ROC-AUC,0.9259,0.9206,-0.0053,"[-0.0105, -0.0009]",0.1439,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",F0_aligned - L0_aligned,ROC-AUC,0.9259,0.9278,0.0019,"[-0.0036, +0.0082]",1.0,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",F0_aligned - L0_plus_unaligned,ROC-AUC,0.9206,0.9278,0.0072,"[-0.0009, +0.0159]",0.3756,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",M1x_prior_feature - F0_aligned,ROC-AUC,0.9278,0.9218,-0.0059,"[-0.0124, -0.0005]",0.1439,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",M1x_logit_fusion - F0_aligned,ROC-AUC,0.9278,0.9283,0.0005,"[-0.0022, +0.0028]",1.0,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",M1x_prior_feature - L0_plus_unaligned,ROC-AUC,0.9206,0.9218,0.0012,"[-0.0040, +0.0082]",1.0,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,IEEE-CIS 真实非对齐(26万+因果池),"HGB代理(6-seed,card1簇Boot)",M1x_logit_fusion - L0_plus_unaligned,ROC-AUC,0.9206,0.9283,0.0077,"[+0.0013, +0.0149]",0.0979,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_20pct(构造低重合),"HGB代理(6-seed,33桶)",L0_plus_unaligned - L0_aligned,ROC-AUC,0.6801,0.7004,0.0202,"[+0.0167, +0.0238]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_20pct(构造低重合),"HGB代理(6-seed,33桶)",F0_aligned - L0_aligned,ROC-AUC,0.6801,0.7451,0.065,"[+0.0586, +0.0715]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_20pct(构造低重合),"HGB代理(6-seed,33桶)",M1x_prior_feature - F0_aligned,ROC-AUC,0.7451,0.7468,0.0017,"[-0.0008, +0.0043]",0.1738,p_holm,False,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_20pct(构造低重合),"HGB代理(6-seed,33桶)",M1x_logit_fusion - F0_aligned,ROC-AUC,0.7451,0.7492,0.0041,"[+0.0026, +0.0058]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_50pct(构造低重合),"HGB代理(6-seed,33桶)",L0_plus_unaligned - L0_aligned,ROC-AUC,0.6921,0.6985,0.0065,"[+0.0039, +0.0090]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_50pct(构造低重合),"HGB代理(6-seed,33桶)",F0_aligned - L0_aligned,ROC-AUC,0.6921,0.7538,0.0617,"[+0.0552, +0.0683]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_50pct(构造低重合),"HGB代理(6-seed,33桶)",M1x_prior_feature - F0_aligned,ROC-AUC,0.7538,0.7558,0.002,"[+0.0001, +0.0040]",0.04,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x,M1x 非对齐样本利用,Home Credit overlap_50pct(构造低重合),"HGB代理(6-seed,33桶)",M1x_logit_fusion - F0_aligned,ROC-AUC,0.7538,0.7559,0.0021,"[+0.0011, +0.0030]",0.008,p_holm,True,results/exp3_m1x_unaligned.json
+Exp3_M1x_SGB,M1x 非对齐先验特征,IEEE-CIS 真实非对齐 (12k/6k),真实 SecretFlow 1.14 SGB (OU),M1x_prior_feature - F0_aligned,ROC-AUC,0.9126,0.9072,-0.0054,"[-0.0125, +0.0020]",0.1658,p_test_boot,False,results/exp3_m1x_sgb_real.json
+Exp3_M1x_SGB,M1x 非对齐先验特征,Home Credit 20%低重合 (12k/6k),真实 SecretFlow 1.14 SGB (OU),M1x_prior_feature - F0_aligned,ROC-AUC,0.7426,0.7573,0.0148,"[+0.0048, +0.0259]",0.004,p_test_boot,True,results/exp3_m1x_sgb_real.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top5%: F0_prob - L0_prob,Net Profit (USD),707.6,950.3,242.7,"[-972.7, +1502.6]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top5%: F0_X3_EV - F0_prob,Net Profit (USD),950.3,1181.6,231.3,"[-144.0, +789.5]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top5%: F0_X3_EV - L0_prob,Net Profit (USD),707.6,1181.6,474.0,"[-740.2, +1685.7]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top10%: F0_prob - L0_prob,Net Profit (USD),1716.2,2420.3,704.1,"[-1091.2, +2376.1]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top10%: F0_X3_EV - F0_prob,Net Profit (USD),2420.3,2512.8,92.5,"[-544.4, +520.1]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top10%: F0_X3_EV - L0_prob,Net Profit (USD),1716.2,2512.8,796.7,"[-1056.4, +2421.2]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top20%: F0_prob - L0_prob,Net Profit (USD),3803.5,4833.9,1030.4,"[-934.0, +2856.8]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top20%: F0_X3_EV - F0_prob,Net Profit (USD),4833.9,4904.4,70.5,"[-567.2, +658.5]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Hillstrom 邮件营销(真实spend),HGB代理(6-seed),Top20%: F0_X3_EV - L0_prob,Net Profit (USD),3803.5,4904.4,1100.9,"[-723.7, +2872.5]",1.0,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top5%: F0_X3_EV - F0_prob,Net Profit (EUR),34853.2,35404.0,550.9,"[-1685.4, +3176.8]",0.6294,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top5%: F3_X3_EV - F3_prob,Net Profit (EUR),35169.6,36485.9,1316.3,"[-864.6, +3544.1]",0.5475,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top5%: F3_X3_EV - L0_prob,Net Profit (EUR),15026.7,36485.9,21459.2,"[+15310.4, +28189.0]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top10%: F0_X3_EV - F0_prob,Net Profit (EUR),42048.6,43975.3,1926.7,"[-728.3, +4618.7]",0.4855,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top10%: F3_X3_EV - F3_prob,Net Profit (EUR),44521.5,46870.6,2349.2,"[+355.0, +4519.1]",0.0959,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top10%: F3_X3_EV - L0_prob,Net Profit (EUR),24162.0,46870.6,22708.6,"[+16237.6, +29777.3]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top20%: F0_X3_EV - F0_prob,Net Profit (EUR),49024.9,52769.4,3744.5,"[+1497.7, +6157.2]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top20%: F3_X3_EV - F3_prob,Net Profit (EUR),50638.1,53767.0,3129.0,"[+778.5, +6104.7]",0.0799,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,Santander 产品推荐(renta加权【假设】),HGB代理(6-seed),Top20%: F3_X3_EV - L0_prob,Net Profit (EUR),39367.8,53767.0,14399.2,"[+9746.4, +19768.9]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top5%: F0_prob - L0_prob,Net Profit (EUR),6537.5,8492.5,1955.0,"[-440.8, +4750.1]",0.2757,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top5%: F0_X3_EV - F0_prob,Net Profit (EUR),8492.5,10007.5,1515.0,"[+209.7, +2715.5]",0.0959,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top5%: F0_X3_EV - L0_prob,Net Profit (EUR),6537.5,10007.5,3470.0,"[+609.8, +6502.8]",0.0959,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top10%: F0_prob - L0_prob,Net Profit (EUR),9085.0,14042.5,4957.5,"[+1729.9, +8660.4]",0.028,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top10%: F0_X3_EV - F0_prob,Net Profit (EUR),14042.5,14800.0,757.5,"[-452.5, +2300.2]",0.3996,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top10%: F0_X3_EV - L0_prob,Net Profit (EUR),9085.0,14800.0,5715.0,"[+2531.8, +9907.7]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top20%: F0_prob - L0_prob,Net Profit (EUR),13270.0,18022.5,4752.5,"[+806.9, +8281.6]",0.0959,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top20%: F0_X3_EV - F0_prob,Net Profit (EUR),18022.5,19027.5,1005.0,"[-472.8, +2542.9]",0.3996,p_holm,False,results/exp4_x3_expected_value.json
+Exp4_X3,X3 期望价值排序,COIL2000 保险营销(购买力加权【假设】),HGB代理(6-seed),Top20%: F0_X3_EV - L0_prob,Net Profit (EUR),13270.0,19027.5,5757.5,"[+2014.9, +9355.7]",0.018,p_holm,True,results/exp4_x3_expected_value.json
+Exp5_C2,C2 种子客群Lookalike,HomeCredit_60k,"HGB代理(6-seed,33桶)",L0_plus_C2 - L0,ROC-AUC,0.6768,0.6724,-0.0044,"[-0.0099, +0.0013]",0.2517,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,HomeCredit_60k,"HGB代理(6-seed,33桶)",F0 - L0,ROC-AUC,0.6768,0.7397,0.0629,"[+0.0486, +0.0772]",0.006,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,HomeCredit_60k,"HGB代理(6-seed,33桶)",F0_plus_C2 - F0,ROC-AUC,0.7397,0.7389,-0.0008,"[-0.0045, +0.0026]",0.6054,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Santander_60k,"HGB代理(6-seed,33桶)",L0_plus_C2 - L0,ROC-AUC,0.8383,0.8381,-0.0002,"[-0.0048, +0.0046]",0.9131,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Santander_60k,"HGB代理(6-seed,33桶)",F0 - L0,ROC-AUC,0.8383,0.8834,0.0451,"[+0.0345, +0.0554]",0.006,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Santander_60k,"HGB代理(6-seed,33桶)",F0_plus_C2 - F0,ROC-AUC,0.8834,0.8773,-0.0061,"[-0.0106, -0.0016]",0.048,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,COIL2000,"HGB代理(6-seed,33桶)",L0_plus_C2 - L0,ROC-AUC,0.6497,0.645,-0.0048,"[-0.0192, +0.0102]",0.5075,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,COIL2000,"HGB代理(6-seed,33桶)",F0 - L0,ROC-AUC,0.6497,0.7305,0.0808,"[+0.0472, +0.1140]",0.006,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,COIL2000,"HGB代理(6-seed,33桶)",F0_plus_C2 - F0,ROC-AUC,0.7305,0.725,-0.0055,"[-0.0144, +0.0034]",0.5075,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Orange_Churn_50k,"HGB代理(6-seed,33桶)",L0_plus_C2 - L0,ROC-AUC,0.6683,0.6619,-0.0064,"[-0.0141, +0.0012]",0.1718,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Orange_Churn_50k,"HGB代理(6-seed,33桶)",F0 - L0,ROC-AUC,0.6683,0.7278,0.0595,"[+0.0439, +0.0733]",0.006,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Orange_Churn_50k,"HGB代理(6-seed,33桶)",F0_plus_C2 - F0,ROC-AUC,0.7278,0.7313,0.0034,"[-0.0015, +0.0081]",0.1958,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Hillstrom_Visit,"HGB代理(6-seed,33桶)",L0_plus_C2 - L0,ROC-AUC,0.606,0.6055,-0.0005,"[-0.0038, +0.0026]",0.7652,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Hillstrom_Visit,"HGB代理(6-seed,33桶)",F0 - L0,ROC-AUC,0.606,0.6495,0.0436,"[+0.0326, +0.0553]",0.006,p_holm,True,results/exp5_c2_seed_lookalike.json
+Exp5_C2,C2 种子客群Lookalike,Hillstrom_Visit,"HGB代理(6-seed,33桶)",F0_plus_C2 - F0,ROC-AUC,0.6495,0.6516,0.0021,"[-0.0018, +0.0060]",0.6074,p_holm,False,results/exp5_c2_seed_lookalike.json
+Exp6_I1_M3,I1(OU) + M3(明文标签方),COIL2000,真实 SecretFlow 1.14 SGB,Paillier -> OU+M3 (10 trees),Fit Speedup (x),116.149,21.476,5.408,max_diff=0.0e+00,,bit_exact,True,results/exp6_core_sgb_real.json
+Exp6_I1_M3,I1(OU) + M3(明文标签方),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB,Paillier -> OU+M3 (10 trees),Fit Speedup (x),34.061,5.746,5.928,max_diff=0.0e+00,,bit_exact,True,results/exp6_core_sgb_real.json
+Exp6_I1_M3,I1(OU) + M3(明文标签方),Hillstrom_Visit,真实 SecretFlow 1.14 SGB,Paillier -> OU+M3 (10 trees),Fit Speedup (x),20.824,4.395,4.738,max_diff=0.0e+00,,bit_exact,True,results/exp6_core_sgb_real.json
+Exp6_I2I3,I2+I3 (33桶+先验基分+调优),COIL2000,真实 SecretFlow 1.14 SGB (6-seed),Opt(I2+I3) - Default_SGB,ROC-AUC,0.7176,0.7311,0.0135,std=0.0036,,6seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_M6,M6 (6成员Bagging),COIL2000,真实 SecretFlow 1.14 SGB (6-seed),M6_Bag6 - Opt_Mean,ROC-AUC,0.7311,0.7336,0.0025,,,ensemble_gain,True,results/exp6_core_sgb_real.json
+Exp6_I2I3,I2+I3 (33桶+先验基分+调优),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB (6-seed),Opt(I2+I3) - Default_SGB,ROC-AUC,0.7833,0.7856,0.0024,std=0.0018,,6seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_M6,M6 (6成员Bagging),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB (6-seed),M6_Bag6 - Opt_Mean,ROC-AUC,0.7856,0.7861,0.0005,,,ensemble_gain,True,results/exp6_core_sgb_real.json
+Exp6_I2I3,I2+I3 (33桶+先验基分+调优),Hillstrom_Visit,真实 SecretFlow 1.14 SGB (6-seed),Opt(I2+I3) - Default_SGB,ROC-AUC,0.6367,0.639,0.0023,std=0.0018,,6seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_M6,M6 (6成员Bagging),Hillstrom_Visit,真实 SecretFlow 1.14 SGB (6-seed),M6_Bag6 - Opt_Mean,ROC-AUC,0.639,0.6405,0.0015,,,ensemble_gain,True,results/exp6_core_sgb_real.json
+Exp6_I2I3,I2+I3 (33桶+先验基分+调优),HomeCredit_8k,真实 SecretFlow 1.14 SGB (6-seed),Opt(I2+I3) - Default_SGB,ROC-AUC,0.6956,0.7102,0.0146,std=0.0031,,6seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_M6,M6 (6成员Bagging),HomeCredit_8k,真实 SecretFlow 1.14 SGB (6-seed),M6_Bag6 - Opt_Mean,ROC-AUC,0.7102,0.7139,0.0037,,,ensemble_gain,True,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=1.0),COIL2000,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.6158,0.5492,-0.0666,clean=0.7298,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=2.0),COIL2000,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.7064,0.6614,-0.045,clean=0.7298,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=4.0),COIL2000,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.7211,0.7208,-0.0003,clean=0.7298,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=1.0),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.7558,0.7548,-0.001,clean=0.7816,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=2.0),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.7692,0.7721,0.0029,clean=0.7816,,3dp_seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=4.0),UCI_Bank_NoDur,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.7787,0.7798,0.001,clean=0.7816,,3dp_seed_mean,True,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=1.0),HomeCredit_8k,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.6027,0.585,-0.0177,clean=0.7048,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=2.0),HomeCredit_8k,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.6866,0.6637,-0.023,clean=0.7048,,3dp_seed_mean,False,results/exp6_core_sgb_real.json
+Exp6_I6,I6 后验去噪软标签DP (ε=4.0),HomeCredit_8k,真实 SecretFlow 1.14 SGB (3 DP seeds),I6_Soft - Hard_RR,ROC-AUC,0.6941,0.7016,0.0076,clean=0.7048,,3dp_seed_mean,True,results/exp6_core_sgb_real.json

@@ -1,0 +1,416 @@
+{
+  "experiment": "Exp1_X2_Real_SecretFlow_SGB_Confirm",
+  "created_at": "2026-11-19 16:41:54",
+  "engine": "SecretFlow 1.14.0b0 SGB (HEU OU 2048-bit, FM64, sketch_eps=0.03, prior base_score)",
+  "note": "单次拟合真实 SGB 复核（seed=11，40棵树，depth=4，lr=0.1，reg_lambda=5.0），区间为测试集配对抽样 95% CI（不含训练随机性）",
+  "hc_4party_m3_check": {
+    "trees": 2,
+    "rows_different": 0,
+    "max_abs_diff": 0.0,
+    "fit_sec_base": 14.957,
+    "fit_sec_m3": 9.0,
+    "speedup_ratio": 1.662,
+    "verdict": "逐位一致"
+  },
+  "home_credit_sgb": {
+    "arms": {
+      "F0_2party": {
+        "parties": [
+          "neidi",
+          "hk"
+        ],
+        "party_dims": [
+          133,
+          11
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.331,
+        "fit_sec": 94.303,
+        "pred_sec": 0.439,
+        "metrics": {
+          "auc": 0.709786781054663,
+          "pr_auc": 0.1991855542562903,
+          "ks": 0.32355012315787585,
+          "brier": 0.07006261394415746,
+          "top5_lift": 3.429752066115703
+        }
+      },
+      "F3_bureau": {
+        "parties": [
+          "neidi",
+          "hk",
+          "bureau"
+        ],
+        "party_dims": [
+          133,
+          11,
+          19
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.37,
+        "fit_sec": 123.013,
+        "pred_sec": 0.323,
+        "metrics": {
+          "auc": 0.7125273059888888,
+          "pr_auc": 0.19925600430614956,
+          "ks": 0.32777374909354606,
+          "brier": 0.07007857816868047,
+          "top5_lift": 3.6363636363636367
+        }
+      },
+      "F3_pay_new": {
+        "parties": [
+          "neidi",
+          "hk",
+          "pay"
+        ],
+        "party_dims": [
+          133,
+          11,
+          41
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 1.463,
+        "fit_sec": 163.113,
+        "pred_sec": 0.299,
+        "metrics": {
+          "auc": 0.7276375562600759,
+          "pr_auc": 0.21618010672558657,
+          "ks": 0.34249426162208807,
+          "brier": 0.0694435797880523,
+          "top5_lift": 3.71900826446281
+        }
+      },
+      "F4_all_4party": {
+        "parties": [
+          "neidi",
+          "hk",
+          "bureau",
+          "pay"
+        ],
+        "party_dims": [
+          133,
+          11,
+          19,
+          41
+        ],
+        "n_train": 12000,
+        "n_test": 6000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.4322001115058614,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.345,
+        "fit_sec": 208.624,
+        "pred_sec": 0.388,
+        "metrics": {
+          "auc": 0.7281593291341791,
+          "pr_auc": 0.20869072587151735,
+          "ks": 0.3466924169508388,
+          "brier": 0.06944202309388169,
+          "top5_lift": 4.090909090909091
+        }
+      }
+    },
+    "contrasts": {
+      "F3_bureau - F0_2party": {
+        "delta_auc": 0.0027405249342258298,
+        "ci95_low": -0.003788371988423325,
+        "ci95_high": 0.009404999197559601,
+        "p_test_boot": 0.3836163836163836
+      },
+      "F3_pay_new - F0_2party": {
+        "delta_auc": 0.017850775205412894,
+        "ci95_low": 0.0068651015690967794,
+        "ci95_high": 0.028200903455140813,
+        "p_test_boot": 0.003996003996003996
+      },
+      "F4_all - F0_2party": {
+        "delta_auc": 0.01837254807951616,
+        "ci95_low": 0.007252480629885172,
+        "ci95_high": 0.029617608552064623,
+        "p_test_boot": 0.003996003996003996
+      },
+      "F4_all - F3_bureau": {
+        "delta_auc": 0.01563202314529033,
+        "ci95_low": 0.005039133263149589,
+        "ci95_high": 0.02618545059182213,
+        "p_test_boot": 0.011988011988011988
+      },
+      "F4_all - F3_pay_new": {
+        "delta_auc": 0.0005217728741032657,
+        "ci95_low": -0.005032939568320743,
+        "ci95_high": 0.006145336723520078,
+        "p_test_boot": 0.8211788211788211
+      }
+    }
+  },
+  "santander_sgb": {
+    "arms": {
+      "F0_2party": {
+        "parties": [
+          "neidi",
+          "hk_dep"
+        ],
+        "party_dims": [
+          27,
+          15
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -3.4864582618070625,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.533,
+        "fit_sec": 52.662,
+        "pred_sec": 0.295,
+        "metrics": {
+          "auc": 0.8655961062480717,
+          "pr_auc": 0.18948854799728895,
+          "ks": 0.6079338792665734,
+          "brier": 0.026329592313487853,
+          "top5_lift": 6.97986577181208
+        }
+      },
+      "F3_3party": {
+        "parties": [
+          "neidi",
+          "hk_dep",
+          "third_cw"
+        ],
+        "party_dims": [
+          27,
+          15,
+          11
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -3.4864582618070625,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.411,
+        "fit_sec": 67.012,
+        "pred_sec": 0.164,
+        "metrics": {
+          "auc": 0.8673517810622318,
+          "pr_auc": 0.18031130928273464,
+          "ks": 0.6056427858920668,
+          "brier": 0.026437304712089583,
+          "top5_lift": 6.577181208053691
+        }
+      }
+    },
+    "contrasts": {
+      "F3_3party - F0_2party": {
+        "delta_auc": 0.0017556748141600576,
+        "ci95_low": -0.005765786782310561,
+        "ci95_high": 0.009607684864126678,
+        "p_test_boot": 0.6393606393606394
+      }
+    }
+  },
+  "uci_bank_sgb": {
+    "arms": {
+      "F0_2party": {
+        "parties": [
+          "client",
+          "campaign"
+        ],
+        "party_dims": [
+          13,
+          11
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.0634537187423936,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.662,
+        "fit_sec": 33.167,
+        "pred_sec": 0.188,
+        "metrics": {
+          "auc": 0.7711185329565566,
+          "pr_auc": 0.4366149317212393,
+          "ks": 0.42501674318693405,
+          "brier": 0.08125070375255755,
+          "top5_lift": 5.3641207815275305
+        }
+      },
+      "F3_3party": {
+        "parties": [
+          "client",
+          "campaign",
+          "macro"
+        ],
+        "party_dims": [
+          13,
+          11,
+          5
+        ],
+        "n_train": 10000,
+        "n_test": 5000,
+        "schema": "ou",
+        "key_size": 2048,
+        "use_m3_plaintext_label": true,
+        "params": {
+          "num_boost_round": 40,
+          "max_depth": 4,
+          "learning_rate": 0.1,
+          "objective": "logistic",
+          "reg_lambda": 5.0,
+          "gamma": 0.0,
+          "sketch_eps": 0.03,
+          "base_score": -2.0634537187423936,
+          "colsample_by_tree": 0.8,
+          "rowsample_by_tree": 0.8,
+          "first_tree_with_label_holder_feature": false,
+          "fixed_point_parameter": 20,
+          "batch_encoding_enabled": true,
+          "seed": 11
+        },
+        "init_sec": 0.383,
+        "fit_sec": 43.519,
+        "pred_sec": 0.145,
+        "metrics": {
+          "auc": 0.7995979633559391,
+          "pr_auc": 0.4708726480162737,
+          "ks": 0.4905695725953761,
+          "brier": 0.07726518622437957,
+          "top5_lift": 5.470692717584369
+        }
+      }
+    },
+    "contrasts": {
+      "F3_3party - F0_2party": {
+        "delta_auc": 0.0284794303993825,
+        "ci95_low": 0.014745632302224893,
+        "ci95_high": 0.04246996312102474,
+        "p_test_boot": 0.001998001998001998
+      }
+    }
+  },
+  "total_elapsed_sec": 832.93
+}
